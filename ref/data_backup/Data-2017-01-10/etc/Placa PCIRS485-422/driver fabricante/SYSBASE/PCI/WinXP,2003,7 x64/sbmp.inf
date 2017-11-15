@@ -1,0 +1,455 @@
+;********************************************************************
+;*     File:   sbmp.inf
+;*                   
+;*     Description:
+;*             Multifunction installer for MPCI products (Win9x/Win2000)
+;*             Loads the enumerators, which create the child devnodes
+;*      
+;********************************************************************
+
+[Version]
+Signature=$Windows NT$
+Class=MultiFunction
+ClassGuid={4D36E971-E325-11CE-BFC1-08002BE10318}
+Provider=%mfg%
+CatalogFile=sbmp.cat		; .cat for Win 95/98/Me binaries
+DriverVer=06/16/2009, 5.0.5
+
+[DestinationDirs]
+DefaultDestDir=11		; LDID_SYS
+Drv.NT.Copy=12			; LDID_DRIVER
+dll.NT.Copy=11			; LDID_SYS
+Drv.Copy=11
+
+; Install class "Multifunction"
+;----------------------------------------------------------
+[ClassInstall]
+AddReg=MP_Class.AddReg
+
+[MP_Class.AddReg]
+HKR,,,,%MP_ClassName%
+
+[ClassInstall32.NT]
+AddReg=MP_Class.NT.AddReg
+
+[MP_Class.NT.AddReg]
+HKR,,,,%MP_ClassName%
+HKR,,Class,,"MultiFunction"
+HKR,,NoInstallClass,,"1"
+
+; Drivers
+;----------------------------------------------------------
+
+[Manufacturer]
+%mfg%=mfg,NTamd64
+
+;List of available devices
+[mfg.NTamd64]
+%SYSBAS_1PORT.DeviceDesc% = PCI_4D01, PCI\VEN_14a1&DEV_4d01&REV_70,PCI\VEN_14a1&DEV_4d01&REV_80,PCI\VEN_14a1&DEV_4d01&REV_90,PCI\VEN_14a1&DEV_4d01&REV_B0
+%SYSBAS_2PORT.DeviceDesc% = PCI_4D02, PCI\VEN_14a1&DEV_4d02&REV_70,PCI\VEN_14a1&DEV_4d02&REV_71,PCI\VEN_14a1&DEV_4d02&REV_80,PCI\VEN_14a1&DEV_4d02&REV_81,PCI\VEN_14a1&DEV_4d02&REV_90,PCI\VEN_14a1&DEV_4d02&REV_B0
+%SYSBAS_4PORT.DeviceDesc% = PCI_0004, PCI\VEN_14a1&DEV_0004&REV_70,PCI\VEN_14a1&DEV_0004&REV_80,PCI\VEN_14a1&DEV_0004&REV_90,PCI\VEN_14a1&DEV_0004&REV_B0
+%SYSBAS_4PORT.DeviceDesc% = PCI_0604, PCI\VEN_14a1&DEV_0604,PCI\VEN_14a1&DEV_0604&REV_B0
+%SYSBAS_8PORT.DeviceDesc% = PCI_0008, PCI\VEN_14a1&DEV_0008&REV_70,PCI\VEN_14a1&DEV_0008&REV_80,PCI\VEN_14a1&DEV_0008&REV_90,PCI\VEN_14a1&DEV_0008&REV_B0
+%SYSBAS_16PORT.DeviceDesc% = PCI_0016, PCI\VEN_14a1&DEV_0016,PCI\VEN_14a1&DEV_0016&REV_B0
+%SYSBAS_32PORT.DeviceDesc% = PCI_0032, PCI\VEN_14a1&DEV_0032&REV_70,PCI\VEN_14a1&DEV_0032&REV_80,PCI\VEN_14a1&DEV_0032&REV_90,PCI\VEN_14a1&DEV_0032&REV_B0
+%SYSBAS_32PORT_AX.DeviceDesc% = PCI_4D32, PCI\VEN_14a1&DEV_4D32&REV_70,PCI\VEN_14a1&DEV_4D32&REV_80,PCI\VEN_14a1&DEV_4D32&REV_90,PCI\VEN_14a1&DEV_4D32&REV_B0
+%SYSBAS_4JAPORT.DeviceDesc% = PCI_0004JA, PCI\VEN_14a1&DEV_0004&REV_91
+%SYSBAS_4JAPORT.DeviceDesc% = PCI_0004JAX, PCI\VEN_14a1&DEV_0e04&REV_82,PCI\VEN_14a1&DEV_0e04&REV_B0
+
+%SYSBAS_PCIe_1PORT.DeviceDesc% = PCI_1501, PCI\VEN_14a1&DEV_1501&REV_10
+%SYSBAS_PCIe_2PORT.DeviceDesc% = PCI_1502, PCI\VEN_14a1&DEV_1502&REV_10
+%SYSBAS_PCIe_4PORT.DeviceDesc% = PCI_1504, PCI\VEN_14a1&DEV_1504&REV_10
+%SYSBAS_PCIe_4MPORT.DeviceDesc% = PCI_15F4, PCI\VEN_14a1&DEV_15F4&REV_10
+%SYSBAS_PCIe_8PORT.DeviceDesc% = PCI_1508, PCI\VEN_14a1&DEV_1508&REV_10
+%SYSBAS_PCIe_8MPORT.DeviceDesc% = PCI_15F8, PCI\VEN_14a1&DEV_15F8&REV_10
+%SYSBAS_PCIe_16PORT.DeviceDesc% = PCI_1516, PCI\VEN_14a1&DEV_1516&REV_10
+%SYSBAS_PCIe_32PORT.DeviceDesc% = PCI_1532, PCI\VEN_14a1&DEV_1532&REV_10
+;%SYSBAS_PCIe_4JAPORT.DeviceDesc% = PCI_1504JA, PCI\VEN_14a1&DEV_15A4&REV_10
+%SYSBAS_PCIe_4JAPORT.DeviceDesc% = PCI_1504JAX, PCI\VEN_14a1&DEV_15A4&REV_10
+; ******************* Install MPCI 1 *****************
+
+[PCI_4D01.NTamd64]
+CopyFiles=Drv.NT.Copy, dll.NT.Copy
+DelReg=DriverVer.DelReg
+AddReg=DriverVer.AddReg
+
+[PCI_4D01.NTamd64.HW]
+AddReg=PCI_4D01.NTamd64.HW.AddReg
+[PCI_4D01.NTamd64.HW.AddReg]
+HKR,,"SbDeviceType", 	0x00010001,	0x4D010000
+
+[PCI_4D01.NTamd64.Services]
+AddService = sbmp, 0x00000002, mp_Service_Inst
+
+; ******************* Install MPCI 2 *****************
+
+[PCI_4D02.NTamd64]
+CopyFiles=Drv.NT.Copy, dll.NT.Copy
+DelReg=DriverVer.DelReg
+AddReg=DriverVer.AddReg
+
+[PCI_4D02.NTamd64.HW]
+AddReg=PCI_4D02.NTamd64.HW.AddReg
+[PCI_4D02.NTamd64.HW.AddReg]
+HKR,,"SbDeviceType", 	0x00010001,	0x4D020000
+
+[PCI_4D02.NTamd64.Services]
+AddService = sbmp, 0x00000002, mp_Service_Inst
+
+; ******************* Install MPCI 4 *****************
+
+[PCI_0004.NTamd64]
+CopyFiles=Drv.NT.Copy, dll.NT.Copy
+DelReg=DriverVer.DelReg
+AddReg=DriverVer.AddReg
+
+[PCI_0004.NTamd64.HW]
+AddReg=PCI_0004.NTamd64.HW.AddReg
+[PCI_0004.NTamd64.HW.AddReg]
+HKR,,"SbDeviceType", 	0x00010001,	0x00040000
+
+[PCI_0004.NTamd64.Services]
+AddService = sbmp, 0x00000002, mp_Service_Inst
+
+; ******************* Install MPCI 4 *****************
+
+[PCI_0604.NTamd64]
+CopyFiles=Drv.NT.Copy, dll.NT.Copy
+DelReg=DriverVer.DelReg
+AddReg=DriverVer.AddReg
+
+[PCI_0604.NTamd64.HW]
+AddReg=PCI_0604.NTamd64.HW.AddReg
+[PCI_0604.NTamd64.HW.AddReg]
+HKR,,"SbDeviceType", 	0x00010001,	0x06040000
+
+[PCI_0604.NTamd64.Services]
+AddService = sbmp, 0x00000002, mp_Service_Inst
+
+
+; ******************* Install MPCI 8 *****************
+
+
+[PCI_0008.NTamd64]
+CopyFiles=Drv.NT.Copy, dll.NT.Copy
+DelReg=DriverVer.DelReg
+AddReg=DriverVer.AddReg
+
+[PCI_0008.NTamd64.HW]
+AddReg=PCI_0008.NTamd64.HW.AddReg
+[PCI_0008.NTamd64.HW.AddReg]
+HKR,,"SbDeviceType", 	0x00010001,	0x00080000
+
+[PCI_0008.NTamd64.Services]
+AddService = sbmp, 0x00000002, mp_Service_Inst
+
+; ******************* Install MPCI 16 *****************
+
+[PCI_0016.NTamd64]
+CopyFiles=Drv.NT.Copy, dll.NT.Copy
+DelReg=DriverVer.DelReg
+AddReg=DriverVer.AddReg
+
+[PCI_0016.NTamd64.HW]
+AddReg=PCI_0016.NTamd64.HW.AddReg
+[PCI_0016.NTamd64.HW.AddReg]
+HKR,,"SbDeviceType", 	0x00010001,	0x00160000
+
+[PCI_0016.NTamd64.Services]
+AddService = sbmp, 0x00000002, mp_Service_Inst
+
+; ******************* Install MPCI 32 *****************
+
+[PCI_0032.NTamd64]
+CopyFiles=Drv.NT.Copy, dll.NT.Copy
+DelReg=DriverVer.DelReg
+AddReg=DriverVer.AddReg
+
+[PCI_0032.NTamd64.HW]
+AddReg=PCI_0032.NTamd64.HW.AddReg
+[PCI_0032.NTamd64.HW.AddReg]
+HKR,,"SbDeviceType", 	0x00010001,	0x00320000
+
+[PCI_0032.NTamd64.Services]
+AddService = sbmp, 0x00000002, mp_Service_Inst
+
+; ******************* Install MPCI 32 *****************
+[PCI_4D32.NTamd64]
+CopyFiles=Drv.NT.Copy, dll.NT.Copy
+DelReg=DriverVer.DelReg
+AddReg=DriverVer.AddReg
+
+[PCI_4D32.NTamd64.HW]
+AddReg=PCI_4D32.NTamd64.HW.AddReg
+[PCI_4D32.NTamd64.HW.AddReg]
+HKR,,"SbDeviceType", 	0x00010001,	0x4D320000
+
+[PCI_4D32.NTamd64.Services]
+AddService = sbmp, 0x00000002, mp_Service_Inst
+; ******************* Install MPCI 4JA *****************
+
+[PCI_0004JA.NTamd64]
+CopyFiles=Drv.NT.Copy, dll.NT.Copy
+DelReg=DriverVer.DelReg
+AddReg=DriverVer.AddReg
+
+[PCI_0004JA.NTamd64.HW]
+AddReg=PCI_0004JA.NTamd64.HW.AddReg
+[PCI_0004JA.NTamd64.HW.AddReg]
+HKR,,"SbDeviceType", 	0x00010001,	0x00040091
+
+[PCI_0004JA.NTamd64.Services]
+AddService = sbmp, 0x00000002, mp_Service_Inst
+
+; ******************* Install MPCI 4JAX *****************
+
+[PCI_0004JAX.NTamd64]
+CopyFiles=Drv.NT.Copy, dll.NT.Copy
+DelReg=DriverVer.DelReg
+AddReg=DriverVer.AddReg
+
+[PCI_0004JAX.NTamd64.HW]
+AddReg=PCI_0004JAX.NTamd64.HW.AddReg
+
+[PCI_0004JAX.NTamd64.HW.AddReg]
+HKR,,"SbDeviceType", 	0x00010001,	0x0e040082
+
+[PCI_0004JAX.NTamd64.Services]
+AddService = sbmp, 0x00000002, mp_Service_Inst
+
+;**************** PCIe **********************************
+; ******************* Install MPCI 1 *****************
+
+[PCI_1501.NTamd64]
+CopyFiles=Drv.NT.Copy, dll.NT.Copy
+DelReg=DriverVer.DelReg
+AddReg=DriverVer.AddReg
+
+[PCI_1501.NTamd64.HW]
+AddReg=PCI_1501.NTamd64.HW.AddReg
+
+[PCI_1501.NTamd64.HW.AddReg]
+HKR,,"SbDeviceType", 	0x00010001,	0x15010000
+
+[PCI_1501.NTamd64.Services]
+AddService = sbmp, 0x00000002, mp_Service_Inst
+
+; ******************* Install MPCI 2 *****************
+
+[PCI_1502.NTamd64]
+CopyFiles=Drv.NT.Copy, dll.NT.Copy
+DelReg=DriverVer.DelReg
+AddReg=DriverVer.AddReg
+
+[PCI_1502.NTamd64.HW]
+AddReg=PCI_1502.NTamd64.HW.AddReg
+
+[PCI_1502.NTamd64.HW.AddReg]
+HKR,,"SbDeviceType", 	0x00010001,	0x15020000
+
+[PCI_1502.NTamd64.Services]
+AddService = sbmp, 0x00000002, mp_Service_Inst
+
+; ******************* Install MPCI 4 *****************
+
+[PCI_1504.NTamd64]
+CopyFiles=Drv.NT.Copy, dll.NT.Copy
+DelReg=DriverVer.DelReg
+AddReg=DriverVer.AddReg
+
+[PCI_1504.NTamd64.HW]
+AddReg=PCI_1504.NTamd64.HW.AddReg
+
+[PCI_1504.NTamd64.HW.AddReg]
+HKR,,"SbDeviceType", 	0x00010001,	0x15040000
+
+[PCI_1504.NTamd64.Services]
+AddService = sbmp, 0x00000002, mp_Service_Inst
+
+; ******************* Install MPCI 4 *****************
+
+[PCI_15F4.NTamd64]
+CopyFiles=Drv.NT.Copy, dll.NT.Copy
+DelReg=DriverVer.DelReg
+AddReg=DriverVer.AddReg
+
+[PCI_15F4.NTamd64.HW]
+AddReg=PCI_15F4.NTamd64.HW.AddReg
+
+[PCI_15F4.NTamd64.HW.AddReg]
+HKR,,"SbDeviceType", 	0x00010001,	0x15F40000
+
+[PCI_15F4.NTamd64.Services]
+AddService = sbmp, 0x00000002, mp_Service_Inst
+
+
+; ******************* Install MPCI 8 *****************
+
+
+[PCI_1508.NTamd64]
+CopyFiles=Drv.NT.Copy, dll.NT.Copy
+DelReg=DriverVer.DelReg
+AddReg=DriverVer.AddReg
+
+[PCI_1508.NTamd64.HW]
+AddReg=PCI_1508.NTamd64.HW.AddReg
+
+[PCI_1508.NTamd64.HW.AddReg]
+HKR,,"SbDeviceType", 	0x00010001,	0x15080000
+
+[PCI_1508.NTamd64.Services]
+AddService = sbmp, 0x00000002, mp_Service_Inst
+
+; ******************* Install 8MP *****************
+
+
+[PCI_15F8.NTamd64]
+CopyFiles=Drv.NT.Copy, dll.NT.Copy
+DelReg=DriverVer.DelReg
+AddReg=DriverVer.AddReg
+
+[PCI_15F8.NTamd64.HW]
+AddReg=PCI_15F8.NTamd64.HW.AddReg
+
+[PCI_15F8.NTamd64.HW.AddReg]
+HKR,,"SbDeviceType", 	0x00010001,	0x15F80000
+
+[PCI_15F8.NTamd64.Services]
+AddService = sbmp, 0x00000002, mp_Service_Inst
+
+; ******************* Install MPCI 16 *****************
+
+[PCI_1516.NTamd64]
+CopyFiles=Drv.NT.Copy, dll.NT.Copy
+DelReg=DriverVer.DelReg
+AddReg=DriverVer.AddReg
+
+[PCI_1516.NTamd64.HW]
+AddReg=PCI_1516.NTamd64.HW.AddReg
+
+[PCI_1516.NTamd64.HW.AddReg]
+HKR,,"SbDeviceType", 	0x00010001,	0x15160000
+
+[PCI_1516.NTamd64.Services]
+AddService = sbmp, 0x00000002, mp_Service_Inst
+
+; ******************* Install MPCI 32 *****************
+
+[PCI_1532.NTamd64]
+CopyFiles=Drv.NT.Copy, dll.NT.Copy
+DelReg=DriverVer.DelReg
+AddReg=DriverVer.AddReg
+
+[PCI_1532.NTamd64.HW]
+AddReg=PCI_1532.NTamd64.HW.AddReg
+
+[PCI_1532.NTamd64.HW.AddReg]
+HKR,,"SbDeviceType", 	0x00010001,	0x15320000
+
+[PCI_1532.NTamd64.Services]
+AddService = sbmp, 0x00000002, mp_Service_Inst
+
+; ******************* Install MPCI 4JA *****************
+
+[PCI_1504JA.NTamd64]
+CopyFiles=Drv.NT.Copy, dll.NT.Copy
+DelReg=DriverVer.DelReg
+AddReg=DriverVer.AddReg
+
+[PCI_1504JA.NTamd64.HW]
+AddReg=PCI_1504JA.NTamd64.HW.AddReg
+
+[PCI_1504JA.NTamd64.HW.AddReg]
+HKR,,"SbDeviceType", 	0x00010001,	0x15040091
+
+[PCI_1504JA.NTamd64.Services]
+AddService = sbmp, 0x00000002, mp_Service_Inst
+
+; ******************* Install MPCI 4JAX *****************
+
+
+[PCI_1504JAX.NTamd64]
+CopyFiles=Drv.NT.Copy, dll.NT.Copy
+DelReg=DriverVer.DelReg
+AddReg=DriverVer.AddReg
+
+[PCI_1504JAX.NTamd64.HW]
+AddReg=PCI_1504JAX.NTamd64.HW.AddReg
+
+[PCI_1504JAX.NTamd64.HW.AddReg]
+HKR,,"SbDeviceType", 	0x00010001,	0x15A40082
+
+[PCI_1504JAX.NTamd64.Services]
+AddService = sbmp, 0x00000002, mp_Service_Inst
+
+;**************** PCIe End ******************************
+; ****************** copyfiles, registry etc.
+[Drv.Copy]
+sbmp.vxd
+
+[Drv.NT.Copy]
+sbmp.sys
+sbmpf.sys
+sbserial.sys
+
+[dll.NT.Copy]
+;oxui.dll
+sbui.dll
+
+[mp_Service_Inst]
+DisplayName    = %sbmp_driverdescstring%
+ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
+StartType      = 1               ; SERVICE_SYSTEM_START (this driver may do detection)
+ErrorControl   = 0               ; SERVICE_ERROR_IGNORE
+ServiceBinary  = %12%\sbmp.sys
+LoadOrderGroup = Extended base
+
+[DriverVer.AddReg]
+HKR,,Ver,,%SBPCIVersion%
+HKR,,EnumPropPages32,,"sbui.dll,SerialPropPageProvider"
+
+[SysbasUnInst.Reg]
+HKLM,%WINUN%,"SysBasMPCI"
+HKLM,%WINUN%\SysBasMPCI , "UninstallString",,"%11%\mpciuninst.exe"
+HKLM,%WINUN%\SysBasMPCI , "DisplayName",,"Standard PCI ComPort Drivers"
+
+[DriverVer.DelReg]
+HKR,,Ver
+
+[SourceDisksNames]
+1=%drvdisk%,,
+
+[SourceDisksFiles]
+sbmp.sys=1
+sbmpf.sys=1
+sbserial.sys=1
+sbui.dll=1
+sbmp.inf=1
+sbserial.inf=1
+sbmp.vxd=1
+
+[Strings]
+mfg                                     = " "
+MP_ClassName				= "Multifunction adapters"
+drvDisk					= "High-performance Multi-port driver disk"
+SBPCIVersion				= "5.0.6"
+sbmp_driverdescstring                   = "Multiport Bus enumerator 1.66TB 11,24,2009"
+SYSBAS_1PORT.DeviceDesc			="Enhanced Serial Multi-1/PCI"
+SYSBAS_2PORT.DeviceDesc			="Enhanced Serial Multi-2/PCI"
+SYSBAS_4PORT.DeviceDesc			="Enhanced Serial Multi-4/PCI"
+SYSBAS_4MPORT.DeviceDesc		="Enhanced Serial Multi-4MP"
+SYSBAS_8PORT.DeviceDesc			="Enhanced Serial Multi-8/PCI"
+SYSBAS_16PORT.DeviceDesc		="Enhanced Serial Multi-16/PCI"
+SYSBAS_32PORT.DeviceDesc		="Enhanced Serial Multi-32/PCI"
+SYSBAS_32PORT_AX.DeviceDesc		="Enhanced Serial Multi-32/PCI For Axiom"
+SYSBAS_4JAPORT.DeviceDesc		="Enhanced Serial Multi-4(JA)/PCI"
+
+SYSBAS_PCIe_1PORT.DeviceDesc="Enhanced Serial Multi-1/PCIe"
+SYSBAS_PCIe_2PORT.DeviceDesc="Enhanced Serial Multi-2/PCIe"
+SYSBAS_PCIe_4PORT.DeviceDesc="Enhanced Serial Multi-4/PCIe"
+SYSBAS_PCIe_4MPORT.DeviceDesc="Enhanced Serial Multi-4M/PCIe"
+SYSBAS_PCIe_8PORT.DeviceDesc="Enhanced Serial Multi-8/PCIe"
+SYSBAS_PCIe_8MPORT.DeviceDesc="Enhanced Serial Multi-8M/PCIe"
+SYSBAS_PCIe_16PORT.DeviceDesc="Enhanced Serial Multi-16/PCIe"
+SYSBAS_PCIe_32PORT.DeviceDesc="Enhanced Serial Multi-32/PCIe"
+SYSBAS_PCIe_4JAPORT.DeviceDesc="Enhanced Serial Multi-4(JA)/PCIe"

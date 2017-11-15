@@ -1,0 +1,95 @@
+\section{robotserver.h File Reference}
+\label{robotserver_8h}\index{robotserver.h@{robotserver.h}}
+
+
+Arquivo cabecalho do modulo robotserver.  
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int {\bf robotserver\_\-close} (void)
+\begin{DoxyCompactList}\small\item\em Funcao de encerramento. \item\end{DoxyCompactList}\item 
+int {\bf robotserver\_\-init} (void)
+\begin{DoxyCompactList}\small\item\em Funcao de inicializacao. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Arquivo cabecalho do modulo robotserver. 
+
+Definition in file {\bf robotserver.h}.
+
+\subsection{Function Documentation}
+\index{robotserver.h@{robotserver.h}!robotserver\_\-close@{robotserver\_\-close}}
+\index{robotserver\_\-close@{robotserver\_\-close}!robotserver.h@{robotserver.h}}
+\subsubsection[{robotserver\_\-close}]{\setlength{\rightskip}{0pt plus 5cm}int robotserver\_\-close (void)}\label{robotserver_8h_a03604797e6b7e5fa2bb9dec674d34548}
+
+
+Funcao de encerramento. 
+\begin{DoxyParams}{Parameters}
+\item[{\em none}]\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+If success, 1. Otherwise, 0. 
+\end{DoxyReturn}
+
+
+Definition at line 89 of file robotserver.c.
+
+
+\begin{DoxyCode}
+90 {
+91         // Procedimentos de encerramento
+92         quittask = 1;   
+93         rt_task_delete(&robotserver_camera_task);       
+94         rt_task_delete(&robotserver_data_task); 
+95                 
+96         // Retorna 
+97     return 1; 
+98 }                      
+\end{DoxyCode}
+\index{robotserver.h@{robotserver.h}!robotserver\_\-init@{robotserver\_\-init}}
+\index{robotserver\_\-init@{robotserver\_\-init}!robotserver.h@{robotserver.h}}
+\subsubsection[{robotserver\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}int robotserver\_\-init (void)}\label{robotserver_8h_a92bada214d5f0295488295b198171dd6}
+
+
+Funcao de inicializacao. 
+\begin{DoxyParams}{Parameters}
+\item[{\em none}]\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+If success, 1. Otherwise, 0. 
+\end{DoxyReturn}
+
+
+Definition at line 56 of file robotserver.c.
+
+
+\begin{DoxyCode}
+57 {
+58         int status;
+59         
+60         // Cria tarefas
+61         status = rt_task_create(&robotserver_data_task, "robotserver_data_task", 
+      ROBOTSERVER_TASK_DATA_STACK, ROBOTSERVER_TASK_DATA_PRIORITY, T_JOINABLE);
+62         if (status != 0) {
+63                 printf("    Criacao do thread 'robotserver_data_task' falhou: ");
+      
+64                 if(status == (-ENOMEM)) printf("-ENOMEM\n");
+65                 if(status == (-EEXIST)) printf("-EEXIST\n");
+66                 if(status == (-EPERM)) printf("-EPERM\n");
+67                 status = rt_task_delete(&robotserver_data_task);
+68                 if (status != 0) {
+69                         printf("    Falha na tentativa de deletar 'robotserver_da
+      ta_task'.\n");
+70                 }
+71                 return 0;
+72         }
+73         status = rt_task_start(&robotserver_data_task, &
+      robotserver_data_task_handler, NULL);
+74         if (status != 0) {
+75                 printf("    Lancamento do thread 'robotserver_data_task' falhou.\
+      n");
+76                 return 0;
+77         }
+78 
+79         // Retorna 
+80         return 1; 
+81 }                      
+\end{DoxyCode}

@@ -1,0 +1,91 @@
+\section{gdatalogger\_\-ipc\_\-retrievevariable.c File Reference}
+\label{libs_2gdatalogger_2demo-pthread_2matlab_2gdatalogger__ipc__retrievevariable_8c}\index{gdatalogger\_\-ipc\_\-retrievevariable.c@{gdatalogger\_\-ipc\_\-retrievevariable.c}}
+{\ttfamily \#include \char`\"{}mex.h\char`\"{}}\par
+{\ttfamily \#include $<$math.h$>$}\par
+{\ttfamily \#include $<$stdio.h$>$}\par
+{\ttfamily \#include $<$stdlib.h$>$}\par
+{\ttfamily \#include $<$string.h$>$}\par
+{\ttfamily \#include $<$sys/types.h$>$}\par
+{\ttfamily \#include $<$unistd.h$>$}\par
+{\ttfamily \#include $<$sys/mman.h$>$}\par
+{\ttfamily \#include $<$fcntl.h$>$}\par
+{\ttfamily \#include $<$sys/stat.h$>$}\par
+{\ttfamily \#include $<$errno.h$>$}\par
+{\ttfamily \#include \char`\"{}gqueue.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}gmatlabdatafile.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}gdatalogger.h\char`\"{}}\par
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void {\bf mexFunction} (int nlhs, mxArray $\ast$plhs[$\,$], int nrhs, const mxArray $\ast$prhs[$\,$])
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{libs/gdatalogger/demo-\/pthread/matlab/gdatalogger\_\-ipc\_\-retrievevariable.c@{libs/gdatalogger/demo-\/pthread/matlab/gdatalogger\_\-ipc\_\-retrievevariable.c}!mexFunction@{mexFunction}}
+\index{mexFunction@{mexFunction}!libs/gdatalogger/demo-pthread/matlab/gdatalogger_ipc_retrievevariable.c@{libs/gdatalogger/demo-\/pthread/matlab/gdatalogger\_\-ipc\_\-retrievevariable.c}}
+\subsubsection[{mexFunction}]{\setlength{\rightskip}{0pt plus 5cm}void mexFunction (int {\em nlhs}, \/  mxArray $\ast$ {\em plhs}[$\,$], \/  int {\em nrhs}, \/  const mxArray $\ast$ {\em prhs}[$\,$])}\label{libs_2gdatalogger_2demo-pthread_2matlab_2gdatalogger__ipc__retrievevariable_8c_a6a215cbfde54f82a3ce599228fc3fce5}
+
+
+Definition at line 17 of file libs/gdatalogger/demo-\/pthread/matlab/gdatalogger\_\-ipc\_\-retrievevariable.c.
+
+
+\begin{DoxyCode}
+18 {
+19         char  *varname;
+20         char  varunit[50];
+21         int       i;
+22         double data[GDATALOGGER_IPC_MAXQUEUESIZE];
+23         int ndata;
+24     int status;
+25         double *pMat;
+26 
+27         /* Verifier les entr�es */
+28         if(nrhs!=1){
+29                 mexErrMsgTxt("One input required.");
+30                 }
+31         if(nlhs!=3){
+32                 mexErrMsgTxt("Three outputs required.");
+33                 }
+34     if ( mxIsChar(prhs[0]) != 1){
+35       mexErrMsgTxt("Input must be a string.");
+36         }
+37     if (mxGetM(prhs[0])!=1){
+38       mexErrMsgTxt("Input must be a row vector.");
+39         }
+40                 
+41         /* Variables d'entr�e */
+42     varname = mxArrayToString(prhs[0]);
+43     if(varname == NULL) {
+44       mexErrMsgTxt("Could not convert input to string.");
+45         }
+46 
+47         /* Fonction */
+48 
+49         if(!gDataLogger_Init(NULL,NULL,NULL)){
+50                 mexErrMsgTxt("\nError in gDataLogger_Init\n\n");
+51         }
+52         status = gDataLogger_IPC_RetrieveVariable(varname, varunit, data, &ndata)
+      ;
+53 
+54         /* Variables de sortie */
+55         plhs[0] = mxCreateDoubleMatrix(ndata,1,mxREAL);
+56         pMat = mxGetPr(plhs[0]);
+57         for (i=0;i<ndata;++i){
+58                 pMat[i] = data[i];
+59         }
+60     
+61     if(status==GDATALOGGER_IPC_FLAGDATAAVAILABLE){
+62         plhs[1] = mxCreateString(varunit);
+63     }
+64     else{
+65         plhs[1] = mxCreateString("");
+66     }
+67     
+68     plhs[2] = mxCreateDoubleMatrix(1,1,mxREAL);
+69         pMat = mxGetPr(plhs[2]);
+70     *pMat = (double)status;
+71     
+72 /*    printf("__LINE__ = %i\n",__LINE__); */
+73 }
+\end{DoxyCode}

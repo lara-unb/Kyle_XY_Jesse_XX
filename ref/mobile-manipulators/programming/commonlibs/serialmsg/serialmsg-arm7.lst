@@ -1,0 +1,384 @@
+   1              		.file	"serialmsg-arm7.c"
+   2              		.text
+   3              		.align	2
+   4              		.global	serialmsg_server_define_transaction_handler
+   6              	serialmsg_server_define_transaction_handler:
+   7              		@ args = 0, pretend = 0, frame = 0
+   8              		@ frame_needed = 0, uses_anonymous_args = 0
+   9              		@ link register save eliminated.
+  10 0000 FF0000E2 		and	r0, r0, #255
+  11 0004 001182E7 		str	r1, [r2, r0, asl #2]
+  12 0008 0000A0E3 		mov	r0, #0
+  13              		@ lr needed for prologue
+  14 000c 1EFF2FE1 		bx	lr
+  16              		.align	2
+  17              		.global	serialmsg_client_transaction_retrieve_data
+  19              	serialmsg_client_transaction_retrieve_data:
+  20              		@ args = 0, pretend = 0, frame = 0
+  21              		@ frame_needed = 0, uses_anonymous_args = 0
+  22              		@ link register save eliminated.
+  23 0010 000050E3 		cmp	r0, #0
+  24              		@ lr needed for prologue
+  25 0014 02C0A0E1 		mov	ip, r2
+  26 0018 0F0000BA 		blt	.L4
+  27 001c 002183E0 		add	r2, r3, r0, asl #2
+  28 0020 A03093E5 		ldr	r3, [r3, #160]
+  29 0024 030050E1 		cmp	r0, r3
+  30 0028 0100A0E3 		mov	r0, #1
+  31 002c 0F00002A 		bcs	.L4
+  32 0030 783092E5 		ldr	r3, [r2, #120]
+  33 0034 502092E5 		ldr	r2, [r2, #80]
+  34 0038 00308CE5 		str	r3, [ip, #0]
+  35 003c 002081E5 		str	r2, [r1, #0]
+  36 0040 1EFF2FE1 		bx	lr
+  37              	.L4:
+  38 0044 0000A0E3 		mov	r0, #0
+  39 0048 1EFF2FE1 		bx	lr
+  41              		.align	2
+  42              		.global	serialmsg_client_transaction_execute
+  44              	serialmsg_client_transaction_execute:
+  45              		@ args = 0, pretend = 0, frame = 0
+  46              		@ frame_needed = 0, uses_anonymous_args = 0
+  47 004c F0412DE9 		stmfd	sp!, {r4, r5, r6, r7, r8, lr}
+  48 0050 A87080E2 		add	r7, r0, #168
+  49 0054 0080A0E1 		mov	r8, r0
+  50 0058 0700A0E1 		mov	r0, r7
+  51 005c FEFFFFEB 		bl	lprotocol_datagram_encoder_end
+  52 0060 9C3298E5 		ldr	r3, [r8, #668]
+  53 0064 000053E3 		cmp	r3, #0
+  54 0068 A96F8802 		addeq	r6, r8, #676
+  55 006c 2500000A 		beq	.L11
+  56 0070 0840A0E1 		mov	r4, r8
+  57 0074 0050A0E3 		mov	r5, #0
+  58 0078 A96F88E2 		add	r6, r8, #676
+  59              	.L13:
+  60 007c A800D4E5 		ldrb	r0, [r4, #168]	@ zero_extendqisi2
+  61 0080 0610A0E1 		mov	r1, r6
+  62 0084 FEFFFFEB 		bl	serial_putc
+  63 0088 9C3298E5 		ldr	r3, [r8, #668]
+  64 008c 015085E2 		add	r5, r5, #1
+  65 0090 050053E1 		cmp	r3, r5
+  66 0094 014084E2 		add	r4, r4, #1
+  67 0098 1D00008A 		bhi	.L13
+  68              	.L11:
+  69 009c 0700A0E1 		mov	r0, r7
+  70 00a0 FEFFFFEB 		bl	lprotocol_datagram_decoder_reset
+  71              	.L14:
+  72 00a4 0600A0E1 		mov	r0, r6
+  73 00a8 FEFFFFEB 		bl	serial_getc
+  74 00ac FF4000E2 		and	r4, r0, #255
+  75 00b0 0710A0E1 		mov	r1, r7
+  76 00b4 0400A0E1 		mov	r0, r4
+  77 00b8 FEFFFFEB 		bl	lprotocol_datagram_decoder_process_received_byte
+  78 00bc 0400A0E1 		mov	r0, r4
+  79 00c0 0710A0E1 		mov	r1, r7
+  80 00c4 FEFFFFEB 		bl	lprotocol_datagram_decoder_process_received_byte
+  81 00c8 010050E3 		cmp	r0, #1
+  82 00cc 2700000A 		beq	.L14
+  83 00d0 500088E2 		add	r0, r8, #80
+  84 00d4 0710A0E1 		mov	r1, r7
+  85 00d8 FEFFFFEB 		bl	lprotocol_datagram_decoder_retrieve_data
+  86 00dc A400D8E5 		ldrb	r0, [r8, #164]	@ zero_extendqisi2
+  87 00e0 010070E2 		rsbs	r0, r0, #1
+  88 00e4 0000A033 		movcc	r0, #0
+  89 00e8 F081BDE8 		ldmfd	sp!, {r4, r5, r6, r7, r8, pc}
+  91              		.align	2
+  92              		.global	serialmsg_client_transaction_insert_data
+  94              	serialmsg_client_transaction_insert_data:
+  95              		@ args = 0, pretend = 0, frame = 0
+  96              		@ frame_needed = 0, uses_anonymous_args = 0
+  97 00ec 04E02DE5 		str	lr, [sp, #-4]!
+  98 00f0 A82082E2 		add	r2, r2, #168
+  99 00f4 FEFFFFEB 		bl	lprotocol_datagram_encoder_insert_data
+ 100 00f8 0100A0E3 		mov	r0, #1
+ 101 00fc 04F09DE4 		ldr	pc, [sp], #4
+ 103              		.align	2
+ 104              		.global	serialmsg_client_transaction_init
+ 106              	serialmsg_client_transaction_init:
+ 107              		@ args = 0, pretend = 0, frame = 0
+ 108              		@ frame_needed = 0, uses_anonymous_args = 0
+ 109 0100 A82081E2 		add	r2, r1, #168
+ 110 0104 04E02DE5 		str	lr, [sp, #-4]!
+ 111 0108 FF0000E2 		and	r0, r0, #255
+ 112 010c 501081E2 		add	r1, r1, #80
+ 113 0110 FEFFFFEB 		bl	lprotocol_datagram_encoder_init
+ 114 0114 0100A0E3 		mov	r0, #1
+ 115 0118 04F09DE4 		ldr	pc, [sp], #4
+ 117              		.global	__subsf3
+ 118              		.global	__gtsf2
+ 119              		.align	2
+ 120              		.global	serialmsg_server_update
+ 122              	serialmsg_server_update:
+ 123              		@ args = 0, pretend = 0, frame = 8
+ 124              		@ frame_needed = 0, uses_anonymous_args = 0
+ 125 011c F0452DE9 		stmfd	sp!, {r4, r5, r6, r7, r8, sl, lr}
+ 126 0120 A96F81E2 		add	r6, r1, #676
+ 127 0124 08D04DE2 		sub	sp, sp, #8
+ 128 0128 0050A0E1 		mov	r5, r0
+ 129 012c 0600A0E1 		mov	r0, r6
+ 130 0130 0140A0E1 		mov	r4, r1
+ 131 0134 FEFFFFEB 		bl	serial_kbhit
+ 132 0138 000050E3 		cmp	r0, #0
+ 133 013c 01008002 		addeq	r0, r0, #1
+ 134 0140 5100001A 		bne	.L59
+ 135              	.L28:
+ 136 0144 08D08DE2 		add	sp, sp, #8
+ 137 0148 F085BDE8 		ldmfd	sp!, {r4, r5, r6, r7, r8, sl, pc}
+ 138              	.L59:
+ 139 014c FC719FE5 		ldr	r7, .L62
+ 140 0150 FCA19FE5 		ldr	sl, .L62+4
+ 141 0154 003097E5 		ldr	r3, [r7, #0]	@ float
+ 142 0158 0600A0E1 		mov	r0, r6
+ 143 015c 00308AE5 		str	r3, [sl, #0]	@ float
+ 144 0160 FEFFFFEB 		bl	serial_getc
+ 145 0164 04008DE5 		str	r0, [sp, #4]
+ 146 0168 04009DE5 		ldr	r0, [sp, #4]
+ 147 016c A88084E2 		add	r8, r4, #168
+ 148 0170 FF0000E2 		and	r0, r0, #255
+ 149 0174 0810A0E1 		mov	r1, r8
+ 150 0178 005087E5 		str	r5, [r7, #0]	@ float
+ 151 017c FEFFFFEB 		bl	lprotocol_datagram_decoder_process_received_byte
+ 152 0180 030080E2 		add	r0, r0, #3
+ 153 0184 050050E3 		cmp	r0, #5
+ 154 0188 00F19F97 		ldrls	pc, [pc, r0, asl #2]
+ 155 018c 950000EA 		b	.L51
+ 156              		.p2align 2
+ 157              	.L34:
+ 158 0190 34020000 		.word	.L43
+ 159 0194 34020000 		.word	.L43
+ 160 0198 5C020000 		.word	.L51
+ 161 019c 5C020000 		.word	.L51
+ 162 01a0 74020000 		.word	.L32
+ 163 01a4 A8010000 		.word	.L33
+ 164              	.L33:
+ 165 01a8 507084E2 		add	r7, r4, #80
+ 166 01ac 0700A0E1 		mov	r0, r7
+ 167 01b0 0810A0E1 		mov	r1, r8
+ 168 01b4 FEFFFFEB 		bl	lprotocol_datagram_decoder_retrieve_data
+ 169 01b8 A430D4E5 		ldrb	r3, [r4, #164]	@ zero_extendqisi2
+ 170 01bc 035194E7 		ldr	r5, [r4, r3, asl #2]
+ 171 01c0 000055E3 		cmp	r5, #0
+ 172 01c4 BA00000A 		beq	.L41
+ 173 01c8 0700A0E1 		mov	r0, r7
+ 174 01cc 0810A0E1 		mov	r1, r8
+ 175 01d0 0FE0A0E1 		mov	lr, pc
+ 176 01d4 15FF2FE1 		bx	r5
+ 177 01d8 003050E2 		subs	r3, r0, #0
+ 178 01dc B400000A 		beq	.L44
+ 179 01e0 020053E3 		cmp	r3, #2
+ 180 01e4 8B00001A 		bne	.L43
+ 181 01e8 0710A0E1 		mov	r1, r7
+ 182 01ec 0820A0E1 		mov	r2, r8
+ 183 01f0 FEFFFFEB 		bl	lprotocol_datagram_encoder_init
+ 184 01f4 0800A0E1 		mov	r0, r8
+ 185 01f8 FEFFFFEB 		bl	lprotocol_datagram_encoder_end
+ 186 01fc 0030A0E3 		mov	r3, #0
+ 187 0200 860000EA 		b	.L58
+ 188              	.L60:
+ 189 0204 00309DE5 		ldr	r3, [sp, #0]
+ 190 0208 043083E0 		add	r3, r3, r4
+ 191 020c A800D3E5 		ldrb	r0, [r3, #168]	@ zero_extendqisi2
+ 192 0210 0610A0E1 		mov	r1, r6
+ 193 0214 FEFFFFEB 		bl	serial_putc
+ 194 0218 00309DE5 		ldr	r3, [sp, #0]
+ 195 021c 013083E2 		add	r3, r3, #1
+ 196              	.L58:
+ 197 0220 00308DE5 		str	r3, [sp, #0]
+ 198 0224 00209DE5 		ldr	r2, [sp, #0]
+ 199 0228 9C3294E5 		ldr	r3, [r4, #668]
+ 200 022c 030052E1 		cmp	r2, r3
+ 201 0230 7F00003A 		bcc	.L60
+ 202              	.L43:
+ 203 0234 0800A0E1 		mov	r0, r8
+ 204 0238 FEFFFFEB 		bl	lprotocol_datagram_decoder_reset
+ 205 023c 14419FE5 		ldr	r4, .L62+8
+ 206              	.L29:
+ 207 0240 003094E5 		ldr	r3, [r4, #0]
+ 208 0244 000053E3 		cmp	r3, #0
+ 209 0248 9900000A 		beq	.L38
+ 210              	.L36:
+ 211 024c 0030A0E3 		mov	r3, #0
+ 212 0250 0300A0E1 		mov	r0, r3
+ 213 0254 003084E5 		str	r3, [r4, #0]
+ 214 0258 4F0000EA 		b	.L28
+ 215              	.L51:
+ 216 025c F4409FE5 		ldr	r4, .L62+8
+ 217 0260 003094E5 		ldr	r3, [r4, #0]
+ 218 0264 000053E3 		cmp	r3, #0
+ 219 0268 9100001A 		bne	.L36
+ 220              	.L38:
+ 221 026c 0000A0E3 		mov	r0, #0
+ 222 0270 4F0000EA 		b	.L28
+ 223              	.L32:
+ 224 0274 A032D4E5 		ldrb	r3, [r4, #672]	@ zero_extendqisi2
+ 225 0278 010053E3 		cmp	r3, #1
+ 226 027c 9500000A 		beq	.L51
+ 227 0280 D0409FE5 		ldr	r4, .L62+8
+ 228 0284 003094E5 		ldr	r3, [r4, #0]
+ 229 0288 000053E3 		cmp	r3, #0
+ 230 028c 9100001A 		bne	.L36
+ 231 0290 00109AE5 		ldr	r1, [sl, #0]	@ float
+ 232 0294 000097E5 		ldr	r0, [r7, #0]	@ float
+ 233 0298 FEFFFFEB 		bl	__subsf3
+ 234 029c 4114A0E3 		mov	r1, #1090519040
+ 235 02a0 021681E2 		add	r1, r1, #2097152
+ 236 02a4 FEFFFFEB 		bl	__gtsf2
+ 237 02a8 000050E3 		cmp	r0, #0
+ 238 02ac 990000DA 		ble	.L38
+ 239 02b0 0800A0E1 		mov	r0, r8
+ 240 02b4 FEFFFFEB 		bl	lprotocol_datagram_decoder_reset
+ 241 02b8 8E0000EA 		b	.L29
+ 242              	.L61:
+ 243 02bc 00309DE5 		ldr	r3, [sp, #0]
+ 244 02c0 043083E0 		add	r3, r3, r4
+ 245 02c4 A800D3E5 		ldrb	r0, [r3, #168]	@ zero_extendqisi2
+ 246 02c8 0610A0E1 		mov	r1, r6
+ 247 02cc FEFFFFEB 		bl	serial_putc
+ 248 02d0 00309DE5 		ldr	r3, [sp, #0]
+ 249 02d4 013083E2 		add	r3, r3, #1
+ 250              	.L44:
+ 251 02d8 00308DE5 		str	r3, [sp, #0]
+ 252 02dc 00209DE5 		ldr	r2, [sp, #0]
+ 253 02e0 9C3294E5 		ldr	r3, [r4, #668]
+ 254 02e4 030052E1 		cmp	r2, r3
+ 255 02e8 AD00003A 		bcc	.L61
+ 256 02ec 8B0000EA 		b	.L43
+ 257              	.L41:
+ 258 02f0 0820A0E1 		mov	r2, r8
+ 259 02f4 0710A0E1 		mov	r1, r7
+ 260 02f8 0200A0E3 		mov	r0, #2
+ 261 02fc FEFFFFEB 		bl	lprotocol_datagram_encoder_init
+ 262 0300 0800A0E1 		mov	r0, r8
+ 263 0304 FEFFFFEB 		bl	lprotocol_datagram_encoder_end
+ 264 0308 00508DE5 		str	r5, [sp, #0]
+ 265 030c 00209DE5 		ldr	r2, [sp, #0]
+ 266 0310 9C3294E5 		ldr	r3, [r4, #668]
+ 267 0314 030052E1 		cmp	r2, r3
+ 268 0318 8B00002A 		bcs	.L43
+ 269              	.L54:
+ 270 031c 00309DE5 		ldr	r3, [sp, #0]
+ 271 0320 043083E0 		add	r3, r3, r4
+ 272 0324 A800D3E5 		ldrb	r0, [r3, #168]	@ zero_extendqisi2
+ 273 0328 0610A0E1 		mov	r1, r6
+ 274 032c FEFFFFEB 		bl	serial_putc
+ 275 0330 00309DE5 		ldr	r3, [sp, #0]
+ 276 0334 013083E2 		add	r3, r3, #1
+ 277 0338 00308DE5 		str	r3, [sp, #0]
+ 278 033c 00209DE5 		ldr	r2, [sp, #0]
+ 279 0340 9C3294E5 		ldr	r3, [r4, #668]
+ 280 0344 030052E1 		cmp	r2, r3
+ 281 0348 C500003A 		bcc	.L54
+ 282 034c 8B0000EA 		b	.L43
+ 283              	.L63:
+ 284              		.align	2
+ 285              	.L62:
+ 286 0350 00000000 		.word	time_ms_current_byte.3397
+ 287 0354 04000000 		.word	time_ms_previous_byte.3396
+ 288 0358 00000000 		.word	flagfirstcall.3395
+ 290              		.align	2
+ 291              		.global	serialmsg_close
+ 293              	serialmsg_close:
+ 294              		@ args = 0, pretend = 0, frame = 0
+ 295              		@ frame_needed = 0, uses_anonymous_args = 0
+ 296 035c 04E02DE5 		str	lr, [sp, #-4]!
+ 297 0360 FEFFFFEB 		bl	lprotocol_close
+ 298 0364 0000A0E3 		mov	r0, #0
+ 299 0368 04F09DE4 		ldr	pc, [sp], #4
+ 301              		.align	2
+ 302              		.global	serialmsg_client_init
+ 304              	serialmsg_client_init:
+ 305              		@ args = 0, pretend = 0, frame = 0
+ 306              		@ frame_needed = 0, uses_anonymous_args = 0
+ 307 036c 70402DE9 		stmfd	sp!, {r4, r5, r6, lr}
+ 308 0370 B02283E5 		str	r2, [r3, #688]
+ 309 0374 0340A0E1 		mov	r4, r3
+ 310 0378 0430A0E3 		mov	r3, #4
+ 311 037c AC3284E5 		str	r3, [r4, #684]
+ 312 0380 0050A0E1 		mov	r5, r0
+ 313 0384 0160A0E1 		mov	r6, r1
+ 314 0388 FEFFFFEB 		bl	lprotocol_init
+ 315 038c B627A0E3 		mov	r2, #47710208
+ 316 0390 0500A0E1 		mov	r0, r5
+ 317 0394 0610A0E1 		mov	r1, r6
+ 318 0398 0D2982E2 		add	r2, r2, #212992
+ 319 039c A93F84E2 		add	r3, r4, #676
+ 320 03a0 7040BDE8 		ldmfd	sp!, {r4, r5, r6, lr}
+ 321 03a4 FEFFFFEA 		b	serial_init
+ 323              		.align	2
+ 324              		.global	serialmsg_server_init
+ 326              	serialmsg_server_init:
+ 327              		@ args = 0, pretend = 0, frame = 0
+ 328              		@ frame_needed = 0, uses_anonymous_args = 0
+ 329 03a8 70402DE9 		stmfd	sp!, {r4, r5, r6, lr}
+ 330 03ac 0340A0E1 		mov	r4, r3
+ 331 03b0 0330A0E3 		mov	r3, #3
+ 332 03b4 AC3284E5 		str	r3, [r4, #684]
+ 333 03b8 033043E2 		sub	r3, r3, #3
+ 334 03bc B02284E5 		str	r2, [r4, #688]
+ 335 03c0 0050A0E1 		mov	r5, r0
+ 336 03c4 0160A0E1 		mov	r6, r1
+ 337 03c8 0320A0E1 		mov	r2, r3
+ 338              	.L69:
+ 339 03cc 042083E7 		str	r2, [r3, r4]
+ 340 03d0 043083E2 		add	r3, r3, #4
+ 341 03d4 500053E3 		cmp	r3, #80
+ 342 03d8 F100001A 		bne	.L69
+ 343 03dc FEFFFFEB 		bl	lprotocol_init
+ 344 03e0 A80084E2 		add	r0, r4, #168
+ 345 03e4 FEFFFFEB 		bl	lprotocol_datagram_decoder_reset
+ 346 03e8 B627A0E3 		mov	r2, #47710208
+ 347 03ec 0500A0E1 		mov	r0, r5
+ 348 03f0 0610A0E1 		mov	r1, r6
+ 349 03f4 0D2982E2 		add	r2, r2, #212992
+ 350 03f8 A93F84E2 		add	r3, r4, #676
+ 351 03fc 7040BDE8 		ldmfd	sp!, {r4, r5, r6, lr}
+ 352 0400 FEFFFFEA 		b	serial_init
+ 354              		.bss
+ 355              		.align	2
+ 356              	time_ms_current_byte.3397:
+ 357 0000 00000000 		.space	4
+ 358              		.align	2
+ 359              	time_ms_previous_byte.3396:
+ 360 0004 00000000 		.space	4
+ 361              		.data
+ 362              		.align	2
+ 365              	flagfirstcall.3395:
+ 366 0000 01000000 		.word	1
+ 367              		.ident	"GCC: (GNU) 4.1.0"
+DEFINED SYMBOLS
+                            *ABS*:00000000 serialmsg-arm7.c
+     /tmp/ccVlHk3a.s:6      .text:00000000 serialmsg_server_define_transaction_handler
+     /tmp/ccVlHk3a.s:10     .text:00000000 $a
+     /tmp/ccVlHk3a.s:19     .text:00000010 serialmsg_client_transaction_retrieve_data
+     /tmp/ccVlHk3a.s:44     .text:0000004c serialmsg_client_transaction_execute
+     /tmp/ccVlHk3a.s:94     .text:000000ec serialmsg_client_transaction_insert_data
+     /tmp/ccVlHk3a.s:106    .text:00000100 serialmsg_client_transaction_init
+     /tmp/ccVlHk3a.s:122    .text:0000011c serialmsg_server_update
+     /tmp/ccVlHk3a.s:158    .text:00000190 $d
+     /tmp/ccVlHk3a.s:165    .text:000001a8 $a
+     /tmp/ccVlHk3a.s:286    .text:00000350 $d
+     /tmp/ccVlHk3a.s:356    .bss:00000000 time_ms_current_byte.3397
+     /tmp/ccVlHk3a.s:359    .bss:00000004 time_ms_previous_byte.3396
+     /tmp/ccVlHk3a.s:365    .data:00000000 flagfirstcall.3395
+     /tmp/ccVlHk3a.s:293    .text:0000035c serialmsg_close
+     /tmp/ccVlHk3a.s:296    .text:0000035c $a
+     /tmp/ccVlHk3a.s:304    .text:0000036c serialmsg_client_init
+     /tmp/ccVlHk3a.s:326    .text:000003a8 serialmsg_server_init
+                             .bss:00000000 $d
+     /tmp/ccVlHk3a.s:366    .data:00000000 $d
+
+UNDEFINED SYMBOLS
+lprotocol_datagram_encoder_end
+serial_putc
+lprotocol_datagram_decoder_reset
+serial_getc
+lprotocol_datagram_decoder_process_received_byte
+lprotocol_datagram_decoder_retrieve_data
+lprotocol_datagram_encoder_insert_data
+lprotocol_datagram_encoder_init
+__subsf3
+__gtsf2
+serial_kbhit
+lprotocol_close
+lprotocol_init
+serial_init

@@ -1,0 +1,235 @@
+\section{demo.m File Reference}
+\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m}\index{demo.m@{demo.m}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bf subplot} (211)
+\item 
+{\bf plot} ({\bf t1}, {\bf y1})
+\item 
+{\bf title} ('Variavel {\bf y1}')
+\item 
+{\bf subplot} (212)
+\item 
+{\bf plot} ({\bf t2}, {\bf y2})
+\item 
+{\bf title} ('Variavel {\bf y2}')
+\item 
+{\bf plot} ({\bf t1}(2:length({\bf t1})), {\bf T1}(2:length({\bf t1})))
+\item 
+{\bf title} ('Variavel {\bf T1}')
+\item 
+{\bf plot} ({\bf t2}(2:length({\bf t2})), {\bf T2}(2:length({\bf t2})))
+\item 
+{\bf title} ('Variavel {\bf T2}')
+\item 
+{\bf plot} ({\bf t1}(2:length({\bf t1})), {\bf Tsleep1}(2:length({\bf t1})))
+\item 
+{\bf title} ('Variavel {\bf Tsleep1}')
+\item 
+{\bf plot} ({\bf t1}(2:length({\bf t1})), {\bf Tsleep2}(2:length({\bf t1})))
+\item 
+{\bf title} ('Variavel {\bf Tsleep2}')
+\item 
+end {\bf subplot} (311)
+\item 
+end {\bf plot} ({\bf t1}, x)
+\item 
+{\bf title} ('Variavel {\bf MatA}(1, 1)')
+\item 
+end {\bf subplot} (312)
+\item 
+{\bf title} ('Variavel {\bf MatA}(2, 1)')
+\item 
+end {\bf subplot} (313)
+\item 
+{\bf title} ('Variavel {\bf MatA}(3, 1)')
+\item 
+{\bf plot} ({\bf t1},[0;diff({\bf t1})])
+\item 
+{\bf title} ('Periodo de amostragem')
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+clear {\bf all}
+\item 
+{\bf Filename} = '{\bf gmatlabdatafile.mat}'
+\item 
+{\bf t1} = ReadGMatlabDataFile('{\bf t1}', {\bf Filename})
+\item 
+{\bf T1} = ReadGMatlabDataFile('{\bf T1}', {\bf Filename})
+\item 
+{\bf Tsleep1} = ReadGMatlabDataFile('{\bf Tsleep1}', {\bf Filename})
+\item 
+{\bf Tsleep2} = ReadGMatlabDataFile('{\bf Tsleep2}', {\bf Filename})
+\item 
+{\bf y1} = ReadGMatlabDataFile('{\bf y1}', {\bf Filename})
+\item 
+{\bf t2} = ReadGMatlabDataFile('{\bf t2}', {\bf Filename})
+\item 
+{\bf T2} = ReadGMatlabDataFile('{\bf T2}', {\bf Filename})
+\item 
+{\bf y2} = ReadGMatlabDataFile('{\bf y2}', {\bf Filename})
+\item 
+{\bf MatA} = ReadGMatlabDataFile('{\bf MatA}', {\bf Filename})
+\item 
+{\bf MatB} = ReadGMatlabDataFile('{\bf MatB}', {\bf Filename})
+\item 
+{\bf N} = min([size({\bf t}) size(texec) size({\bf y1})])
+\item 
+{\bf figure}
+\item 
+for {\bf i} = 1:length({\bf t1}) x({\bf i}) = {\bf MatA}(1,1,{\bf i})
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}!plot@{plot}}
+\index{plot@{plot}!libs/gdatalogger/demo-xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot ({\bf t1})}\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m_aeb7e049ef17bcf2369b0efd79c029f98}
+\index{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}!plot@{plot}}
+\index{plot@{plot}!libs/gdatalogger/demo-xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}end plot ({\bf t1}, \/  x)}\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m_a1d1bba7b32a129098da7c49bb00021ed}
+\index{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}!plot@{plot}}
+\index{plot@{plot}!libs/gdatalogger/demo-xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot ({\bf t1}(2:length({\bf t1})), \/  {\bf Tsleep2}(2:length({\bf t1})))}\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m_a8872f6e42a8863d5fced1213a812c89a}
+\index{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}!plot@{plot}}
+\index{plot@{plot}!libs/gdatalogger/demo-xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot ({\bf t1}(2:length({\bf t1})), \/  {\bf Tsleep1}(2:length({\bf t1})))}\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m_af44db02b9e29eb652442342e73a829b3}
+\index{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}!plot@{plot}}
+\index{plot@{plot}!libs/gdatalogger/demo-xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot ({\bf t2}(2:length({\bf t2})), \/  {\bf T2}(2:length({\bf t2})))}\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m_a9ddc30ed55c382d87a5abd3ab19d9520}
+\index{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}!plot@{plot}}
+\index{plot@{plot}!libs/gdatalogger/demo-xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot ({\bf t1}(2:length({\bf t1})), \/  {\bf T1}(2:length({\bf t1})))}\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m_aefee19451de7837981851805de416740}
+\index{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}!plot@{plot}}
+\index{plot@{plot}!libs/gdatalogger/demo-xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot ({\bf t2}, \/  {\bf y2})}\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m_a84a7aecd800318219f8b1d11f42b7b98}
+\index{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}!plot@{plot}}
+\index{plot@{plot}!libs/gdatalogger/demo-xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot ({\bf t1}, \/  {\bf y1})}\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m_a4277dc6acf35a4f468e38c95b2c2a322}
+\index{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}!subplot@{subplot}}
+\index{subplot@{subplot}!libs/gdatalogger/demo-xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}}
+\subsubsection[{subplot}]{\setlength{\rightskip}{0pt plus 5cm}end subplot (313)}\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m_ab03442f28e24be8453decb4db76e6489}
+\index{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}!subplot@{subplot}}
+\index{subplot@{subplot}!libs/gdatalogger/demo-xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}}
+\subsubsection[{subplot}]{\setlength{\rightskip}{0pt plus 5cm}end subplot (312)}\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m_ab0565d73ca61214e4dc72b30cf772e44}
+\index{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}!subplot@{subplot}}
+\index{subplot@{subplot}!libs/gdatalogger/demo-xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}}
+\subsubsection[{subplot}]{\setlength{\rightskip}{0pt plus 5cm}end subplot (311)}\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m_ab7f2b69db971fd73e3d3780e5d63447c}
+\index{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}!subplot@{subplot}}
+\index{subplot@{subplot}!libs/gdatalogger/demo-xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}}
+\subsubsection[{subplot}]{\setlength{\rightskip}{0pt plus 5cm}subplot (212)}\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m_a63897197090dd8177a8e842d781ae12a}
+\index{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}!subplot@{subplot}}
+\index{subplot@{subplot}!libs/gdatalogger/demo-xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}}
+\subsubsection[{subplot}]{\setlength{\rightskip}{0pt plus 5cm}subplot (211)}\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m_a4a9f2df7ab6783bc2db8e27030158732}
+\index{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}!title@{title}}
+\index{title@{title}!libs/gdatalogger/demo-xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('Periodo de amostragem')}\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m_a504b71c4070f70ea4f6662ec68d8c4e1}
+\index{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}!title@{title}}
+\index{title@{title}!libs/gdatalogger/demo-xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('Variavel {\bf MatA}(3, 1)')}\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m_a204ddc14da067d828283a1d23e707492}
+\index{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}!title@{title}}
+\index{title@{title}!libs/gdatalogger/demo-xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('Variavel {\bf MatA}(2, 1)')}\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m_af9ae74d16726ded067fae3490b53a624}
+\index{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}!title@{title}}
+\index{title@{title}!libs/gdatalogger/demo-xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('Variavel {\bf MatA}(1, 1)')}\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m_a778eceaa5df08e304fe30ec0c82833a9}
+\index{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}!title@{title}}
+\index{title@{title}!libs/gdatalogger/demo-xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('Variavel {\bf Tsleep2}')}\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m_afaf29aebe4fa363b32824abd996e4300}
+\index{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}!title@{title}}
+\index{title@{title}!libs/gdatalogger/demo-xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('Variavel {\bf Tsleep1}')}\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m_aaf08cf6f2f96b403720a6f2ba34d4e47}
+\index{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}!title@{title}}
+\index{title@{title}!libs/gdatalogger/demo-xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('Variavel {\bf T2}')}\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m_a74d429bdcd0a28eb12127b3bfe3a2124}
+\index{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}!title@{title}}
+\index{title@{title}!libs/gdatalogger/demo-xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('Variavel {\bf T1}')}\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m_a6ea7841985441ec284fe746d1884ed7c}
+\index{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}!title@{title}}
+\index{title@{title}!libs/gdatalogger/demo-xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('Variavel {\bf y2}')}\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m_aa19a3f3b21667b39562a7d511194d97d}
+\index{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}!title@{title}}
+\index{title@{title}!libs/gdatalogger/demo-xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('Variavel {\bf y1}')}\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m_ab6a933d94e228ae32d3796fa66bccf08}
+
+
+\subsection{Variable Documentation}
+\index{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}!all@{all}}
+\index{all@{all}!libs/gdatalogger/demo-xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}}
+\subsubsection[{all}]{\setlength{\rightskip}{0pt plus 5cm}close {\bf all}}\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m_a00a349297fa58bc80ff5329e25dcfe28}
+
+
+Definition at line 1 of file libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m.\index{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}!figure@{figure}}
+\index{figure@{figure}!libs/gdatalogger/demo-xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}}
+\subsubsection[{figure}]{\setlength{\rightskip}{0pt plus 5cm}figure}\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m_a391e34f2de441d79152a7b3d6e4c9c86}
+
+
+Definition at line 20 of file libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m.\index{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}!Filename@{Filename}}
+\index{Filename@{Filename}!libs/gdatalogger/demo-xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}}
+\subsubsection[{Filename}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Filename} = '{\bf gmatlabdatafile.mat}'}\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m_abdb1e623b73fdd157f7bfdae4b062a5e}
+
+
+Definition at line 4 of file libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m.\index{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}!i@{i}}
+\index{i@{i}!libs/gdatalogger/demo-xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}}
+\subsubsection[{i}]{\setlength{\rightskip}{0pt plus 5cm}for {\bf i} = 1:length({\bf t1}) x({\bf i}) = {\bf MatA}(1,1,{\bf i})}\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m_a6f6ccfcf58b31cb6412107d9d5281426}
+
+
+Definition at line 33 of file libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m.\index{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}!MatA@{MatA}}
+\index{MatA@{MatA}!libs/gdatalogger/demo-xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}}
+\subsubsection[{MatA}]{\setlength{\rightskip}{0pt plus 5cm}{\bf MatA} = ReadGMatlabDataFile('{\bf MatA}', {\bf Filename})}\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m_a464183ef373ac7e56eaf9fb062575ba3}
+
+
+Definition at line 15 of file libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m.\index{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}!MatB@{MatB}}
+\index{MatB@{MatB}!libs/gdatalogger/demo-xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}}
+\subsubsection[{MatB}]{\setlength{\rightskip}{0pt plus 5cm}{\bf MatB} = ReadGMatlabDataFile('{\bf MatB}', {\bf Filename})}\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m_a4372bd4a57af0ffd5b030d836a60959f}
+
+
+Definition at line 16 of file libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m.\index{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}!N@{N}}
+\index{N@{N}!libs/gdatalogger/demo-xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}}
+\subsubsection[{N}]{\setlength{\rightskip}{0pt plus 5cm}{\bf N} = min([size({\bf t}) size(texec) size({\bf y1})])}\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m_a8cc2e7240164328fdc3f0e5e21032c56}
+
+
+Definition at line 18 of file libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m.\index{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}!T1@{T1}}
+\index{T1@{T1}!libs/gdatalogger/demo-xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}}
+\subsubsection[{T1}]{\setlength{\rightskip}{0pt plus 5cm}{\bf T1} = ReadGMatlabDataFile('{\bf T1}', {\bf Filename})}\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m_aa7255c4bc0e9fa663f62fbafe1026daa}
+
+
+Definition at line 7 of file libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m.\index{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}!t1@{t1}}
+\index{t1@{t1}!libs/gdatalogger/demo-xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}}
+\subsubsection[{t1}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t1} = ReadGMatlabDataFile('{\bf t1}', {\bf Filename})}\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m_a469994e78f66a44815c015b7f4b8b2f8}
+
+
+Definition at line 6 of file libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m.\index{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}!T2@{T2}}
+\index{T2@{T2}!libs/gdatalogger/demo-xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}}
+\subsubsection[{T2}]{\setlength{\rightskip}{0pt plus 5cm}{\bf T2} = ReadGMatlabDataFile('{\bf T2}', {\bf Filename})}\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m_a5a30d530a77bc992810b0c24a3e8f550}
+
+
+Definition at line 12 of file libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m.\index{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}!t2@{t2}}
+\index{t2@{t2}!libs/gdatalogger/demo-xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}}
+\subsubsection[{t2}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t2} = ReadGMatlabDataFile('{\bf t2}', {\bf Filename})}\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m_a24aeadb733f27244ec14e4cba82eeee9}
+
+
+Definition at line 11 of file libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m.\index{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}!Tsleep1@{Tsleep1}}
+\index{Tsleep1@{Tsleep1}!libs/gdatalogger/demo-xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}}
+\subsubsection[{Tsleep1}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Tsleep1} = ReadGMatlabDataFile('{\bf Tsleep1}', {\bf Filename})}\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m_a9d043c968549942ad67a7fb2cb6e3b25}
+
+
+Definition at line 8 of file libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m.\index{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}!Tsleep2@{Tsleep2}}
+\index{Tsleep2@{Tsleep2}!libs/gdatalogger/demo-xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}}
+\subsubsection[{Tsleep2}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Tsleep2} = ReadGMatlabDataFile('{\bf Tsleep2}', {\bf Filename})}\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m_a454db3e44c5362e99f9bcff47d47789e}
+
+
+Definition at line 9 of file libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m.\index{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}!y1@{y1}}
+\index{y1@{y1}!libs/gdatalogger/demo-xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}}
+\subsubsection[{y1}]{\setlength{\rightskip}{0pt plus 5cm}{\bf y1} = ReadGMatlabDataFile('{\bf y1}', {\bf Filename})}\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m_a7f911dc1dbbc41c6cae56357e8fb2230}
+
+
+Definition at line 10 of file libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m.\index{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}!y2@{y2}}
+\index{y2@{y2}!libs/gdatalogger/demo-xenomai/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m}}
+\subsubsection[{y2}]{\setlength{\rightskip}{0pt plus 5cm}{\bf y2} = ReadGMatlabDataFile('{\bf y2}', {\bf Filename})}\label{libs_2gdatalogger_2demo-xenomai_2matlabdatafiles_2demo_8m_a41b94b12b7cb45b3ddee299d4e7b79e8}
+
+
+Definition at line 13 of file libs/gdatalogger/demo-\/xenomai/matlabdatafiles/demo.m.

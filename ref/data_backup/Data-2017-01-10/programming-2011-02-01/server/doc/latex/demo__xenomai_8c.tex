@@ -1,0 +1,352 @@
+\section{demo\_\-xenomai.c File Reference}
+\label{demo__xenomai_8c}\index{demo\_\-xenomai.c@{demo\_\-xenomai.c}}
+{\ttfamily \#include $<$stdio.h$>$}\par
+{\ttfamily \#include $<$math.h$>$}\par
+{\ttfamily \#include $<$signal.h$>$}\par
+{\ttfamily \#include $<$unistd.h$>$}\par
+{\ttfamily \#include $<$sys/mman.h$>$}\par
+{\ttfamily \#include $<$termios.h$>$}\par
+{\ttfamily \#include $<$fcntl.h$>$}\par
+{\ttfamily \#include $<$native/task.h$>$}\par
+{\ttfamily \#include $<$native/timer.h$>$}\par
+{\ttfamily \#include \char`\"{}../gqueue.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}../gmatlabdatafile.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}../gdatalogger.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf TASK1\_\-PERIOD\_\-IN\_\-NANO}~1000000
+\item 
+\#define {\bf TASK2\_\-PERIOD\_\-IN\_\-NANO}~1000000
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void {\bf catch\_\-signal} (int sig)
+\item 
+int {\bf getch} (void)
+\item 
+int {\bf kbhit} (void)
+\item 
+int {\bf main} (int argc, char $\ast$argv[$\,$])
+\item 
+void {\bf periodicThread\_\-handler1} (void $\ast$arg)
+\item 
+void {\bf periodicThread\_\-handler2} (void $\ast$arg)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+{\bf GDATALOGGER} {\bf gDataLogger}
+\item 
+double {\bf MatA} [3][1]
+\item 
+double {\bf MatB} [4][2]
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\index{demo\_\-xenomai.c@{demo\_\-xenomai.c}!TASK1\_\-PERIOD\_\-IN\_\-NANO@{TASK1\_\-PERIOD\_\-IN\_\-NANO}}
+\index{TASK1\_\-PERIOD\_\-IN\_\-NANO@{TASK1\_\-PERIOD\_\-IN\_\-NANO}!demo_xenomai.c@{demo\_\-xenomai.c}}
+\subsubsection[{TASK1\_\-PERIOD\_\-IN\_\-NANO}]{\setlength{\rightskip}{0pt plus 5cm}\#define TASK1\_\-PERIOD\_\-IN\_\-NANO~1000000}\label{demo__xenomai_8c_a502e8ff04fbdaca75759b6aa95a80260}
+
+
+Definition at line 17 of file demo\_\-xenomai.c.\index{demo\_\-xenomai.c@{demo\_\-xenomai.c}!TASK2\_\-PERIOD\_\-IN\_\-NANO@{TASK2\_\-PERIOD\_\-IN\_\-NANO}}
+\index{TASK2\_\-PERIOD\_\-IN\_\-NANO@{TASK2\_\-PERIOD\_\-IN\_\-NANO}!demo_xenomai.c@{demo\_\-xenomai.c}}
+\subsubsection[{TASK2\_\-PERIOD\_\-IN\_\-NANO}]{\setlength{\rightskip}{0pt plus 5cm}\#define TASK2\_\-PERIOD\_\-IN\_\-NANO~1000000}\label{demo__xenomai_8c_a7ca9dde848cb8a9965f2f05c0e00fd1d}
+
+
+Definition at line 18 of file demo\_\-xenomai.c.
+
+\subsection{Function Documentation}
+\index{demo\_\-xenomai.c@{demo\_\-xenomai.c}!catch\_\-signal@{catch\_\-signal}}
+\index{catch\_\-signal@{catch\_\-signal}!demo_xenomai.c@{demo\_\-xenomai.c}}
+\subsubsection[{catch\_\-signal}]{\setlength{\rightskip}{0pt plus 5cm}void catch\_\-signal (int {\em sig})}\label{demo__xenomai_8c_af2dc378d0481adcc49b61efb98493a9b}
+
+
+Definition at line 119 of file demo\_\-xenomai.c.
+
+
+\begin{DoxyCode}
+120 {
+121 }
+\end{DoxyCode}
+\index{demo\_\-xenomai.c@{demo\_\-xenomai.c}!getch@{getch}}
+\index{getch@{getch}!demo_xenomai.c@{demo\_\-xenomai.c}}
+\subsubsection[{getch}]{\setlength{\rightskip}{0pt plus 5cm}int getch (void)}\label{demo__xenomai_8c_af5978fab9fa6dd4ced1c3a8ab1251f7b}
+
+
+Definition at line 239 of file demo\_\-xenomai.c.
+
+
+\begin{DoxyCode}
+240 {
+241         struct termios oldt,
+242         newt;
+243         int ch;
+244         tcgetattr( STDIN_FILENO, &oldt );
+245         newt = oldt;
+246         newt.c_lflag &= ~( ICANON | ECHO );
+247         tcsetattr( STDIN_FILENO, TCSANOW, &newt );
+248         ch = getchar();
+249         tcsetattr( STDIN_FILENO, TCSANOW, &oldt );
+250         return ch;
+251 }
+\end{DoxyCode}
+\index{demo\_\-xenomai.c@{demo\_\-xenomai.c}!kbhit@{kbhit}}
+\index{kbhit@{kbhit}!demo_xenomai.c@{demo\_\-xenomai.c}}
+\subsubsection[{kbhit}]{\setlength{\rightskip}{0pt plus 5cm}int kbhit (void)}\label{demo__xenomai_8c_a97e9b1fe8d4c010474637a654aad6566}
+
+
+Definition at line 212 of file demo\_\-xenomai.c.
+
+
+\begin{DoxyCode}
+213 {
+214         struct termios oldt, newt;
+215         int ch;
+216         int oldf;
+217 
+218         tcgetattr(STDIN_FILENO, &oldt);
+219         newt = oldt;
+220         newt.c_lflag &= ~(ICANON | ECHO);
+221         tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+222         oldf = fcntl(STDIN_FILENO, F_GETFL, 0);
+223         fcntl(STDIN_FILENO, F_SETFL, oldf | O_NONBLOCK);
+224 
+225         ch = getchar();
+226 
+227         tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+228         fcntl(STDIN_FILENO, F_SETFL, oldf);
+229 
+230         if(ch != EOF)
+231         {
+232         ungetc(ch, stdin);
+233         return 1;
+234         }
+235 
+236         return 0;
+237 }
+\end{DoxyCode}
+\index{demo\_\-xenomai.c@{demo\_\-xenomai.c}!main@{main}}
+\index{main@{main}!demo_xenomai.c@{demo\_\-xenomai.c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (int {\em argc}, \/  char $\ast$ {\em argv}[$\,$])}\label{demo__xenomai_8c_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+Definition at line 123 of file demo\_\-xenomai.c.
+
+
+\begin{DoxyCode}
+124 {
+125         RT_TASK task1;
+126         RT_TASK task2;
+127         int status,n;
+128         double t0,tempo;
+129                 
+130         signal(SIGTERM, catch_signal);
+131         signal(SIGINT, catch_signal);
+132 
+133         /* Avoids memory swapping for this program */
+134         mlockall(MCL_CURRENT|MCL_FUTURE);
+135         
+136         // Data logger:
+137         if(!gDataLogger_Init(&gDataLogger,"matlabdatafiles/gmatlabdatafile.mat",N
+      ULL)){
+138                 printf("\nErro em gDataLogger_Init\n\n");
+139                 return 1;
+140         }
+141 
+142         gDataLogger_DeclareVariable(&gDataLogger,"t1","s",1,1,1000);
+143         gDataLogger_DeclareVariable(&gDataLogger,"t2","s",1,1,1000);
+144         gDataLogger_DeclareVariable(&gDataLogger,"T1","s",1,1,1000);
+145         gDataLogger_DeclareVariable(&gDataLogger,"T2","s",1,1,1000);
+146         gDataLogger_DeclareVariable(&gDataLogger,"y1","m",1,1,1000);
+147         gDataLogger_DeclareVariable(&gDataLogger,"y2","m",1,1,1000);
+148         gDataLogger_DeclareVariable(&gDataLogger,"Tsleep1","s",1,1,1000);
+149         gDataLogger_DeclareVariable(&gDataLogger,"Tsleep2","s",1,1,1000);
+150         gDataLogger_DeclareVariable(&gDataLogger,"MatA","s",3,1,1000);
+151         gDataLogger_DeclareVariable(&gDataLogger,"MatB","m",4,2,1000);  
+152 
+153         // Tarefas
+154         status = rt_task_create(&task1, "task1", 0, 99, 0);
+155         if (status != 0) {
+156                 perror("Criacao do thread 1 falhou.\n");
+157                 return 1;
+158         }
+159         status = rt_task_start(&task1, &periodicThread_handler1, NULL);
+160         if (status != 0) {
+161                 perror("Inicializacao do thread 1 falhou.\n");
+162                 return 1;
+163         }
+164         rt_task_slice(&task1,100000);
+165 
+166         status = rt_task_create(&task2, "task2", 0, 99, 0);
+167         if (status != 0) {
+168                 perror("Criacao do thread 2 falhou.\n");
+169                 return 1;
+170         }
+171         status = rt_task_start(&task2, &periodicThread_handler2, NULL);
+172         if (status != 0) {
+173                 perror("Inicializacao do thread 2 falhou.\n");
+174                 return 1;
+175         }
+176         rt_task_slice(&task2,100000);
+177         
+178         t0 = ((double)(rt_timer_read()))/1000000.0;
+179         n = 0;
+180         while(!kbhit()){
+181                 usleep(20000);  
+182                 gDataLogger_IPCUpdate(&gDataLogger); // gerencia IPC
+183                 if(++n>10){
+184                         gDataLogger_MatfileUpdate(&gDataLogger); // esvazia os bu
+      ffers no arquivo de log
+185                         tempo = ((double)(rt_timer_read()))/1000000.0 - t0;
+186                         printf("\n [%i] Atualizado arquivo Matlab em t = %f s",n,
+      tempo);
+187                         n = 0;
+188                 }
+189         }
+190 
+191         quittask = 1;
+192 
+193         perror("\nEncerrando thread 1...");
+194         rt_task_join(&task1); 
+195         perror(" ok\n");
+196         perror("\nEncerrando thread 2...");
+197         rt_task_join(&task2); 
+198         perror(" ok\n");
+199         
+200         rt_task_delete(&task1);
+201         rt_task_delete(&task2);
+202 
+203         // Encerramento do data logger:
+204         gDataLogger_Close(&gDataLogger);
+205         
+206         return 0;
+207 }
+\end{DoxyCode}
+\index{demo\_\-xenomai.c@{demo\_\-xenomai.c}!periodicThread\_\-handler1@{periodicThread\_\-handler1}}
+\index{periodicThread\_\-handler1@{periodicThread\_\-handler1}!demo_xenomai.c@{demo\_\-xenomai.c}}
+\subsubsection[{periodicThread\_\-handler1}]{\setlength{\rightskip}{0pt plus 5cm}void periodicThread\_\-handler1 (void $\ast$ {\em arg})}\label{demo__xenomai_8c_afcb7264585f095779de891787c516efc}
+
+
+Definition at line 29 of file demo\_\-xenomai.c.
+
+
+\begin{DoxyCode}
+30 {
+31         double t0, tprevious, tempo, tic, toc;
+32         double Tsleep, T, y;
+33 
+34         printf("\n**** Tarefa 1.");
+35 
+36         rt_task_set_periodic(NULL, TM_NOW, TASK1_PERIOD_IN_NANO);
+37 
+38         t0 = ((double)(rt_timer_read()))/1e9;
+39         tempo = 0.0;
+40 
+41         while(!quittask)
+42         {       
+43                 rt_task_wait_period(NULL);
+44 
+45                 // Calculo das variaveis
+46                 tprevious = tempo;
+47                 tempo = ((double)(rt_timer_read()))/1e9 - t0;
+48                 T = tempo - tprevious;
+49                 y = sin(2*3.1415926*tempo);
+50                 MatA[0][0] = y;
+51                 MatA[1][0] = 2.0*y;
+52                 MatA[2][0] = -y;
+53         
+54                 // usleep
+55                 tic = ((double)(rt_timer_read()))/1e9;
+56                 rt_task_sleep(10000000);
+57                 toc = ((double)(rt_timer_read()))/1e9;
+58                 Tsleep = toc-tic;
+59 
+60                 // Inserir na fila
+61                 gDataLogger_InsertVariable(&gDataLogger,"Tsleep1",&Tsleep);
+62                 gDataLogger_InsertVariable(&gDataLogger,"t1",&tempo);
+63                 gDataLogger_InsertVariable(&gDataLogger,"T1",&T);
+64                 gDataLogger_InsertVariable(&gDataLogger,"y1",&y);
+65                 gDataLogger_InsertVariable(&gDataLogger,"MatA",&MatA[0][0]);
+66 
+67         }
+68 
+69         printf("\nEncerrando a Tarefa 1.");
+70 }
+\end{DoxyCode}
+\index{demo\_\-xenomai.c@{demo\_\-xenomai.c}!periodicThread\_\-handler2@{periodicThread\_\-handler2}}
+\index{periodicThread\_\-handler2@{periodicThread\_\-handler2}!demo_xenomai.c@{demo\_\-xenomai.c}}
+\subsubsection[{periodicThread\_\-handler2}]{\setlength{\rightskip}{0pt plus 5cm}void periodicThread\_\-handler2 (void $\ast$ {\em arg})}\label{demo__xenomai_8c_a8597333258522dddfc564b5d86ef18fa}
+
+
+Definition at line 72 of file demo\_\-xenomai.c.
+
+
+\begin{DoxyCode}
+73 {
+74         double t0, tprevious, tempo, tic, toc;
+75         double Tsleep, T, y;
+76         int i,j;
+77 
+78         printf("\n**** Tarefa 2.");
+79 
+80         rt_task_set_periodic(NULL, TM_NOW, TASK2_PERIOD_IN_NANO);
+81 
+82         t0 = ((double)(rt_timer_read()))/1e9;
+83         tempo = 0.0;
+84 
+85         while(!quittask)
+86         {       
+87                 rt_task_wait_period(NULL);
+88 
+89                 // Calculo das variaveis
+90                 tprevious = tempo;
+91                 tempo = ((double)(rt_timer_read()))/1e9 - t0;
+92                 T = tempo - tprevious;
+93                 y = sin(2*3.1415926*tempo);
+94         
+95                 for (i=0;i<4;++i){
+96                         for (j=0;j<2;++j){
+97                                 MatB[i][j] = i*j;
+98                         }
+99                 }
+100                 //printf("\n tempo  = %f, y = %f",tempo,y);
+101         
+102                 // usleep
+103                 tic = ((double)(rt_timer_read()))/1e9;
+104                 rt_task_sleep(10000);
+105                 toc = ((double)(rt_timer_read()))/1e9;
+106                 Tsleep = toc-tic;
+107 
+108                 // Inserir na fila
+109                 gDataLogger_InsertVariable(&gDataLogger,"Tsleep2",&Tsleep);
+110                 gDataLogger_InsertVariable(&gDataLogger,"t2",&tempo);
+111                 gDataLogger_InsertVariable(&gDataLogger,"T2",&T);
+112                 gDataLogger_InsertVariable(&gDataLogger,"y2",&y);
+113                 gDataLogger_InsertVariable(&gDataLogger,"MatB",&MatB[0][0]);
+114         }
+115 
+116         printf("\nEncerrando a Tarefa 2.");
+117 }
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\index{demo\_\-xenomai.c@{demo\_\-xenomai.c}!gDataLogger@{gDataLogger}}
+\index{gDataLogger@{gDataLogger}!demo_xenomai.c@{demo\_\-xenomai.c}}
+\subsubsection[{gDataLogger}]{\setlength{\rightskip}{0pt plus 5cm}{\bf GDATALOGGER} {\bf gDataLogger}}\label{demo__xenomai_8c_abe3b9c2c4e21e79c7b046b5986d13acc}
+
+
+Definition at line 21 of file demo\_\-xenomai.c.\index{demo\_\-xenomai.c@{demo\_\-xenomai.c}!MatA@{MatA}}
+\index{MatA@{MatA}!demo_xenomai.c@{demo\_\-xenomai.c}}
+\subsubsection[{MatA}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf MatA}[3][1]}\label{demo__xenomai_8c_a3437d43ee84dba8231980614a749bb3a}
+
+
+Definition at line 22 of file demo\_\-xenomai.c.\index{demo\_\-xenomai.c@{demo\_\-xenomai.c}!MatB@{MatB}}
+\index{MatB@{MatB}!demo_xenomai.c@{demo\_\-xenomai.c}}
+\subsubsection[{MatB}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf MatB}[4][2]}\label{demo__xenomai_8c_a778870de29c0389f060a5430a7a4f98a}
+
+
+Definition at line 23 of file demo\_\-xenomai.c.

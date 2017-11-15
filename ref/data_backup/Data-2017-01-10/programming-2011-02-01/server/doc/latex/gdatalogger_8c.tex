@@ -1,0 +1,508 @@
+\section{gdatalogger.c File Reference}
+\label{gdatalogger_8c}\index{gdatalogger.c@{gdatalogger.c}}
+{\ttfamily \#include $<$math.h$>$}\par
+{\ttfamily \#include $<$stdio.h$>$}\par
+{\ttfamily \#include $<$stdlib.h$>$}\par
+{\ttfamily \#include $<$string.h$>$}\par
+{\ttfamily \#include $<$sys/types.h$>$}\par
+{\ttfamily \#include $<$unistd.h$>$}\par
+{\ttfamily \#include $<$sys/mman.h$>$}\par
+{\ttfamily \#include $<$fcntl.h$>$}\par
+{\ttfamily \#include $<$sys/stat.h$>$}\par
+{\ttfamily \#include $<$errno.h$>$}\par
+{\ttfamily \#include \char`\"{}gqueue.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}gmatlabdatafile.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}gdatalogger.h\char`\"{}}\par
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int {\bf gDataLogger\_\-Close} ({\bf PGDATALOGGER} pgDataLogger)
+\item 
+int {\bf gDataLogger\_\-DeclareVariable} ({\bf PGDATALOGGER} pgDataLogger, char $\ast$varname, char $\ast$varunit, int nrows, int ncols, int queuesize)
+\item 
+int {\bf gDataLogger\_\-Init} ({\bf PGDATALOGGER} pgDataLogger, char $\ast$filename, char $\ast$dirname)
+\item 
+int {\bf gDataLogger\_\-InsertVariable} ({\bf PGDATALOGGER} pgDataLogger, char $\ast$varname, double $\ast$varvalue)
+\item 
+int {\bf gDataLogger\_\-IPC\_\-RetrieveVariable} (char $\ast$varname, char $\ast$varunit, double $\ast$pbuffer, int $\ast$bufferlen)
+\item 
+int {\bf gDataLogger\_\-IPCUpdate} ({\bf PGDATALOGGER} pgDataLogger)
+\item 
+int {\bf gDataLogger\_\-MatfileUpdate} ({\bf PGDATALOGGER} pgDataLogger)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{gdatalogger.c@{gdatalogger.c}!gDataLogger\_\-Close@{gDataLogger\_\-Close}}
+\index{gDataLogger\_\-Close@{gDataLogger\_\-Close}!gdatalogger.c@{gdatalogger.c}}
+\subsubsection[{gDataLogger\_\-Close}]{\setlength{\rightskip}{0pt plus 5cm}int gDataLogger\_\-Close ({\bf PGDATALOGGER} {\em pgDataLogger})}\label{gdatalogger_8c_a0ac95f84c6ee484c4ad0351530f1c468}
+
+
+Definition at line 352 of file gdatalogger.c.
+
+
+\begin{DoxyCode}
+353 {
+354         int nvar,datasize;
+355         double v;
+356         char matvarname[70];
+357 
+358         /* Garante salvar ultimos dados inseridos: */
+359         if(pgDataLogger!=NULL){
+360                 gDataLogger_MatfileUpdate(pgDataLogger);
+361 
+362                 /* Cria variaveis que indicam o numero de cada variavel salva: */
+      
+363                 for(nvar=0;nvar<pgDataLogger->m_NumberOfVariables;++nvar){
+364                         v = (double)(pgDataLogger->Variables[nvar].
+      GMatlabDataFileIndex);
+365                         datasize = 1;
+366                         sprintf(matvarname,"%s_size",pgDataLogger->Variables[nvar
+      ].VariableName);
+367                         gMATLABDataFile_SaveVector(&pgDataLogger->
+      GMatlabDataFileConfig, matvarname, &v, datasize);
+368                 }
+369 
+370                 /* Salva o numero de linhas: */
+371                 for(nvar=0;nvar<pgDataLogger->m_NumberOfVariables;++nvar){
+372                         v = (double)(pgDataLogger->Variables[nvar].Nr);
+373                         datasize = 1;
+374                         sprintf(matvarname,"%s_nr",pgDataLogger->Variables[nvar].
+      VariableName);
+375                         gMATLABDataFile_SaveVector(&pgDataLogger->
+      GMatlabDataFileConfig, matvarname, &v, datasize);
+376                 }
+377 
+378                 /* Salva o numero de colunas: */
+379                 for(nvar=0;nvar<pgDataLogger->m_NumberOfVariables;++nvar){
+380                         v = (double)(pgDataLogger->Variables[nvar].Nc);
+381                         datasize = 1;
+382                         sprintf(matvarname,"%s_nc",pgDataLogger->Variables[nvar].
+      VariableName);
+383                         gMATLABDataFile_SaveVector(&pgDataLogger->
+      GMatlabDataFileConfig, matvarname, &v, datasize);
+384                 }
+385 
+386                 /* Fecha o arquivo. */
+387                 gMATLABDataFile_Close(&pgDataLogger->GMatlabDataFileConfig);
+388 
+389                 /* Deletar as filas: */
+390                 for(nvar=0;nvar<pgDataLogger->m_NumberOfVariables;++nvar){
+391                         sprintf(pgDataLogger->Variables[nvar].VariableName," ");
+392                         sprintf(pgDataLogger->Variables[nvar].VariableUnit," ");
+393                         free(pgDataLogger->Variables[nvar].CircularQueue);
+394                         pgDataLogger->Variables[nvar].CircularQueue = NULL;
+395                         pgDataLogger->Variables[nvar].GMatlabDataFileIndex = 0;
+396                 }
+397                 pgDataLogger->m_NumberOfVariables = 0;
+398         }
+399         
+400         /* IPC: */
+401 #if DATALOGGER_COMPILE_FOR_XENOMAI
+402         if(gDataLoggerIPC_SHM_flagmodeserver){
+403                 rt_heap_free(&gDataLoggerIPC_SHM_hd,pgDataLoggerIPC_SHM);
+404                 rt_heap_delete(&gDataLoggerIPC_SHM_hd);
+405         } else{
+406                 rt_heap_unbind(&gDataLoggerIPC_SHM_hd);
+407         }
+408 #else
+409         munmap(pgDataLoggerIPC_SHM, sizeof(GDATALOGGERIPC_SHM));
+410         close(gDataLoggerIPC_SHM_fd);
+411         shm_unlink(GDATALOGGER_IPC_STATEFILE);
+412 #endif
+413         
+414         return(TRUE);
+415 }
+\end{DoxyCode}
+\index{gdatalogger.c@{gdatalogger.c}!gDataLogger\_\-DeclareVariable@{gDataLogger\_\-DeclareVariable}}
+\index{gDataLogger\_\-DeclareVariable@{gDataLogger\_\-DeclareVariable}!gdatalogger.c@{gdatalogger.c}}
+\subsubsection[{gDataLogger\_\-DeclareVariable}]{\setlength{\rightskip}{0pt plus 5cm}int gDataLogger\_\-DeclareVariable ({\bf PGDATALOGGER} {\em pgDataLogger}, \/  char $\ast$ {\em varname}, \/  char $\ast$ {\em varunit}, \/  int {\em nrows}, \/  int {\em ncols}, \/  int {\em queuesize})}\label{gdatalogger_8c_a3f8f2b3c3f5edc72c3a1887965a544c1}
+
+
+Definition at line 166 of file gdatalogger.c.
+
+
+\begin{DoxyCode}
+167 {
+168         if(pgDataLogger->m_NumberOfVariables>=GDATALOGGER_MAXVARIABLES-1){
+169                 return(FALSE);
+170         }
+171         queuesize = queuesize * nrows * ncols; /* no caso, o tamanho da fila eh c
+      alculado em numero de elementos double. */
+172         sprintf(pgDataLogger->Variables[pgDataLogger->m_NumberOfVariables].
+      VariableName,"%s",varname);
+173         sprintf(pgDataLogger->Variables[pgDataLogger->m_NumberOfVariables].
+      VariableUnit,"%s",varunit);
+174         pgDataLogger->Variables[pgDataLogger->m_NumberOfVariables].CircularQueue 
+      = (double *) malloc(queuesize * nrows * ncols * sizeof(double));
+175         if(pgDataLogger->Variables[pgDataLogger->m_NumberOfVariables].
+      CircularQueue==NULL){
+176                 return(FALSE);
+177         }
+178         pgDataLogger->Variables[pgDataLogger->m_NumberOfVariables].Nr = nrows;
+179         pgDataLogger->Variables[pgDataLogger->m_NumberOfVariables].Nc = ncols;
+180         gQUEUE_Init(&pgDataLogger->Variables[pgDataLogger->m_NumberOfVariables].
+      CircularQueueControl, queuesize, QUEUE_MAXDESTINATIONS);
+181         pgDataLogger->Variables[pgDataLogger->m_NumberOfVariables].
+      GMatlabDataFileIndex = 0;
+182         
+183         ++pgDataLogger->m_NumberOfVariables;
+184 
+185         return(TRUE);
+186 }
+\end{DoxyCode}
+\index{gdatalogger.c@{gdatalogger.c}!gDataLogger\_\-Init@{gDataLogger\_\-Init}}
+\index{gDataLogger\_\-Init@{gDataLogger\_\-Init}!gdatalogger.c@{gdatalogger.c}}
+\subsubsection[{gDataLogger\_\-Init}]{\setlength{\rightskip}{0pt plus 5cm}int gDataLogger\_\-Init ({\bf PGDATALOGGER} {\em pgDataLogger}, \/  char $\ast$ {\em filename}, \/  char $\ast$ {\em dirname})}\label{gdatalogger_8c_ab5eeb22d60836d57bae0dde821337045}
+
+
+Definition at line 42 of file gdatalogger.c.
+
+
+\begin{DoxyCode}
+43 {
+44         int i;
+45         int first = 0;
+46 #if DATALOGGER_COMPILE_FOR_XENOMAI
+47         int err;
+48 #endif
+49 
+50         /* GQueue */
+51         if(pgDataLogger!=NULL){
+52                 for (i=0;i<GDATALOGGER_MAXVARIABLES;++i){
+53                         sprintf(pgDataLogger->Variables[i].VariableName," ");
+54                         sprintf(pgDataLogger->Variables[i].VariableUnit," ");
+55                         pgDataLogger->Variables[i].CircularQueue = NULL;
+56                         pgDataLogger->Variables[i].GMatlabDataFileIndex = 0;
+57                         pgDataLogger->Variables[i].Nc = 1;
+58                         pgDataLogger->Variables[i].Nr = 1;
+59                 }
+60                 pgDataLogger->m_NumberOfVariables = 0;
+61         }
+62 
+63         /* IPC */
+64 #if DATALOGGER_COMPILE_FOR_XENOMAI
+65         if(pgDataLogger!=NULL){
+66                 /* cria memoria compartilhada */
+67                 int heapsize;
+68                 if(sizeof(GDATALOGGERIPC_SHM) > ((256*1024))){
+69                         heapsize = sizeof(GDATALOGGERIPC_SHM);
+70                 }
+71                 else{
+72                         heapsize = ((256*1024));
+73                 }
+74                 
+75                 if((err=rt_heap_create(&gDataLoggerIPC_SHM_hd,
+      GDATALOGGER_IPC_STATEFILE,sizeof(GDATALOGGERIPC_SHM),H_SHARED))!=0){
+76                         printf("gDataLogger_Init: Could not create xenomai heap o
+      bject (return %i)\n", err);
+77                         printf("\n EEXIST = %i",EEXIST);
+78                         printf("\n EINVAL = %i",EINVAL);
+79                         printf("\n ENOMEM = %i",ENOMEM);
+80                         printf("\n EPERM = %i",EPERM);
+81                         printf("\n EIDRM = %i",EIDRM);
+82                         printf("\n ENOSYS = %i",ENOSYS);
+83                         if(err==-EEXIST){
+84                                 err=rt_heap_delete(&gDataLoggerIPC_SHM_hd);
+85                                 printf("gDataLogger_Init: Deleting xenomai heap o
+      bject (return %i)\n", err);
+86                         }
+87                         return FALSE;
+88                 }
+89 
+90                 if(rt_heap_alloc(&gDataLoggerIPC_SHM_hd,sizeof(
+      GDATALOGGERIPC_SHM),TM_NONBLOCK,(void**)&pgDataLoggerIPC_SHM)!=0){
+91                         printf("gDataLogger_Init: Could not allocated xenomai hea
+      p object. (return %i)\n", err);
+92                         return FALSE;
+93                 }
+94 
+95                 first = 1; /* We are the first instance */
+96                 gDataLoggerIPC_SHM_flagmodeserver = 1;
+97         }
+98         else{
+99                 /* abre memoria compartilhada */
+100                 if((err=rt_heap_bind(&gDataLoggerIPC_SHM_hd,
+      GDATALOGGER_IPC_STATEFILE,TM_NONBLOCK))!=0){
+101                         /* printf("gDataLogger_Init: Could not create xenomai hea
+      p object (return %i)\n", err); */
+102 /*                      printf("\n EEXIST = %i",EEXIST);
+103                         printf("\n EINVAL = %i",EINVAL);
+104                         printf("\n ENOMEM = %i",ENOMEM);
+105                         printf("\n EPERM = %i",EPERM);
+106                         printf("\n EIDRM = %i",EIDRM);
+107                         printf("\n ENOSYS = %i",ENOSYS);*/
+108                         return FALSE;
+109                 }
+110 
+111                 if(rt_heap_alloc(&gDataLoggerIPC_SHM_hd,0,TM_NONBLOCK,(void**)&pg
+      DataLoggerIPC_SHM)!=0){
+112                         printf("gDataLogger_Init: Could not allocated xenomai hea
+      p object. (return %i)\n", err);
+113                         return FALSE;
+114                 }
+115 
+116                 gDataLoggerIPC_SHM_flagmodeserver = 0;
+117         }
+118 
+119 #else
+120         /* Try to open the shm instance with  O_EXCL, this tests if the shm is al
+      ready opened by someone else */
+121         if((gDataLoggerIPC_SHM_fd = shm_open(GDATALOGGER_IPC_STATEFILE, (O_CREAT 
+      | O_RDWR),(S_IREAD | S_IWRITE))) < 0) {
+122                 /* Try to open the shm instance normally and share it with existi
+      ng clients */
+123                 printf("gDataLogger_Init: Could not create shm object. %s\n", str
+      error(errno));
+124                 return FALSE;
+125         }       
+126         if(pgDataLogger!=NULL){
+127                 gDataLoggerIPC_SHM_flagmodeserver = 1;
+128                 first = 1;
+129         } else{
+130                 gDataLoggerIPC_SHM_flagmodeserver = 0;
+131                 first = 0;
+132         }
+133 /*      if((gDataLoggerIPC_SHM_fd = shm_open(GDATALOGGER_IPC_STATEFILE, (O_CREAT 
+      | O_EXCL | O_RDWR),(S_IREAD | S_IWRITE))) > 0 ) {
+134 */                first = 1; /* We are the first instance */
+135 /*                gDataLoggerIPC_SHM_flagmodeserver = 1;
+136         }
+137         else if((gDataLoggerIPC_SHM_fd = shm_open(GDATALOGGER_IPC_STATEFILE, (O_C
+      REAT | O_RDWR),(S_IREAD | S_IWRITE))) < 0) {
+138 */              /* Try to open the shm instance normally and share it with existi
+      ng clients */
+139 /*              printf("gDataLogger_Init: Could not create shm object. %s\n", str
+      error(errno));
+140                 return FALSE;
+141         } 
+142 */      /* Set the size of the SHM to be the size of the struct. */
+143         ftruncate(gDataLoggerIPC_SHM_fd, sizeof(GDATALOGGERIPC_SHM));
+144 
+145         /* Connect the conf pointer to set to the shared memory area, with desire
+      d permissions */
+146         if((pgDataLoggerIPC_SHM =  mmap(0, sizeof(GDATALOGGERIPC_SHM), (PROT_READ
+       | PROT_WRITE), MAP_SHARED, gDataLoggerIPC_SHM_fd, 0)) == MAP_FAILED) {
+147                 return FALSE;
+148         }
+149 #endif
+150         
+151         if(first){
+152                 pgDataLoggerIPC_SHM->Flag = GDATALOGGER_IPC_FLAGIDDLE;
+153         }
+154 
+155         /* GMatlabDataFile */
+156         if((pgDataLogger!=NULL)&&(filename!=NULL)){
+157                 return(gMATLABDataFile_OpenWrite(&pgDataLogger->
+      GMatlabDataFileConfig, filename, dirname));
+158         }
+159         
+160         return TRUE;
+161 }
+\end{DoxyCode}
+\index{gdatalogger.c@{gdatalogger.c}!gDataLogger\_\-InsertVariable@{gDataLogger\_\-InsertVariable}}
+\index{gDataLogger\_\-InsertVariable@{gDataLogger\_\-InsertVariable}!gdatalogger.c@{gdatalogger.c}}
+\subsubsection[{gDataLogger\_\-InsertVariable}]{\setlength{\rightskip}{0pt plus 5cm}int gDataLogger\_\-InsertVariable ({\bf PGDATALOGGER} {\em pgDataLogger}, \/  char $\ast$ {\em varname}, \/  double $\ast$ {\em varvalue})}\label{gdatalogger_8c_a32674e7c2afa8b78e99a0070cf4bcaf9}
+
+
+Definition at line 192 of file gdatalogger.c.
+
+
+\begin{DoxyCode}
+193 {
+194         int queueindex,varindex,n;
+195         long int nr,nc;
+196         int FlagQueueFull;
+197         
+198         /* Procura pela variavel */
+199         varindex = -1;
+200         for(n=0;n<pgDataLogger->m_NumberOfVariables;++n){
+201                 if(strcmp(varname,pgDataLogger->Variables[n].VariableName)==0){
+202                         varindex = n;
+203                         break;
+204                 }
+205         }
+206         if(varindex<0){
+207                 return(FALSE);
+208         }
+209 
+210         /* Insere o conteudo */
+211         for(nr=0;nr<pgDataLogger->Variables[varindex].Nr;++nr){
+212                 for(nc=0;nc<pgDataLogger->Variables[varindex].Nc;++nc){
+213                         FlagQueueFull = gQUEUE_RequestWriteIndex(&pgDataLogger->
+      Variables[varindex].CircularQueueControl, &queueindex);
+214 
+215                         pgDataLogger->Variables[varindex].CircularQueue[queueinde
+      x] = varvalue[nr+(nc)*pgDataLogger->Variables[varindex].Nr];
+216 
+217                         if(!FlagQueueFull){
+218                                 /* The queue is full. Test if it is the reading h
+      ead associated to matlab data files. */
+219                                 if(pgDataLogger->Variables[varindex].
+      CircularQueueControl.FlagFull[QUEUE_DESTINATION_FILE]==TRUE){
+220                                         /* Empty in matlab data file. */
+221                                         gDataLogger_MatfileUpdate(pgDataLogger);
+222                                         /* Clear flag: */
+223                                         pgDataLogger->Variables[varindex].
+      CircularQueueControl.FlagFull[QUEUE_DESTINATION_FILE] = FALSE;
+224                                 }
+225                         }
+226                 }
+227         }
+228 
+229         return(TRUE);
+230 }
+\end{DoxyCode}
+\index{gdatalogger.c@{gdatalogger.c}!gDataLogger\_\-IPC\_\-RetrieveVariable@{gDataLogger\_\-IPC\_\-RetrieveVariable}}
+\index{gDataLogger\_\-IPC\_\-RetrieveVariable@{gDataLogger\_\-IPC\_\-RetrieveVariable}!gdatalogger.c@{gdatalogger.c}}
+\subsubsection[{gDataLogger\_\-IPC\_\-RetrieveVariable}]{\setlength{\rightskip}{0pt plus 5cm}int gDataLogger\_\-IPC\_\-RetrieveVariable (char $\ast$ {\em varname}, \/  char $\ast$ {\em varunit}, \/  double $\ast$ {\em pbuffer}, \/  int $\ast$ {\em bufferlen})}\label{gdatalogger_8c_a555a2628f1bfa33692e5f51961d287a5}
+
+
+Definition at line 309 of file gdatalogger.c.
+
+
+\begin{DoxyCode}
+310 {
+311         int counter;
+312         
+313         sprintf(pgDataLoggerIPC_SHM->VariableName, "%s", varname);
+314         pgDataLoggerIPC_SHM->Flag = GDATALOGGER_IPC_FLAGREQUESTDATA;
+315         
+316 /*      printf("\ngDataLogger_IPC_RetrieveVariable: solicitação feita pela vari
+      avel %s",varname); */
+317 
+318         counter = 0;
+319         while(pgDataLoggerIPC_SHM->Flag == GDATALOGGER_IPC_FLAGREQUESTDATA){
+320                 usleep(10000);
+321                 if(++counter > 100){
+322                         *bufferlen = 0;
+323                         pgDataLoggerIPC_SHM->Flag = GDATALOGGER_IPC_FLAGIDDLE;
+324                         /* printf("\ngDataLogger_IPC_RetrieveVariable: solicitaç
+      ão não atendida"); */
+325                         return GDATALOGGER_IPC_FLAGTIMEOUT;
+326                 }
+327         }
+328         
+329         if(pgDataLoggerIPC_SHM->Flag==GDATALOGGER_IPC_FLAGDATAAVAILABLE){
+330                 memcpy(pbuffer,pgDataLoggerIPC_SHM->QueueData, pgDataLoggerIPC_SH
+      M->QueueSize * sizeof(double));
+331                 sprintf(varunit, "%s", pgDataLoggerIPC_SHM->VariableUnit);
+332                 *bufferlen = pgDataLoggerIPC_SHM->QueueSize;
+333                 pgDataLoggerIPC_SHM->Flag = GDATALOGGER_IPC_FLAGIDDLE;
+334                 return GDATALOGGER_IPC_FLAGDATAAVAILABLE;
+335         }
+336 
+337         if(pgDataLoggerIPC_SHM->Flag==GDATALOGGER_IPC_FLAGNOTEXIST){
+338                 *bufferlen = 0;
+339                 pgDataLoggerIPC_SHM->Flag = GDATALOGGER_IPC_FLAGIDDLE;
+340                 return GDATALOGGER_IPC_FLAGNOTEXIST;
+341         }
+342         
+343         *bufferlen = 0;
+344         pgDataLoggerIPC_SHM->Flag = GDATALOGGER_IPC_FLAGIDDLE;
+345         return GDATALOGGER_IPC_FLAGIDDLE;
+346 }
+\end{DoxyCode}
+\index{gdatalogger.c@{gdatalogger.c}!gDataLogger\_\-IPCUpdate@{gDataLogger\_\-IPCUpdate}}
+\index{gDataLogger\_\-IPCUpdate@{gDataLogger\_\-IPCUpdate}!gdatalogger.c@{gdatalogger.c}}
+\subsubsection[{gDataLogger\_\-IPCUpdate}]{\setlength{\rightskip}{0pt plus 5cm}int gDataLogger\_\-IPCUpdate ({\bf PGDATALOGGER} {\em pgDataLogger})}\label{gdatalogger_8c_afa42a993493cf98d32da11e4279816f7}
+
+
+Definition at line 264 of file gdatalogger.c.
+
+
+\begin{DoxyCode}
+265 {
+266         int QueueIndex,nvar,n,i;
+267 
+268         /********** IPC **********/
+269         if(gDataLoggerIPC_SHM_flagmodeserver==0){
+270                 return FALSE;
+271         }
+272         
+273         if(pgDataLoggerIPC_SHM->Flag == GDATALOGGER_IPC_FLAGREQUESTDATA){
+274                 
+275                 /* Procura pela variavel */
+276                 nvar = -1;
+277                 for(n=0;n<pgDataLogger->m_NumberOfVariables;++n){
+278                         if(strcmp(pgDataLoggerIPC_SHM->VariableName,pgDataLogger-
+      >Variables[n].VariableName)==0){
+279                                 nvar = n;
+280                                 break;
+281                         }
+282                 }
+283                 if(nvar<0){
+284                         pgDataLoggerIPC_SHM->Flag = GDATALOGGER_IPC_FLAGNOTEXIST;
+      
+285                         return FALSE; 
+286                 }
+287 
+288                 /* Metodo otimizado, que salva em uma variavel MATLAB todas as ul
+      timas leituras. */
+289                 if(!gQUEUE_GetNumberOfUnreadData(&pgDataLogger->Variables[nvar].
+      CircularQueueControl, QUEUE_DESTINATION_IPC, &pgDataLoggerIPC_SHM->QueueSize)){
+290                         pgDataLoggerIPC_SHM->QueueSize = 0;
+291                 }
+292                 if(pgDataLoggerIPC_SHM->QueueSize>0){ /* Existem dados a serem sa
+      lvos. */
+293                         for(i=0;i<pgDataLoggerIPC_SHM->QueueSize;++i){
+294                                 gQUEUE_RequestReadIndex(&pgDataLogger->Variables[
+      nvar].CircularQueueControl, QUEUE_DESTINATION_IPC, &QueueIndex);
+295                                 pgDataLoggerIPC_SHM->QueueData[i] = pgDataLogger-
+      >Variables[nvar].CircularQueue[QueueIndex];
+296                         }
+297                 }
+298                 
+299                 sprintf(pgDataLoggerIPC_SHM->VariableUnit, "%s", pgDataLogger->
+      Variables[nvar].VariableUnit);
+300                 pgDataLoggerIPC_SHM->Flag = GDATALOGGER_IPC_FLAGDATAAVAILABLE;
+301         }
+302 
+303         return(TRUE);
+304 }
+\end{DoxyCode}
+\index{gdatalogger.c@{gdatalogger.c}!gDataLogger\_\-MatfileUpdate@{gDataLogger\_\-MatfileUpdate}}
+\index{gDataLogger\_\-MatfileUpdate@{gDataLogger\_\-MatfileUpdate}!gdatalogger.c@{gdatalogger.c}}
+\subsubsection[{gDataLogger\_\-MatfileUpdate}]{\setlength{\rightskip}{0pt plus 5cm}int gDataLogger\_\-MatfileUpdate ({\bf PGDATALOGGER} {\em pgDataLogger})}\label{gdatalogger_8c_a05dc8ce832b941280d7de26057992640}
+
+
+Definition at line 235 of file gdatalogger.c.
+
+
+\begin{DoxyCode}
+236 {
+237         int QueueIndex,nvar,datasize,i;
+238         double *v;
+239         char matvarname[70];
+240 
+241         /********** MATFILE **********/
+242         /* Esvaziar queues de todas as variaveis que vao para o arquivo: */
+243         for(nvar=0;nvar<pgDataLogger->m_NumberOfVariables;++nvar){
+244                 /* Metodo otimizado, que salva em uma variavel MATLAB todas as ul
+      timas leituras. */
+245                 if(!gQUEUE_GetNumberOfUnreadData(&pgDataLogger->Variables[nvar].
+      CircularQueueControl, QUEUE_DESTINATION_FILE, &datasize)){
+246                         return(FALSE);
+247                 }
+248                 if(datasize>0){ /* Existem dados a serem salvos. */
+249                         v = (double *) malloc(datasize * sizeof(double));
+250                         for(i=0;i<datasize;++i){
+251                                 gQUEUE_RequestReadIndex(&pgDataLogger->Variables[
+      nvar].CircularQueueControl, QUEUE_DESTINATION_FILE, &QueueIndex);
+252                                 v[i] = pgDataLogger->Variables[nvar].
+      CircularQueue[QueueIndex];
+253                         }
+254                         sprintf(matvarname,"%s_%li_%li",pgDataLogger->Variables[n
+      var].VariableName,pgDataLogger->Variables[nvar].GMatlabDataFileIndex,pgDataLogger
+      ->Variables[nvar].GMatlabDataFileIndex+datasize-1);
+255                         gMATLABDataFile_SaveVector(&pgDataLogger->
+      GMatlabDataFileConfig, matvarname, v, datasize);
+256                         free(v);
+257                         pgDataLogger->Variables[nvar].GMatlabDataFileIndex += dat
+      asize;
+258                 }
+259         }
+260 
+261         return(TRUE);
+262 }
+\end{DoxyCode}

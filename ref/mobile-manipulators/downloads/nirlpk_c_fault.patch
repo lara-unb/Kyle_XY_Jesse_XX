@@ -1,0 +1,51 @@
+diff --git a/nirlpk/nirlpk.c b/nirlpk/nirlpk.c
+index ed6c190..5020e8a 100644
+--- a/nirlpk/nirlpk.c
++++ b/nirlpk/nirlpk.c
+@@ -287,39 +287,26 @@ void nNIRLP_vmaClose(struct vm_area_struct *vma)
+ }
+ 
+ /* 
+-  nNIRLP_vmaNopage
++  nNIRLP_vmaFault
+     
+   Description: virtual memory area (vma) page fault handler.
+-               (*nopage)() prototype changed in 2.6.1 
++               (*fault)() replaced (*nopage)() in 2.6.23
+ */
+ 
+-struct page *nNIRLP_vmaNopage(struct vm_area_struct *vma, unsigned long address, int *type)
++static int nNIRLP_vmaFault(struct vm_area_struct *vma, struct vm_fault *vmf)
+ {
+     struct nNIRLP_tDMA *dma = vma->vm_private_data;
+-    struct page *page;    
+ 
+-    if (type != NULL)
+-        *type = VM_FAULT_MINOR;
+-
+-    address &= PAGE_MASK;
+-
+-    // nNIRLP_printDebug ("nopage:\n");
+-    // nNIRLP_printDebug (" fault : 0x%p\n", (void*)address);
+-    // nNIRLP_printDebug (" buffer: 0x%p\n", (dma->address.cpu + (address - vma->vm_start)));
+-
+-    page =  virt_to_page( dma->address.cpu + (address - vma->vm_start) );
+-
+-    // nNIRLP_printDebug (" page count: %d\n", page_count(page));
+-
+-    get_page (page);
+-    return page; 
++    vmf->page = virt_to_page(dma->address.cpu + (vmf->pgoff << PAGE_SHIFT));
++    get_page(vmf->page);
++    return 0;
+ }
+ 
+ static struct vm_operations_struct nNIRLP_vmops = 
+     {   
+         /*.open   = nNIRLP_vmaOpen,*/
+         .close  = nNIRLP_vmaClose,
+-        .nopage = nNIRLP_vmaNopage 
++        .fault = nNIRLP_vmaFault
+     };
+ 
+ /*

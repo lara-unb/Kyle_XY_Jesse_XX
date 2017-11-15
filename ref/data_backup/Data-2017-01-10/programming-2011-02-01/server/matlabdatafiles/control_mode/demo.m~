@@ -1,0 +1,68 @@
+clear all;
+close all;
+
+Filename = 'gmatlabdatafile.mat';
+
+t = ReadGMatlabDataFile('t',Filename);		%% time
+gyro_1 = ReadGMatlabDataFile('g_1',Filename);	%% gyro 1
+gyro_2 = ReadGMatlabDataFile('g_2',Filename);	%% gyro 2
+i_1 = ReadGMatlabDataFile('i_k',Filename);	%% motor current knee
+i_2 = ReadGMatlabDataFile('i_as',Filename);	%% motor current ankle sagital
+i_3 = ReadGMatlabDataFile('i_af',Filename);	%% motor current ankle frontal
+u_1 = ReadGMatlabDataFile('u_k',Filename);	%% motor pwm input [0-1000]	- knee
+u_2 = ReadGMatlabDataFile('u_as',Filename);	%% motor pwm input [0-1000]	- ankle sagital
+u_3 = ReadGMatlabDataFile('u_af',Filename);	%% motor pwm input [0-1000]	- ankle frontal
+theta_1 = ReadGMatlabDataFile('p_k',Filename);	%% knee joint potentiometer
+theta_2 = ReadGMatlabDataFile('p_as',Filename);	%% knee joint potentiometer
+theta_3 = ReadGMatlabDataFile('p_af',Filename);	%% knee joint potentiometer
+r_1 = ReadGMatlabDataFile('r_1',Filename);	%% foot infrared range 1
+r_2 = ReadGMatlabDataFile('r_2',Filename);	%% foot infrared range 2
+r_3 = ReadGMatlabDataFile('r_3',Filename);	%% foot infrared range 3
+r_4 = ReadGMatlabDataFile('r_4',Filename);	%% foot infrared range 4
+
+u_1 = 12*(u_1 - 500)/500;
+u_2 = 12*(u_2 - 500)/500;
+u_3 = 12*(u_3 - 500)/500;
+
+i_1 = (i_1*3.3/1023 - 2.5)/0.133;
+i_2 = (i_2*3.3/1023 - 2.5)/0.133;
+i_3 = (i_3*3.3/1023 - 2.5)/0.133;
+
+k_theta_1 = 1;
+a_theta_1 = 0; 
+theta_1 = k*theta_1 + a;
+
+output_cal = [0; pi/2   ];
+input_cal  = [604;  920  ];
+k = (output_cal(2)-output_cal[1])/(input_cal(2)-input_cal[1]);
+a = output_cal[1]-k*input_cal[1];
+theta_2 = k*theta_2 + a;
+
+output_cal = [0; pi/2   ];
+input_cal  = [476;  960  ];
+k = (output_cal(2)-output_cal[1])/(input_cal(2)-input_cal[1]);
+a = output_cal[1]-k*input_cal[1];
+theta_3 = k*theta_3 + a;
+
+figure; 
+subplot(211), plot(t,gyro_1); title('gyro 1'); ylabel('[deg/s]');
+subplot(212), plot(t,gyro_1); title('gyro 2'); ylabel('[deg/s]');
+
+figure; 
+subplot(311), plot(t,u_1); title('voltage motor 1'); ylabel('[V]');
+subplot(312), plot(t,u_2); title('voltage motor 2'); ylabel('[V]');
+subplot(313), plot(t,u_3); title('voltage motor 3'); ylabel('[V]');
+
+figure; 
+subplot(311), plot(t,i_1); title('current motor 1'); ylabel('[A]');
+subplot(312), plot(t,i_2); title('current motor 2'); ylabel('[A]');
+subplot(313), plot(t,i_3); title('current motor 3'); ylabel('[A]');
+
+figure; 
+subplot(311), plot(t,theta_1*180/pi); title('angle joint 1'); ylabel('[deg]');
+subplot(312), plot(t,theta_2*180/pi); title('angle joint 2'); ylabel('[deg]');
+subplot(313), plot(t,theta_3*180/pi); title('angle joint 3'); ylabel('[deg]');
+
+figure; 
+plot(t,[0; diff(t)]); title('Sampling time'); ylabel('[s]');
+

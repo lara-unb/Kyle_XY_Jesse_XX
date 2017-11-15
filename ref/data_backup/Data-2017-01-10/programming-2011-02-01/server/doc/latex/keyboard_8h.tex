@@ -1,0 +1,77 @@
+\section{keyboard.h File Reference}
+\label{keyboard_8h}\index{keyboard.h@{keyboard.h}}
+
+
+Arquivo cabecalho do modulo keyboard.  
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int {\bf getch} (void)
+\item 
+int {\bf kbhit} (void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Arquivo cabecalho do modulo keyboard. 
+
+Definition in file {\bf keyboard.h}.
+
+\subsection{Function Documentation}
+\index{keyboard.h@{keyboard.h}!getch@{getch}}
+\index{getch@{getch}!keyboard.h@{keyboard.h}}
+\subsubsection[{getch}]{\setlength{\rightskip}{0pt plus 5cm}int getch (void)}\label{keyboard_8h_af5978fab9fa6dd4ced1c3a8ab1251f7b}
+
+
+Definition at line 70 of file keyboard.c.
+
+
+\begin{DoxyCode}
+71 {
+72         struct termios oldt,
+73         newt;
+74         int ch;
+75         tcgetattr( STDIN_FILENO, &oldt );
+76         newt = oldt;
+77         newt.c_lflag &= ~( ICANON | ECHO );
+78         tcsetattr( STDIN_FILENO, TCSANOW, &newt );
+79         ch = getchar();
+80         tcsetattr( STDIN_FILENO, TCSANOW, &oldt );
+81         return ch;
+82 }
+\end{DoxyCode}
+\index{keyboard.h@{keyboard.h}!kbhit@{kbhit}}
+\index{kbhit@{kbhit}!keyboard.h@{keyboard.h}}
+\subsubsection[{kbhit}]{\setlength{\rightskip}{0pt plus 5cm}int kbhit (void)}\label{keyboard_8h_a97e9b1fe8d4c010474637a654aad6566}
+
+
+Definition at line 43 of file keyboard.c.
+
+
+\begin{DoxyCode}
+44 {
+45         struct termios oldt, newt;
+46         int ch;
+47         int oldf;
+48 
+49         tcgetattr(STDIN_FILENO, &oldt);
+50         newt = oldt;
+51         newt.c_lflag &= ~(ICANON | ECHO);
+52         tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+53         oldf = fcntl(STDIN_FILENO, F_GETFL, 0);
+54         fcntl(STDIN_FILENO, F_SETFL, oldf | O_NONBLOCK);
+55 
+56         ch = getchar();
+57 
+58         tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+59         fcntl(STDIN_FILENO, F_SETFL, oldf);
+60 
+61         if(ch != EOF)
+62         {
+63         ungetc(ch, stdin);
+64         return 1;
+65         }
+66 
+67         return 0;
+68 }
+\end{DoxyCode}

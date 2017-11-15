@@ -1,0 +1,91 @@
+\hypertarget{lprotocol_8c}{
+\section{lprotocol.c File Reference}
+\label{lprotocol_8c}\index{lprotocol.c@{lprotocol.c}}
+}
+{\ttfamily \#include $<$stdio.h$>$}\par
+{\ttfamily \#include $<$string.h$>$}\par
+{\ttfamily \#include \char`\"{}lprotocol.h\char`\"{}}\par
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{lprotocol_8h_a5770c1eba7f792b7f479032939e6f1e0}{lprotocolreturnstatus\_\-t} \hyperlink{lprotocol_8c_ae682611db73e0985dbac1e2122d1bd63}{lprotocol\_\-init} (void)
+\begin{DoxyCompactList}\small\item\em Inicializacao. \item\end{DoxyCompactList}\item 
+void \hyperlink{lprotocol_8c_adf63255cb7ddbc72cd82c5e8398e4781}{lprotocol\_\-close} (void)
+\begin{DoxyCompactList}\small\item\em Encerramento. \item\end{DoxyCompactList}\item 
+void \hyperlink{lprotocol_8c_a578ece9bc41f7f24a5356439d190e303}{lprotocol\_\-datagram\_\-encoder\_\-init} (char function\_\-code, \hyperlink{structlprotocoldata__t}{lprotocoldata\_\-t} $\ast$pprotocoldata, \hyperlink{structlprotocoldatagram__t}{lprotocoldatagram\_\-t} $\ast$pdatagram)
+\item 
+void \hyperlink{lprotocol_8c_ae9ca695cecc78073568e58ae0f1d4700}{lprotocol\_\-datagram\_\-encoder\_\-end} (\hyperlink{structlprotocoldatagram__t}{lprotocoldatagram\_\-t} $\ast$pdatagram)
+\item 
+void \hyperlink{lprotocol_8c_a9c34da84c1216605f83e6c80707e3194}{lprotocol\_\-datagram\_\-encoder\_\-insert\_\-data} (unsigned char $\ast$pdata, unsigned int data\_\-size\_\-in\_\-bytes, \hyperlink{structlprotocoldatagram__t}{lprotocoldatagram\_\-t} $\ast$pdatagram)
+\item 
+void \hyperlink{lprotocol_8c_a0b5ace0a983595d497f4ceed631ce206}{lprotocol\_\-datagram\_\-decoder\_\-reset} (\hyperlink{structlprotocoldatagram__t}{lprotocoldatagram\_\-t} $\ast$pdatagram)
+\item 
+void \hyperlink{lprotocol_8c_a19b44d3a6f783d91f459347cd942af24}{lprotocol\_\-datagram\_\-decoder\_\-get\_\-data} (\hyperlink{structlprotocoldata__t}{lprotocoldata\_\-t} $\ast$pprotocoldata, \hyperlink{structlprotocoldatagram__t}{lprotocoldatagram\_\-t} $\ast$pdatagram)
+\item 
+\hyperlink{lprotocol_8h_a5770c1eba7f792b7f479032939e6f1e0}{lprotocolreturnstatus\_\-t} \hyperlink{lprotocol_8c_abdd5eef01b39b47082f1cb37f9de3b76}{lprotocol\_\-datagram\_\-decoder\_\-process\_\-received\_\-byte} (unsigned char received\_\-byte, \hyperlink{structlprotocoldatagram__t}{lprotocoldatagram\_\-t} $\ast$pdatagram)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{lprotocol_8c_adf63255cb7ddbc72cd82c5e8398e4781}{
+\index{lprotocol.c@{lprotocol.c}!lprotocol\_\-close@{lprotocol\_\-close}}
+\index{lprotocol\_\-close@{lprotocol\_\-close}!lprotocol.c@{lprotocol.c}}
+\subsubsection[{lprotocol\_\-close}]{\setlength{\rightskip}{0pt plus 5cm}void lprotocol\_\-close (void)}}
+\label{lprotocol_8c_adf63255cb7ddbc72cd82c5e8398e4781}
+
+
+Encerramento. \begin{DoxyAuthor}{Author}
+G.A. Borges 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+\item[{\em none}]\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+\hypertarget{lprotocol_8c_a19b44d3a6f783d91f459347cd942af24}{
+\index{lprotocol.c@{lprotocol.c}!lprotocol\_\-datagram\_\-decoder\_\-get\_\-data@{lprotocol\_\-datagram\_\-decoder\_\-get\_\-data}}
+\index{lprotocol\_\-datagram\_\-decoder\_\-get\_\-data@{lprotocol\_\-datagram\_\-decoder\_\-get\_\-data}!lprotocol.c@{lprotocol.c}}
+\subsubsection[{lprotocol\_\-datagram\_\-decoder\_\-get\_\-data}]{\setlength{\rightskip}{0pt plus 5cm}void lprotocol\_\-datagram\_\-decoder\_\-get\_\-data ({\bf lprotocoldata\_\-t} $\ast$ {\em pprotocoldata}, \/  {\bf lprotocoldatagram\_\-t} $\ast$ {\em pdatagram})}}
+\label{lprotocol_8c_a19b44d3a6f783d91f459347cd942af24}
+\hypertarget{lprotocol_8c_abdd5eef01b39b47082f1cb37f9de3b76}{
+\index{lprotocol.c@{lprotocol.c}!lprotocol\_\-datagram\_\-decoder\_\-process\_\-received\_\-byte@{lprotocol\_\-datagram\_\-decoder\_\-process\_\-received\_\-byte}}
+\index{lprotocol\_\-datagram\_\-decoder\_\-process\_\-received\_\-byte@{lprotocol\_\-datagram\_\-decoder\_\-process\_\-received\_\-byte}!lprotocol.c@{lprotocol.c}}
+\subsubsection[{lprotocol\_\-datagram\_\-decoder\_\-process\_\-received\_\-byte}]{\setlength{\rightskip}{0pt plus 5cm}{\bf lprotocolreturnstatus\_\-t} lprotocol\_\-datagram\_\-decoder\_\-process\_\-received\_\-byte (unsigned char {\em received\_\-byte}, \/  {\bf lprotocoldatagram\_\-t} $\ast$ {\em pdatagram})}}
+\label{lprotocol_8c_abdd5eef01b39b47082f1cb37f9de3b76}
+\hypertarget{lprotocol_8c_a0b5ace0a983595d497f4ceed631ce206}{
+\index{lprotocol.c@{lprotocol.c}!lprotocol\_\-datagram\_\-decoder\_\-reset@{lprotocol\_\-datagram\_\-decoder\_\-reset}}
+\index{lprotocol\_\-datagram\_\-decoder\_\-reset@{lprotocol\_\-datagram\_\-decoder\_\-reset}!lprotocol.c@{lprotocol.c}}
+\subsubsection[{lprotocol\_\-datagram\_\-decoder\_\-reset}]{\setlength{\rightskip}{0pt plus 5cm}void lprotocol\_\-datagram\_\-decoder\_\-reset ({\bf lprotocoldatagram\_\-t} $\ast$ {\em pdatagram})}}
+\label{lprotocol_8c_a0b5ace0a983595d497f4ceed631ce206}
+\hypertarget{lprotocol_8c_ae9ca695cecc78073568e58ae0f1d4700}{
+\index{lprotocol.c@{lprotocol.c}!lprotocol\_\-datagram\_\-encoder\_\-end@{lprotocol\_\-datagram\_\-encoder\_\-end}}
+\index{lprotocol\_\-datagram\_\-encoder\_\-end@{lprotocol\_\-datagram\_\-encoder\_\-end}!lprotocol.c@{lprotocol.c}}
+\subsubsection[{lprotocol\_\-datagram\_\-encoder\_\-end}]{\setlength{\rightskip}{0pt plus 5cm}void lprotocol\_\-datagram\_\-encoder\_\-end ({\bf lprotocoldatagram\_\-t} $\ast$ {\em pdatagram})}}
+\label{lprotocol_8c_ae9ca695cecc78073568e58ae0f1d4700}
+\hypertarget{lprotocol_8c_a578ece9bc41f7f24a5356439d190e303}{
+\index{lprotocol.c@{lprotocol.c}!lprotocol\_\-datagram\_\-encoder\_\-init@{lprotocol\_\-datagram\_\-encoder\_\-init}}
+\index{lprotocol\_\-datagram\_\-encoder\_\-init@{lprotocol\_\-datagram\_\-encoder\_\-init}!lprotocol.c@{lprotocol.c}}
+\subsubsection[{lprotocol\_\-datagram\_\-encoder\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void lprotocol\_\-datagram\_\-encoder\_\-init (char {\em function\_\-code}, \/  {\bf lprotocoldata\_\-t} $\ast$ {\em pprotocoldata}, \/  {\bf lprotocoldatagram\_\-t} $\ast$ {\em pdatagram})}}
+\label{lprotocol_8c_a578ece9bc41f7f24a5356439d190e303}
+\hypertarget{lprotocol_8c_a9c34da84c1216605f83e6c80707e3194}{
+\index{lprotocol.c@{lprotocol.c}!lprotocol\_\-datagram\_\-encoder\_\-insert\_\-data@{lprotocol\_\-datagram\_\-encoder\_\-insert\_\-data}}
+\index{lprotocol\_\-datagram\_\-encoder\_\-insert\_\-data@{lprotocol\_\-datagram\_\-encoder\_\-insert\_\-data}!lprotocol.c@{lprotocol.c}}
+\subsubsection[{lprotocol\_\-datagram\_\-encoder\_\-insert\_\-data}]{\setlength{\rightskip}{0pt plus 5cm}void lprotocol\_\-datagram\_\-encoder\_\-insert\_\-data (unsigned char $\ast$ {\em pdata}, \/  unsigned int {\em data\_\-size\_\-in\_\-bytes}, \/  {\bf lprotocoldatagram\_\-t} $\ast$ {\em pdatagram})}}
+\label{lprotocol_8c_a9c34da84c1216605f83e6c80707e3194}
+\hypertarget{lprotocol_8c_ae682611db73e0985dbac1e2122d1bd63}{
+\index{lprotocol.c@{lprotocol.c}!lprotocol\_\-init@{lprotocol\_\-init}}
+\index{lprotocol\_\-init@{lprotocol\_\-init}!lprotocol.c@{lprotocol.c}}
+\subsubsection[{lprotocol\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf lprotocolreturnstatus\_\-t} lprotocol\_\-init (void)}}
+\label{lprotocol_8c_ae682611db73e0985dbac1e2122d1bd63}
+
+
+Inicializacao. \begin{DoxyAuthor}{Author}
+G.A. Borges 
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+\item[{\em none}]\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+If success, LPROTOCOL\_\-SUCCESS. Otherwise, see return status defines at \hyperlink{lprotocol_8h}{lprotocol.h} 
+\end{DoxyReturn}

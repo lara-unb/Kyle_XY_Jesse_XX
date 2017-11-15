@@ -1,0 +1,262 @@
+\section{eval.c File Reference}
+\label{eval_8c}\index{eval.c@{eval.c}}
+{\ttfamily \#include $<$stdio.h$>$}\par
+{\ttfamily \#include $<$signal.h$>$}\par
+{\ttfamily \#include $<$unistd.h$>$}\par
+{\ttfamily \#include $<$sys/mman.h$>$}\par
+{\ttfamily \#include $<$native/task.h$>$}\par
+{\ttfamily \#include $<$native/timer.h$>$}\par
+{\ttfamily \#include \char`\"{}../src/serialcom.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf TASK1\_\-PERIOD\_\-IN\_\-NANO}~30000000
+\item 
+\#define {\bf TASK2\_\-PERIOD\_\-IN\_\-NANO}~30000000
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void {\bf catch\_\-signal} (int sig)
+\item 
+int {\bf main} (int argc, char $\ast$argv[$\,$])
+\item 
+void {\bf periodicThread\_\-handler1} (void $\ast$arg)
+\item 
+void {\bf periodicThread\_\-handler2} (void $\ast$arg)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+unsigned int {\bf bps} = 115200
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\index{eval.c@{eval.c}!TASK1\_\-PERIOD\_\-IN\_\-NANO@{TASK1\_\-PERIOD\_\-IN\_\-NANO}}
+\index{TASK1\_\-PERIOD\_\-IN\_\-NANO@{TASK1\_\-PERIOD\_\-IN\_\-NANO}!eval.c@{eval.c}}
+\subsubsection[{TASK1\_\-PERIOD\_\-IN\_\-NANO}]{\setlength{\rightskip}{0pt plus 5cm}\#define TASK1\_\-PERIOD\_\-IN\_\-NANO~30000000}\label{eval_8c_a502e8ff04fbdaca75759b6aa95a80260}
+
+
+Definition at line 12 of file eval.c.\index{eval.c@{eval.c}!TASK2\_\-PERIOD\_\-IN\_\-NANO@{TASK2\_\-PERIOD\_\-IN\_\-NANO}}
+\index{TASK2\_\-PERIOD\_\-IN\_\-NANO@{TASK2\_\-PERIOD\_\-IN\_\-NANO}!eval.c@{eval.c}}
+\subsubsection[{TASK2\_\-PERIOD\_\-IN\_\-NANO}]{\setlength{\rightskip}{0pt plus 5cm}\#define TASK2\_\-PERIOD\_\-IN\_\-NANO~30000000}\label{eval_8c_a7ca9dde848cb8a9965f2f05c0e00fd1d}
+
+
+Definition at line 13 of file eval.c.
+
+\subsection{Function Documentation}
+\index{eval.c@{eval.c}!catch\_\-signal@{catch\_\-signal}}
+\index{catch\_\-signal@{catch\_\-signal}!eval.c@{eval.c}}
+\subsubsection[{catch\_\-signal}]{\setlength{\rightskip}{0pt plus 5cm}void catch\_\-signal (int {\em sig})}\label{eval_8c_af2dc378d0481adcc49b61efb98493a9b}
+
+
+Definition at line 134 of file eval.c.
+
+
+\begin{DoxyCode}
+135 {
+136 }
+\end{DoxyCode}
+\index{eval.c@{eval.c}!main@{main}}
+\index{main@{main}!eval.c@{eval.c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (int {\em argc}, \/  char $\ast$ {\em argv}[$\,$])}\label{eval_8c_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+Definition at line 138 of file eval.c.
+
+
+\begin{DoxyCode}
+139 {
+140         RT_TASK task1;
+141         RT_TASK task2;
+142         int status;
+143                 
+144         signal(SIGTERM, catch_signal);
+145         signal(SIGINT, catch_signal);
+146 
+147         /* Avoids memory swapping for this program */
+148         mlockall(MCL_CURRENT|MCL_FUTURE);
+149         
+150         status = rt_task_create(&task1, "task1", 0, 99, T_JOINABLE);
+151         if (status != 0) {
+152                 perror("Criacao do thread 1 falhou.\n");
+153                 exit(1);
+154         }
+155         status = rt_task_start(&task1, &periodicThread_handler1, NULL);
+156         if (status != 0) {
+157                 perror("Inicializacao do thread 1 falhou.\n");
+158                 exit(1);
+159         }
+160         rt_task_slice(&task1,100000);
+161 
+162 /*      status = rt_task_create(&task2, "task2", 0, 99, T_JOINABLE);
+163         if (status != 0) {
+164                 perror("Criacao do thread 2 falhou.\n");
+165                 exit(1);
+166         }
+167         status = rt_task_start(&task2, &periodicThread_handler2, NULL);
+168         if (status != 0) {
+169                 perror("Inicializacao do thread 2 falhou.\n");
+170                 exit(1);
+171         }
+172         rt_task_slice(&task2,100000);
+173 */      
+174         getchar();
+175 
+176         quittask = 1;
+177 
+178         perror("\nEncerrando thread 1...");
+179         rt_task_join(&task1); 
+180         perror(" ok\n");
+181         perror("\nEncerrando thread 2...");
+182 //      rt_task_join(&task2); 
+183         perror(" ok\n");
+184         
+185         rt_task_delete(&task1);
+186         rt_task_delete(&task2);
+187         
+188         return 0;
+189 }
+\end{DoxyCode}
+\index{eval.c@{eval.c}!periodicThread\_\-handler1@{periodicThread\_\-handler1}}
+\index{periodicThread\_\-handler1@{periodicThread\_\-handler1}!eval.c@{eval.c}}
+\subsubsection[{periodicThread\_\-handler1}]{\setlength{\rightskip}{0pt plus 5cm}void periodicThread\_\-handler1 (void $\ast$ {\em arg})}\label{eval_8c_afcb7264585f095779de891787c516efc}
+
+
+Definition at line 26 of file eval.c.
+
+
+\begin{DoxyCode}
+27 {
+28         int status;
+29         int i;
+30         RTIME tic, toc;
+31         double timetx,timerx;
+32         unsigned char datain, dataout = 0;
+33         SERIALPORTCONFIG SerialPortConfig; 
+34 
+35         printf("\n**** Tarefa 1.");
+36         printf("\nIniciando a porta serial ...");
+37         status = serialcom_init(&SerialPortConfig, 1, bps);
+38         if ( status ==  SERIALCOM_SUCCESS){
+39                 printf(" ok!");
+40         } else {
+41                 printf(" Erro (%i)",status);
+42                 return;
+43         }
+44 
+45         // rt_task_set_mode(0,T_RRB ,NULL); versores do xenomai anteriores a 2.5.
+      0
+46         rt_task_set_periodic(NULL, TM_NOW, TASK1_PERIOD_IN_NANO);
+47         while(!quittask)
+48         {       
+49                 rt_task_wait_period(NULL);
+50 
+51                 ++dataout;
+52                 tic = rt_timer_read();
+53                 serialcom_semwait(&SerialPortConfig);
+54                 for(i=0;i<1;++i){
+55                         serialcom_sendbyte(&SerialPortConfig, &dataout);
+56                 }
+57                 serialcom_semsignal(&SerialPortConfig);
+58                 toc = rt_timer_read();
+59                 timetx = (double)(toc-tic);
+60 
+61                 tic = rt_timer_read();
+62                 serialcom_semwait(&SerialPortConfig);
+63                 status = serialcom_receivebyte(&SerialPortConfig, &datain, 1000.0
+      );
+64                 serialcom_semsignal(&SerialPortConfig);
+65                 toc = rt_timer_read();
+66                 timerx = (double)(toc-tic);
+67                 if ( status == SERIALCOM_SUCCESS){
+68                         printf("\nTask1: Dado enviado = %2X (%.2f us) -  Dado rec
+      ebido = %X (%.2f us)",dataout,timetx/1000.0,datain,timerx/1000.0);
+69                 }
+70                 else{
+71                         printf("\nTask1: Dado enviado = %2X (%.2f us) -  Nada foi
+       recebido em %.2f us (status = %i)",dataout,timetx/1000.0,timerx/1000.0,status);
+72                 }
+73         }
+74 
+75         printf("\nEncerrando a Tarefa 1...");
+76         serialcom_close(&SerialPortConfig);
+77         printf(" ok!");
+78 }
+\end{DoxyCode}
+\index{eval.c@{eval.c}!periodicThread\_\-handler2@{periodicThread\_\-handler2}}
+\index{periodicThread\_\-handler2@{periodicThread\_\-handler2}!eval.c@{eval.c}}
+\subsubsection[{periodicThread\_\-handler2}]{\setlength{\rightskip}{0pt plus 5cm}void periodicThread\_\-handler2 (void $\ast$ {\em arg})}\label{eval_8c_a8597333258522dddfc564b5d86ef18fa}
+
+
+Definition at line 80 of file eval.c.
+
+
+\begin{DoxyCode}
+81 {
+82         int status;
+83         int i;
+84         RTIME tic, toc;
+85         double timetx,timerx;
+86         unsigned char datain, dataout;
+87         SERIALPORTCONFIG SerialPortConfig; 
+88 
+89         printf("\n**** Tarefa 2.");
+90         printf("\nIniciando a porta serial ...");
+91         status = serialcom_init(&SerialPortConfig, 2, bps);
+92         if ( status ==  SERIALCOM_SUCCESS){
+93                 printf(" ok!");
+94         } else {
+95                 printf(" Erro (%i)",status);
+96                 return;
+97         }
+98 
+99         // rt_task_set_mode(0,T_RRB ,NULL); versores do xenomai anteriores a 2.5.
+      0
+100         rt_task_set_periodic(NULL, TM_NOW, TASK2_PERIOD_IN_NANO);
+101 
+102         while(!quittask)
+103         {       
+104                 rt_task_wait_period(NULL);
+105 
+106                 dataout = 0xFF;
+107                 tic = rt_timer_read();
+108                 serialcom_semwait(&SerialPortConfig);
+109                 for(i=0;i<5;++i)
+110                         serialcom_sendbyte(&SerialPortConfig, &dataout);
+111                 serialcom_semsignal(&SerialPortConfig);
+112                 toc = rt_timer_read();
+113                 timetx = (double)(toc-tic);
+114 
+115                 tic = rt_timer_read();
+116                 serialcom_semwait(&SerialPortConfig);
+117                 status = serialcom_receivebyte(&SerialPortConfig, &datain, 1000.0
+      );
+118                 serialcom_semsignal(&SerialPortConfig);
+119                 toc = rt_timer_read();
+120                 timerx = (double)(toc-tic);
+121                 if ( status == SERIALCOM_SUCCESS){
+122                         printf("\nTask2: Dado enviado = %2X (%.2f us) -  Dado rec
+      ebido = %X (%.2f us)",dataout,timetx/1000.0,datain,timerx/1000.0);
+123                 }
+124                 else{
+125                         printf("\nTask2: Dado enviado = %2X (%.2f us) -  Nada foi
+       recebido em %.2f us (status = %i)",dataout,timetx/1000.0,timerx/1000.0,status);
+126                 }
+127         }
+128 
+129         printf("\nEncerrando a Tarefa 2...");
+130         serialcom_close(&SerialPortConfig);
+131         printf(" ok!");
+132 }
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\index{eval.c@{eval.c}!bps@{bps}}
+\index{bps@{bps}!eval.c@{eval.c}}
+\subsubsection[{bps}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int {\bf bps} = 115200}\label{eval_8c_a97a44630a14c03d5b1a2f16ccf771a79}
+
+
+Definition at line 20 of file eval.c.

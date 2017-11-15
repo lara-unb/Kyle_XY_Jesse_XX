@@ -1,0 +1,255 @@
+   1              		.file	"lprotocol.c"
+   2              		.text
+   3              		.align	2
+   4              		.global	lprotocol_init
+   6              	lprotocol_init:
+   7              		@ args = 0, pretend = 0, frame = 0
+   8              		@ frame_needed = 0, uses_anonymous_args = 0
+   9              		@ link register save eliminated.
+  10 0000 0000A0E3 		mov	r0, #0
+  11              		@ lr needed for prologue
+  12 0004 1EFF2FE1 		bx	lr
+  14              		.align	2
+  15              		.global	lprotocol_close
+  17              	lprotocol_close:
+  18              		@ args = 0, pretend = 0, frame = 0
+  19              		@ frame_needed = 0, uses_anonymous_args = 0
+  20              		@ link register save eliminated.
+  21              		@ lr needed for prologue
+  22 0008 1EFF2FE1 		bx	lr
+  24              		.align	2
+  25              		.global	lprotocol_datagram_encoder_init
+  27              	lprotocol_datagram_encoder_init:
+  28              		@ args = 0, pretend = 0, frame = 0
+  29              		@ frame_needed = 0, uses_anonymous_args = 0
+  30              		@ link register save eliminated.
+  31 000c 00C0A0E3 		mov	ip, #0
+  32 0010 FF0000E2 		and	r0, r0, #255
+  33 0014 0330A0E3 		mov	r3, #3
+  34 0018 5400C1E5 		strb	r0, [r1, #84]
+  35 001c 50C081E5 		str	ip, [r1, #80]
+  36 0020 F43182E5 		str	r3, [r2, #500]
+  37 0024 203083E2 		add	r3, r3, #32
+  38              		@ lr needed for prologue
+  39 0028 F9C1C2E5 		strb	ip, [r2, #505]
+  40 002c 0030C2E5 		strb	r3, [r2, #0]
+  41 0030 0100C2E5 		strb	r0, [r2, #1]
+  42 0034 F8C1C2E5 		strb	ip, [r2, #504]
+  43 0038 1EFF2FE1 		bx	lr
+  45              		.align	2
+  46              		.global	lprotocol_datagram_encoder_end
+  48              	lprotocol_datagram_encoder_end:
+  49              		@ args = 0, pretend = 0, frame = 0
+  50              		@ frame_needed = 0, uses_anonymous_args = 0
+  51              		@ link register save eliminated.
+  52 003c F4C190E5 		ldr	ip, [r0, #500]
+  53 0040 0020A0E3 		mov	r2, #0
+  54 0044 01308CE2 		add	r3, ip, #1
+  55 0048 00005CE3 		cmp	ip, #0
+  56              		@ lr needed for prologue
+  57 004c 0230C0E5 		strb	r3, [r0, #2]
+  58 0050 F921C0E5 		strb	r2, [r0, #505]
+  59 0054 1C00000A 		beq	.L8
+  60 0058 0210A0E1 		mov	r1, r2
+  61              	.L10:
+  62 005c F931D0E5 		ldrb	r3, [r0, #505]	@ zero_extendqisi2
+  63 0060 0020D1E7 		ldrb	r2, [r1, r0]	@ zero_extendqisi2
+  64 0064 011081E2 		add	r1, r1, #1
+  65 0068 023083E0 		add	r3, r3, r2
+  66 006c 01005CE1 		cmp	ip, r1
+  67 0070 F931C0E5 		strb	r3, [r0, #505]
+  68 0074 1500008A 		bhi	.L10
+  69              	.L8:
+  70 0078 F921D0E5 		ldrb	r2, [r0, #505]	@ zero_extendqisi2
+  71 007c 01308CE2 		add	r3, ip, #1
+  72 0080 F43180E5 		str	r3, [r0, #500]
+  73 0084 0C20C0E7 		strb	r2, [r0, ip]
+  74 0088 1EFF2FE1 		bx	lr
+  76              		.align	2
+  77              		.global	lprotocol_datagram_decoder_reset
+  79              	lprotocol_datagram_decoder_reset:
+  80              		@ args = 0, pretend = 0, frame = 0
+  81              		@ frame_needed = 0, uses_anonymous_args = 0
+  82              		@ link register save eliminated.
+  83 008c 0030A0E3 		mov	r3, #0
+  84              		@ lr needed for prologue
+  85 0090 F931C0E5 		strb	r3, [r0, #505]
+  86 0094 F831C0E5 		strb	r3, [r0, #504]
+  87 0098 F43180E5 		str	r3, [r0, #500]
+  88 009c 1EFF2FE1 		bx	lr
+  90              		.align	2
+  91              		.global	lprotocol_datagram_decoder_retrieve_data
+  93              	lprotocol_datagram_decoder_retrieve_data:
+  94              		@ args = 0, pretend = 0, frame = 0
+  95              		@ frame_needed = 0, uses_anonymous_args = 0
+  96 00a0 30402DE9 		stmfd	sp!, {r4, r5, lr}
+  97 00a4 0130D1E5 		ldrb	r3, [r1, #1]	@ zero_extendqisi2
+  98 00a8 0050A0E3 		mov	r5, #0
+  99 00ac 5430C0E5 		strb	r3, [r0, #84]
+ 100 00b0 505080E5 		str	r5, [r0, #80]
+ 101 00b4 F43191E5 		ldr	r3, [r1, #500]
+ 102 00b8 040053E3 		cmp	r3, #4
+ 103 00bc 01E0A0E1 		mov	lr, r1
+ 104 00c0 0040A0E1 		mov	r4, r0
+ 105 00c4 3080BD98 		ldmlsfd	sp!, {r4, r5, pc}
+ 106 00c8 013043E2 		sub	r3, r3, #1
+ 107 00cc 040053E3 		cmp	r3, #4
+ 108 00d0 3080BD98 		ldmlsfd	sp!, {r4, r5, pc}
+ 109 00d4 0400A0E3 		mov	r0, #4
+ 110 00d8 04C0A0E1 		mov	ip, r4
+ 111              	.L20:
+ 112 00dc 0310DEE5 		ldrb	r1, [lr, #3]	@ zero_extendqisi2
+ 113 00e0 012085E2 		add	r2, r5, #1
+ 114 00e4 28108CE5 		str	r1, [ip, #40]
+ 115 00e8 502084E5 		str	r2, [r4, #80]
+ 116 00ec 00308EE0 		add	r3, lr, r0
+ 117 00f0 053184E7 		str	r3, [r4, r5, asl #2]
+ 118 00f4 F4319EE5 		ldr	r3, [lr, #500]
+ 119 00f8 010080E0 		add	r0, r0, r1
+ 120 00fc 013043E2 		sub	r3, r3, #1
+ 121 0100 000053E1 		cmp	r3, r0
+ 122 0104 0250A0E1 		mov	r5, r2
+ 123 0108 04C08CE2 		add	ip, ip, #4
+ 124 010c 3500008A 		bhi	.L20
+ 125 0110 3080BDE8 		ldmfd	sp!, {r4, r5, pc}
+ 127              		.align	2
+ 128              		.global	lprotocol_datagram_decoder_process_received_byte
+ 130              	lprotocol_datagram_decoder_process_received_byte:
+ 131              		@ args = 0, pretend = 0, frame = 0
+ 132              		@ frame_needed = 0, uses_anonymous_args = 0
+ 133 0114 10402DE9 		stmfd	sp!, {r4, lr}
+ 134 0118 F831D1E5 		ldrb	r3, [r1, #504]	@ zero_extendqisi2
+ 135 011c 050053E3 		cmp	r3, #5
+ 136 0120 01C0A0E1 		mov	ip, r1
+ 137 0124 FF4000E2 		and	r4, r0, #255
+ 138 0128 02E0E003 		mvneq	lr, #2
+ 139 012c 4C00001A 		bne	.L42
+ 140              	.L26:
+ 141 0130 0E00A0E1 		mov	r0, lr
+ 142 0134 1080BDE8 		ldmfd	sp!, {r4, pc}
+ 143              	.L42:
+ 144 0138 060053E3 		cmp	r3, #6
+ 145 013c 01E0E003 		mvneq	lr, #1
+ 146 0140 4A00000A 		beq	.L26
+ 147 0144 040053E3 		cmp	r3, #4
+ 148 0148 03F19F97 		ldrls	pc, [pc, r3, asl #2]
+ 149 014c 670000EA 		b	.L29
+ 150              		.p2align 2
+ 151              	.L35:
+ 152 0150 AC010000 		.word	.L30
+ 153 0154 D8010000 		.word	.L31
+ 154 0158 64010000 		.word	.L32
+ 155 015c 04020000 		.word	.L33
+ 156 0160 40020000 		.word	.L34
+ 157              	.L32:
+ 158 0164 F41191E5 		ldr	r1, [r1, #500]
+ 159 0168 0140CCE7 		strb	r4, [ip, r1]
+ 160 016c 0230DCE5 		ldrb	r3, [ip, #2]	@ zero_extendqisi2
+ 161 0170 011081E2 		add	r1, r1, #1
+ 162 0174 013043E2 		sub	r3, r3, #1
+ 163 0178 030051E1 		cmp	r1, r3
+ 164 017c F921DCE5 		ldrb	r2, [ip, #505]	@ zero_extendqisi2
+ 165 0180 0330A0E3 		mov	r3, #3
+ 166 0184 01E0A023 		movcs	lr, #1
+ 167 0188 F831CCE5 		strb	r3, [ip, #504]
+ 168 018c 022084E0 		add	r2, r4, r2
+ 169 0190 0E308320 		addcs	r3, r3, lr
+ 170 0194 F921CCE5 		strb	r2, [ip, #505]
+ 171 0198 F4118CE5 		str	r1, [ip, #500]
+ 172 019c F831CC25 		strcsb	r3, [ip, #504]
+ 173 01a0 4A00002A 		bcs	.L26
+ 174              	.L29:
+ 175 01a4 01E0A0E3 		mov	lr, #1
+ 176 01a8 4A0000EA 		b	.L26
+ 177              	.L30:
+ 178 01ac 230054E3 		cmp	r4, #35
+ 179 01b0 6700001A 		bne	.L29
+ 180 01b4 F41191E5 		ldr	r1, [r1, #500]
+ 181 01b8 0120A0E3 		mov	r2, #1
+ 182 01bc 023081E0 		add	r3, r1, r2
+ 183 01c0 02E0A0E1 		mov	lr, r2
+ 184 01c4 F4318CE5 		str	r3, [ip, #500]
+ 185 01c8 F941CCE5 		strb	r4, [ip, #505]
+ 186 01cc F821CCE5 		strb	r2, [ip, #504]
+ 187 01d0 0140CCE7 		strb	r4, [ip, r1]
+ 188 01d4 4A0000EA 		b	.L26
+ 189              	.L31:
+ 190 01d8 F40191E5 		ldr	r0, [r1, #500]
+ 191 01dc F921D1E5 		ldrb	r2, [r1, #505]	@ zero_extendqisi2
+ 192 01e0 0230A0E3 		mov	r3, #2
+ 193 01e4 022084E0 		add	r2, r4, r2
+ 194 01e8 011080E2 		add	r1, r0, #1
+ 195 01ec 01E0A0E3 		mov	lr, #1
+ 196 01f0 F831CCE5 		strb	r3, [ip, #504]
+ 197 01f4 F4118CE5 		str	r1, [ip, #500]
+ 198 01f8 F921CCE5 		strb	r2, [ip, #505]
+ 199 01fc 0040CCE7 		strb	r4, [ip, r0]
+ 200 0200 4A0000EA 		b	.L26
+ 201              	.L33:
+ 202 0204 F43191E5 		ldr	r3, [r1, #500]
+ 203 0208 0340C1E7 		strb	r4, [r1, r3]
+ 204 020c 0220D1E5 		ldrb	r2, [r1, #2]	@ zero_extendqisi2
+ 205 0210 013083E2 		add	r3, r3, #1
+ 206 0214 F911D1E5 		ldrb	r1, [r1, #505]	@ zero_extendqisi2
+ 207 0218 012042E2 		sub	r2, r2, #1
+ 208 021c 020053E1 		cmp	r3, r2
+ 209 0220 011084E0 		add	r1, r4, r1
+ 210 0224 F4318CE5 		str	r3, [ip, #500]
+ 211 0228 0430A023 		movcs	r3, #4
+ 212 022c F911CCE5 		strb	r1, [ip, #505]
+ 213 0230 01E0A023 		movcs	lr, #1
+ 214 0234 F831CC25 		strcsb	r3, [ip, #504]
+ 215 0238 4A00002A 		bcs	.L26
+ 216 023c 670000EA 		b	.L29
+ 217              	.L34:
+ 218 0240 F921D1E5 		ldrb	r2, [r1, #505]	@ zero_extendqisi2
+ 219 0244 F43191E5 		ldr	r3, [r1, #500]
+ 220 0248 040052E1 		cmp	r2, r4
+ 221 024c 011083E2 		add	r1, r3, #1
+ 222 0250 0340CCE7 		strb	r4, [ip, r3]
+ 223 0254 02E0A003 		moveq	lr, #2
+ 224 0258 0530A003 		moveq	r3, #5
+ 225 025c 0630A013 		movne	r3, #6
+ 226 0260 01E0E013 		mvnne	lr, #1
+ 227 0264 F4118CE5 		str	r1, [ip, #500]
+ 228 0268 F831CC05 		streqb	r3, [ip, #504]
+ 229 026c F831CC15 		strneb	r3, [ip, #504]
+ 230 0270 4A0000EA 		b	.L26
+ 232              		.align	2
+ 233              		.global	lprotocol_datagram_encoder_insert_data
+ 235              	lprotocol_datagram_encoder_insert_data:
+ 236              		@ args = 0, pretend = 0, frame = 0
+ 237              		@ frame_needed = 0, uses_anonymous_args = 0
+ 238 0274 F43192E5 		ldr	r3, [r2, #500]
+ 239 0278 030053E3 		cmp	r3, #3
+ 240 027c 30402DE9 		stmfd	sp!, {r4, r5, lr}
+ 241 0280 01308302 		addeq	r3, r3, #1
+ 242 0284 0240A0E1 		mov	r4, r2
+ 243 0288 0150A0E1 		mov	r5, r1
+ 244 028c 0120A0E1 		mov	r2, r1
+ 245 0290 F4318405 		streq	r3, [r4, #500]
+ 246 0294 0010A0E1 		mov	r1, r0
+ 247 0298 0350C405 		streqb	r5, [r4, #3]
+ 248 029c 030084E0 		add	r0, r4, r3
+ 249 02a0 FEFFFFEB 		bl	memcpy
+ 250 02a4 F43194E5 		ldr	r3, [r4, #500]
+ 251 02a8 053083E0 		add	r3, r3, r5
+ 252 02ac F43184E5 		str	r3, [r4, #500]
+ 253 02b0 3080BDE8 		ldmfd	sp!, {r4, r5, pc}
+ 255              		.ident	"GCC: (GNU) 4.1.0"
+DEFINED SYMBOLS
+                            *ABS*:00000000 lprotocol.c
+     /tmp/ccwCgOrO.s:6      .text:00000000 lprotocol_init
+     /tmp/ccwCgOrO.s:10     .text:00000000 $a
+     /tmp/ccwCgOrO.s:17     .text:00000008 lprotocol_close
+     /tmp/ccwCgOrO.s:27     .text:0000000c lprotocol_datagram_encoder_init
+     /tmp/ccwCgOrO.s:48     .text:0000003c lprotocol_datagram_encoder_end
+     /tmp/ccwCgOrO.s:79     .text:0000008c lprotocol_datagram_decoder_reset
+     /tmp/ccwCgOrO.s:93     .text:000000a0 lprotocol_datagram_decoder_retrieve_data
+     /tmp/ccwCgOrO.s:130    .text:00000114 lprotocol_datagram_decoder_process_received_byte
+     /tmp/ccwCgOrO.s:152    .text:00000150 $d
+     /tmp/ccwCgOrO.s:158    .text:00000164 $a
+     /tmp/ccwCgOrO.s:235    .text:00000274 lprotocol_datagram_encoder_insert_data
+
+UNDEFINED SYMBOLS
+memcpy

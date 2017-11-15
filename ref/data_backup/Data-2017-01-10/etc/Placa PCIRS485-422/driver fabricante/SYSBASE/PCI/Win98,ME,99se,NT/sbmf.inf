@@ -1,0 +1,413 @@
+;********************************************************************
+;*     File:   sbmf.inf
+;*                   
+;*     Description:
+;*             Multifunction installer for MPCI products (Win9x/Win2000)
+;*             Loads the enumerators, which create the child devnodes
+;*      
+;********************************************************************
+
+[Version]
+Signature="$CHICAGO$"
+Class=MultiFunction
+ClassGuid={4D36E971-E325-11CE-BFC1-08002BE10318}
+Provider=%mfg%
+;CatalogFile=Oxpci.cat		; .cat for Win 95/98/Me binaries
+;CatalogFile.NT=OxpciNT.cat	; Different .cat for Win2k binaries
+; Win98 doesn't recognise DriverVer in [version] section, so this tag is copied
+; in its DDInstall sections
+DriverVer=01/02/2003,3.0.0.1
+
+[DestinationDirs]
+DefaultDestDir=11		; LDID_SYS
+Drv.NT.Copy=12			; LDID_DRIVER
+dll.NT.Copy=11			; LDID_SYS
+Inf.NT.Copy=17			; LDID_INF
+Drv.Copy=11				; Win98/Me LDID_SYS
+
+; Install class "Multifunction"
+;----------------------------------------------------------
+[ClassInstall]
+AddReg=MF_Class.AddReg
+
+[MF_Class.AddReg]
+HKR,,,,%MF_ClassName%
+
+[ClassInstall32.NT]
+AddReg=MF_Class.NT.AddReg
+
+[MF_Class.NT.AddReg]
+HKR,,,,%MF_ClassName%
+HKR,,Class,,"MultiFunction"
+HKR,,NoInstallClass,,"1"
+
+; Drivers
+;----------------------------------------------------------
+
+[Manufacturer]
+%mfg%=mfg
+
+;List of available devices
+[mfg]
+%SYSBAS_1PORT.DeviceDesc% = PCI_4D01, PCI\VEN_14a1&DEV_4d01&REV_70,PCI\VEN_14a1&DEV_4d01&REV_80,PCI\VEN_14a1&DEV_4d01&REV_90,PCI\VEN_14a1&DEV_4d01&REV_B0
+%SYSBAS_2PORT.DeviceDesc% = PCI_4D02, PCI\VEN_14a1&DEV_4d02&REV_70,PCI\VEN_14a1&DEV_4d02&REV_71,PCI\VEN_14a1&DEV_4d02&REV_80,PCI\VEN_14a1&DEV_4d02&REV_81,PCI\VEN_14a1&DEV_4d02&REV_90,PCI\VEN_14a1&DEV_4d02&REV_B0
+%SYSBAS_4PORT.DeviceDesc% = PCI_0004, PCI\VEN_14a1&DEV_0004&REV_70,PCI\VEN_14a1&DEV_0004&REV_80,PCI\VEN_14a1&DEV_0004&REV_90,PCI\VEN_14a1&DEV_0004&REV_B0
+%SYSBAS_4PORT.DeviceDesc% = PCI_0604, PCI\VEN_14a1&DEV_0604,PCI\VEN_14a1&DEV_0604&REV_B0
+%SYSBAS_8PORT.DeviceDesc% = PCI_0008, PCI\VEN_14a1&DEV_0008&REV_70,PCI\VEN_14a1&DEV_0008&REV_80,PCI\VEN_14a1&DEV_0008&REV_90,PCI\VEN_14a1&DEV_0008&REV_B0
+%SYSBAS_16PORT.DeviceDesc% = PCI_0016, PCI\VEN_14a1&DEV_0016,PCI\VEN_14a1&DEV_0016&REV_B0
+%SYSBAS_32PORT.DeviceDesc% = PCI_0032, PCI\VEN_14a1&DEV_0032&REV_70,PCI\VEN_14a1&DEV_0032&REV_80,PCI\VEN_14a1&DEV_0032&REV_90,PCI\VEN_14a1&DEV_0032&REV_B0
+%SYSBAS_4JAPORT.DeviceDesc% = PCI_0004JA, PCI\VEN_14a1&DEV_0004&REV_91
+%SYSBAS_4JAPORT.DeviceDesc% = PCI_0004JAX, PCI\VEN_14a1&DEV_0E04&REV_82,PCI\VEN_14a1&DEV_0E04&REV_B0
+
+; ******************* Install MPCI 1 *****************
+; ----------------- Windows 98 Section ---------------
+[PCI_4D01]
+AddReg=SbMp.W95.AddReg
+
+[PCI_4D01.HW]
+AddReg=PCI_4D01.HW.AddReg
+
+[PCI_4D01.HW.AddReg]
+HKR,Child0000,HardwareID,,MF\M1_PORT0
+HKR,Child0000,ResourceMap,1,01,00
+; ----------------------------------------------------
+
+[PCI_4D01.NT]
+CopyFiles=Drv.NT.Copy, dll.NT.Copy, Inf.NT.Copy
+DelReg=DriverVer.DelReg
+AddReg=DriverVer.AddReg
+
+[PCI_4D01.NT.HW]
+AddReg=PCI_4D01.NT.HW.AddReg
+[PCI_4D01.NT.HW.AddReg]
+HKR,,"SbDeviceType", 	0x00010001,	0x4D010000
+
+[PCI_4D01.NT.Services]
+AddService = sbmf, 0x00000002, mf_Service_Inst
+
+; ******************* Install MPCI 2 *****************
+; ----------------- Windows 98 Section ---------------
+[PCI_4D02]
+AddReg=SbMp.W95.AddReg
+
+[PCI_4D02.HW]
+AddReg=PCI_4D02.HW.AddReg
+[PCI_4D02.HW.AddReg]
+HKR,Child0000,HardwareID,,MF\M2_PORT0
+HKR,Child0000,ResourceMap,1,01,00
+HKR,Child0001,HardwareID,,MF\M2_PORT1
+HKR,Child0001,ResourceMap,1,01,00
+; ----------------------------------------------------
+
+[PCI_4D02.NT]
+CopyFiles=Drv.NT.Copy, dll.NT.Copy, Inf.NT.Copy
+DelReg=DriverVer.DelReg
+AddReg=DriverVer.AddReg
+
+[PCI_4D02.NT.HW]
+AddReg=PCI_4D02.NT.HW.AddReg
+[PCI_4D02.NT.HW.AddReg]
+HKR,,"SbDeviceType", 	0x00010001,	0x4D020000
+
+[PCI_4D02.NT.Services]
+AddService = sbmf, 0x00000002, mf_Service_Inst
+
+; ******************* Install MPCI 4 *****************
+; ----------------- Windows 98 Section ---------------
+[PCI_0004]
+AddReg=SbMp.W95.AddReg
+
+[PCI_0004.HW]
+AddReg=PCI_0004.HW.AddReg
+[PCI_0004.HW.AddReg]
+HKR,Child0000,HardwareID,,MF\M4_PORT0
+HKR,Child0000,ResourceMap,1,01,00
+HKR,Child0001,HardwareID,,MF\M4_PORT1
+HKR,Child0001,ResourceMap,1,01,00
+HKR,Child0002,HardwareID,,MF\M4_PORT2
+HKR,Child0002,ResourceMap,1,01,00
+HKR,Child0003,HardwareID,,MF\M4_PORT3
+HKR,Child0003,ResourceMap,1,01,00
+; ----------------------------------------------------
+
+[PCI_0004.NT]
+CopyFiles=Drv.NT.Copy, dll.NT.Copy, Inf.NT.Copy
+DelReg=DriverVer.DelReg
+AddReg=DriverVer.AddReg
+
+[PCI_0004.NT.HW]
+AddReg=PCI_0004.NT.HW.AddReg
+[PCI_0004.NT.HW.AddReg]
+HKR,,"SbDeviceType", 	0x00010001,	0x00040000
+
+[PCI_0004.NT.Services]
+AddService = sbmf, 0x00000002, mf_Service_Inst
+
+; ******************* Install MPCI 4 *****************
+; ----------------- Windows 98 Section ---------------
+[PCI_0604]
+AddReg=SbMp.W95.AddReg
+
+[PCI_0604.HW]
+AddReg=PCI_0604.HW.AddReg
+[PCI_0604.HW.AddReg]
+HKR,Child0000,HardwareID,,MF\M4_PORT0
+HKR,Child0000,ResourceMap,1,01,00
+HKR,Child0001,HardwareID,,MF\M4_PORT1
+HKR,Child0001,ResourceMap,1,01,00
+HKR,Child0002,HardwareID,,MF\M4_PORT2
+HKR,Child0002,ResourceMap,1,01,00
+HKR,Child0003,HardwareID,,MF\M4_PORT3
+HKR,Child0003,ResourceMap,1,01,00
+; ----------------------------------------------------
+
+[PCI_0604.NT]
+CopyFiles=Drv.NT.Copy, dll.NT.Copy, Inf.NT.Copy
+DelReg=DriverVer.DelReg
+AddReg=DriverVer.AddReg
+
+[PCI_0604.NT.HW]
+AddReg=PCI_0604.NT.HW.AddReg
+[PCI_0604.NT.HW.AddReg]
+HKR,,"SbDeviceType", 	0x00010001,	0x06040000
+
+[PCI_0604.NT.Services]
+AddService = sbmf, 0x00000002, mf_Service_Inst
+
+
+; ******************* Install MPCI 8 *****************
+; ----------------- Windows 98 Section ---------------
+[PCI_0008]
+AddReg=SbMp.W95.AddReg
+
+[PCI_0008.HW]
+AddReg=PCI_0008.HW.AddReg
+[PCI_0008.HW.AddReg]
+HKR,Child0000,HardwareID,,MF\M8_PORT0
+HKR,Child0000,ResourceMap,1,01,00
+HKR,Child0001,HardwareID,,MF\M8_PORT1
+HKR,Child0001,ResourceMap,1,01,00
+HKR,Child0002,HardwareID,,MF\M8_PORT2
+HKR,Child0002,ResourceMap,1,01,00
+HKR,Child0003,HardwareID,,MF\M8_PORT3
+HKR,Child0003,ResourceMap,1,01,00
+HKR,Child0004,HardwareID,,MF\M8_PORT4
+HKR,Child0004,ResourceMap,1,01,00
+HKR,Child0005,HardwareID,,MF\M8_PORT5
+HKR,Child0005,ResourceMap,1,01,00
+HKR,Child0006,HardwareID,,MF\M8_PORT6
+HKR,Child0006,ResourceMap,1,01,00
+HKR,Child0007,HardwareID,,MF\M8_PORT7
+HKR,Child0007,ResourceMap,1,01,00
+; ----------------------------------------------------
+
+[PCI_0008.NT]
+CopyFiles=Drv.NT.Copy, dll.NT.Copy, Inf.NT.Copy
+DelReg=DriverVer.DelReg
+AddReg=DriverVer.AddReg
+
+[PCI_0008.NT.HW]
+AddReg=PCI_0008.NT.HW.AddReg
+[PCI_0008.NT.HW.AddReg]
+HKR,,"SbDeviceType", 	0x00010001,	0x00080000
+
+[PCI_0008.NT.Services]
+AddService = sbmf, 0x00000002, mf_Service_Inst
+
+; ******************* Install MPCI 16 *****************
+; ----------------- Windows 98 Section ---------------
+[PCI_0016]
+AddReg=SbMp.W95.AddReg
+
+[PCI_0016.HW]
+AddReg=PCI_0016.HW.AddReg
+[PCI_0016.HW.AddReg]
+HKR,Child0000,HardwareID,,MF\M16_PORT0
+HKR,Child0000,ResourceMap,1,01,00
+HKR,Child0001,HardwareID,,MF\M16_PORT1
+HKR,Child0001,ResourceMap,1,01,00
+HKR,Child0002,HardwareID,,MF\M16_PORT2
+HKR,Child0002,ResourceMap,1,01,00
+HKR,Child0003,HardwareID,,MF\M16_PORT3
+HKR,Child0003,ResourceMap,1,01,00
+HKR,Child0004,HardwareID,,MF\M16_PORT4
+HKR,Child0004,ResourceMap,1,01,00
+HKR,Child0005,HardwareID,,MF\M16_PORT5
+HKR,Child0005,ResourceMap,1,01,00
+HKR,Child0006,HardwareID,,MF\M16_PORT6
+HKR,Child0006,ResourceMap,1,01,00
+HKR,Child0007,HardwareID,,MF\M16_PORT7
+HKR,Child0007,ResourceMap,1,01,00
+HKR,Child0008,HardwareID,,MF\M16_PORT8
+HKR,Child0008,ResourceMap,1,01,00
+HKR,Child0009,HardwareID,,MF\M16_PORT9
+HKR,Child0009,ResourceMap,1,01,00
+HKR,Child000A,HardwareID,,MF\M16_PORT10
+HKR,Child000A,ResourceMap,1,01,00
+HKR,Child000B,HardwareID,,MF\M16_PORT11
+HKR,Child000B,ResourceMap,1,01,00
+HKR,Child000C,HardwareID,,MF\M16_PORT12
+HKR,Child000C,ResourceMap,1,01,00
+HKR,Child000D,HardwareID,,MF\M16_PORT13
+HKR,Child000D,ResourceMap,1,01,00
+HKR,Child000E,HardwareID,,MF\M16_PORT14
+HKR,Child000E,ResourceMap,1,01,00
+HKR,Child000F,HardwareID,,MF\M16_PORT15
+HKR,Child000F,ResourceMap,1,01,00
+; ----------------------------------------------------
+
+[PCI_0016.NT]
+CopyFiles=Drv.NT.Copy, dll.NT.Copy, Inf.NT.Copy
+DelReg=DriverVer.DelReg
+AddReg=DriverVer.AddReg
+
+[PCI_0016.NT.HW]
+AddReg=PCI_0016.NT.HW.AddReg
+[PCI_0016.NT.HW.AddReg]
+HKR,,"SbDeviceType", 	0x00010001,	0x00160000
+
+[PCI_0016.NT.Services]
+AddService = sbmf, 0x00000002, mf_Service_Inst
+
+; ******************* Install MPCI 32 *****************
+; ----------------- Windows 98 Section ---------------
+[PCI_0032]
+AddReg=SbMp.W95.AddReg
+CopyFiles=Drv.Copy
+LogConfig=caa
+
+[PCI_0032.HW]
+AddReg=PCI_0032.HW.AddReg
+[PCI_0032.HW.AddReg]
+; ----------------------------------------------------
+
+[PCI_0032.NT]
+CopyFiles=Drv.NT.Copy, dll.NT.Copy, Inf.NT.Copy
+DelReg=DriverVer.DelReg
+AddReg=DriverVer.AddReg
+
+[PCI_0032.NT.HW]
+AddReg=PCI_0032.NT.HW.AddReg
+[PCI_0032.NT.HW.AddReg]
+HKR,,"SbDeviceType", 	0x00010001,	0x00320000
+
+[PCI_0032.NT.Services]
+AddService = sbmf, 0x00000002, mf_Service_Inst
+
+; ******************* Install MPCI 4JA *****************
+; ----------------- Windows 98 Section ---------------
+[PCI_0004JA]
+AddReg=SbMp.W95.AddReg
+
+[PCI_0004JA.HW]
+AddReg=PCI_0004.HW.AddReg
+; ----------------------------------------------------
+
+[PCI_0004JA.NT]
+CopyFiles=Drv.NT.Copy, dll.NT.Copy, Inf.NT.Copy
+DelReg=DriverVer.DelReg
+AddReg=DriverVer.AddReg
+
+[PCI_0004JA.NT.HW]
+AddReg=PCI_0004JA.NT.HW.AddReg
+[PCI_0004JA.NT.HW.AddReg]
+HKR,,"SbDeviceType", 	0x00010001,	0x00040091
+
+[PCI_0004JA.NT.Services]
+AddService = sbmf, 0x00000002, mf_Service_Inst
+
+; ******************* Install MPCI 4JAX *****************
+; ----------------- Windows 98 Section ---------------
+[PCI_0004JAX]
+AddReg=SbMp.W95.AddReg
+
+[PCI_0004JAX.HW]
+AddReg=PCI_0004.HW.AddReg
+; ----------------------------------------------------
+
+[PCI_0004JAX.NT]
+CopyFiles=Drv.NT.Copy, dll.NT.Copy, Inf.NT.Copy
+DelReg=DriverVer.DelReg
+AddReg=DriverVer.AddReg
+
+[PCI_0004JAX.NT.HW]
+AddReg=PCI_0004JAX.NT.HW.AddReg
+
+[PCI_0004JAX.NT.HW.AddReg]
+HKR,,"SbDeviceType", 	0x00010001,	0x0E040082
+
+[PCI_0004JAX.NT.Services]
+AddService = sbmf, 0x00000002, mf_Service_Inst
+
+
+; ----------------- Windows 98 Section ---------------
+[SbMp.W95.AddReg]
+HKR,,DevLoader,0,*CONFIGMG
+HKR,,Enumerator,0,*CONFIGMG
+HKR,,CMDrivFlags,1,03,00,00,00
+
+[caa]
+ConfigPriority=HARDRECONFIG
+IRQConfig=3,4,5,6,7,9,10,11,12,14,15
+; ----------------------------------------------------
+
+; ****************** copyfiles, registry etc.
+[Drv.Copy]
+sbmp.vxd
+
+[Drv.NT.Copy]
+sbmf.sys
+sbmfuf.sys
+sbser.sys
+
+[dll.NT.Copy]
+;oxui.dll
+sbui.dll
+
+[Inf.NT.Copy]
+sbmf.inf
+sbser.inf
+sbmdm.inf
+
+[mf_Service_Inst]
+DisplayName    = %oxmf_driverdescstring%
+ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
+StartType      = 1               ; SERVICE_SYSTEM_START (this driver may do detection)
+ErrorControl   = 0               ; SERVICE_ERROR_IGNORE
+ServiceBinary  = %12%\sbmf.sys
+LoadOrderGroup = Extended base
+
+[DriverVer.AddReg]
+HKR,,Ver,,%OXPCIVersion%
+HKR,,EnumPropPages32,,"sbui.dll,SerialPropPageProvider"
+
+[DriverVer.DelReg]
+HKR,,Ver
+
+[SourceDisksNames]
+1=%drvdisk%,,
+
+[SourceDisksFiles]
+sbmf.sys=1
+sbmfuf.sys=1
+sbser.sys=1
+;oxui.dll=1
+sbui.dll=1
+sbmf.inf=1
+sbser.inf=1
+sbmp.vxd=1
+
+[Strings]
+mfg                                     = " "
+MF_ClassName				= "Multifunction adapters"
+drvDisk					= "Enhanced Serial Multi-port driver disk"
+OXPCIVersion				= "3.0.0"
+oxmf_driverdescstring                   = "Multiport Bus enumerator 1.62"
+
+SYSBAS_1PORT.DeviceDesc="Enhanced Serial Multi-1/PCI"
+SYSBAS_2PORT.DeviceDesc="Enhanced Serial Multi-2/PCI"
+SYSBAS_4PORT.DeviceDesc="Enhanced Serial Multi-4/PCI"
+SYSBAS_8PORT.DeviceDesc="Enhanced Serial Multi-8/PCI"
+SYSBAS_16PORT.DeviceDesc="Enhanced Serial Multi-16/PCI"
+SYSBAS_32PORT.DeviceDesc="Enhanced Serial Multi-32/PCI"
+SYSBAS_4JAPORT.DeviceDesc="Enhanced Serial Multi-4(JA)/PCI"

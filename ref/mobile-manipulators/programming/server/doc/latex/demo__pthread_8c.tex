@@ -1,0 +1,431 @@
+\section{demo\_\-pthread.c File Reference}
+\label{demo__pthread_8c}\index{demo\_\-pthread.c@{demo\_\-pthread.c}}
+{\ttfamily \#include $<$math.h$>$}\par
+{\ttfamily \#include $<$time.h$>$}\par
+{\ttfamily \#include $<$stdio.h$>$}\par
+{\ttfamily \#include $<$errno.h$>$}\par
+{\ttfamily \#include $<$stdlib.h$>$}\par
+{\ttfamily \#include $<$string.h$>$}\par
+{\ttfamily \#include $<$signal.h$>$}\par
+{\ttfamily \#include $<$sys/io.h$>$}\par
+{\ttfamily \#include $<$sys/time.h$>$}\par
+{\ttfamily \#include $<$unistd.h$>$}\par
+{\ttfamily \#include $<$pthread.h$>$}\par
+{\ttfamily \#include $<$termios.h$>$}\par
+{\ttfamily \#include $<$fcntl.h$>$}\par
+{\ttfamily \#include \char`\"{}../gqueue.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}../gmatlabdatafile.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}../gdatalogger.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf ENABLE\_\-SPEAKER\_\-TEST}~0
+\item 
+\#define {\bf SPEAKER\_\-CNTRL}~0x61
+\item 
+\#define {\bf TASK\_\-PERIOD\_\-US}~10000
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int {\bf getch} (void)
+\item 
+int {\bf kbhit} (void)
+\item 
+int {\bf main} (void)
+\item 
+void {\bf timer\_\-function} (union sigval sigval)
+\item 
+void {\bf timer\_\-function} (union sigval sigval)
+\item 
+void {\bf timer\_\-start} (void)
+\item 
+void {\bf timer\_\-stop} (void)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+long int {\bf counter} = 0
+\item 
+{\bf GDATALOGGER} {\bf gDataLogger}
+\item 
+double {\bf MatA} [3][1]
+\item 
+double {\bf MatB} [4][2]
+\item 
+volatile double {\bf tempo} = 0.0
+\item 
+double {\bf Tglobal}
+\item 
+timer\_\-t {\bf timer}
+\item 
+int {\bf timer\_\-nr}
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\index{demo\_\-pthread.c@{demo\_\-pthread.c}!ENABLE\_\-SPEAKER\_\-TEST@{ENABLE\_\-SPEAKER\_\-TEST}}
+\index{ENABLE\_\-SPEAKER\_\-TEST@{ENABLE\_\-SPEAKER\_\-TEST}!demo_pthread.c@{demo\_\-pthread.c}}
+\subsubsection[{ENABLE\_\-SPEAKER\_\-TEST}]{\setlength{\rightskip}{0pt plus 5cm}\#define ENABLE\_\-SPEAKER\_\-TEST~0}\label{demo__pthread_8c_a8c5d779c37c5f2f379069b4ef479edc2}
+
+
+Definition at line 26 of file demo\_\-pthread.c.\index{demo\_\-pthread.c@{demo\_\-pthread.c}!SPEAKER\_\-CNTRL@{SPEAKER\_\-CNTRL}}
+\index{SPEAKER\_\-CNTRL@{SPEAKER\_\-CNTRL}!demo_pthread.c@{demo\_\-pthread.c}}
+\subsubsection[{SPEAKER\_\-CNTRL}]{\setlength{\rightskip}{0pt plus 5cm}\#define SPEAKER\_\-CNTRL~0x61}\label{demo__pthread_8c_a23052f1fcc2787845f86691870d19e7d}
+
+
+Definition at line 24 of file demo\_\-pthread.c.\index{demo\_\-pthread.c@{demo\_\-pthread.c}!TASK\_\-PERIOD\_\-US@{TASK\_\-PERIOD\_\-US}}
+\index{TASK\_\-PERIOD\_\-US@{TASK\_\-PERIOD\_\-US}!demo_pthread.c@{demo\_\-pthread.c}}
+\subsubsection[{TASK\_\-PERIOD\_\-US}]{\setlength{\rightskip}{0pt plus 5cm}\#define TASK\_\-PERIOD\_\-US~10000}\label{demo__pthread_8c_a90ea65b0bef46daf21cc93c6c0c45760}
+
+
+Definition at line 28 of file demo\_\-pthread.c.
+
+\subsection{Function Documentation}
+\index{demo\_\-pthread.c@{demo\_\-pthread.c}!getch@{getch}}
+\index{getch@{getch}!demo_pthread.c@{demo\_\-pthread.c}}
+\subsubsection[{getch}]{\setlength{\rightskip}{0pt plus 5cm}int getch (void)}\label{demo__pthread_8c_af5978fab9fa6dd4ced1c3a8ab1251f7b}
+
+
+Definition at line 233 of file demo\_\-pthread.c.
+
+
+\begin{DoxyCode}
+234 {
+235         struct termios oldt,
+236         newt;
+237         int ch;
+238         tcgetattr( STDIN_FILENO, &oldt );
+239         newt = oldt;
+240         newt.c_lflag &= ~( ICANON | ECHO );
+241         tcsetattr( STDIN_FILENO, TCSANOW, &newt );
+242         ch = getchar();
+243         tcsetattr( STDIN_FILENO, TCSANOW, &oldt );
+244         return ch;
+245 }
+\end{DoxyCode}
+\index{demo\_\-pthread.c@{demo\_\-pthread.c}!kbhit@{kbhit}}
+\index{kbhit@{kbhit}!demo_pthread.c@{demo\_\-pthread.c}}
+\subsubsection[{kbhit}]{\setlength{\rightskip}{0pt plus 5cm}int kbhit (void)}\label{demo__pthread_8c_a97e9b1fe8d4c010474637a654aad6566}
+
+
+Definition at line 206 of file demo\_\-pthread.c.
+
+
+\begin{DoxyCode}
+207 {
+208         struct termios oldt, newt;
+209         int ch;
+210         int oldf;
+211 
+212         tcgetattr(STDIN_FILENO, &oldt);
+213         newt = oldt;
+214         newt.c_lflag &= ~(ICANON | ECHO);
+215         tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+216         oldf = fcntl(STDIN_FILENO, F_GETFL, 0);
+217         fcntl(STDIN_FILENO, F_SETFL, oldf | O_NONBLOCK);
+218 
+219         ch = getchar();
+220 
+221         tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+222         fcntl(STDIN_FILENO, F_SETFL, oldf);
+223 
+224         if(ch != EOF)
+225         {
+226         ungetc(ch, stdin);
+227         return 1;
+228         }
+229 
+230         return 0;
+231 }
+\end{DoxyCode}
+\index{demo\_\-pthread.c@{demo\_\-pthread.c}!main@{main}}
+\index{main@{main}!demo_pthread.c@{demo\_\-pthread.c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (void)}\label{demo__pthread_8c_a840291bc02cba5474a4cb46a9b9566fe}
+
+
+Definition at line 49 of file demo\_\-pthread.c.
+
+
+\begin{DoxyCode}
+50 {       
+51         int n;
+52 #if ENABLE_SPEAKER_TEST
+53         timestruct_t timestruct;
+54         double texec;
+55 #endif //ENABLE_SPEAKER_TEST
+56 
+57         // Permissão para acessar I/O
+58 #if ENABLE_SPEAKER_TEST
+59         if(iopl(3)!=0){
+60                 printf("\nErro em ioperm: ");
+61                 int errsv = errno;
+62                 switch(errsv){
+63                 case EINVAL:
+64                         printf("level is greater than 3");
+65                         break;
+66                 case ENOSYS:
+67                         printf("level is greater than 3.");
+68                         break;
+69                 case EPERM:
+70                         printf("The calling process has insufficient privilege to
+       call iopl(); the CAP_SYS_RAWIO capability is required.");
+71                         break;
+72                 }
+73                 return EXIT_FAILURE;
+74         }
+75         outb_p(inb_p(SPEAKER_CNTRL) & 0xFE, SPEAKER_CNTRL);
+76 
+77         time_reset(&timestruct);
+78         outb_p(inb_p(SPEAKER_CNTRL) ^ 0x02, SPEAKER_CNTRL);
+79         texec = time_gettime(&timestruct);
+80 
+81         printf("\n Tempo decorrido em teste de E/S: %f us",1e6*texec); 
+82 #endif //ENABLE_SPEAKER_TEST
+83 
+84         // Data logger:
+85         if(!gDataLogger_Init(&gDataLogger,"matlabdatafiles/gmatlabdatafile.mat",N
+      ULL)){
+86                 printf("\nErro em gDataLogger_Init\n\n");
+87                 return EXIT_FAILURE;
+88         }
+89 
+90         gDataLogger_DeclareVariable(&gDataLogger,"t","s",1,1,1000);
+91         gDataLogger_DeclareVariable(&gDataLogger,"y1","m",1,1,1000);
+92         gDataLogger_DeclareVariable(&gDataLogger,"y2","m",1,1,1000);
+93         gDataLogger_DeclareVariable(&gDataLogger,"y3","m",1,1,1000);
+94         gDataLogger_DeclareVariable(&gDataLogger,"MatA","s",3,1,1000);
+95         gDataLogger_DeclareVariable(&gDataLogger,"MatB","m",4,2,1000);
+96 
+97         // La�o principal
+98     timer_start ();
+99 
+100         n = 0;
+101         while(!kbhit()){
+102                 usleep(20000);
+103                 gDataLogger_IPCUpdate(&gDataLogger); // gerencia IPC
+104                 if(++n>10){
+105                         gDataLogger_MatfileUpdate(&gDataLogger); // esvazia os bu
+      ffers no arquivo de log
+106                         printf("\n Tempo decorrido: %f s. Tglobal = %f ms. counte
+      r = %li",tempo,Tglobal*1000,counter);
+107                         n = 0;
+108                 }
+109         }
+110         printf("\n");
+111 
+112     timer_stop ();
+113 
+114         // Encerramento do data logger:
+115         gDataLogger_Close(&gDataLogger);
+116 
+117     return EXIT_SUCCESS;
+118 }
+\end{DoxyCode}
+\index{demo\_\-pthread.c@{demo\_\-pthread.c}!timer\_\-function@{timer\_\-function}}
+\index{timer\_\-function@{timer\_\-function}!demo_pthread.c@{demo\_\-pthread.c}}
+\subsubsection[{timer\_\-function}]{\setlength{\rightskip}{0pt plus 5cm}void timer\_\-function (union sigval sigval)}\label{demo__pthread_8c_a508e15cd92f2efa357312012ea5e478e}
+
+
+Definition at line 157 of file demo\_\-pthread.c.
+
+
+\begin{DoxyCode}
+158 { 
+159         static int flagfirstexecution = 1,i,j;
+160         double T,y1,y2,y3;
+161         static timestruct_t timestruct;
+162 
+163         // Calculo das variaveis
+164         if(flagfirstexecution){
+165                 flagfirstexecution = 0;
+166                 T = 0.0;
+167         } else {
+168                 T = time_gettime(&timestruct);
+169         }
+170         time_reset(&timestruct);
+171         tempo += T;
+172         y1 = tempo;
+173         y2 = sin(2*3.1415926*tempo);
+174         y3 = cos(2*3.1415926*tempo);
+175         Tglobal = T;
+176 
+177         MatA[0][0] = y1;
+178         MatA[1][0] = y2;
+179         MatA[2][0] = y3;
+180 
+181         for (i=0;i<4;++i){
+182                 for (j=0;j<2;++j){
+183                         MatB[i][j] = i*j;
+184                 }
+185         }
+186         ++counter;
+187 
+188         // Inserir na fila
+189         gDataLogger_InsertVariable(&gDataLogger,"t",(double *)&tempo);
+190         gDataLogger_InsertVariable(&gDataLogger,"y1",&y1);
+191         gDataLogger_InsertVariable(&gDataLogger,"y2",&y2);
+192         gDataLogger_InsertVariable(&gDataLogger,"y3",&y3);
+193         gDataLogger_InsertVariable(&gDataLogger,"MatA",&MatA[0][0]);
+194         gDataLogger_InsertVariable(&gDataLogger,"MatB",&MatB[0][0]);
+195 
+196         // Teste com alto-falante do PC: gera uma onda quadrada com periodo igual
+       ao dobro do periodo da tarefa
+197 #if ENABLE_SPEAKER_TEST
+198 //      outb(inb(SPEAKER_CNTRL) ^ 0x02, SPEAKER_CNTRL);
+199         outb_p(inb_p(SPEAKER_CNTRL) ^ 0x02, SPEAKER_CNTRL);
+200 #endif //ENABLE_SPEAKER_TEST
+201 }
+\end{DoxyCode}
+\index{demo\_\-pthread.c@{demo\_\-pthread.c}!timer\_\-function@{timer\_\-function}}
+\index{timer\_\-function@{timer\_\-function}!demo_pthread.c@{demo\_\-pthread.c}}
+\subsubsection[{timer\_\-function}]{\setlength{\rightskip}{0pt plus 5cm}void timer\_\-function (union sigval {\em sigval})}\label{demo__pthread_8c_a508e15cd92f2efa357312012ea5e478e}
+
+
+Definition at line 157 of file demo\_\-pthread.c.
+
+
+\begin{DoxyCode}
+158 { 
+159         static int flagfirstexecution = 1,i,j;
+160         double T,y1,y2,y3;
+161         static timestruct_t timestruct;
+162 
+163         // Calculo das variaveis
+164         if(flagfirstexecution){
+165                 flagfirstexecution = 0;
+166                 T = 0.0;
+167         } else {
+168                 T = time_gettime(&timestruct);
+169         }
+170         time_reset(&timestruct);
+171         tempo += T;
+172         y1 = tempo;
+173         y2 = sin(2*3.1415926*tempo);
+174         y3 = cos(2*3.1415926*tempo);
+175         Tglobal = T;
+176 
+177         MatA[0][0] = y1;
+178         MatA[1][0] = y2;
+179         MatA[2][0] = y3;
+180 
+181         for (i=0;i<4;++i){
+182                 for (j=0;j<2;++j){
+183                         MatB[i][j] = i*j;
+184                 }
+185         }
+186         ++counter;
+187 
+188         // Inserir na fila
+189         gDataLogger_InsertVariable(&gDataLogger,"t",(double *)&tempo);
+190         gDataLogger_InsertVariable(&gDataLogger,"y1",&y1);
+191         gDataLogger_InsertVariable(&gDataLogger,"y2",&y2);
+192         gDataLogger_InsertVariable(&gDataLogger,"y3",&y3);
+193         gDataLogger_InsertVariable(&gDataLogger,"MatA",&MatA[0][0]);
+194         gDataLogger_InsertVariable(&gDataLogger,"MatB",&MatB[0][0]);
+195 
+196         // Teste com alto-falante do PC: gera uma onda quadrada com periodo igual
+       ao dobro do periodo da tarefa
+197 #if ENABLE_SPEAKER_TEST
+198 //      outb(inb(SPEAKER_CNTRL) ^ 0x02, SPEAKER_CNTRL);
+199         outb_p(inb_p(SPEAKER_CNTRL) ^ 0x02, SPEAKER_CNTRL);
+200 #endif //ENABLE_SPEAKER_TEST
+201 }
+\end{DoxyCode}
+\index{demo\_\-pthread.c@{demo\_\-pthread.c}!timer\_\-start@{timer\_\-start}}
+\index{timer\_\-start@{timer\_\-start}!demo_pthread.c@{demo\_\-pthread.c}}
+\subsubsection[{timer\_\-start}]{\setlength{\rightskip}{0pt plus 5cm}void timer\_\-start (void)}\label{demo__pthread_8c_aeb09db6f93d0e0f5aad6e9d2345793e0}
+
+
+Definition at line 120 of file demo\_\-pthread.c.
+
+
+\begin{DoxyCode}
+121 {
+122     struct itimerspec itimer = { { 1, 0 }, { 1, 0 } };
+123     struct sigevent sigev;
+124 
+125     itimer.it_interval.tv_sec=0;
+126     itimer.it_interval.tv_nsec=TASK_PERIOD_US * 1000; 
+127     itimer.it_value=itimer.it_interval;
+128 
+129     memset (&sigev, 0, sizeof (struct sigevent));
+130     sigev.sigev_value.sival_int = timer_nr;
+131     sigev.sigev_notify = SIGEV_THREAD;
+132     sigev.sigev_notify_attributes = NULL;
+133     sigev.sigev_notify_function = timer_function;
+134 
+135     if (timer_create (CLOCK_REALTIME, &sigev, &timer) < 0)
+136     {
+137         fprintf (stderr, "[%d]: %s\n", __LINE__, strerror (errno));
+138         exit (errno);
+139     }
+140 
+141     if (timer_settime (timer, 0, &itimer, NULL) < 0)
+142     {
+143         fprintf (stderr, "[%d]: %s\n", __LINE__, strerror (errno));
+144         exit (errno);
+145     }
+146 }
+\end{DoxyCode}
+\index{demo\_\-pthread.c@{demo\_\-pthread.c}!timer\_\-stop@{timer\_\-stop}}
+\index{timer\_\-stop@{timer\_\-stop}!demo_pthread.c@{demo\_\-pthread.c}}
+\subsubsection[{timer\_\-stop}]{\setlength{\rightskip}{0pt plus 5cm}void timer\_\-stop (void)}\label{demo__pthread_8c_a37980fc313f86d7f40a3d7643861ed29}
+
+
+Definition at line 148 of file demo\_\-pthread.c.
+
+
+\begin{DoxyCode}
+149 {
+150     if (timer_delete (timer) < 0)
+151     {
+152         fprintf (stderr, "[%d]: %s\n", __LINE__, strerror (errno));
+153         exit (errno);
+154     }
+155 }
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\index{demo\_\-pthread.c@{demo\_\-pthread.c}!counter@{counter}}
+\index{counter@{counter}!demo_pthread.c@{demo\_\-pthread.c}}
+\subsubsection[{counter}]{\setlength{\rightskip}{0pt plus 5cm}long int {\bf counter} = 0}\label{demo__pthread_8c_a82c0c836d4653e610a10c3a571375098}
+
+
+Definition at line 44 of file demo\_\-pthread.c.\index{demo\_\-pthread.c@{demo\_\-pthread.c}!gDataLogger@{gDataLogger}}
+\index{gDataLogger@{gDataLogger}!demo_pthread.c@{demo\_\-pthread.c}}
+\subsubsection[{gDataLogger}]{\setlength{\rightskip}{0pt plus 5cm}{\bf GDATALOGGER} {\bf gDataLogger}}\label{demo__pthread_8c_abe3b9c2c4e21e79c7b046b5986d13acc}
+
+
+Definition at line 39 of file demo\_\-pthread.c.\index{demo\_\-pthread.c@{demo\_\-pthread.c}!MatA@{MatA}}
+\index{MatA@{MatA}!demo_pthread.c@{demo\_\-pthread.c}}
+\subsubsection[{MatA}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf MatA}[3][1]}\label{demo__pthread_8c_a3437d43ee84dba8231980614a749bb3a}
+
+
+Definition at line 30 of file demo\_\-pthread.c.\index{demo\_\-pthread.c@{demo\_\-pthread.c}!MatB@{MatB}}
+\index{MatB@{MatB}!demo_pthread.c@{demo\_\-pthread.c}}
+\subsubsection[{MatB}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf MatB}[4][2]}\label{demo__pthread_8c_a778870de29c0389f060a5430a7a4f98a}
+
+
+Definition at line 31 of file demo\_\-pthread.c.\index{demo\_\-pthread.c@{demo\_\-pthread.c}!tempo@{tempo}}
+\index{tempo@{tempo}!demo_pthread.c@{demo\_\-pthread.c}}
+\subsubsection[{tempo}]{\setlength{\rightskip}{0pt plus 5cm}volatile double {\bf tempo} = 0.0}\label{demo__pthread_8c_a4e5edfd50d3b15477cb4a7677022faec}
+
+
+Definition at line 46 of file demo\_\-pthread.c.\index{demo\_\-pthread.c@{demo\_\-pthread.c}!Tglobal@{Tglobal}}
+\index{Tglobal@{Tglobal}!demo_pthread.c@{demo\_\-pthread.c}}
+\subsubsection[{Tglobal}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf Tglobal}}\label{demo__pthread_8c_a8b54ca78cd2f458eea70b99ac6458d0a}
+
+
+Definition at line 43 of file demo\_\-pthread.c.\index{demo\_\-pthread.c@{demo\_\-pthread.c}!timer@{timer}}
+\index{timer@{timer}!demo_pthread.c@{demo\_\-pthread.c}}
+\subsubsection[{timer}]{\setlength{\rightskip}{0pt plus 5cm}timer\_\-t {\bf timer}}\label{demo__pthread_8c_a1a1e2de3a80567484c9b4d4f20d5a3d0}
+
+
+Definition at line 42 of file demo\_\-pthread.c.\index{demo\_\-pthread.c@{demo\_\-pthread.c}!timer\_\-nr@{timer\_\-nr}}
+\index{timer\_\-nr@{timer\_\-nr}!demo_pthread.c@{demo\_\-pthread.c}}
+\subsubsection[{timer\_\-nr}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf timer\_\-nr}}\label{demo__pthread_8c_a08acd51f63cf91bc834e8b83041998dd}
+
+
+Definition at line 41 of file demo\_\-pthread.c.

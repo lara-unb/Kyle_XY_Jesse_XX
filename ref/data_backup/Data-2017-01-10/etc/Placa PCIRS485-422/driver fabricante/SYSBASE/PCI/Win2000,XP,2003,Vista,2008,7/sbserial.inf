@@ -1,0 +1,150 @@
+;/************************************************************
+;**     File:   sbserial.inf
+;**		      
+;**	Description:
+;**             Installs the serial ports behind a PCI bridge
+;**      
+;************************************************************/
+
+[Version]
+signature="$Windows NT$"
+Class=Ports
+ClassGuid={4D36E978-E325-11CE-BFC1-08002BE10318}
+Provider=%mfg%
+CatalogFile=sbserial.cat		; .cat file (no different binaries)
+DriverVer=01/26/2010, 5.0.6
+
+[DestinationDirs]
+DefaultDestDir  = 11        		;LDID_SYS
+
+; Install class "Ports"
+;----------------------------------------------------------
+[ClassInstall]
+AddReg=PortsClass.AddReg
+
+[PortsClass.AddReg]
+HKR,,,,%PortsClassName%
+
+[ClassInstall32.NT]
+AddReg=PortsClass.NT.AddReg
+
+[PortsClass.NT.AddReg]
+HKR,,,,%PortsClassName%
+HKR,,Icon,,"-23"
+HKR,,Installer32,,"MsPorts.Dll,PortsClassInstaller"
+
+; Drivers
+;----------------------------------------------------------
+[Manufacturer]
+%mfg%=mfg
+
+[mfg]
+%ComPort.DeviceDesc% =	ComPort,	SBMP\*PNP0501
+
+[ControlFlags]
+ExcludeFromSelect=SBMP\*PNP0501
+
+; ************** install serial ports ***********************
+[ComPort]
+DriverVer=03/23/2009, 5.0.5
+CopyFiles=ComPort.Copy
+AddReg=ComPort.AddReg, ComPort.W95.AddReg
+
+[ComPort.NT]
+AddReg=ComPort.AddReg, ComPort.NT.AddReg
+
+[ComPort.NT.HW]
+AddReg=ComPort.NT.HW.AddReg
+
+[ComPort.NT.HW.AddReg]
+HKR,,"UpperFilters",	0x00010000,	"serenum" 	;;MULTI_SZ
+HKR,,"UpperFilters",	0x00010008,	"sbmpf"	;;APPEND
+HKR,,"95xSpecific",	0x00000001,01,00,00,00,00,00,c9,16,20,00,01,00,04,64,10,70,08,00,00,00,00,00,00,10
+HKR,,"ClockRate",	0x00010001, 1843200
+HKR,,"MultiportProperties",0x00010001, 1
+;HKR,,"SkipEnumerations",0x00010001, -1
+
+[ComPort.AddReg]
+HKR,,PortSubClass,1,01
+
+[ComPort.W95.AddReg]
+HKR,,DevLoader,,*vcomm
+HKR,,Enumerator,,serenum.vxd
+HKR,,PortDriver,,sbser.vxd
+HKR,,ConfigDialog,,sbserui.dll
+HKR,,DCB,3,1c,00,00,00,80,25,00,00,11,33,00,00,00,00,0a,00,0a,00,08,00,00,11,13,00,00,00
+HKR,,950Specific,3,00,01,08,10,04,40,40,78,12,14,00,00,00,01,00,00
+HKR,,EnumPropPages,,"sbserui.dll,EnumPropPages"
+
+[ComPort.NT.AddReg]
+;HKR,,EnumPropPages32,,"sbui.dll,SerialPropPageProvider"
+HKR,,EnumPropPages32,,"msports.dll,SerialPortPropPageProvider"
+HKLM,%ParametersSubKey%, SysbasFlags,   0x00010001,     0
+
+;-------------- Service installation
+; Port Driver (function driver for this device)
+[ComPort.NT.Services]
+AddService = sbserial, 0x00000002, sbserial_Service_Inst, sbserial_EventLog_Inst
+AddService = sbmpf,,sbmpf_Service_Inst
+AddService = Serenum,,Serenum_Service_Inst
+
+
+; -------------- Serial Port Driver install sections
+[sbserial_Service_Inst]
+DisplayName    = %sbserial.SVCDESC%
+ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
+StartType      = 1               ; SERVICE_SYSTEM_START (this driver may do detection)
+ErrorControl   = 0               ; SERVICE_ERROR_IGNORE
+ServiceBinary  = %12%\sbserial.sys
+LoadOrderGroup = Extended base
+
+; -------------- Serenum Driver install section
+[Serenum_Service_Inst]
+DisplayName    = %Serenum.SVCDESC%
+ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
+StartType      = 3               ; SERVICE_DEMAND_START
+ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\serenum.sys
+LoadOrderGroup = PNP Filter
+
+[sbmpf_Service_Inst]
+DisplayName    = %sbmpf.SVCDESC%
+ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
+StartType      = 3               ; SERVICE_DEMAND_START
+ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\sbmpf.sys
+LoadOrderGroup = PNP Filter
+
+[sbserial_EventLog_Inst]
+AddReg = sbserial_EventLog_AddReg
+
+[sbserial_EventLog_AddReg]
+HKR,,EventMessageFile,0x00020000,"%%SystemRoot%%\System32\IoLogMsg.dll;%%SystemRoot%%\System32\drivers\sbserial.sys"
+HKR,,TypesSupported,0x00010001,7
+
+[ComPort.Copy]
+sbser.vxd
+sbserui.dll
+
+[ComPort.PosDup]
+*PNP0501
+
+[SourceDisksNames]
+1=%drvdisk%,,
+
+[SourceDisksFiles]
+sbser.vxd=1
+sbserui.dll=1
+
+[Strings]
+mfg 				= " "
+PortsClassName 			= "Ports (COM & LPT)"
+drvDisk				= "High-performance ports driver disk"
+
+ComPort.DeviceDesc 		= "MultiPort/PCI - Serial Port"
+ComPort.DeviceDesc2		= "High Speed Communications Port"
+
+sbserial.SVCDESC            	= "Multiport Serial driver 1.66TB DriverVer=01/26/2010"
+Serenum.SVCDESC 		= "Serenum Filter Driver"
+sbmpf.SVCDESC 			= "Filter driver for Multiport DriverVer=01/26/2010"
+ParametersSubKey            	= "SYSTEM\CurrentControlSet\Services\sbserial\Parameters"

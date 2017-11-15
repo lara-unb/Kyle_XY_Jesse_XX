@@ -1,0 +1,91 @@
+\section{rdtsctime.h File Reference}
+\label{rdtsctime_8h}\index{rdtsctime.h@{rdtsctime.h}}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf CLOCK\_\-COUNTER}
+\end{DoxyCompactItemize}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf RDTSC\_\-GetClock}(Clock)~asm(\char`\"{}rdtsc\char`\"{});	asm(\char`\"{}mov \%\%eax, \%0\char`\"{}: \char`\"{}=r\char`\"{}(Clock.l));	asm(\char`\"{}mov \%\%edx, \%0\char`\"{}: \char`\"{}=r\char`\"{}(Clock.h));
+\item 
+\#define {\bf RDTSC\_\-SetCPUClock}(Freq)~{\bf \_\-\_\-CpuFreq} = Freq
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct {\bf CLOCK\_\-COUNTER} $\ast$ {\bf PCLOCK\_\-COUNTER}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\_\-\_\-inline double {\bf RDTSC\_\-ComputeTimeInterval} ({\bf PCLOCK\_\-COUNTER} pckStart, {\bf PCLOCK\_\-COUNTER} pckStop)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+double {\bf \_\-\_\-CpuFreq}
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\index{rdtsctime.h@{rdtsctime.h}!RDTSC\_\-GetClock@{RDTSC\_\-GetClock}}
+\index{RDTSC\_\-GetClock@{RDTSC\_\-GetClock}!rdtsctime.h@{rdtsctime.h}}
+\subsubsection[{RDTSC\_\-GetClock}]{\setlength{\rightskip}{0pt plus 5cm}\#define RDTSC\_\-GetClock(Clock)~asm(\char`\"{}rdtsc\char`\"{});	asm(\char`\"{}mov \%\%eax, \%0\char`\"{}: \char`\"{}=r\char`\"{}(Clock.l));	asm(\char`\"{}mov \%\%edx, \%0\char`\"{}: \char`\"{}=r\char`\"{}(Clock.h));}\label{rdtsctime_8h_ac1f68752802c535d9bfd4c1cbe79b825}
+
+
+Definition at line 24 of file rdtsctime.h.\index{rdtsctime.h@{rdtsctime.h}!RDTSC\_\-SetCPUClock@{RDTSC\_\-SetCPUClock}}
+\index{RDTSC\_\-SetCPUClock@{RDTSC\_\-SetCPUClock}!rdtsctime.h@{rdtsctime.h}}
+\subsubsection[{RDTSC\_\-SetCPUClock}]{\setlength{\rightskip}{0pt plus 5cm}\#define RDTSC\_\-SetCPUClock(Freq)~{\bf \_\-\_\-CpuFreq} = Freq}\label{rdtsctime_8h_a68445a898d7f1e6136b69a1e0c8b59c6}
+
+
+Definition at line 15 of file rdtsctime.h.
+
+\subsection{Typedef Documentation}
+\index{rdtsctime.h@{rdtsctime.h}!PCLOCK\_\-COUNTER@{PCLOCK\_\-COUNTER}}
+\index{PCLOCK\_\-COUNTER@{PCLOCK\_\-COUNTER}!rdtsctime.h@{rdtsctime.h}}
+\subsubsection[{PCLOCK\_\-COUNTER}]{\setlength{\rightskip}{0pt plus 5cm}typedef  struct {\bf CLOCK\_\-COUNTER}$\ast$ {\bf PCLOCK\_\-COUNTER}}\label{rdtsctime_8h_a266be2c1046a5bf3b61d16fce33600e9}
+
+
+\subsection{Function Documentation}
+\index{rdtsctime.h@{rdtsctime.h}!RDTSC\_\-ComputeTimeInterval@{RDTSC\_\-ComputeTimeInterval}}
+\index{RDTSC\_\-ComputeTimeInterval@{RDTSC\_\-ComputeTimeInterval}!rdtsctime.h@{rdtsctime.h}}
+\subsubsection[{RDTSC\_\-ComputeTimeInterval}]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-inline double RDTSC\_\-ComputeTimeInterval ({\bf PCLOCK\_\-COUNTER} {\em pckStart}, \/  {\bf PCLOCK\_\-COUNTER} {\em pckStop})}\label{rdtsctime_8h_a9487a2de481d50f4bce3241f97df3cf2}
+
+
+Definition at line 35 of file rdtsctime.h.
+
+
+\begin{DoxyCode}
+36 {
+37         unsigned long long ckInterval;
+38         unsigned long long ckStart,ckStop;
+39 
+40         ckStart  = pckStart->h;
+41         ckStart  = ckStart << 32;
+42         ckStart += pckStart->l;
+43 
+44         ckStop  = pckStop->h;
+45         ckStop  = ckStop << 32;
+46         ckStop += pckStop->l;
+47 
+48         if (ckStop < ckStart){
+49                 //return (-1.0);
+50         }
+51 
+52         ckInterval = ckStop-ckStart;
+53 
+54         return( ((double)((long long )(ckInterval)))/__CpuFreq );
+55 
+56 }
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\index{rdtsctime.h@{rdtsctime.h}!\_\-\_\-CpuFreq@{\_\-\_\-CpuFreq}}
+\index{\_\-\_\-CpuFreq@{\_\-\_\-CpuFreq}!rdtsctime.h@{rdtsctime.h}}
+\subsubsection[{\_\-\_\-CpuFreq}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf \_\-\_\-CpuFreq}}\label{rdtsctime_8h_aa1cbe8e6dd570c720425f696ab5ae346}
+
+
+Definition at line 6 of file rdtsctime.h.

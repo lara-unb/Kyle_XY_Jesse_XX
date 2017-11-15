@@ -1,0 +1,241 @@
+\section{dataviewer.m File Reference}
+\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m}\index{dataviewer.m@{dataviewer.m}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bf disp} ('Iniciando dataviewer...')
+\item 
+{\bf while} (status$\sim$=4)[{\bf data}
+\item 
+{\bf if} (status$\sim$=4) figure(1)
+\item 
+{\bf subplot} (211)
+\item 
+{\bf myplot} ({\bf t1}, {\bf t1\_\-unitstring}, {\bf y1},'{\bf y1}', {\bf y1\_\-unitstring},'b', {\bf twindow})
+\item 
+{\bf subplot} (212)
+\item 
+{\bf myplot} ({\bf t2}, {\bf t2\_\-unitstring}, {\bf y2},'{\bf y2}', {\bf y2\_\-unitstring},'b', {\bf twindow})
+\item 
+{\bf figure} (2)
+\item 
+{\bf plot} ({\bf t1},[0;diff({\bf t1})])
+\item 
+{\bf title} ('Período de amostragem da tarefa 1')
+\item 
+{\bf plot} ({\bf t2},[0;diff({\bf t2})])
+\item 
+{\bf title} ('Período de amostragem da tarefa 2')
+\item 
+{\bf pause} (0.1)
+\item 
+end end {\bf disp} ('Saindo...')
+\item 
+{\bf function} {\bf myplot} ({\bf t}, tunit, {\bf var}, varname, varunit, color, {\bf twindow}) kmax
+\item 
+{\bf if} ({\bf t}(kmax)$>${\bf twindow}) {\bf taxismin}
+\item 
+end {\bf plot} ({\bf t}(1:kmax), {\bf var}(1:kmax), color)
+\item 
+{\bf axis} ([{\bf taxismin} {\bf taxismax} {\bf ax}(3) {\bf ax}(4)])
+\item 
+{\bf xlabel} (sprintf('{\bf t}[\%s]', tunit))
+\item 
+{\bf ylabel} (sprintf('\%s[\%s]', varname, varunit))
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+{\bf function} main close {\bf all}
+\item 
+{\bf t1} = [$\,$]
+\item 
+{\bf t2} = [$\,$]
+\item 
+{\bf y1} = [$\,$]
+\item 
+{\bf y2} = [$\,$]
+\item 
+{\bf twindow} = 10
+\item 
+{\bf status} = 0
+\item 
+{\bf dataunitstring}
+\item 
+{\bf data} = [{\bf y1}
+\item 
+{\bf y1\_\-unitstring} = {\bf dataunitstring}
+\item 
+{\bf t1\_\-unitstring} = {\bf dataunitstring}
+\item 
+{\bf y2\_\-unitstring} = {\bf dataunitstring}
+\item 
+{\bf t2\_\-unitstring} = {\bf dataunitstring}
+\item 
+{\bf drawnow}
+\item 
+{\bf return}
+\item 
+{\bf taxismax} = {\bf t}(kmax)
+\item 
+else {\bf taxismin} = 0
+\item 
+{\bf ax} = axis
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}!axis@{axis}}
+\index{axis@{axis}!libs/gdatalogger/demo-xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}}
+\subsubsection[{axis}]{\setlength{\rightskip}{0pt plus 5cm}axis ()}\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m_a4ad4a7fbf9742f55c11cd212c6816faf}
+\index{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}!disp@{disp}}
+\index{disp@{disp}!libs/gdatalogger/demo-xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}}
+\subsubsection[{disp}]{\setlength{\rightskip}{0pt plus 5cm}end end disp ('Saindo...')}\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m_a01758e934588eaa62a7c8fd926b30bee}
+\index{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}!disp@{disp}}
+\index{disp@{disp}!libs/gdatalogger/demo-xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}}
+\subsubsection[{disp}]{\setlength{\rightskip}{0pt plus 5cm}disp ('Iniciando dataviewer...')}\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m_a31529343f1711a66324cc584d5a8dfd0}
+\index{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}!figure@{figure}}
+\index{figure@{figure}!libs/gdatalogger/demo-xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}}
+\subsubsection[{figure}]{\setlength{\rightskip}{0pt plus 5cm}figure (2)}\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m_ac84feabc0a5ffe70fd5e05e72a103d54}
+\index{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}!if@{if}}
+\index{if@{if}!libs/gdatalogger/demo-xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}}
+\subsubsection[{if}]{\setlength{\rightskip}{0pt plus 5cm}if ({\bf t}(kmax), \/  {\bf twindow})}\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m_a6281a7c23074ab1226be59bf4c163be9}
+\index{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}!if@{if}}
+\index{if@{if}!libs/gdatalogger/demo-xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}}
+\subsubsection[{if}]{\setlength{\rightskip}{0pt plus 5cm}if (status$\sim$ = {\ttfamily 4})}\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m_a871a1aadebb67260723cef652e37592c}
+\index{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}!myplot@{myplot}}
+\index{myplot@{myplot}!libs/gdatalogger/demo-xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}}
+\subsubsection[{myplot}]{\setlength{\rightskip}{0pt plus 5cm}{\bf function} myplot ({\bf t}, \/  tunit, \/  {\bf var}, \/  varname, \/  varunit, \/  color, \/  {\bf twindow})}\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m_acfecc80c406a7079312744cec4b1820c}
+\index{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}!myplot@{myplot}}
+\index{myplot@{myplot}!libs/gdatalogger/demo-xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}}
+\subsubsection[{myplot}]{\setlength{\rightskip}{0pt plus 5cm}myplot ({\bf t2}, \/  {\bf t2\_\-unitstring}, \/  {\bf y2}, \/  '{\bf y2}', \/  {\bf y2\_\-unitstring}, \/  'b', \/  {\bf twindow})}\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m_a1c7deeba20b765d02265cf8a91ad5720}
+\index{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}!myplot@{myplot}}
+\index{myplot@{myplot}!libs/gdatalogger/demo-xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}}
+\subsubsection[{myplot}]{\setlength{\rightskip}{0pt plus 5cm}myplot ({\bf t1}, \/  {\bf t1\_\-unitstring}, \/  {\bf y1}, \/  '{\bf y1}', \/  {\bf y1\_\-unitstring}, \/  'b', \/  {\bf twindow})}\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m_ab71c0dd9e83b75c2385d12a944480bd9}
+\index{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}!pause@{pause}}
+\index{pause@{pause}!libs/gdatalogger/demo-xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}}
+\subsubsection[{pause}]{\setlength{\rightskip}{0pt plus 5cm}pause (0. {\em 1})}\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m_af5e7b6b3888b7ff1427978d360412fe7}
+\index{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}!plot@{plot}}
+\index{plot@{plot}!libs/gdatalogger/demo-xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}end plot ({\bf t}(1:kmax), \/  {\bf var}(1:kmax), \/  color)}\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m_ab7c8c7cc9508000afcd02e0da0d5a570}
+\index{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}!plot@{plot}}
+\index{plot@{plot}!libs/gdatalogger/demo-xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot ({\bf t2})}\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m_a7c423a23b14d00944bb34b1aa60e4f26}
+\index{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}!plot@{plot}}
+\index{plot@{plot}!libs/gdatalogger/demo-xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot ({\bf t1})}\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m_aeb7e049ef17bcf2369b0efd79c029f98}
+\index{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}!subplot@{subplot}}
+\index{subplot@{subplot}!libs/gdatalogger/demo-xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}}
+\subsubsection[{subplot}]{\setlength{\rightskip}{0pt plus 5cm}subplot (212)}\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m_a63897197090dd8177a8e842d781ae12a}
+\index{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}!subplot@{subplot}}
+\index{subplot@{subplot}!libs/gdatalogger/demo-xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}}
+\subsubsection[{subplot}]{\setlength{\rightskip}{0pt plus 5cm}subplot (211)}\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m_a4a9f2df7ab6783bc2db8e27030158732}
+\index{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}!title@{title}}
+\index{title@{title}!libs/gdatalogger/demo-xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('Período de amostragem da tarefa 2')}\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m_af7785809f1d9d0413abd736539f3e761}
+\index{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}!title@{title}}
+\index{title@{title}!libs/gdatalogger/demo-xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('Período de amostragem da tarefa 1')}\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m_a2650b058e9dbfba3cacdf385b2018697}
+\index{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}!while@{while}}
+\index{while@{while}!libs/gdatalogger/demo-xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}}
+\subsubsection[{while}]{\setlength{\rightskip}{0pt plus 5cm}while (status$\sim$ = {\ttfamily 4})}\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m_a0df2ab0dd173ade3d8cab9219e4194c4}
+\index{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}!xlabel@{xlabel}}
+\index{xlabel@{xlabel}!libs/gdatalogger/demo-xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}}
+\subsubsection[{xlabel}]{\setlength{\rightskip}{0pt plus 5cm}xlabel (sprintf('{\bf t}[\%s]', tunit))}\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m_abfdbf47a6617364a73fa3a61e455c7f3}
+\index{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}!ylabel@{ylabel}}
+\index{ylabel@{ylabel}!libs/gdatalogger/demo-xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}}
+\subsubsection[{ylabel}]{\setlength{\rightskip}{0pt plus 5cm}ylabel (sprintf('\%s[\%s]', varname, varunit))}\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m_a457b37eaffd124d92fd274a5f5005282}
+
+
+\subsection{Variable Documentation}
+\index{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}!all@{all}}
+\index{all@{all}!libs/gdatalogger/demo-xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}}
+\subsubsection[{all}]{\setlength{\rightskip}{0pt plus 5cm}{\bf function} main close {\bf all}}\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m_aa352f5f080329b3d0104b863660b6340}
+
+
+Definition at line 3 of file libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}!ax@{ax}}
+\index{ax@{ax}!libs/gdatalogger/demo-xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}}
+\subsubsection[{ax}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ax} = axis}\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m_a8fa675eb2fcec5b95d9d21c670da7f30}
+
+
+Definition at line 54 of file libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}!data@{data}}
+\index{data@{data}!libs/gdatalogger/demo-xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}}
+\subsubsection[{data}]{\setlength{\rightskip}{0pt plus 5cm}{\bf data} = [{\bf y1}}\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m_a511ae0b1c13f95e5f08f1a0dd3da3d93}
+
+
+Definition at line 17 of file libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}!dataunitstring@{dataunitstring}}
+\index{dataunitstring@{dataunitstring}!libs/gdatalogger/demo-xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}}
+\subsubsection[{dataunitstring}]{\setlength{\rightskip}{0pt plus 5cm}{\bf dataunitstring}}\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m_aad5b8c2946402d5850f00b758f2f70dd}
+
+
+Definition at line 16 of file libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}!drawnow@{drawnow}}
+\index{drawnow@{drawnow}!libs/gdatalogger/demo-xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}}
+\subsubsection[{drawnow}]{\setlength{\rightskip}{0pt plus 5cm}{\bf drawnow}}\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m_aadd84b46ee6d2e3ae04d2920f4e78bfd}
+
+
+Definition at line 34 of file libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}!return@{return}}
+\index{return@{return}!libs/gdatalogger/demo-xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}}
+\subsubsection[{return}]{\setlength{\rightskip}{0pt plus 5cm}{\bf return}}\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m_a9717e7bbecb906637e86cef6da3d83c2}
+
+
+Definition at line 41 of file libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}!status@{status}}
+\index{status@{status}!libs/gdatalogger/demo-xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}}
+\subsubsection[{status}]{\setlength{\rightskip}{0pt plus 5cm}{\bf status} = 0}\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m_a015eb90e0de9f16e87bd149d4b9ce959}
+
+
+Definition at line 13 of file libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}!t1@{t1}}
+\index{t1@{t1}!libs/gdatalogger/demo-xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}}
+\subsubsection[{t1}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t1} = [$\,$]}\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m_a469994e78f66a44815c015b7f4b8b2f8}
+
+
+Definition at line 7 of file libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}!t1\_\-unitstring@{t1\_\-unitstring}}
+\index{t1\_\-unitstring@{t1\_\-unitstring}!libs/gdatalogger/demo-xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}}
+\subsubsection[{t1\_\-unitstring}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t1\_\-unitstring} = {\bf dataunitstring}}\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m_aa526bd312720c8d8a3e277b46df09051}
+
+
+Definition at line 19 of file libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}!t2@{t2}}
+\index{t2@{t2}!libs/gdatalogger/demo-xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}}
+\subsubsection[{t2}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t2} = [$\,$]}\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m_a24aeadb733f27244ec14e4cba82eeee9}
+
+
+Definition at line 8 of file libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}!t2\_\-unitstring@{t2\_\-unitstring}}
+\index{t2\_\-unitstring@{t2\_\-unitstring}!libs/gdatalogger/demo-xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}}
+\subsubsection[{t2\_\-unitstring}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t2\_\-unitstring} = {\bf dataunitstring}}\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m_a1e7e776b7d891100ccf4dd385547f42d}
+
+
+Definition at line 23 of file libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}!taxismax@{taxismax}}
+\index{taxismax@{taxismax}!libs/gdatalogger/demo-xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}}
+\subsubsection[{taxismax}]{\setlength{\rightskip}{0pt plus 5cm}{\bf taxismax} = {\bf t}(kmax)}\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m_a40f83f3ae20b99cae42f7736245dd6b6}
+
+
+Definition at line 48 of file libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}!taxismin@{taxismin}}
+\index{taxismin@{taxismin}!libs/gdatalogger/demo-xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}}
+\subsubsection[{taxismin}]{\setlength{\rightskip}{0pt plus 5cm}else {\bf taxismin} = 0}\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m_a6ed4ca490546bf931c9ba98200b3cf5d}
+
+
+Definition at line 50 of file libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}!twindow@{twindow}}
+\index{twindow@{twindow}!libs/gdatalogger/demo-xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}}
+\subsubsection[{twindow}]{\setlength{\rightskip}{0pt plus 5cm}{\bf twindow} = 10}\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m_a54d39bd750bf38e91a420568a00e3600}
+
+
+Definition at line 12 of file libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}!y1@{y1}}
+\index{y1@{y1}!libs/gdatalogger/demo-xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}}
+\subsubsection[{y1}]{\setlength{\rightskip}{0pt plus 5cm}{\bf y1} = [$\,$]}\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m_a7f911dc1dbbc41c6cae56357e8fb2230}
+
+
+Definition at line 9 of file libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}!y1\_\-unitstring@{y1\_\-unitstring}}
+\index{y1\_\-unitstring@{y1\_\-unitstring}!libs/gdatalogger/demo-xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}}
+\subsubsection[{y1\_\-unitstring}]{\setlength{\rightskip}{0pt plus 5cm}{\bf y1\_\-unitstring} = {\bf dataunitstring}}\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m_a180987ace067c847f54e562707bd4c0c}
+
+
+Definition at line 17 of file libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}!y2@{y2}}
+\index{y2@{y2}!libs/gdatalogger/demo-xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}}
+\subsubsection[{y2}]{\setlength{\rightskip}{0pt plus 5cm}{\bf y2} = [$\,$]}\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m_a41b94b12b7cb45b3ddee299d4e7b79e8}
+
+
+Definition at line 10 of file libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}!y2\_\-unitstring@{y2\_\-unitstring}}
+\index{y2\_\-unitstring@{y2\_\-unitstring}!libs/gdatalogger/demo-xenomai/matlab/dataviewer.m@{libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m}}
+\subsubsection[{y2\_\-unitstring}]{\setlength{\rightskip}{0pt plus 5cm}{\bf y2\_\-unitstring} = {\bf dataunitstring}}\label{libs_2gdatalogger_2demo-xenomai_2matlab_2dataviewer_8m_a2f7918daeedac869b9178f6f4d698939}
+
+
+Definition at line 21 of file libs/gdatalogger/demo-\/xenomai/matlab/dataviewer.m.

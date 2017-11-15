@@ -1,0 +1,510 @@
+\section{serialcom-\/sb16c1052pci-\/xenomai.c File Reference}
+\label{serialcom-sb16c1052pci-xenomai_8c}\index{serialcom-\/sb16c1052pci-\/xenomai.c@{serialcom-\/sb16c1052pci-\/xenomai.c}}
+{\ttfamily \#include $<$stdio.h$>$}\par
+{\ttfamily \#include $<$math.h$>$}\par
+{\ttfamily \#include $<$signal.h$>$}\par
+{\ttfamily \#include $<$sys/io.h$>$}\par
+{\ttfamily \#include $<$unistd.h$>$}\par
+{\ttfamily \#include $<$sys/mman.h$>$}\par
+{\ttfamily \#include $<$native/task.h$>$}\par
+{\ttfamily \#include $<$native/timer.h$>$}\par
+{\ttfamily \#include $<$native/sem.h$>$}\par
+{\ttfamily \#include $<$linux/pci.h$>$}\par
+{\ttfamily \#include $<$linux/pci\_\-regs.h$>$}\par
+{\ttfamily \#include $<$linux/virtio\_\-pci.h$>$}\par
+{\ttfamily \#include $<$pci/pci.h$>$}\par
+{\ttfamily \#include $<$pci/config.h$>$}\par
+{\ttfamily \#include $<$pci/header.h$>$}\par
+{\ttfamily \#include $<$pci/types.h$>$}\par
+{\ttfamily \#include \char`\"{}serialcom.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf PCI\_\-DEVICE\_\-ID\_\-MP1}~0x4d01
+\item 
+\#define {\bf PCI\_\-DEVICE\_\-ID\_\-MP2}~0x4d02
+\item 
+\#define {\bf PCI\_\-VENDOR\_\-ID\_\-MULTIPORT}~0x14A1
+\item 
+\#define {\bf serialcom\_\-delayus}(a)~rt\_\-task\_\-sleep((RTIME)((a)$\ast$1000))
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int {\bf serialcom\_\-close} ({\bf PSERIALPORTCONFIG} pSerialPortConfig)
+\item 
+int {\bf serialcom\_\-init} ({\bf PSERIALPORTCONFIG} pSerialPortConfig, int ComPortNumber, unsigned long int ComPortBPS)
+\item 
+void {\bf serialcom\_\-pci\_\-close\_\-device} (struct pci\_\-access $\ast$pacc)
+\item 
+int {\bf serialcom\_\-pci\_\-find\_\-device} (unsigned int vendor\_\-id, unsigned int device\_\-id, unsigned long $\ast$pbase\_\-address, struct pci\_\-access $\ast$$\ast$ppacc)
+\item 
+int {\bf serialcom\_\-receivebyte} ({\bf PSERIALPORTCONFIG} pSerialPortConfig, unsigned char $\ast$pData, double MaximaEsperaUS)
+\item 
+void {\bf serialcom\_\-semsignal} ({\bf PSERIALPORTCONFIG} pSerialPortConfig)
+\item 
+void {\bf serialcom\_\-semwait} ({\bf PSERIALPORTCONFIG} pSerialPortConfig)
+\item 
+int {\bf serialcom\_\-sendbyte} ({\bf PSERIALPORTCONFIG} pSerialPortConfig, unsigned char $\ast$pData)
+\item 
+int {\bf serialcom\_\-status} ({\bf PSERIALPORTCONFIG} pSerialPortConfig)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+RT\_\-SEM {\bf pComPortSemaphores} [4]
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\index{serialcom-\/sb16c1052pci-\/xenomai.c@{serialcom-\/sb16c1052pci-\/xenomai.c}!PCI\_\-DEVICE\_\-ID\_\-MP1@{PCI\_\-DEVICE\_\-ID\_\-MP1}}
+\index{PCI\_\-DEVICE\_\-ID\_\-MP1@{PCI\_\-DEVICE\_\-ID\_\-MP1}!serialcom-sb16c1052pci-xenomai.c@{serialcom-\/sb16c1052pci-\/xenomai.c}}
+\subsubsection[{PCI\_\-DEVICE\_\-ID\_\-MP1}]{\setlength{\rightskip}{0pt plus 5cm}\#define PCI\_\-DEVICE\_\-ID\_\-MP1~0x4d01}\label{serialcom-sb16c1052pci-xenomai_8c_a51f9c3fd33083b796c8db0b91d25dfd2}
+
+
+Definition at line 39 of file serialcom-\/sb16c1052pci-\/xenomai.c.\index{serialcom-\/sb16c1052pci-\/xenomai.c@{serialcom-\/sb16c1052pci-\/xenomai.c}!PCI\_\-DEVICE\_\-ID\_\-MP2@{PCI\_\-DEVICE\_\-ID\_\-MP2}}
+\index{PCI\_\-DEVICE\_\-ID\_\-MP2@{PCI\_\-DEVICE\_\-ID\_\-MP2}!serialcom-sb16c1052pci-xenomai.c@{serialcom-\/sb16c1052pci-\/xenomai.c}}
+\subsubsection[{PCI\_\-DEVICE\_\-ID\_\-MP2}]{\setlength{\rightskip}{0pt plus 5cm}\#define PCI\_\-DEVICE\_\-ID\_\-MP2~0x4d02}\label{serialcom-sb16c1052pci-xenomai_8c_a36109a3edeafb33def0bb6e2f118f94c}
+
+
+Definition at line 40 of file serialcom-\/sb16c1052pci-\/xenomai.c.\index{serialcom-\/sb16c1052pci-\/xenomai.c@{serialcom-\/sb16c1052pci-\/xenomai.c}!PCI\_\-VENDOR\_\-ID\_\-MULTIPORT@{PCI\_\-VENDOR\_\-ID\_\-MULTIPORT}}
+\index{PCI\_\-VENDOR\_\-ID\_\-MULTIPORT@{PCI\_\-VENDOR\_\-ID\_\-MULTIPORT}!serialcom-sb16c1052pci-xenomai.c@{serialcom-\/sb16c1052pci-\/xenomai.c}}
+\subsubsection[{PCI\_\-VENDOR\_\-ID\_\-MULTIPORT}]{\setlength{\rightskip}{0pt plus 5cm}\#define PCI\_\-VENDOR\_\-ID\_\-MULTIPORT~0x14A1}\label{serialcom-sb16c1052pci-xenomai_8c_a583579ba38499640c937c74b3b78a759}
+
+
+Definition at line 38 of file serialcom-\/sb16c1052pci-\/xenomai.c.\index{serialcom-\/sb16c1052pci-\/xenomai.c@{serialcom-\/sb16c1052pci-\/xenomai.c}!serialcom\_\-delayus@{serialcom\_\-delayus}}
+\index{serialcom\_\-delayus@{serialcom\_\-delayus}!serialcom-sb16c1052pci-xenomai.c@{serialcom-\/sb16c1052pci-\/xenomai.c}}
+\subsubsection[{serialcom\_\-delayus}]{\setlength{\rightskip}{0pt plus 5cm}\#define serialcom\_\-delayus(a)~rt\_\-task\_\-sleep((RTIME)((a)$\ast$1000))}\label{serialcom-sb16c1052pci-xenomai_8c_ab8562a5ce361317b4d7453a8354a5685}
+
+
+Definition at line 50 of file serialcom-\/sb16c1052pci-\/xenomai.c.
+
+\subsection{Function Documentation}
+\index{serialcom-\/sb16c1052pci-\/xenomai.c@{serialcom-\/sb16c1052pci-\/xenomai.c}!serialcom\_\-close@{serialcom\_\-close}}
+\index{serialcom\_\-close@{serialcom\_\-close}!serialcom-sb16c1052pci-xenomai.c@{serialcom-\/sb16c1052pci-\/xenomai.c}}
+\subsubsection[{serialcom\_\-close}]{\setlength{\rightskip}{0pt plus 5cm}int serialcom\_\-close ({\bf PSERIALPORTCONFIG} {\em pSerialPortConfig})}\label{serialcom-sb16c1052pci-xenomai_8c_a480f412a5b77f8ad7966a267b4c26f89}
+
+
+Definition at line 147 of file serialcom-\/sb16c1052pci-\/xenomai.c.
+
+
+\begin{DoxyCode}
+148 {
+149         rt_sem_delete(&pComPortSemaphores[pSerialPortConfig->ComPortNumber-1]);
+150 
+151         return SERIALCOM_SUCCESS;
+152 }
+\end{DoxyCode}
+\index{serialcom-\/sb16c1052pci-\/xenomai.c@{serialcom-\/sb16c1052pci-\/xenomai.c}!serialcom\_\-init@{serialcom\_\-init}}
+\index{serialcom\_\-init@{serialcom\_\-init}!serialcom-sb16c1052pci-xenomai.c@{serialcom-\/sb16c1052pci-\/xenomai.c}}
+\subsubsection[{serialcom\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}int serialcom\_\-init ({\bf PSERIALPORTCONFIG} {\em pSerialPortConfig}, \/  int {\em ComPortNumber}, \/  unsigned long int {\em ComPortBPS})}\label{serialcom-sb16c1052pci-xenomai_8c_a5eb7bbd8dec689b7e1943f71a54ed89b}
+Funcao que inicia a porta serial ComPortNumber com a taxa dada em BPS por ComPortBPS. Essa funcao dever ser chamada por cada thread que tenha acesso porta serial ComPortNumber. Seus argumentos de chamada so: 
+\begin{DoxyParams}{Parameters}
+\item[{\em pSerialPortConfig}]Ponteiro para estrutura SERIALPORCONFIG que guarda informaes de configurao da porta serial no contexto do thread de chamada. Mesmo que uma dada porta serial seja utilizada por diversos threads, cada thread dever ter a sua estrutura SERIALPORCONFIG. \item[{\em ComPortNumber}]Numero da porta serial, no intervalo de 1 a 4. \item[{\em ComPortBPS}]Taxa de comunicao em BPS, no intervalo de 2 a 115200. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+SERIALCOM\_\-SUCCESS : Porta iniciada com sucesso. 
+
+SERIALCOM\_\-ERROR\_\-INCORRECTPORTNUMBER : Erro, corresponde a um ComPortNumber invlido. 
+
+SERIALCOM\_\-ERROR\_\-MAXBPSPRECISION : Erro, a taxa ComPortBPS no pode ser realizada com erro inferior a. SERIALCOM\_\-MAXBPSPRECISION. 
+
+SERIALCOM\_\-ERROR\_\-IOPL : Erro, corresponde a uma tentativa de executar o programa sem que se tenha acesso privilegiado de administrador a portas de E/S. 
+\end{DoxyReturn}
+
+
+Definition at line 66 of file serialcom-\/sb16c1052pci-\/xenomai.c.
+
+
+\begin{DoxyCode}
+67 {
+68         unsigned int BPSClockDivisor;
+69         float BPSPrecision;
+70         char semname[50];
+71 
+72         unsigned long board_base_address;
+73         struct pci_access *pacc;
+74 
+75         if((ComPortNumber<0) || (ComPortNumber>2)){
+76                 return SERIALCOM_ERROR_INCORRECTPORTNUMBER;
+77         }
+78         
+79         printf("\n*** probing PCI devices:");
+80         if(!serialcom_pci_find_device(PCI_VENDOR_ID_MULTIPORT, PCI_DEVICE_ID_MP2,
+       &board_base_address, &pacc)){
+81                 printf("\n    device not found !");
+82                 return SERIALCOM_ERROR_DEVICENOTFOUND;
+83         }
+84         unsigned long board_port1_base_address;
+85         unsigned long board_port2_base_address;
+86         board_port1_base_address = board_base_address;
+87         board_port2_base_address = board_base_address+8;
+88         printf("\n*** board_port1_base_address: %Xh",(unsigned int)board_port1_ba
+      se_address);
+89         printf("\n*** board_port2_base_address: %Xh",(unsigned int)board_port2_ba
+      se_address);
+90         
+91         serialcom_pci_close_device(pacc);
+92 
+93         pSerialPortConfig->ComPortNumber = ComPortNumber; 
+94         pSerialPortConfig->ComPortAddress = board_base_address+8*(ComPortNumber-1
+      ); 
+95         
+96 
+97         pSerialPortConfig->ComPortBPS = ComPortBPS;
+98         pSerialPortConfig->FramePeriodUS = (1e7)/(((float)(ComPortBPS)));
+99 
+100         BPSClockDivisor = 921600 / ComPortBPS;
+101         BPSPrecision = (((double)(ComPortBPS)) - 921600.0/BPSClockDivisor)/((doub
+      le)(ComPortBPS));
+102         if(fabs(BPSPrecision) > SERIALCOM_MAXBPSPRECISION){
+103                 return SERIALCOM_ERROR_MAXBPSPRECISION;
+104         }
+105 
+106     if(iopl(3)<0){
+107                 printf("seriallib_iniciar: iopl error");
+108                 return SERIALCOM_ERROR_IOPL;
+109         }
+110 
+111         outb(0, pSerialPortConfig->ComPortAddress + 1);         // Desativar inte
+      rrupes 
+112         outb(0x80, pSerialPortConfig->ComPortAddress + 3);      // DLAB ON 
+113         outb((unsigned char)(BPSClockDivisor & 0xFF), pSerialPortConfig->
+      ComPortAddress + 0);    // Baud Rate - DL Byte 
+114         outb((unsigned char)((BPSClockDivisor >> 8) & 0xFF), pSerialPortConfig->
+      ComPortAddress + 1);    // Baud Rate - DH Byte 
+115         outb(0x03, pSerialPortConfig->ComPortAddress + 3);      // LCR: 8 Bits, N
+      o Parity, 1 Stop Bit 
+116         outb(0xC7, pSerialPortConfig->ComPortAddress + 2);      // FIFO Control: 
+      64 bytes TX e RX FIFO, limpa TX e RX fifos
+117         outb(0x0B, pSerialPortConfig->ComPortAddress + 4);      // MCR: Ativa DTR
+      , RTS = 0, e OUT2       
+118 
+119         char tmp_lcr;
+120         
+121         tmp_lcr = inb(pSerialPortConfig->ComPortAddress + 3);            // get L
+      CR initial value
+122         outb(tmp_lcr | 0xBF, pSerialPortConfig->ComPortAddress + 3); // LCR set 0
+      xBF
+123 
+124         outb(0xA4, pSerialPortConfig->ComPortAddress + 0);                       
+      // select page 3
+125         // set ATR: 
+126         //              * habilita controle automatico do driver TX, deixando a l
+      inha desativada quando não transmite.
+127         //              * habilita controle automatico do driver RX, deixando a l
+      inha desativada quando não transmite.
+128 //      outb(0x03 | (1<<5) | (1<<4), pSerialPortConfig->ComPortAddress + 1);  
+129         outb(0x03 | (1<<5) | (1<<4) | (1<<6), pSerialPortConfig->ComPortAddress +
+       1);  
+130 //      outb(0x03 | (1<<5) | (1<<4) | (1<<7) | (1<<6), pSerialPortConfig->ComPort
+      Address + 1);
+131   
+132         outb(0xA5, pSerialPortConfig->ComPortAddress + 0);                       
+      // select page 4
+133         // set AFR: 
+134         //              * habilita FIFO de 256 bytes.
+135         outb(0x01, pSerialPortConfig->ComPortAddress + 1);  
+136 
+137         outb(tmp_lcr, pSerialPortConfig->ComPortAddress + 3);            // LCR s
+      et to initial value
+138 
+139         sprintf(semname,"CoSem%i",ComPortNumber);
+140         //printf("\n semname = %s",semname);
+141         rt_sem_create(&pComPortSemaphores[ComPortNumber-1],semname,1,S_FIFO);
+142         return SERIALCOM_SUCCESS;
+143 
+144         return SERIALCOM_SUCCESS;
+145 }
+\end{DoxyCode}
+\index{serialcom-\/sb16c1052pci-\/xenomai.c@{serialcom-\/sb16c1052pci-\/xenomai.c}!serialcom\_\-pci\_\-close\_\-device@{serialcom\_\-pci\_\-close\_\-device}}
+\index{serialcom\_\-pci\_\-close\_\-device@{serialcom\_\-pci\_\-close\_\-device}!serialcom-sb16c1052pci-xenomai.c@{serialcom-\/sb16c1052pci-\/xenomai.c}}
+\subsubsection[{serialcom\_\-pci\_\-close\_\-device}]{\setlength{\rightskip}{0pt plus 5cm}void serialcom\_\-pci\_\-close\_\-device (struct pci\_\-access $\ast$ {\em pacc})}\label{serialcom-sb16c1052pci-xenomai_8c_ad43e67f6cf73e5f0ca1a1490f4e68d6f}
+
+
+Definition at line 366 of file serialcom-\/sb16c1052pci-\/xenomai.c.
+
+
+\begin{DoxyCode}
+367 {
+368         /* Close everything */
+369         pci_cleanup(pacc);              
+370 }
+\end{DoxyCode}
+\index{serialcom-\/sb16c1052pci-\/xenomai.c@{serialcom-\/sb16c1052pci-\/xenomai.c}!serialcom\_\-pci\_\-find\_\-device@{serialcom\_\-pci\_\-find\_\-device}}
+\index{serialcom\_\-pci\_\-find\_\-device@{serialcom\_\-pci\_\-find\_\-device}!serialcom-sb16c1052pci-xenomai.c@{serialcom-\/sb16c1052pci-\/xenomai.c}}
+\subsubsection[{serialcom\_\-pci\_\-find\_\-device}]{\setlength{\rightskip}{0pt plus 5cm}int serialcom\_\-pci\_\-find\_\-device (unsigned int {\em vendor\_\-id}, \/  unsigned int {\em device\_\-id}, \/  unsigned long $\ast$ {\em pbase\_\-address}, \/  struct pci\_\-access $\ast$$\ast$ {\em ppacc})}\label{serialcom-sb16c1052pci-xenomai_8c_ac47f39cfcf8738d1da7022b1f466fcab}
+
+
+Definition at line 326 of file serialcom-\/sb16c1052pci-\/xenomai.c.
+
+
+\begin{DoxyCode}
+327 {
+328         struct pci_dev *dev;
+329         unsigned int c;
+330         char namebuf[1024], *name;
+331 
+332         /* Get the pci_access structure */
+333         *ppacc = pci_alloc();
+334         /* Set all options you want -- here we stick with the defaults */
+335         /* Initialize the PCI library */
+336         pci_init(*ppacc);               
+337         /* We want to get the list of devices */
+338         pci_scan_bus(*ppacc);           
+339         /* Iterate over all devices */
+340         for(dev=(*ppacc)->devices; dev; dev=dev->next){
+341                 /* Fill in header info we need */
+342                 pci_fill_info(dev, PCI_FILL_IDENT | PCI_FILL_BASES | PCI_FILL_CLA
+      SS | PCI_FILL_IRQ);     
+343                 /* Read config register directly */
+344                 c = pci_read_byte(dev, PCI_INTERRUPT_PIN);                              
+345                 printf("\n    %04x:%02x:%02x.%d vendor=%04x device=%04x class=%04
+      x irq=%d (pin %d) base0=%lx",
+346                         dev->domain, dev->bus, dev->dev, dev->func, dev->vendor_i
+      d, dev->device_id,
+347                         dev->device_class, dev->irq, c, (long) dev->base_addr[0])
+      ;
+348                 /* Look up and print the full name of the device */
+349                 name = pci_lookup_name(*ppacc, namebuf, sizeof(namebuf), PCI_LOOK
+      UP_DEVICE, dev->vendor_id, dev->device_id);
+350                 printf(" (%s)", name);
+351                 /* Connect */
+352                 if((dev->vendor_id==vendor_id)&&(dev->device_id==device_id)){
+353                         // recover base address
+354                         *pbase_address = pci_read_long(dev, PCI_BASE_ADDRESS_0);
+355                         *pbase_address &= PCI_BASE_ADDRESS_IO_MASK;
+356 
+357                         return 1;
+358                 }
+359         }
+360         /* Close everything */
+361         pci_cleanup(*ppacc);            
+362         
+363         return 0;
+364 }
+\end{DoxyCode}
+\index{serialcom-\/sb16c1052pci-\/xenomai.c@{serialcom-\/sb16c1052pci-\/xenomai.c}!serialcom\_\-receivebyte@{serialcom\_\-receivebyte}}
+\index{serialcom\_\-receivebyte@{serialcom\_\-receivebyte}!serialcom-sb16c1052pci-xenomai.c@{serialcom-\/sb16c1052pci-\/xenomai.c}}
+\subsubsection[{serialcom\_\-receivebyte}]{\setlength{\rightskip}{0pt plus 5cm}serialcom\_\-receivebyte ({\bf PSERIALPORTCONFIG} {\em pSerialPortConfig}, \/  unsigned char $\ast$ {\em pData}, \/  double {\em MaximaEsperaUS})}\label{serialcom-sb16c1052pci-xenomai_8c_aaae4ccb4f6a36146c4191a76f15c875c}
+Funcao que aguarda um byte chegar pela porta serial descrita por pSerialPortConfig por um tempo mximo dado por MaximaEsperaUS, dado em microsegundos. Se um dado chegar dentro do perodo dado por MaximaEsperaUS, o mesmo ser colocado na varivel apontada por pData. 
+\begin{DoxyParams}{Parameters}
+\item[{\em pSerialPortConfig}]Ponteiro para estrutura \doxyref{SERIALPORTCONFIG}{p.}{structSERIALPORTCONFIG} que guarda informaes de configurao da porta serial no contexto do thread de chamada. \item[{\em pData}]Ponteiro para o byte recebido. \item[{\em MaximaEsperaUS}]Tempo mximo de espera pela chegada de um byte pela porta. Se MaximaEsperaUS \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+SERIALCOM\_\-SUCCESS : Operao realizada com sucesso. Um byte foi recebido pela porta serial e se encontra disponvel na varivel apontada por pData. 
+
+SERIALCOM\_\-ERROR\_\-MAXWAITFORRECEPTION : Nenhum bayte chegou dentro do tempo estipulado por MaximaEsperaUS 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+Essa funcao fica bloqueada por at MaximaEsperaUS enquanto um byte no chegar. 
+\end{DoxyWarning}
+
+
+Definition at line 246 of file serialcom-\/sb16c1052pci-\/xenomai.c.
+
+
+\begin{DoxyCode}
+247 {
+248         double  ElapsedTime;
+249         int status;
+250 
+251         if(MaximaEsperaUS<0) MaximaEsperaUS = 0; // Espera minima de 0 us.
+252 
+253         ElapsedTime = 0.0;
+254         while(1)
+255         {
+256                 status = serialcom_status(pSerialPortConfig);
+257                 if( (status & SERIALCOM_STATUSMASK_RX_DATA_READY) ){
+258 //                      printf("\n FILE = %s, LINE = %i",__FILE__,__LINE__);
+259                         *pData = inb(pSerialPortConfig->ComPortAddress + 0);
+260 //                      printf("\n Porta %i, Retornando estado %i", pSerialPortCo
+      nfig->ComPortNumber, SERIALCOM_SUCCESS);
+261                         return(SERIALCOM_SUCCESS);
+262                 }
+263                 if( (status & SERIALCOM_STATUSMASK_ERROR_RX_FIFO) ){
+264                         *pData = inb(pSerialPortConfig->ComPortAddress + 0);
+265                         return(SERIALCOM_ERROR_RX_FIFO);
+266                 }
+267                 if( (status & SERIALCOM_STATUSMASK_BREAK_INTERRUPT) ){
+268                         *pData = inb(pSerialPortConfig->ComPortAddress + 0);
+269                         return(SERIALCOM_ERROR_BREAK_INTERRUPT);
+270                 }
+271                 if( (status & SERIALCOM_STATUSMASK_FRAMING_ERROR) ){
+272                         *pData = inb(pSerialPortConfig->ComPortAddress + 0);
+273                         return(SERIALCOM_ERROR_FRAMING_ERROR);
+274                 }
+275                 if( (status & SERIALCOM_STATUSMASK_PARITY_ERROR) ){
+276                         *pData = inb(pSerialPortConfig->ComPortAddress + 0);
+277                         return(SERIALCOM_ERROR_PARITY_ERROR);
+278                 }
+279                 if( (status & SERIALCOM_STATUSMASK_OVERRUN_ERROR) ){
+280                         *pData = inb(pSerialPortConfig->ComPortAddress + 0);
+281                         return(SERIALCOM_ERROR_OVERRUN_ERROR);
+282                 }
+283                 
+284                 serialcom_delayus(0.2*pSerialPortConfig->FramePeriodUS);
+285                 ElapsedTime += 0.2*pSerialPortConfig->FramePeriodUS;
+286 //              printf("\n ElapsedTime = %f",ElapsedTime);
+287                 if(ElapsedTime >= MaximaEsperaUS){
+288 //                      printf("\n FILE = %s, LINE = %i",__FILE__,__LINE__);
+289 //                      printf("\n Porta %i, Retornando estado %i", pSerialPortCo
+      nfig->ComPortNumber, SERIALCOM_ERROR_MAXWAITFORRECEPTION);
+290                         return(SERIALCOM_ERROR_MAXWAITFORRECEPTION);  // Dado nao
+       chegou no tempo estipulado.
+291                 }
+292         }
+293 }
+\end{DoxyCode}
+\index{serialcom-\/sb16c1052pci-\/xenomai.c@{serialcom-\/sb16c1052pci-\/xenomai.c}!serialcom\_\-semsignal@{serialcom\_\-semsignal}}
+\index{serialcom\_\-semsignal@{serialcom\_\-semsignal}!serialcom-sb16c1052pci-xenomai.c@{serialcom-\/sb16c1052pci-\/xenomai.c}}
+\subsubsection[{serialcom\_\-semsignal}]{\setlength{\rightskip}{0pt plus 5cm}void serialcom\_\-semsignal ({\bf PSERIALPORTCONFIG} {\em pSerialPortConfig})}\label{serialcom-sb16c1052pci-xenomai_8c_aca6e0ddb69ed96c35f139ff05d5b3a72}
+Funcao que libera semforo que foi previamente cedido por serialcom\_\-semwait para acessar a porta descrita por pSerialPortConfig. 
+\begin{DoxyParams}{Parameters}
+\item[{\em pSerialPortConfig}]Ponteiro para estrutura \doxyref{SERIALPORTCONFIG}{p.}{structSERIALPORTCONFIG} que guarda informaes de configurao da porta serial no contexto do thread de chamada. Mesmo que uma dada porta serial seja utilizada por diversos threads, cada thread dever ter a sua estrutura \doxyref{SERIALPORTCONFIG}{p.}{structSERIALPORTCONFIG}.. \end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+Se uma determinada porta somente gerenciada por um s thread, no h necessidade de se usar essas funes de semforo. As funes de semforo tm somente utilizade em situaes em que mais de um thread pode acessar a porta serial X, com X = 1, 2, 3 ou 4. 
+
+Aps concluir o acesso porta serial cedido por essa funcao, deve-\/se chamar serialcom\_\-semsignal para liberar o semforo 
+\end{DoxyWarning}
+
+
+Definition at line 178 of file serialcom-\/sb16c1052pci-\/xenomai.c.
+
+
+\begin{DoxyCode}
+179 {
+180         rt_sem_v(&pComPortSemaphores[pSerialPortConfig->ComPortNumber-1]);
+181 }
+\end{DoxyCode}
+\index{serialcom-\/sb16c1052pci-\/xenomai.c@{serialcom-\/sb16c1052pci-\/xenomai.c}!serialcom\_\-semwait@{serialcom\_\-semwait}}
+\index{serialcom\_\-semwait@{serialcom\_\-semwait}!serialcom-sb16c1052pci-xenomai.c@{serialcom-\/sb16c1052pci-\/xenomai.c}}
+\subsubsection[{serialcom\_\-semwait}]{\setlength{\rightskip}{0pt plus 5cm}void serialcom\_\-semwait ({\bf PSERIALPORTCONFIG} {\em pSerialPortConfig})}\label{serialcom-sb16c1052pci-xenomai_8c_ac1deb0bc4fce44117f1d2b3aa0d78a2a}
+Funcao que aguarda semforo para acessar a porta descrita por pSerialPortConfig. Juntamente com serialcom\_\-semsignal, pode-\/se garantir o acesso exclusivo de um thread porta serial. 
+\begin{DoxyParams}{Parameters}
+\item[{\em pSerialPortConfig}]Ponteiro para estrutura \doxyref{SERIALPORTCONFIG}{p.}{structSERIALPORTCONFIG} que guarda informaes de configurao da porta serial no contexto do thread de chamada. Mesmo que uma dada porta serial seja utilizada por diversos threads, cada thread dever ter a sua estrutura \doxyref{SERIALPORTCONFIG}{p.}{structSERIALPORTCONFIG}.. \end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+Se uma determinada porta somente gerenciada por um s thread, no h necessidade de se usar essas funes de semforo. As funes de semforo tm somente utilizade em situaes em que mais de um thread pode acessar a porta serial X, com X = 1, 2, 3 ou 4. 
+
+Aps concluir o acesso porta serial cedido por essa funcao, deve-\/se chamar serialcom\_\-semsignal para liberar o semforo 
+\end{DoxyWarning}
+
+
+Definition at line 164 of file serialcom-\/sb16c1052pci-\/xenomai.c.
+
+
+\begin{DoxyCode}
+165 {
+166         rt_sem_p(&pComPortSemaphores[pSerialPortConfig->ComPortNumber-1],TM_INFIN
+      ITE);
+167 }
+\end{DoxyCode}
+\index{serialcom-\/sb16c1052pci-\/xenomai.c@{serialcom-\/sb16c1052pci-\/xenomai.c}!serialcom\_\-sendbyte@{serialcom\_\-sendbyte}}
+\index{serialcom\_\-sendbyte@{serialcom\_\-sendbyte}!serialcom-sb16c1052pci-xenomai.c@{serialcom-\/sb16c1052pci-\/xenomai.c}}
+\subsubsection[{serialcom\_\-sendbyte}]{\setlength{\rightskip}{0pt plus 5cm}int serialcom\_\-sendbyte ({\bf PSERIALPORTCONFIG} {\em pSerialPortConfig}, \/  unsigned char $\ast$ {\em pData})}\label{serialcom-sb16c1052pci-xenomai_8c_ac5dcc32914d203e1a81c377fef948014}
+Funcao que envia um byte apontado por pData pela porta serial descrita por pSerialPortConfig. 
+\begin{DoxyParams}{Parameters}
+\item[{\em pSerialPortConfig}]Ponteiro para estrutura \doxyref{SERIALPORTCONFIG}{p.}{structSERIALPORTCONFIG} que guarda informaes de configurao da porta serial no contexto do thread de chamada. Mesmo que uma dada porta serial seja utilizada por diversos threads, cada thread dever ter a sua estrutura \doxyref{SERIALPORTCONFIG}{p.}{structSERIALPORTCONFIG}. Se SERIALCOM\_\-USE\_\-RS485 = 1, ento o sinal RTS ser colocado em nvel lgico 1 enquanto durar o frame do byte enviado, permitindo assim ativar o driver externo de uma porta com conversor RS-\/485. Nessa situao, essa funcao somente retorna quando o byte tiver sido enviado. Caso contrrio, a funcao somente escrever no buffer de sada o byte apontado por pData, retornando em $\ast$ seguida. \item[{\em pData}]Ponteiro para o byte que ser enviado. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+SERIALCOM\_\-SUCCESS : Dado escrito no registro de sada com sucesso. Entretanto, isso significa apenas que uma transmisso est em curso. Para se certificar de que o dado foi efetivamente transmitido, deve-\/se fazer uso da funcao \doxyref{serialcom\_\-status()}{p.}{serialcom-sb16c1052pci-xenomai_8c_a7ad801f3b47f1ee0e0cf90ab78a20983} 
+
+SERIALCOM\_\-ERROR\_\-MAXWAITENDOFTRANSMISSION : Situao de erro em que a funcao ficou aguardando por um perodo de at 5 frames para disponibilizao do registro de sada da porta 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+Essa funcao fica bloqueada enquanto o ltimo byte escrito no buffer de sada ainda no tiver sido enviado. 
+\end{DoxyWarning}
+
+
+Definition at line 195 of file serialcom-\/sb16c1052pci-\/xenomai.c.
+
+
+\begin{DoxyCode}
+196 {
+197         int contador;
+198         #if SERIALCOM_USE_RS485
+199         unsigned char dado;
+200         #endif
+201 
+202         contador = 0;
+203         while(!(serialcom_status(pSerialPortConfig) & 
+      SERIALCOM_STATUSMASK_EMPTY_DH_REGISTERS))
+204         {
+205                 serialcom_delayus(0.2*pSerialPortConfig->FramePeriodUS); 
+206                 if(++contador>10) return(
+      SERIALCOM_ERROR_MAXWAITENDOFTRANSMISSION);
+207         } // Espera fim da ultima transmissao
+208 
+209         #if SERIALCOM_USE_RS485
+210         dado = inb(pSerialPortConfig->ComPortAddress + 4);
+211         dado = dado & (~0x02);
+212         outb(dado, pSerialPortConfig->ComPortAddress + 4);  //setar RTS = 1 mante
+      ndo OUT2
+213         #endif
+214         
+215         outb(*pData, pSerialPortConfig->ComPortAddress + 0); // Envia.
+216         
+217         #if SERIALCOM_USE_RS485
+218 //      serialcom_delayus(pSerialPortConfig->FramePeriodUS); // Espera o periodo 
+      de uma transmisso
+219         contador = 0;
+220         while(!(serialcom_status(pSerialPortConfig) & SERIALCOM_STATUSMASK_EMPTY_
+      DH_REGISTERS))
+221         {
+222                 serialcom_delayus(0.2*pSerialPortConfig->FramePeriodUS);
+223                 if(++contador>10) return(
+      SERIALCOM_ERROR_MAXWAITENDOFTRANSMISSION);
+224         } // Espera fim da ultima transmissao
+225 
+226         dado = inb(pSerialPortConfig->ComPortAddress + 4);
+227         dado = dado | (0x02);
+228         outb(dado, pSerialPortConfig->ComPortAddress + 4);  //setar RTS = 0 mante
+      ndo OUT2
+229         #endif
+230 
+231         return SERIALCOM_SUCCESS;
+232 }
+\end{DoxyCode}
+\index{serialcom-\/sb16c1052pci-\/xenomai.c@{serialcom-\/sb16c1052pci-\/xenomai.c}!serialcom\_\-status@{serialcom\_\-status}}
+\index{serialcom\_\-status@{serialcom\_\-status}!serialcom-sb16c1052pci-xenomai.c@{serialcom-\/sb16c1052pci-\/xenomai.c}}
+\subsubsection[{serialcom\_\-status}]{\setlength{\rightskip}{0pt plus 5cm}int serialcom\_\-status ({\bf PSERIALPORTCONFIG} {\em pSerialPortConfig})}\label{serialcom-sb16c1052pci-xenomai_8c_a7ad801f3b47f1ee0e0cf90ab78a20983}
+Funcao que l o registro de status da porta serial descrita por pSerialPortConfig. 
+\begin{DoxyParams}{Parameters}
+\item[{\em pSerialPortConfig}]Ponteiro para estrutura \doxyref{SERIALPORTCONFIG}{p.}{structSERIALPORTCONFIG} que guarda informaes de configurao da porta serial no contexto do thread de chamada. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+O valor de retorno tem os bits setados conforme que o dado foi efetivamente enviadoos eventos que ocorreram com a porta serial, que podem ser testados usando um teste lgico E bit a bit com as seguintes mscaras: 
+
+SERIALCOM\_\-STATUSMASK\_\-ERROR\_\-RX\_\-FIFO 
+
+SERIALCOM\_\-STATUSMASK\_\-EMPTY\_\-DH\_\-REGISTERS 
+
+SERIALCOM\_\-STATUSMASK\_\-EMPTY\_\-TX\_\-REGISTER 
+
+SERIALCOM\_\-STATUSMASK\_\-BREAK\_\-INTERRUPT 
+
+SERIALCOM\_\-STATUSMASK\_\-FRAMING\_\-ERROR 
+
+SERIALCOM\_\-STATUSMASK\_\-PARITY\_\-ERROR 
+
+SERIALCOM\_\-STATUSMASK\_\-OVERRUN\_\-ERROR 
+
+SERIALCOM\_\-STATUSMASK\_\-RX\_\-DATA\_\-READY 
+
+As mscaras acima correspondem a eventos que so detalhados em {\tt http://www.beyondlogic.org/serial/serial.htm} 
+\end{DoxyReturn}
+
+
+Definition at line 311 of file serialcom-\/sb16c1052pci-\/xenomai.c.
+
+
+\begin{DoxyCode}
+312 {
+313         return inb(pSerialPortConfig->ComPortAddress + 5);
+314 }
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\index{serialcom-\/sb16c1052pci-\/xenomai.c@{serialcom-\/sb16c1052pci-\/xenomai.c}!pComPortSemaphores@{pComPortSemaphores}}
+\index{pComPortSemaphores@{pComPortSemaphores}!serialcom-sb16c1052pci-xenomai.c@{serialcom-\/sb16c1052pci-\/xenomai.c}}
+\subsubsection[{pComPortSemaphores}]{\setlength{\rightskip}{0pt plus 5cm}SEM $\ast$ {\bf pComPortSemaphores}[4]}\label{serialcom-sb16c1052pci-xenomai_8c_a74ad210af22afadd34ea631fd41bd860}
+Vetor de ponteiros para semaforos. Cada elemento desse vetor eh um ponteiro para o semaforo associado aa porta X, com X = 1, 2, 3 ou 4. Os semaforos de cada porta sao iniciados na chamada aa funcao \doxyref{serialcom\_\-init()}{p.}{serialcom-sb16c1052pci-xenomai_8c_a5eb7bbd8dec689b7e1943f71a54ed89b}. Para uso interno pelas funcoes \doxyref{serialcom\_\-semwait()}{p.}{serialcom-sb16c1052pci-xenomai_8c_ac1deb0bc4fce44117f1d2b3aa0d78a2a} e \doxyref{serialcom\_\-semsignal()}{p.}{serialcom-sb16c1052pci-xenomai_8c_aca6e0ddb69ed96c35f139ff05d5b3a72}. 
+
+Definition at line 44 of file serialcom-\/sb16c1052pci-\/xenomai.c.

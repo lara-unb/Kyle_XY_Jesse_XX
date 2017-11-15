@@ -1,0 +1,131 @@
+\section{main.c File Reference}
+\label{main_8c}\index{main.c@{main.c}}
+
+
+Arquivo principal.  
+{\ttfamily \#include $<$math.h$>$}\par
+{\ttfamily \#include $<$time.h$>$}\par
+{\ttfamily \#include $<$stdio.h$>$}\par
+{\ttfamily \#include $<$errno.h$>$}\par
+{\ttfamily \#include $<$stdlib.h$>$}\par
+{\ttfamily \#include $<$string.h$>$}\par
+{\ttfamily \#include $<$signal.h$>$}\par
+{\ttfamily \#include $<$sys/io.h$>$}\par
+{\ttfamily \#include $<$sys/time.h$>$}\par
+{\ttfamily \#include $<$unistd.h$>$}\par
+{\ttfamily \#include $<$pthread.h$>$}\par
+{\ttfamily \#include $<$termios.h$>$}\par
+{\ttfamily \#include $<$fcntl.h$>$}\par
+{\ttfamily \#include $<$sys/mman.h$>$}\par
+{\ttfamily \#include $<$native/task.h$>$}\par
+{\ttfamily \#include $<$native/timer.h$>$}\par
+{\ttfamily \#include \char`\"{}robotcommondefs.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}robot.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}robotserver.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}keyboard.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf MAIN\_\-MODULE\_\-CLOSE}(cmd\_\-close)~if(cmd\_\-close==0)\{printf(\char`\"{}    Erro em \%s\char`\"{},\#cmd\_\-close);\}
+\item 
+\#define {\bf MAIN\_\-MODULE\_\-INIT}(cmd\_\-init)~if(cmd\_\-init==0)\{printf(\char`\"{}    Erro em \%s\char`\"{},\#cmd\_\-init);return(0);\}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void {\bf catch\_\-signal} (int sig)
+\item 
+int {\bf main} (int argc, char $\ast$argv[$\,$])
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+volatile int {\bf flag\_\-quit} = 0
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Arquivo principal. 
+
+Definition in file {\bf main.c}.
+
+\subsection{Define Documentation}
+\index{main.c@{main.c}!MAIN\_\-MODULE\_\-CLOSE@{MAIN\_\-MODULE\_\-CLOSE}}
+\index{MAIN\_\-MODULE\_\-CLOSE@{MAIN\_\-MODULE\_\-CLOSE}!main.c@{main.c}}
+\subsubsection[{MAIN\_\-MODULE\_\-CLOSE}]{\setlength{\rightskip}{0pt plus 5cm}\#define MAIN\_\-MODULE\_\-CLOSE(cmd\_\-close)~if(cmd\_\-close==0)\{printf(\char`\"{}    Erro em \%s\char`\"{},\#cmd\_\-close);\}}\label{main_8c_a157e317f6ab5f5bf967ce3df83848a42}
+
+
+Definition at line 35 of file main.c.\index{main.c@{main.c}!MAIN\_\-MODULE\_\-INIT@{MAIN\_\-MODULE\_\-INIT}}
+\index{MAIN\_\-MODULE\_\-INIT@{MAIN\_\-MODULE\_\-INIT}!main.c@{main.c}}
+\subsubsection[{MAIN\_\-MODULE\_\-INIT}]{\setlength{\rightskip}{0pt plus 5cm}\#define MAIN\_\-MODULE\_\-INIT(cmd\_\-init)~if(cmd\_\-init==0)\{printf(\char`\"{}    Erro em \%s\char`\"{},\#cmd\_\-init);return(0);\}}\label{main_8c_ab60ccfd1ea609f7560f164355423015c}
+
+
+Definition at line 34 of file main.c.
+
+\subsection{Function Documentation}
+\index{main.c@{main.c}!catch\_\-signal@{catch\_\-signal}}
+\index{catch\_\-signal@{catch\_\-signal}!main.c@{main.c}}
+\subsubsection[{catch\_\-signal}]{\setlength{\rightskip}{0pt plus 5cm}void catch\_\-signal (int {\em sig})}\label{main_8c_af2dc378d0481adcc49b61efb98493a9b}
+
+
+Definition at line 79 of file main.c.
+
+
+\begin{DoxyCode}
+80 {
+81 }
+\end{DoxyCode}
+\index{main.c@{main.c}!main@{main}}
+\index{main@{main}!main.c@{main.c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (int {\em argc}, \/  char $\ast$ {\em argv}[$\,$])}\label{main_8c_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+Definition at line 44 of file main.c.
+
+
+\begin{DoxyCode}
+45 {       
+46         signal(SIGTERM, catch_signal);
+47         signal(SIGINT, catch_signal);
+48 
+49         /* Avoids memory swapping for this program */
+50         mlockall(MCL_CURRENT|MCL_FUTURE);
+51         
+52         printf("\n\n\n\n*********************************************************
+      ******");
+53         printf("\n**** Mobile Mapipulator Server Process");
+54         printf("\n***************************************************************
+      \n");
+55 
+56         // robot module:
+57         printf("\n*** Iniciando o modulo robot...");
+58         MAIN_MODULE_INIT(robot_init());
+59 
+60         // robotserver module:
+61         printf("\n*** Iniciando o modulo servidor...");
+62         MAIN_MODULE_INIT(robotserver_init());
+63         
+64         printf("\n*** Servidor pronto e processando requisições.");
+65         while(!flag_quit && !kbhit()){
+66                 usleep(200000);
+67         }
+68 
+69         printf("\n*** Encerrando o modulo servidor...");
+70         MAIN_MODULE_CLOSE(robotserver_close());
+71         
+72         printf("\n*** Encerrando o modulo robot...");
+73         MAIN_MODULE_CLOSE(robot_close());
+74         
+75         printf("\n\n");
+76     return 1;
+77 }
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\index{main.c@{main.c}!flag\_\-quit@{flag\_\-quit}}
+\index{flag\_\-quit@{flag\_\-quit}!main.c@{main.c}}
+\subsubsection[{flag\_\-quit}]{\setlength{\rightskip}{0pt plus 5cm}volatile int {\bf flag\_\-quit} = 0}\label{main_8c_aa93be71a208cd9a64285d2768b8ee7f8}
+
+
+Definition at line 41 of file main.c.

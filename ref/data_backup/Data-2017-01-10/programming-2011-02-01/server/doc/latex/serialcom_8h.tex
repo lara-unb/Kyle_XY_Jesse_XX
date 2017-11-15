@@ -1,0 +1,557 @@
+\section{serialcom.h File Reference}
+\label{serialcom_8h}\index{serialcom.h@{serialcom.h}}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf SERIALPORTCONFIG}
+\end{DoxyCompactItemize}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf serialcom\_\-}~serialcom\_\-
+\item 
+\#define {\bf SERIALCOM\_\-ERROR\_\-BREAK\_\-INTERRUPT}~8
+\item 
+\#define {\bf SERIALCOM\_\-ERROR\_\-DEVICENOTFOUND}~6
+\item 
+\#define {\bf SERIALCOM\_\-ERROR\_\-FRAMING\_\-ERROR}~9
+\item 
+\#define {\bf SERIALCOM\_\-ERROR\_\-INCORRECTPORTNUMBER}~5
+\item 
+\#define {\bf SERIALCOM\_\-ERROR\_\-IOPL}~1
+\item 
+\#define {\bf SERIALCOM\_\-ERROR\_\-MAXBPSPRECISION}~4
+\item 
+\#define {\bf SERIALCOM\_\-ERROR\_\-MAXWAITENDOFTRANSMISSION}~2
+\item 
+\#define {\bf SERIALCOM\_\-ERROR\_\-MAXWAITFORRECEPTION}~3
+\item 
+\#define {\bf SERIALCOM\_\-ERROR\_\-OVERRUN\_\-ERROR}~11
+\item 
+\#define {\bf SERIALCOM\_\-ERROR\_\-PARITY\_\-ERROR}~10
+\item 
+\#define {\bf SERIALCOM\_\-ERROR\_\-RX\_\-FIFO}~7
+\item 
+\#define {\bf SERIALCOM\_\-MAXBPSPRECISION}~0.02
+\item 
+\#define {\bf SERIALCOM\_\-STATUSMASK\_\-BREAK\_\-INTERRUPT}~0x10
+\item 
+\#define {\bf SERIALCOM\_\-STATUSMASK\_\-EMPTY\_\-DH\_\-REGISTERS}~0x40
+\item 
+\#define {\bf SERIALCOM\_\-STATUSMASK\_\-EMPTY\_\-TX\_\-REGISTER}~0x20
+\item 
+\#define {\bf SERIALCOM\_\-STATUSMASK\_\-ERROR\_\-RX\_\-FIFO}~0x80
+\item 
+\#define {\bf SERIALCOM\_\-STATUSMASK\_\-FRAMING\_\-ERROR}~0x08
+\item 
+\#define {\bf SERIALCOM\_\-STATUSMASK\_\-OVERRUN\_\-ERROR}~0x02
+\item 
+\#define {\bf SERIALCOM\_\-STATUSMASK\_\-PARITY\_\-ERROR}~0x04
+\item 
+\#define {\bf SERIALCOM\_\-STATUSMASK\_\-RX\_\-DATA\_\-READY}~0x01
+\item 
+\#define {\bf SERIALCOM\_\-SUCCESS}~0
+\item 
+\#define {\bf SERIALCOM\_\-USE\_\-RS485}~1
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct {\bf SERIALPORTCONFIG} $\ast$ {\bf PSERIALPORTCONFIG}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int {\bf serialcom\_\-close} ({\bf PSERIALPORTCONFIG} pSerialPortConfig)
+\item 
+int {\bf serialcom\_\-init} ({\bf PSERIALPORTCONFIG} pSerialPortConfig, int ComPortNumber, unsigned long int ComPortBPS)
+\item 
+int {\bf serialcom\_\-receivebyte} ({\bf PSERIALPORTCONFIG} pSerialPortConfig, unsigned char $\ast$pData, double MaximaEsperaUS)
+\item 
+void {\bf serialcom\_\-semsignal} ({\bf PSERIALPORTCONFIG} pSerialPortConfig)
+\item 
+void {\bf serialcom\_\-semwait} ({\bf PSERIALPORTCONFIG} pSerialPortConfig)
+\item 
+int {\bf serialcom\_\-sendbyte} ({\bf PSERIALPORTCONFIG} pSerialPortConfig, unsigned char $\ast$pData)
+\item 
+int {\bf serialcom\_\-status} ({\bf PSERIALPORTCONFIG} pSerialPortConfig)
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\index{serialcom.h@{serialcom.h}!serialcom\_\-@{serialcom\_\-}}
+\index{serialcom\_\-@{serialcom\_\-}!serialcom.h@{serialcom.h}}
+\subsubsection[{serialcom\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\#define serialcom\_\-~serialcom\_\-}\label{serialcom_8h_a4f01429bc5a54fa2af2eb462e9216d24}
+
+
+Definition at line 18 of file serialcom.h.\index{serialcom.h@{serialcom.h}!SERIALCOM\_\-ERROR\_\-BREAK\_\-INTERRUPT@{SERIALCOM\_\-ERROR\_\-BREAK\_\-INTERRUPT}}
+\index{SERIALCOM\_\-ERROR\_\-BREAK\_\-INTERRUPT@{SERIALCOM\_\-ERROR\_\-BREAK\_\-INTERRUPT}!serialcom.h@{serialcom.h}}
+\subsubsection[{SERIALCOM\_\-ERROR\_\-BREAK\_\-INTERRUPT}]{\setlength{\rightskip}{0pt plus 5cm}\#define SERIALCOM\_\-ERROR\_\-BREAK\_\-INTERRUPT~8}\label{serialcom_8h_ade5b6f987d2dadd0131c5d27f8cc5f8a}
+
+
+Definition at line 56 of file serialcom.h.\index{serialcom.h@{serialcom.h}!SERIALCOM\_\-ERROR\_\-DEVICENOTFOUND@{SERIALCOM\_\-ERROR\_\-DEVICENOTFOUND}}
+\index{SERIALCOM\_\-ERROR\_\-DEVICENOTFOUND@{SERIALCOM\_\-ERROR\_\-DEVICENOTFOUND}!serialcom.h@{serialcom.h}}
+\subsubsection[{SERIALCOM\_\-ERROR\_\-DEVICENOTFOUND}]{\setlength{\rightskip}{0pt plus 5cm}\#define SERIALCOM\_\-ERROR\_\-DEVICENOTFOUND~6}\label{serialcom_8h_a0efc6c408872166b02c815ca31b9f89e}
+
+
+Definition at line 54 of file serialcom.h.\index{serialcom.h@{serialcom.h}!SERIALCOM\_\-ERROR\_\-FRAMING\_\-ERROR@{SERIALCOM\_\-ERROR\_\-FRAMING\_\-ERROR}}
+\index{SERIALCOM\_\-ERROR\_\-FRAMING\_\-ERROR@{SERIALCOM\_\-ERROR\_\-FRAMING\_\-ERROR}!serialcom.h@{serialcom.h}}
+\subsubsection[{SERIALCOM\_\-ERROR\_\-FRAMING\_\-ERROR}]{\setlength{\rightskip}{0pt plus 5cm}\#define SERIALCOM\_\-ERROR\_\-FRAMING\_\-ERROR~9}\label{serialcom_8h_a359da035668c376c888820dd42cb91c9}
+
+
+Definition at line 57 of file serialcom.h.\index{serialcom.h@{serialcom.h}!SERIALCOM\_\-ERROR\_\-INCORRECTPORTNUMBER@{SERIALCOM\_\-ERROR\_\-INCORRECTPORTNUMBER}}
+\index{SERIALCOM\_\-ERROR\_\-INCORRECTPORTNUMBER@{SERIALCOM\_\-ERROR\_\-INCORRECTPORTNUMBER}!serialcom.h@{serialcom.h}}
+\subsubsection[{SERIALCOM\_\-ERROR\_\-INCORRECTPORTNUMBER}]{\setlength{\rightskip}{0pt plus 5cm}\#define SERIALCOM\_\-ERROR\_\-INCORRECTPORTNUMBER~5}\label{serialcom_8h_a72c589a0e28e387b55e20336f2e93021}
+
+
+Definition at line 53 of file serialcom.h.\index{serialcom.h@{serialcom.h}!SERIALCOM\_\-ERROR\_\-IOPL@{SERIALCOM\_\-ERROR\_\-IOPL}}
+\index{SERIALCOM\_\-ERROR\_\-IOPL@{SERIALCOM\_\-ERROR\_\-IOPL}!serialcom.h@{serialcom.h}}
+\subsubsection[{SERIALCOM\_\-ERROR\_\-IOPL}]{\setlength{\rightskip}{0pt plus 5cm}\#define SERIALCOM\_\-ERROR\_\-IOPL~1}\label{serialcom_8h_a264fd1a738f038a013c61212b7ec11d3}
+
+
+Definition at line 49 of file serialcom.h.\index{serialcom.h@{serialcom.h}!SERIALCOM\_\-ERROR\_\-MAXBPSPRECISION@{SERIALCOM\_\-ERROR\_\-MAXBPSPRECISION}}
+\index{SERIALCOM\_\-ERROR\_\-MAXBPSPRECISION@{SERIALCOM\_\-ERROR\_\-MAXBPSPRECISION}!serialcom.h@{serialcom.h}}
+\subsubsection[{SERIALCOM\_\-ERROR\_\-MAXBPSPRECISION}]{\setlength{\rightskip}{0pt plus 5cm}\#define SERIALCOM\_\-ERROR\_\-MAXBPSPRECISION~4}\label{serialcom_8h_a302cedb96f53be4d397c4307326a4cfa}
+
+
+Definition at line 52 of file serialcom.h.\index{serialcom.h@{serialcom.h}!SERIALCOM\_\-ERROR\_\-MAXWAITENDOFTRANSMISSION@{SERIALCOM\_\-ERROR\_\-MAXWAITENDOFTRANSMISSION}}
+\index{SERIALCOM\_\-ERROR\_\-MAXWAITENDOFTRANSMISSION@{SERIALCOM\_\-ERROR\_\-MAXWAITENDOFTRANSMISSION}!serialcom.h@{serialcom.h}}
+\subsubsection[{SERIALCOM\_\-ERROR\_\-MAXWAITENDOFTRANSMISSION}]{\setlength{\rightskip}{0pt plus 5cm}\#define SERIALCOM\_\-ERROR\_\-MAXWAITENDOFTRANSMISSION~2}\label{serialcom_8h_ab9c6f98c58213b3a22c38c1296070f30}
+
+
+Definition at line 50 of file serialcom.h.\index{serialcom.h@{serialcom.h}!SERIALCOM\_\-ERROR\_\-MAXWAITFORRECEPTION@{SERIALCOM\_\-ERROR\_\-MAXWAITFORRECEPTION}}
+\index{SERIALCOM\_\-ERROR\_\-MAXWAITFORRECEPTION@{SERIALCOM\_\-ERROR\_\-MAXWAITFORRECEPTION}!serialcom.h@{serialcom.h}}
+\subsubsection[{SERIALCOM\_\-ERROR\_\-MAXWAITFORRECEPTION}]{\setlength{\rightskip}{0pt plus 5cm}\#define SERIALCOM\_\-ERROR\_\-MAXWAITFORRECEPTION~3}\label{serialcom_8h_a7f072f5d8e091db1bfe224b4548d6205}
+
+
+Definition at line 51 of file serialcom.h.\index{serialcom.h@{serialcom.h}!SERIALCOM\_\-ERROR\_\-OVERRUN\_\-ERROR@{SERIALCOM\_\-ERROR\_\-OVERRUN\_\-ERROR}}
+\index{SERIALCOM\_\-ERROR\_\-OVERRUN\_\-ERROR@{SERIALCOM\_\-ERROR\_\-OVERRUN\_\-ERROR}!serialcom.h@{serialcom.h}}
+\subsubsection[{SERIALCOM\_\-ERROR\_\-OVERRUN\_\-ERROR}]{\setlength{\rightskip}{0pt plus 5cm}\#define SERIALCOM\_\-ERROR\_\-OVERRUN\_\-ERROR~11}\label{serialcom_8h_a868b290a06e47ca2d5bb2dd7e80c62af}
+
+
+Definition at line 59 of file serialcom.h.\index{serialcom.h@{serialcom.h}!SERIALCOM\_\-ERROR\_\-PARITY\_\-ERROR@{SERIALCOM\_\-ERROR\_\-PARITY\_\-ERROR}}
+\index{SERIALCOM\_\-ERROR\_\-PARITY\_\-ERROR@{SERIALCOM\_\-ERROR\_\-PARITY\_\-ERROR}!serialcom.h@{serialcom.h}}
+\subsubsection[{SERIALCOM\_\-ERROR\_\-PARITY\_\-ERROR}]{\setlength{\rightskip}{0pt plus 5cm}\#define SERIALCOM\_\-ERROR\_\-PARITY\_\-ERROR~10}\label{serialcom_8h_a1ea5eb01e40f61443fe872822b18ced7}
+
+
+Definition at line 58 of file serialcom.h.\index{serialcom.h@{serialcom.h}!SERIALCOM\_\-ERROR\_\-RX\_\-FIFO@{SERIALCOM\_\-ERROR\_\-RX\_\-FIFO}}
+\index{SERIALCOM\_\-ERROR\_\-RX\_\-FIFO@{SERIALCOM\_\-ERROR\_\-RX\_\-FIFO}!serialcom.h@{serialcom.h}}
+\subsubsection[{SERIALCOM\_\-ERROR\_\-RX\_\-FIFO}]{\setlength{\rightskip}{0pt plus 5cm}\#define SERIALCOM\_\-ERROR\_\-RX\_\-FIFO~7}\label{serialcom_8h_a1a67c2540b6be0d469eebef6e9e96dcc}
+
+
+Definition at line 55 of file serialcom.h.\index{serialcom.h@{serialcom.h}!SERIALCOM\_\-MAXBPSPRECISION@{SERIALCOM\_\-MAXBPSPRECISION}}
+\index{SERIALCOM\_\-MAXBPSPRECISION@{SERIALCOM\_\-MAXBPSPRECISION}!serialcom.h@{serialcom.h}}
+\subsubsection[{SERIALCOM\_\-MAXBPSPRECISION}]{\setlength{\rightskip}{0pt plus 5cm}\#define SERIALCOM\_\-MAXBPSPRECISION~0.02}\label{serialcom_8h_a0eeee6b0469b12865344fb8e1dc7ff54}
+Erro relativo maximo aceitavel para definir taxa de transmisso. PadrSe SERIALCOM\_\-USE\_\-RS485 esetiver em 1, a linha RTS ser colocada em nvel lgico 1 durante a trnamisso de cada frame de um byte. Em geral, isso usado quando se desejar utilizar um driver RS485 com sinal de controle pelo pino RTSo: 0.02, que corresponde a 2\% de erro. 
+
+Definition at line 45 of file serialcom.h.\index{serialcom.h@{serialcom.h}!SERIALCOM\_\-STATUSMASK\_\-BREAK\_\-INTERRUPT@{SERIALCOM\_\-STATUSMASK\_\-BREAK\_\-INTERRUPT}}
+\index{SERIALCOM\_\-STATUSMASK\_\-BREAK\_\-INTERRUPT@{SERIALCOM\_\-STATUSMASK\_\-BREAK\_\-INTERRUPT}!serialcom.h@{serialcom.h}}
+\subsubsection[{SERIALCOM\_\-STATUSMASK\_\-BREAK\_\-INTERRUPT}]{\setlength{\rightskip}{0pt plus 5cm}\#define SERIALCOM\_\-STATUSMASK\_\-BREAK\_\-INTERRUPT~0x10}\label{serialcom_8h_af27289e4b3313a8c4e760873675af13d}
+
+
+Definition at line 65 of file serialcom.h.\index{serialcom.h@{serialcom.h}!SERIALCOM\_\-STATUSMASK\_\-EMPTY\_\-DH\_\-REGISTERS@{SERIALCOM\_\-STATUSMASK\_\-EMPTY\_\-DH\_\-REGISTERS}}
+\index{SERIALCOM\_\-STATUSMASK\_\-EMPTY\_\-DH\_\-REGISTERS@{SERIALCOM\_\-STATUSMASK\_\-EMPTY\_\-DH\_\-REGISTERS}!serialcom.h@{serialcom.h}}
+\subsubsection[{SERIALCOM\_\-STATUSMASK\_\-EMPTY\_\-DH\_\-REGISTERS}]{\setlength{\rightskip}{0pt plus 5cm}\#define SERIALCOM\_\-STATUSMASK\_\-EMPTY\_\-DH\_\-REGISTERS~0x40}\label{serialcom_8h_a3db72161c536946e1df76e9562447d5f}
+
+
+Definition at line 63 of file serialcom.h.\index{serialcom.h@{serialcom.h}!SERIALCOM\_\-STATUSMASK\_\-EMPTY\_\-TX\_\-REGISTER@{SERIALCOM\_\-STATUSMASK\_\-EMPTY\_\-TX\_\-REGISTER}}
+\index{SERIALCOM\_\-STATUSMASK\_\-EMPTY\_\-TX\_\-REGISTER@{SERIALCOM\_\-STATUSMASK\_\-EMPTY\_\-TX\_\-REGISTER}!serialcom.h@{serialcom.h}}
+\subsubsection[{SERIALCOM\_\-STATUSMASK\_\-EMPTY\_\-TX\_\-REGISTER}]{\setlength{\rightskip}{0pt plus 5cm}\#define SERIALCOM\_\-STATUSMASK\_\-EMPTY\_\-TX\_\-REGISTER~0x20}\label{serialcom_8h_a6b4f386990234b438520e8a1b36ce869}
+
+
+Definition at line 64 of file serialcom.h.\index{serialcom.h@{serialcom.h}!SERIALCOM\_\-STATUSMASK\_\-ERROR\_\-RX\_\-FIFO@{SERIALCOM\_\-STATUSMASK\_\-ERROR\_\-RX\_\-FIFO}}
+\index{SERIALCOM\_\-STATUSMASK\_\-ERROR\_\-RX\_\-FIFO@{SERIALCOM\_\-STATUSMASK\_\-ERROR\_\-RX\_\-FIFO}!serialcom.h@{serialcom.h}}
+\subsubsection[{SERIALCOM\_\-STATUSMASK\_\-ERROR\_\-RX\_\-FIFO}]{\setlength{\rightskip}{0pt plus 5cm}\#define SERIALCOM\_\-STATUSMASK\_\-ERROR\_\-RX\_\-FIFO~0x80}\label{serialcom_8h_ae5c00c56a89414cda5b5261d2cd4fdde}
+
+
+Definition at line 62 of file serialcom.h.\index{serialcom.h@{serialcom.h}!SERIALCOM\_\-STATUSMASK\_\-FRAMING\_\-ERROR@{SERIALCOM\_\-STATUSMASK\_\-FRAMING\_\-ERROR}}
+\index{SERIALCOM\_\-STATUSMASK\_\-FRAMING\_\-ERROR@{SERIALCOM\_\-STATUSMASK\_\-FRAMING\_\-ERROR}!serialcom.h@{serialcom.h}}
+\subsubsection[{SERIALCOM\_\-STATUSMASK\_\-FRAMING\_\-ERROR}]{\setlength{\rightskip}{0pt plus 5cm}\#define SERIALCOM\_\-STATUSMASK\_\-FRAMING\_\-ERROR~0x08}\label{serialcom_8h_a38247958e5a046a9a90d90527732b7da}
+
+
+Definition at line 66 of file serialcom.h.\index{serialcom.h@{serialcom.h}!SERIALCOM\_\-STATUSMASK\_\-OVERRUN\_\-ERROR@{SERIALCOM\_\-STATUSMASK\_\-OVERRUN\_\-ERROR}}
+\index{SERIALCOM\_\-STATUSMASK\_\-OVERRUN\_\-ERROR@{SERIALCOM\_\-STATUSMASK\_\-OVERRUN\_\-ERROR}!serialcom.h@{serialcom.h}}
+\subsubsection[{SERIALCOM\_\-STATUSMASK\_\-OVERRUN\_\-ERROR}]{\setlength{\rightskip}{0pt plus 5cm}\#define SERIALCOM\_\-STATUSMASK\_\-OVERRUN\_\-ERROR~0x02}\label{serialcom_8h_a29210113c4ba476836bbc3aa7213cc41}
+
+
+Definition at line 68 of file serialcom.h.\index{serialcom.h@{serialcom.h}!SERIALCOM\_\-STATUSMASK\_\-PARITY\_\-ERROR@{SERIALCOM\_\-STATUSMASK\_\-PARITY\_\-ERROR}}
+\index{SERIALCOM\_\-STATUSMASK\_\-PARITY\_\-ERROR@{SERIALCOM\_\-STATUSMASK\_\-PARITY\_\-ERROR}!serialcom.h@{serialcom.h}}
+\subsubsection[{SERIALCOM\_\-STATUSMASK\_\-PARITY\_\-ERROR}]{\setlength{\rightskip}{0pt plus 5cm}\#define SERIALCOM\_\-STATUSMASK\_\-PARITY\_\-ERROR~0x04}\label{serialcom_8h_ad7af17851b352bdb2765fc1a00e039d9}
+
+
+Definition at line 67 of file serialcom.h.\index{serialcom.h@{serialcom.h}!SERIALCOM\_\-STATUSMASK\_\-RX\_\-DATA\_\-READY@{SERIALCOM\_\-STATUSMASK\_\-RX\_\-DATA\_\-READY}}
+\index{SERIALCOM\_\-STATUSMASK\_\-RX\_\-DATA\_\-READY@{SERIALCOM\_\-STATUSMASK\_\-RX\_\-DATA\_\-READY}!serialcom.h@{serialcom.h}}
+\subsubsection[{SERIALCOM\_\-STATUSMASK\_\-RX\_\-DATA\_\-READY}]{\setlength{\rightskip}{0pt plus 5cm}\#define SERIALCOM\_\-STATUSMASK\_\-RX\_\-DATA\_\-READY~0x01}\label{serialcom_8h_a76de90ac046bfb9000ccd6845f71f25d}
+
+
+Definition at line 69 of file serialcom.h.\index{serialcom.h@{serialcom.h}!SERIALCOM\_\-SUCCESS@{SERIALCOM\_\-SUCCESS}}
+\index{SERIALCOM\_\-SUCCESS@{SERIALCOM\_\-SUCCESS}!serialcom.h@{serialcom.h}}
+\subsubsection[{SERIALCOM\_\-SUCCESS}]{\setlength{\rightskip}{0pt plus 5cm}\#define SERIALCOM\_\-SUCCESS~0}\label{serialcom_8h_a5a0fdec1e76957e187bd57ebb437fb99}
+
+
+Definition at line 48 of file serialcom.h.\index{serialcom.h@{serialcom.h}!SERIALCOM\_\-USE\_\-RS485@{SERIALCOM\_\-USE\_\-RS485}}
+\index{SERIALCOM\_\-USE\_\-RS485@{SERIALCOM\_\-USE\_\-RS485}!serialcom.h@{serialcom.h}}
+\subsubsection[{SERIALCOM\_\-USE\_\-RS485}]{\setlength{\rightskip}{0pt plus 5cm}\#define SERIALCOM\_\-USE\_\-RS485~1}\label{serialcom_8h_a3ed328925d0bf1463763eb175c8d2089}
+Se SERIALCOM\_\-USE\_\-RS485 esetiver em 1, a linha RTS ser colocada em nvel lgico 1 durante a trnamisso de cada frame de um byte. Em geral, isso usado quando se desejar utilizar um driver RS485 com sinal de controle pelo pino RTS. 
+
+Definition at line 39 of file serialcom.h.
+
+\subsection{Typedef Documentation}
+\index{serialcom.h@{serialcom.h}!PSERIALPORTCONFIG@{PSERIALPORTCONFIG}}
+\index{PSERIALPORTCONFIG@{PSERIALPORTCONFIG}!serialcom.h@{serialcom.h}}
+\subsubsection[{PSERIALPORTCONFIG}]{\setlength{\rightskip}{0pt plus 5cm}typedef  struct {\bf SERIALPORTCONFIG} $\ast$ {\bf PSERIALPORTCONFIG}}\label{serialcom_8h_abd61bacfb09233bf52272af3ced09780}
+
+
+\subsection{Function Documentation}
+\index{serialcom.h@{serialcom.h}!serialcom\_\-close@{serialcom\_\-close}}
+\index{serialcom\_\-close@{serialcom\_\-close}!serialcom.h@{serialcom.h}}
+\subsubsection[{serialcom\_\-close}]{\setlength{\rightskip}{0pt plus 5cm}int serialcom\_\-close ({\bf PSERIALPORTCONFIG} {\em pSerialPortConfig})}\label{serialcom_8h_a480f412a5b77f8ad7966a267b4c26f89}
+
+
+Definition at line 147 of file serialcom-\/sb16c1052pci-\/xenomai.c.
+
+
+\begin{DoxyCode}
+148 {
+149         rt_sem_delete(&pComPortSemaphores[pSerialPortConfig->ComPortNumber-1]);
+150 
+151         return SERIALCOM_SUCCESS;
+152 }
+\end{DoxyCode}
+\index{serialcom.h@{serialcom.h}!serialcom\_\-init@{serialcom\_\-init}}
+\index{serialcom\_\-init@{serialcom\_\-init}!serialcom.h@{serialcom.h}}
+\subsubsection[{serialcom\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}int serialcom\_\-init ({\bf PSERIALPORTCONFIG} {\em pSerialPortConfig}, \/  int {\em ComPortNumber}, \/  unsigned long int {\em ComPortBPS})}\label{serialcom_8h_a5eb7bbd8dec689b7e1943f71a54ed89b}
+Funcao que inicia a porta serial ComPortNumber com a taxa dada em BPS por ComPortBPS. Essa funcao dever ser chamada por cada thread que tenha acesso porta serial ComPortNumber. Seus argumentos de chamada so: 
+\begin{DoxyParams}{Parameters}
+\item[{\em pSerialPortConfig}]Ponteiro para estrutura SERIALPORCONFIG que guarda informaes de configurao da porta serial no contexto do thread de chamada. Mesmo que uma dada porta serial seja utilizada por diversos threads, cada thread dever ter a sua estrutura SERIALPORCONFIG. \item[{\em ComPortNumber}]Numero da porta serial, no intervalo de 1 a 4. \item[{\em ComPortBPS}]Taxa de comunicao em BPS, no intervalo de 2 a 115200. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+SERIALCOM\_\-SUCCESS : Porta iniciada com sucesso. 
+
+SERIALCOM\_\-ERROR\_\-INCORRECTPORTNUMBER : Erro, corresponde a um ComPortNumber invlido. 
+
+SERIALCOM\_\-ERROR\_\-MAXBPSPRECISION : Erro, a taxa ComPortBPS no pode ser realizada com erro inferior a. SERIALCOM\_\-MAXBPSPRECISION. 
+
+SERIALCOM\_\-ERROR\_\-IOPL : Erro, corresponde a uma tentativa de executar o programa sem que se tenha acesso privilegiado de administrador a portas de E/S. 
+\end{DoxyReturn}
+
+
+Definition at line 66 of file serialcom-\/sb16c1052pci-\/xenomai.c.
+
+
+\begin{DoxyCode}
+67 {
+68         unsigned int BPSClockDivisor;
+69         float BPSPrecision;
+70         char semname[50];
+71 
+72         unsigned long board_base_address;
+73         struct pci_access *pacc;
+74 
+75         if((ComPortNumber<0) || (ComPortNumber>2)){
+76                 return SERIALCOM_ERROR_INCORRECTPORTNUMBER;
+77         }
+78         
+79         printf("\n*** probing PCI devices:");
+80         if(!serialcom_pci_find_device(PCI_VENDOR_ID_MULTIPORT, PCI_DEVICE_ID_MP2,
+       &board_base_address, &pacc)){
+81                 printf("\n    device not found !");
+82                 return SERIALCOM_ERROR_DEVICENOTFOUND;
+83         }
+84         unsigned long board_port1_base_address;
+85         unsigned long board_port2_base_address;
+86         board_port1_base_address = board_base_address;
+87         board_port2_base_address = board_base_address+8;
+88         printf("\n*** board_port1_base_address: %Xh",(unsigned int)board_port1_ba
+      se_address);
+89         printf("\n*** board_port2_base_address: %Xh",(unsigned int)board_port2_ba
+      se_address);
+90         
+91         serialcom_pci_close_device(pacc);
+92 
+93         pSerialPortConfig->ComPortNumber = ComPortNumber; 
+94         pSerialPortConfig->ComPortAddress = board_base_address+8*(ComPortNumber-1
+      ); 
+95         
+96 
+97         pSerialPortConfig->ComPortBPS = ComPortBPS;
+98         pSerialPortConfig->FramePeriodUS = (1e7)/(((float)(ComPortBPS)));
+99 
+100         BPSClockDivisor = 921600 / ComPortBPS;
+101         BPSPrecision = (((double)(ComPortBPS)) - 921600.0/BPSClockDivisor)/((doub
+      le)(ComPortBPS));
+102         if(fabs(BPSPrecision) > SERIALCOM_MAXBPSPRECISION){
+103                 return SERIALCOM_ERROR_MAXBPSPRECISION;
+104         }
+105 
+106     if(iopl(3)<0){
+107                 printf("seriallib_iniciar: iopl error");
+108                 return SERIALCOM_ERROR_IOPL;
+109         }
+110 
+111         outb(0, pSerialPortConfig->ComPortAddress + 1);         // Desativar inte
+      rrupes 
+112         outb(0x80, pSerialPortConfig->ComPortAddress + 3);      // DLAB ON 
+113         outb((unsigned char)(BPSClockDivisor & 0xFF), pSerialPortConfig->
+      ComPortAddress + 0);    // Baud Rate - DL Byte 
+114         outb((unsigned char)((BPSClockDivisor >> 8) & 0xFF), pSerialPortConfig->
+      ComPortAddress + 1);    // Baud Rate - DH Byte 
+115         outb(0x03, pSerialPortConfig->ComPortAddress + 3);      // LCR: 8 Bits, N
+      o Parity, 1 Stop Bit 
+116         outb(0xC7, pSerialPortConfig->ComPortAddress + 2);      // FIFO Control: 
+      64 bytes TX e RX FIFO, limpa TX e RX fifos
+117         outb(0x0B, pSerialPortConfig->ComPortAddress + 4);      // MCR: Ativa DTR
+      , RTS = 0, e OUT2       
+118 
+119         char tmp_lcr;
+120         
+121         tmp_lcr = inb(pSerialPortConfig->ComPortAddress + 3);            // get L
+      CR initial value
+122         outb(tmp_lcr | 0xBF, pSerialPortConfig->ComPortAddress + 3); // LCR set 0
+      xBF
+123 
+124         outb(0xA4, pSerialPortConfig->ComPortAddress + 0);                       
+      // select page 3
+125         // set ATR: 
+126         //              * habilita controle automatico do driver TX, deixando a l
+      inha desativada quando não transmite.
+127         //              * habilita controle automatico do driver RX, deixando a l
+      inha desativada quando não transmite.
+128 //      outb(0x03 | (1<<5) | (1<<4), pSerialPortConfig->ComPortAddress + 1);  
+129         outb(0x03 | (1<<5) | (1<<4) | (1<<6), pSerialPortConfig->ComPortAddress +
+       1);  
+130 //      outb(0x03 | (1<<5) | (1<<4) | (1<<7) | (1<<6), pSerialPortConfig->ComPort
+      Address + 1);
+131   
+132         outb(0xA5, pSerialPortConfig->ComPortAddress + 0);                       
+      // select page 4
+133         // set AFR: 
+134         //              * habilita FIFO de 256 bytes.
+135         outb(0x01, pSerialPortConfig->ComPortAddress + 1);  
+136 
+137         outb(tmp_lcr, pSerialPortConfig->ComPortAddress + 3);            // LCR s
+      et to initial value
+138 
+139         sprintf(semname,"CoSem%i",ComPortNumber);
+140         //printf("\n semname = %s",semname);
+141         rt_sem_create(&pComPortSemaphores[ComPortNumber-1],semname,1,S_FIFO);
+142         return SERIALCOM_SUCCESS;
+143 
+144         return SERIALCOM_SUCCESS;
+145 }
+\end{DoxyCode}
+\index{serialcom.h@{serialcom.h}!serialcom\_\-receivebyte@{serialcom\_\-receivebyte}}
+\index{serialcom\_\-receivebyte@{serialcom\_\-receivebyte}!serialcom.h@{serialcom.h}}
+\subsubsection[{serialcom\_\-receivebyte}]{\setlength{\rightskip}{0pt plus 5cm}int serialcom\_\-receivebyte ({\bf PSERIALPORTCONFIG} {\em pSerialPortConfig}, \/  unsigned char $\ast$ {\em pData}, \/  double {\em MaximaEsperaUS})}\label{serialcom_8h_a54d13404ad9f206887f345c49c0b4499}
+Funcao que aguarda um byte chegar pela porta serial descrita por pSerialPortConfig por um tempo mximo dado por MaximaEsperaUS, dado em microsegundos. Se um dado chegar dentro do perodo dado por MaximaEsperaUS, o mesmo ser colocado na varivel apontada por pData. 
+\begin{DoxyParams}{Parameters}
+\item[{\em pSerialPortConfig}]Ponteiro para estrutura \doxyref{SERIALPORTCONFIG}{p.}{structSERIALPORTCONFIG} que guarda informaes de configurao da porta serial no contexto do thread de chamada. \item[{\em pData}]Ponteiro para o byte recebido. \item[{\em MaximaEsperaUS}]Tempo mximo de espera pela chegada de um byte pela porta. Se MaximaEsperaUS \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+SERIALCOM\_\-SUCCESS : Operao realizada com sucesso. Um byte foi recebido pela porta serial e se encontra disponvel na varivel apontada por pData. 
+
+SERIALCOM\_\-ERROR\_\-MAXWAITFORRECEPTION : Nenhum bayte chegou dentro do tempo estipulado por MaximaEsperaUS 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+Essa funcao fica bloqueada por at MaximaEsperaUS enquanto um byte no chegar. 
+\end{DoxyWarning}
+
+
+Definition at line 246 of file serialcom-\/sb16c1052pci-\/xenomai.c.
+
+
+\begin{DoxyCode}
+247 {
+248         double  ElapsedTime;
+249         int status;
+250 
+251         if(MaximaEsperaUS<0) MaximaEsperaUS = 0; // Espera minima de 0 us.
+252 
+253         ElapsedTime = 0.0;
+254         while(1)
+255         {
+256                 status = serialcom_status(pSerialPortConfig);
+257                 if( (status & SERIALCOM_STATUSMASK_RX_DATA_READY) ){
+258 //                      printf("\n FILE = %s, LINE = %i",__FILE__,__LINE__);
+259                         *pData = inb(pSerialPortConfig->ComPortAddress + 0);
+260 //                      printf("\n Porta %i, Retornando estado %i", pSerialPortCo
+      nfig->ComPortNumber, SERIALCOM_SUCCESS);
+261                         return(SERIALCOM_SUCCESS);
+262                 }
+263                 if( (status & SERIALCOM_STATUSMASK_ERROR_RX_FIFO) ){
+264                         *pData = inb(pSerialPortConfig->ComPortAddress + 0);
+265                         return(SERIALCOM_ERROR_RX_FIFO);
+266                 }
+267                 if( (status & SERIALCOM_STATUSMASK_BREAK_INTERRUPT) ){
+268                         *pData = inb(pSerialPortConfig->ComPortAddress + 0);
+269                         return(SERIALCOM_ERROR_BREAK_INTERRUPT);
+270                 }
+271                 if( (status & SERIALCOM_STATUSMASK_FRAMING_ERROR) ){
+272                         *pData = inb(pSerialPortConfig->ComPortAddress + 0);
+273                         return(SERIALCOM_ERROR_FRAMING_ERROR);
+274                 }
+275                 if( (status & SERIALCOM_STATUSMASK_PARITY_ERROR) ){
+276                         *pData = inb(pSerialPortConfig->ComPortAddress + 0);
+277                         return(SERIALCOM_ERROR_PARITY_ERROR);
+278                 }
+279                 if( (status & SERIALCOM_STATUSMASK_OVERRUN_ERROR) ){
+280                         *pData = inb(pSerialPortConfig->ComPortAddress + 0);
+281                         return(SERIALCOM_ERROR_OVERRUN_ERROR);
+282                 }
+283                 
+284                 serialcom_delayus(0.2*pSerialPortConfig->FramePeriodUS);
+285                 ElapsedTime += 0.2*pSerialPortConfig->FramePeriodUS;
+286 //              printf("\n ElapsedTime = %f",ElapsedTime);
+287                 if(ElapsedTime >= MaximaEsperaUS){
+288 //                      printf("\n FILE = %s, LINE = %i",__FILE__,__LINE__);
+289 //                      printf("\n Porta %i, Retornando estado %i", pSerialPortCo
+      nfig->ComPortNumber, SERIALCOM_ERROR_MAXWAITFORRECEPTION);
+290                         return(SERIALCOM_ERROR_MAXWAITFORRECEPTION);  // Dado nao
+       chegou no tempo estipulado.
+291                 }
+292         }
+293 }
+\end{DoxyCode}
+\index{serialcom.h@{serialcom.h}!serialcom\_\-semsignal@{serialcom\_\-semsignal}}
+\index{serialcom\_\-semsignal@{serialcom\_\-semsignal}!serialcom.h@{serialcom.h}}
+\subsubsection[{serialcom\_\-semsignal}]{\setlength{\rightskip}{0pt plus 5cm}void serialcom\_\-semsignal ({\bf PSERIALPORTCONFIG} {\em pSerialPortConfig})}\label{serialcom_8h_aca6e0ddb69ed96c35f139ff05d5b3a72}
+Funcao que libera semforo que foi previamente cedido por serialcom\_\-semwait para acessar a porta descrita por pSerialPortConfig. 
+\begin{DoxyParams}{Parameters}
+\item[{\em pSerialPortConfig}]Ponteiro para estrutura \doxyref{SERIALPORTCONFIG}{p.}{structSERIALPORTCONFIG} que guarda informaes de configurao da porta serial no contexto do thread de chamada. Mesmo que uma dada porta serial seja utilizada por diversos threads, cada thread dever ter a sua estrutura \doxyref{SERIALPORTCONFIG}{p.}{structSERIALPORTCONFIG}.. \end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+Se uma determinada porta somente gerenciada por um s thread, no h necessidade de se usar essas funes de semforo. As funes de semforo tm somente utilizade em situaes em que mais de um thread pode acessar a porta serial X, com X = 1, 2, 3 ou 4. 
+
+Aps concluir o acesso porta serial cedido por essa funcao, deve-\/se chamar serialcom\_\-semsignal para liberar o semforo 
+\end{DoxyWarning}
+
+
+Definition at line 178 of file serialcom-\/sb16c1052pci-\/xenomai.c.
+
+
+\begin{DoxyCode}
+179 {
+180         rt_sem_v(&pComPortSemaphores[pSerialPortConfig->ComPortNumber-1]);
+181 }
+\end{DoxyCode}
+\index{serialcom.h@{serialcom.h}!serialcom\_\-semwait@{serialcom\_\-semwait}}
+\index{serialcom\_\-semwait@{serialcom\_\-semwait}!serialcom.h@{serialcom.h}}
+\subsubsection[{serialcom\_\-semwait}]{\setlength{\rightskip}{0pt plus 5cm}void serialcom\_\-semwait ({\bf PSERIALPORTCONFIG} {\em pSerialPortConfig})}\label{serialcom_8h_ac1deb0bc4fce44117f1d2b3aa0d78a2a}
+Funcao que aguarda semforo para acessar a porta descrita por pSerialPortConfig. Juntamente com serialcom\_\-semsignal, pode-\/se garantir o acesso exclusivo de um thread porta serial. 
+\begin{DoxyParams}{Parameters}
+\item[{\em pSerialPortConfig}]Ponteiro para estrutura \doxyref{SERIALPORTCONFIG}{p.}{structSERIALPORTCONFIG} que guarda informaes de configurao da porta serial no contexto do thread de chamada. Mesmo que uma dada porta serial seja utilizada por diversos threads, cada thread dever ter a sua estrutura \doxyref{SERIALPORTCONFIG}{p.}{structSERIALPORTCONFIG}.. \end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+Se uma determinada porta somente gerenciada por um s thread, no h necessidade de se usar essas funes de semforo. As funes de semforo tm somente utilizade em situaes em que mais de um thread pode acessar a porta serial X, com X = 1, 2, 3 ou 4. 
+
+Aps concluir o acesso porta serial cedido por essa funcao, deve-\/se chamar serialcom\_\-semsignal para liberar o semforo 
+\end{DoxyWarning}
+
+
+Definition at line 164 of file serialcom-\/sb16c1052pci-\/xenomai.c.
+
+
+\begin{DoxyCode}
+165 {
+166         rt_sem_p(&pComPortSemaphores[pSerialPortConfig->ComPortNumber-1],TM_INFIN
+      ITE);
+167 }
+\end{DoxyCode}
+\index{serialcom.h@{serialcom.h}!serialcom\_\-sendbyte@{serialcom\_\-sendbyte}}
+\index{serialcom\_\-sendbyte@{serialcom\_\-sendbyte}!serialcom.h@{serialcom.h}}
+\subsubsection[{serialcom\_\-sendbyte}]{\setlength{\rightskip}{0pt plus 5cm}int serialcom\_\-sendbyte ({\bf PSERIALPORTCONFIG} {\em pSerialPortConfig}, \/  unsigned char $\ast$ {\em pData})}\label{serialcom_8h_ac5dcc32914d203e1a81c377fef948014}
+Funcao que envia um byte apontado por pData pela porta serial descrita por pSerialPortConfig. 
+\begin{DoxyParams}{Parameters}
+\item[{\em pSerialPortConfig}]Ponteiro para estrutura \doxyref{SERIALPORTCONFIG}{p.}{structSERIALPORTCONFIG} que guarda informaes de configurao da porta serial no contexto do thread de chamada. Mesmo que uma dada porta serial seja utilizada por diversos threads, cada thread dever ter a sua estrutura \doxyref{SERIALPORTCONFIG}{p.}{structSERIALPORTCONFIG}. Se SERIALCOM\_\-USE\_\-RS485 = 1, ento o sinal RTS ser colocado em nvel lgico 1 enquanto durar o frame do byte enviado, permitindo assim ativar o driver externo de uma porta com conversor RS-\/485. Nessa situao, essa funcao somente retorna quando o byte tiver sido enviado. Caso contrrio, a funcao somente escrever no buffer de sada o byte apontado por pData, retornando em $\ast$ seguida. \item[{\em pData}]Ponteiro para o byte que ser enviado. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+SERIALCOM\_\-SUCCESS : Dado escrito no registro de sada com sucesso. Entretanto, isso significa apenas que uma transmisso est em curso. Para se certificar de que o dado foi efetivamente transmitido, deve-\/se fazer uso da funcao \doxyref{serialcom\_\-status()}{p.}{serialcom-sb16c1052pci-xenomai_8c_a7ad801f3b47f1ee0e0cf90ab78a20983} 
+
+SERIALCOM\_\-ERROR\_\-MAXWAITENDOFTRANSMISSION : Situao de erro em que a funcao ficou aguardando por um perodo de at 5 frames para disponibilizao do registro de sada da porta 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+Essa funcao fica bloqueada enquanto o ltimo byte escrito no buffer de sada ainda no tiver sido enviado. 
+\end{DoxyWarning}
+
+
+Definition at line 195 of file serialcom-\/sb16c1052pci-\/xenomai.c.
+
+
+\begin{DoxyCode}
+196 {
+197         int contador;
+198         #if SERIALCOM_USE_RS485
+199         unsigned char dado;
+200         #endif
+201 
+202         contador = 0;
+203         while(!(serialcom_status(pSerialPortConfig) & 
+      SERIALCOM_STATUSMASK_EMPTY_DH_REGISTERS))
+204         {
+205                 serialcom_delayus(0.2*pSerialPortConfig->FramePeriodUS); 
+206                 if(++contador>10) return(
+      SERIALCOM_ERROR_MAXWAITENDOFTRANSMISSION);
+207         } // Espera fim da ultima transmissao
+208 
+209         #if SERIALCOM_USE_RS485
+210         dado = inb(pSerialPortConfig->ComPortAddress + 4);
+211         dado = dado & (~0x02);
+212         outb(dado, pSerialPortConfig->ComPortAddress + 4);  //setar RTS = 1 mante
+      ndo OUT2
+213         #endif
+214         
+215         outb(*pData, pSerialPortConfig->ComPortAddress + 0); // Envia.
+216         
+217         #if SERIALCOM_USE_RS485
+218 //      serialcom_delayus(pSerialPortConfig->FramePeriodUS); // Espera o periodo 
+      de uma transmisso
+219         contador = 0;
+220         while(!(serialcom_status(pSerialPortConfig) & SERIALCOM_STATUSMASK_EMPTY_
+      DH_REGISTERS))
+221         {
+222                 serialcom_delayus(0.2*pSerialPortConfig->FramePeriodUS);
+223                 if(++contador>10) return(
+      SERIALCOM_ERROR_MAXWAITENDOFTRANSMISSION);
+224         } // Espera fim da ultima transmissao
+225 
+226         dado = inb(pSerialPortConfig->ComPortAddress + 4);
+227         dado = dado | (0x02);
+228         outb(dado, pSerialPortConfig->ComPortAddress + 4);  //setar RTS = 0 mante
+      ndo OUT2
+229         #endif
+230 
+231         return SERIALCOM_SUCCESS;
+232 }
+\end{DoxyCode}
+\index{serialcom.h@{serialcom.h}!serialcom\_\-status@{serialcom\_\-status}}
+\index{serialcom\_\-status@{serialcom\_\-status}!serialcom.h@{serialcom.h}}
+\subsubsection[{serialcom\_\-status}]{\setlength{\rightskip}{0pt plus 5cm}int serialcom\_\-status ({\bf PSERIALPORTCONFIG} {\em pSerialPortConfig})}\label{serialcom_8h_a7ad801f3b47f1ee0e0cf90ab78a20983}
+Funcao que l o registro de status da porta serial descrita por pSerialPortConfig. 
+\begin{DoxyParams}{Parameters}
+\item[{\em pSerialPortConfig}]Ponteiro para estrutura \doxyref{SERIALPORTCONFIG}{p.}{structSERIALPORTCONFIG} que guarda informaes de configurao da porta serial no contexto do thread de chamada. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+O valor de retorno tem os bits setados conforme que o dado foi efetivamente enviadoos eventos que ocorreram com a porta serial, que podem ser testados usando um teste lgico E bit a bit com as seguintes mscaras: 
+
+SERIALCOM\_\-STATUSMASK\_\-ERROR\_\-RX\_\-FIFO 
+
+SERIALCOM\_\-STATUSMASK\_\-EMPTY\_\-DH\_\-REGISTERS 
+
+SERIALCOM\_\-STATUSMASK\_\-EMPTY\_\-TX\_\-REGISTER 
+
+SERIALCOM\_\-STATUSMASK\_\-BREAK\_\-INTERRUPT 
+
+SERIALCOM\_\-STATUSMASK\_\-FRAMING\_\-ERROR 
+
+SERIALCOM\_\-STATUSMASK\_\-PARITY\_\-ERROR 
+
+SERIALCOM\_\-STATUSMASK\_\-OVERRUN\_\-ERROR 
+
+SERIALCOM\_\-STATUSMASK\_\-RX\_\-DATA\_\-READY 
+
+As mscaras acima correspondem a eventos que so detalhados em {\tt http://www.beyondlogic.org/serial/serial.htm} 
+\end{DoxyReturn}
+
+
+Definition at line 311 of file serialcom-\/sb16c1052pci-\/xenomai.c.
+
+
+\begin{DoxyCode}
+312 {
+313         return inb(pSerialPortConfig->ComPortAddress + 5);
+314 }
+\end{DoxyCode}

@@ -1,0 +1,59 @@
+\section{time.h File Reference}
+\label{time_8h}\index{time.h@{time.h}}
+
+
+Arquivo cabealho do modulo time.  
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf timestruct\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double {\bf time\_\-gettime} ({\bf timestruct\_\-t} $\ast$ptimestruct)
+\item 
+void {\bf time\_\-reset} ({\bf timestruct\_\-t} $\ast$ptimestruct)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Arquivo cabealho do modulo time. 
+
+Definition in file {\bf time.h}.
+
+\subsection{Function Documentation}
+\index{time.h@{time.h}!time\_\-gettime@{time\_\-gettime}}
+\index{time\_\-gettime@{time\_\-gettime}!time.h@{time.h}}
+\subsubsection[{time\_\-gettime}]{\setlength{\rightskip}{0pt plus 5cm}double time\_\-gettime ({\bf timestruct\_\-t} $\ast$ {\em ptimestruct})\hspace{0.3cm}{\ttfamily  [inline]}}\label{time_8h_a6ba31bb5e9306283d9e01d5a6b7e821a}
+Funcao que retorna o tempo (em segundos) decorrido desde o ultimo reset da estrutura ptimestruct. 
+\begin{DoxyParams}{Parameters}
+\item[{\em $\backslash$return}]\end{DoxyParams}
+
+
+Definition at line 41 of file time.h.
+
+
+\begin{DoxyCode}
+42 {
+43         gettimeofday(&ptimestruct->time, NULL);
+44         return (ptimestruct->time.tv_sec - ptimestruct->timereset.tv_sec) + 1e-6 
+      * (ptimestruct->time.tv_usec - ptimestruct->timereset.tv_usec);
+45 }                      
+\end{DoxyCode}
+\index{time.h@{time.h}!time\_\-reset@{time\_\-reset}}
+\index{time\_\-reset@{time\_\-reset}!time.h@{time.h}}
+\subsubsection[{time\_\-reset}]{\setlength{\rightskip}{0pt plus 5cm}void time\_\-reset ({\bf timestruct\_\-t} $\ast$ {\em ptimestruct})\hspace{0.3cm}{\ttfamily  [inline]}}\label{time_8h_adb1c3c3c760c930811ef574f86c8c701}
+Funcao que reinicia a contagem de tempo com a estrutura ptimestruct. 
+\begin{DoxyParams}{Parameters}
+\item[{\em $\backslash$return}]\end{DoxyParams}
+
+
+Definition at line 31 of file time.h.
+
+
+\begin{DoxyCode}
+32 {
+33         gettimeofday(&ptimestruct->timereset, NULL);
+34 }                      
+\end{DoxyCode}

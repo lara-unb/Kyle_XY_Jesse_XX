@@ -1,0 +1,12 @@
+Sensoray Model 526 SDK v.1.0 Release Notes
+==========================================
+October, 2002
+
+Known issues:
+1. Interrupts are not supported under Windows NT. Sensoray is currently
+   working on this issue. Please check our web site (www.sensoray.com) for
+   software upgrades.
+
+Release history:
+October, 2002 - v.1.0
+- Initial release.

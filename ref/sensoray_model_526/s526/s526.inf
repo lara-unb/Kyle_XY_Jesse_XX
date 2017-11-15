@@ -1,0 +1,76 @@
+[Version]
+signature="$CHICAGO$"
+Class=Media
+ClassGUID={4d36e96c-e325-11ce-bfc1-08002be10318}
+Provider=%Sens%
+
+[Manufacturer]
+%SensMfg%=Sensoray
+
+[SourceDisksNames]
+1="Sensoray","",1
+
+[SourceDisksFiles]
+sxdrv98.sys=1
+
+[DestinationDirs]
+sx.CopyDrivers=10,system32\drivers
+
+[Sensoray]
+%s526.DeviceDesc%=sxdrv.Device
+
+[sxdrv.Device.NT]
+LogConfig=  sxdrv.LogConfig
+KnownFiles= sxdrv.KnownFiles
+
+[sxdrv.Device]
+AddReg=     sxdrv.AddReg
+LogConfig=  sxdrv.LogConfig
+
+[sxdrv.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,sxdrv98.sys
+
+[sxdrv.LogConfig]
+ConfigPriority=HARDRECONFIG
+IOConfig=200-23f(ffff::),280-2bf(ffff::),2c0-2ff(ffff::)
+IRQConfig=3,4,5,6,7,9,10,11,12,14,15          ; IRQ    
+
+[sxdrv.KnownFiles]
+sxdrv98.sys=safe
+
+[sxdrv.Device.NT.Services]
+AddService = sxdrv,0x00000002,sxdrv.ServiceInstall
+
+[sxdrv.ServiceInstall]
+DisplayName   = %sxdrv.DriverDesc%
+ServiceType   = %SERVICE_KERNEL_DRIVER%
+StartType     = %SERVICE_AUTO_START%
+ErrorControl  = %SERVICE_ERROR_NORMAL%
+ServiceBinary = %12%\sxdrv98.sys
+
+;---------------------------------------------------------------
+;                S t r i n g s
+;---------------------------------------------------------------
+
+[Strings]
+
+;----------------
+; Non-Localizable
+;----------------
+
+SERVICE_KERNEL_DRIVER=1
+SERVICE_AUTO_START=2
+SERVICE_ERROR_NORMAL=1
+
+
+;----------------
+; Localizable
+;----------------
+
+Sens=              "Sensoray Co."
+SensMfg=           "Sensoray Co."
+sxdrv.DriverDesc=  "Sensoray SX Driver"
+
+s526.DeviceDesc=   "Sensoray Model 526 I/O Board"
+

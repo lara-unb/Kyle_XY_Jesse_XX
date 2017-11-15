@@ -1,0 +1,170 @@
+\section{robot.c File Reference}
+\label{robot_8c}\index{robot.c@{robot.c}}
+{\ttfamily \#include $<$math.h$>$}\par
+{\ttfamily \#include $<$time.h$>$}\par
+{\ttfamily \#include $<$sys/time.h$>$}\par
+{\ttfamily \#include $<$stdio.h$>$}\par
+{\ttfamily \#include $<$string.h$>$}\par
+{\ttfamily \#include $<$unistd.h$>$}\par
+{\ttfamily \#include $<$sys/io.h$>$}\par
+{\ttfamily \#include \char`\"{}serialcom.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}robotcommondefs.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}robot.h\char`\"{}}\par
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int {\bf robot\_\-close} (void)
+\begin{DoxyCompactList}\small\item\em Funcao de encerramento. \item\end{DoxyCompactList}\item 
+int {\bf robot\_\-get\_\-time} (float $\ast$ptime)
+\item 
+int {\bf robot\_\-init} (void)
+\begin{DoxyCompactList}\small\item\em Funcao de inicializacao. \item\end{DoxyCompactList}\item 
+int {\bf robot\_\-set\_\-servos\_\-move} (servomovecommand\_\-t $\ast$pservomovecommand)
+\begin{DoxyCompactList}\small\item\em Funcao de encerramento. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{robot.c@{robot.c}!robot\_\-close@{robot\_\-close}}
+\index{robot\_\-close@{robot\_\-close}!robot.c@{robot.c}}
+\subsubsection[{robot\_\-close}]{\setlength{\rightskip}{0pt plus 5cm}int robot\_\-close (void)}\label{robot_8c_a9a5e0a593aac8004a4b85da53e7354b3}
+
+
+Funcao de encerramento. 
+\begin{DoxyParams}{Parameters}
+\item[{\em none}]\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 Sucesso 
+
+0 Falha. 
+\end{DoxyReturn}
+
+
+Definition at line 70 of file robot.c.
+
+
+\begin{DoxyCode}
+71 {
+72         // Porta serial COM1 à qual está conectada a placa SSC-32:
+73         serialcom_close(&ssc32serialportconfig);
+74         
+75         // Retorna 
+76         return 1; 
+77 }                      
+\end{DoxyCode}
+\index{robot.c@{robot.c}!robot\_\-get\_\-time@{robot\_\-get\_\-time}}
+\index{robot\_\-get\_\-time@{robot\_\-get\_\-time}!robot.c@{robot.c}}
+\subsubsection[{robot\_\-get\_\-time}]{\setlength{\rightskip}{0pt plus 5cm}int robot\_\-get\_\-time (float $\ast$ {\em ptime})}\label{robot_8c_a03c4523c04948fd5b818ea22bf84480a}
+
+
+Definition at line 91 of file robot.c.
+
+
+\begin{DoxyCode}
+92 {
+93         struct timeval time;
+94 
+95         gettimeofday(&time, NULL);
+96         *ptime = ((time.tv_sec - timereset.tv_sec) + (time.tv_usec - timereset.tv
+      _usec)*1e-6);
+97         
+98         return 1;
+99 }
+\end{DoxyCode}
+\index{robot.c@{robot.c}!robot\_\-init@{robot\_\-init}}
+\index{robot\_\-init@{robot\_\-init}!robot.c@{robot.c}}
+\subsubsection[{robot\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}int robot\_\-init (void)}\label{robot_8c_af0d5680f7a8a1290035e7506e6bd947f}
+
+
+Funcao de inicializacao. 
+\begin{DoxyParams}{Parameters}
+\item[{\em none}]\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 Sucesso 
+
+0 Falha. 
+\end{DoxyReturn}
+
+
+Definition at line 45 of file robot.c.
+
+
+\begin{DoxyCode}
+46 {
+47         int status;
+48         
+49         gettimeofday(&timereset, NULL);
+50  
+51         // Porta serial COM1 à qual está conectada a placa SSC-32:
+52         if ( (status=serialcom_init(&ssc32serialportconfig, 1, 115200) ==  
+      SERIALCOM_SUCCESS)){
+53                 printf("\n %s: porta seriam COM1 iniciada com sucesso",__FUNCTION
+      __);
+54         } else {
+55                 printf("\n %s: porta seriam COM1 com erro de código %i",__FUNCTI
+      ON__,status);
+56                 return 0;
+57         }
+58 
+59         // Retorna 
+60         return 1; 
+61 }                      
+\end{DoxyCode}
+\index{robot.c@{robot.c}!robot\_\-set\_\-servos\_\-move@{robot\_\-set\_\-servos\_\-move}}
+\index{robot\_\-set\_\-servos\_\-move@{robot\_\-set\_\-servos\_\-move}!robot.c@{robot.c}}
+\subsubsection[{robot\_\-set\_\-servos\_\-move}]{\setlength{\rightskip}{0pt plus 5cm}robot\_\-set\_\-servos\_\-move (servomovecommand\_\-t $\ast$ {\em pservomovecommand})}\label{robot_8c_ab1ac396388c604ce6d516e3d2d013042}
+
+
+Funcao de encerramento. 
+\begin{DoxyParams}{Parameters}
+\item[{\em pservomovecommand}]ponteiro para estrutura servomovecommand\_\-t \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 Sucesso 
+
+0 Falha. 
+\end{DoxyReturn}
+
+
+Definition at line 107 of file robot.c.
+
+
+\begin{DoxyCode}
+108 {
+109         int i;
+110         char ssc32msg[200];
+111         
+112         // Converter a estrutura de comando em mensagem para a placa ssc-32:
+113         ssc32msg[0] = '\0'; // inicia vazio.
+114         for(i=0;i<ROBOTPROTOCOL_SERVOCOMMANDS_MAXSERVOS;++i){
+115                 if(pservomovecommand->pulse_us_mask[i]){
+116                         if(strlen(ssc32msg)!=0){
+117                                 sprintf(ssc32msg,"%s ",ssc32msg);
+118                         }
+119                         sprintf(ssc32msg,"%s#%i P%i",ssc32msg,i,pservomovecommand
+      ->pulse_us[i]);
+120                         if(pservomovecommand->pulse_speed_us_per_s_mask[i]){
+121                                 sprintf(ssc32msg,"%s S%i",ssc32msg,pservomovecomm
+      and->pulse_speed_us_per_s[i]);
+122                         }
+123                         if(pservomovecommand->pulse_timeformove_ms_mask[i]){
+124                                 sprintf(ssc32msg,"%s T%i",ssc32msg,pservomovecomm
+      and->pulse_timeformove_ms[i]);
+125                         }
+126                 }
+127         }
+128         sprintf(ssc32msg,"%s%c",ssc32msg,13); // carriage return
+129 
+130 //      printf("\n *** robot_set_servos_move msg: %s",ssc32msg);
+131         
+132         // Enviar comando:
+133         serialcom_semwait(&ssc32serialportconfig); // reserva a porta serial para
+       a thread que chama essa função
+134         for(i=0;i<strlen(ssc32msg);++i){
+135                 serialcom_sendbyte(&ssc32serialportconfig,(unsigned char*)(&ssc32
+      msg[i]));
+136         }
+137         serialcom_semsignal(&ssc32serialportconfig); // liberar a porta serial pa
+      ra ser usada por outra thread
+138 
+139         return 1;
+140 }
+\end{DoxyCode}

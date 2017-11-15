@@ -1,0 +1,320 @@
+/*******************************************************************************
+* \file lprotocol.c
+* \brief  Implementa modulo basico do protocolo de comunicação de dados.
+// Observaçoes:
+//    - Inspirado no protocolo usado pelo Bruno Amui e no projeto Carcarah
+*******************************************************************************/
+/*! \mainpage lProtocol Module
+ 
+	\section gen_desc_sec General description
+ 
+	OmniSocketClient is a library allowing any user application to comunicate with Omni robot in order to make sensor data acqusition and robot configuration. 
+	Using OmniSocketClient, the user has access to ladar scans (raw and compensated), left and right binocular vision images, and current pose estimates. 
+	Robot configuration concerns motion control and dead reckoning. The tasks related to motion control and dead reckoning are performed in real-time at Omni real-time base system.
+	Configuration only allows the user to change the way these tasks perform. Thus, it is expected user application deals with medium to high level problems of 
+	mobile robotics, such as SLAM, servo-visual control, navigation, path planning, tele-operation, etc.
+
+	OmniSocketClient implements two strategies to communicate with Omni real-time base system: socket and shared memory. When using sockets, TCP/IP messages are 
+	exchanged with the server at Omni real-time base system. This allows the user application to be running in the Omni computer as well as in any computer in the 
+	network where Omni is connected. Currently, Omni uses IEEE802.11 (wi-fi) connections, which makes socket communication slower for applications making use of 
+	network infrastructure. For user applications running at Omni, socket communication is pretty fast.
+	The fastest way to comunicate with Omni real-time base system is using shared memory for communication. OmniSocketClient supports direct access to Omni shared 
+	memory system. However, user application should be running at Omni robot.
+	
+	For the user, OmniSocketClient uses the same name for the functions, independently of using socked or shared memory-based communication to Omni real-time base system.
+	It allows the user to do not change its program. Indeed, the communication strategy is selected at compilation time according to the constant OMNISOCKET_COMMUNICATION_SOURCE_SOCKET. It is shown below.
+
+	User application should only have soft real-time requirements. It means that any large delay in data acquisiton or configuration setting will not lead the
+	system to fail. It is suggested for applications where the sampling period is of at least 100 ms.
+
+	\section use_sec Using OmniSocketClient
+ 
+	First, configure the your project to make use of OmniSocketClient. This can be done by including OmniSocketClient.lib in the linker list of modules. 
+	Further, include directory should be in the list of include dirs of your system. The only header file which needs to be explicitly included in the source files is OmniSocketClient.h. 
+	Due to dependence with OpenCV and OmniLib, they should also be configured in your system. In the case of OmniLib, only the header files are necessary, since data and configuration structures
+	are used by OmniSocketClient. When using comunication by shared memory, OmniSharedData.lib should be in the linker list of modules. 
+	With Microsoft Visual C++ 6.0, the linker list of modules is defined at Project -> Settings -> Linker. Access Tools -> Options -> Directories  in order to define the directories for libraries and include files.
+
+	The user should chose among socket or shared memory strategies for communication. The default strategy is socket communication.
+	Whether the user wants to use shared memory, it should define OMNISOCKET_COMMUNICATION_SOURCE_SHAREDMEMORY.
+	
+	A simple example is shown below:
+
+	\code
+	// headers from WinSock:
+	#include <winsock2.h>
+
+	// headers from OpenCV:
+	#include "cv.h"
+	#include "highgui.h"
+
+	// headers from OmniLib:
+	#include "OmniLib.h"
+
+	// uncomment the next line for communication using shared memory
+	//#define OMNISOCKET_COMMUNICATION_SOURCE_SHAREDMEMORY  
+
+	// headers from OmniSocketClient:
+	#include "OmniSocketClient.h"
+	\endcode
+
+    Before using the functions of the library, it should be initialized using OmniSocketClient_Init(), as shown below.
+	
+	\code
+	if(!OmniSocketClient_Init("omni", OMNISOCKETCLIENT_SERVERADDRESSMODE_NAME, OMNISOCKET_DEFAULT_PORT)){
+		printf("\n Error in OmniSocketClient_Init: %ld\n\n",WSAGetLastError());
+		return 1;
+	}else{
+		printf("\n Client connected to server");
+	};    
+	\endcode
+
+	In this case, the server is running at machine with name "omni". This is a valid name when executing the client in the same local network where the robot
+	is connected on. However, for connections coming outside the Omni local network, IP address-based conection is also supported. This can be done using OmniSocketClient_Init() as
+
+	\code
+	OmniSocketClient_Init("164.41.49.1", OMNISOCKETCLIENT_SERVERADDRESSMODE_IP, OMNISOCKET_DEFAULT_PORT) 
+	\endcode
+
+	The default port is given by macro OMNISOCKET_DEFAULT_PORT. This value should not be changed, since the server uses the same port number.
+  
+	In this example. WSAGetLastError() is a Windows API function for recovering the last error in Windows socket implementation. 
+	A similar function can be used in other operating systems.
+
+	If no error occurs, the functions of OmniSocketClient can be used to get sensor data or to modify Omni's configuration. For instance, to recover 
+	the current configuration of motion control system, it can be used the following:
+	
+	\code
+	MOTIONCONTROL_CONFIG  MotionControlConfig;
+	Status = OmniSocketClient_Requests_GetMotionControlConfig(&MotionControlConfig);
+	\endcode
+
+	MOTIONCONTROL_CONFIG structure is defined at OmniLib.h.
+
+	OmniSocketClient_Close() closes the connection. It should be pointed out that the connection can be kept during the execution of the user program.
+ 
+	OmniSocketClient can be used in multi-thread programs. Thus, the user application can have calls to different functions of OmniSocketClient. However, 
+	since the communication channel is the same, once a function is called it keeps access to the channel until the comunication is concluded. This is 
+	accomplished by the use of an internal mutex. It means that, if a low priority thread is preempted by another higher priority task after the communication has been started, 
+	if the highr priority task makes a call to any function of OmniSocketClient its execution will be suspended waiting for the channel mutex. Thus, the lower priority 
+	task continues execution until the communication is finished. The user should be aware of this in order to make a good application design.
+
+*/
+
+// Cabecalhos des biblioteca padrao C:
+#include <stdio.h>
+#include <string.h>
+
+// Cabecalhos especificos do modulo:
+#include "lprotocol.h"
+
+// Definicoes internas:
+
+// Prototipos internos:
+
+// Variaveis do modulo:
+
+/*****************************************************************************
+******************************************************************************
+** Funcoes de inicializacao e encerramento
+******************************************************************************
+*****************************************************************************/
+/*! \fn lprotocolreturnstatus_t lprotocol_init(void)
+ *  \brief  Inicializacao.
+ *  \author G.A. Borges
+ *  \param  none
+ *  \return If success, LPROTOCOL_SUCCESS. Otherwise, see return status defines at lprotocol.h
+ */
+lprotocolreturnstatus_t lprotocol_init(void)
+{
+	if(LPROTOCOL_DATAGRAM_ENCODING == LPROTOCOL_DATAGRAM_ENCODING_SHORT_EQUALDATAFIELDSSIZE){
+		return(LPROTOCOL_SUCCESS);
+	}
+	
+    // Retorna erro de codificação 
+    return LPROTOCOL_ERROR_INVALID_DATA_ENCODING; 
+}                      
+
+/*! \fn void lprotocol_close(void)
+ *  \brief  Encerramento.
+ *  \author G.A. Borges
+ *  \param  none
+ *  \return none 
+ */
+void lprotocol_close(void)
+{
+}                      
+
+
+/*****************************************************************************
+******************************************************************************
+** Funcoes de interface
+******************************************************************************
+*****************************************************************************/
+
+/*****************************************************************************
+******************************************************************************
+** Funcoes internas - camada de datagrama
+******************************************************************************
+*****************************************************************************/
+#if LPROTOCOL_DEFINE_DATAGRAM_PRINT
+void lprotocol_datagram_print(lprotocoldatagram_t * pdatagram)
+{
+	int i,n;
+	lprotocoldata_t protocoldata;
+
+	printf("\n datagram: ");
+	for(i=0;i<pdatagram->datagram_size && i<15;++i){
+		printf("%X ",(unsigned char)pdatagram->datagram[i]);
+	}
+	if((i==15) && (i<=pdatagram->datagram_size)) printf("...");
+	printf("\n datagram_size: %i",pdatagram->datagram_size);
+	
+	lprotocol_datagram_decoder_get_data(&protocoldata, pdatagram);
+	printf("\n function_code: %i",protocoldata.function_code);
+	printf("\n number_of_data: %i",protocoldata.number_of_data);
+	for(n=0;n<protocoldata.number_of_data;++n){
+		printf("\n data[%i]: ",n);
+		for(i=0;i<protocoldata.data_size[n] && i<15;++i){
+			printf("%d ",(unsigned char)(*(protocoldata.pdata[n]+i)));
+		}
+	}
+}
+#endif
+
+void lprotocol_datagram_encoder_init(char function_code, lprotocoldata_t *pprotocoldata, lprotocoldatagram_t * pdatagram)
+{
+	pprotocoldata->number_of_data = 0;
+	pprotocoldata->function_code = function_code;
+	
+	pdatagram->state = LPROTOCOL_DATAGRAM_STATE_EMPTY;
+	pdatagram->checksum = 0;  // calcula apenas em lprotocol_datagram_encoder_end
+
+	pdatagram->datagram[0] = LPROTOCOL_DATAGRAM_HEADER; 
+	pdatagram->datagram[1] = function_code;
+	
+	pdatagram->datagram_size = 3; // possui 3 bytes, sem checksum a ser calculado no final. 
+}
+
+void lprotocol_datagram_encoder_end(lprotocoldatagram_t * pdatagram)
+{
+	int i;
+	
+	#if LPROTOCOL_DATAGRAM_ENCODING	== LPROTOCOL_DATAGRAM_ENCODING_SHORT_EQUALDATAFIELDSSIZE
+		pdatagram->datagram[2] = (unsigned char)((pdatagram->datagram_size + 1)%256); // considera que o checksum será incluido a seguir. 
+	#endif
+	
+	pdatagram->checksum = 0;
+	for(i=0;i<pdatagram->datagram_size;++i){
+		pdatagram->checksum += pdatagram->datagram[i];
+	}
+	pdatagram->datagram[pdatagram->datagram_size] = pdatagram->checksum;
+	++pdatagram->datagram_size;
+
+}
+
+void lprotocol_datagram_encoder_insert_data(unsigned char *pdata, unsigned int data_size_in_bytes, lprotocoldatagram_t *pdatagram)
+{
+	#if LPROTOCOL_DATAGRAM_ENCODING	== LPROTOCOL_DATAGRAM_ENCODING_SHORT_EQUALDATAFIELDSSIZE
+		if(pdatagram->datagram_size == 3){ // first data to be inserted. fill data_size info.
+			pdatagram->datagram[pdatagram->datagram_size++] = (unsigned char)data_size_in_bytes;
+		}
+		memcpy(&pdatagram->datagram[pdatagram->datagram_size], pdata, data_size_in_bytes);
+		pdatagram->datagram_size += data_size_in_bytes;
+	#endif
+}
+
+void lprotocol_datagram_decoder_reset(lprotocoldatagram_t *pdatagram)
+{
+    pdatagram->state = LPROTOCOL_DATAGRAM_STATE_EMPTY;
+	pdatagram->datagram_size = 0;
+    pdatagram->checksum = 0;
+}
+
+void lprotocol_datagram_decoder_get_data(lprotocoldata_t *pprotocoldata, lprotocoldatagram_t *pdatagram)
+{
+	unsigned int datagramindex = 0;
+	
+	#if LPROTOCOL_DATAGRAM_ENCODING	== LPROTOCOL_DATAGRAM_ENCODING_SHORT_EQUALDATAFIELDSSIZE
+		pprotocoldata->function_code  = pdatagram->datagram[1];
+		pprotocoldata->number_of_data = 0;
+		if (pdatagram->datagram_size > 4){
+			datagramindex=4;
+			while(datagramindex<(pdatagram->datagram_size-1)){
+				pprotocoldata->data_size[pprotocoldata->number_of_data] = pdatagram->datagram[3];
+				pprotocoldata->pdata[pprotocoldata->number_of_data] = &pdatagram->datagram[datagramindex];
+				datagramindex += pprotocoldata->data_size[pprotocoldata->number_of_data];
+				++pprotocoldata->number_of_data;
+			}
+		}
+	#endif
+}
+	 
+lprotocolreturnstatus_t lprotocol_datagram_decoder_process_received_byte(unsigned char received_byte, lprotocoldatagram_t *pdatagram)
+{
+	if(pdatagram->state == LPROTOCOL_DATAGRAM_STATE_READY){
+		return LPROTOCOL_ERROR_RECEIVED_MORE_BYTES_THAN_EXPECTED;
+	}
+	if(pdatagram->state == LPROTOCOL_DATAGRAM_STATE_CHECKSUMERROR){
+		return LPROTOCOL_ERROR_INVALID_DATAGRAM_CHECKSUM;
+	}
+	  
+	switch (pdatagram->state){
+	case LPROTOCOL_DATAGRAM_STATE_EMPTY: // 0
+		#if LPROTOCOL_DATAGRAM_ENCODING	== LPROTOCOL_DATAGRAM_ENCODING_SHORT_EQUALDATAFIELDSSIZE
+			if (received_byte == LPROTOCOL_DATAGRAM_HEADER){
+				pdatagram->datagram[pdatagram->datagram_size++] = received_byte;
+				pdatagram->checksum = LPROTOCOL_DATAGRAM_HEADER;
+				pdatagram->state = LPROTOCOL_DATAGRAM_STATE_HEADER;
+			}
+		#endif
+		break;
+		
+	case LPROTOCOL_DATAGRAM_STATE_HEADER: // 1
+		#if LPROTOCOL_DATAGRAM_ENCODING	== LPROTOCOL_DATAGRAM_ENCODING_SHORT_EQUALDATAFIELDSSIZE
+			pdatagram->datagram[pdatagram->datagram_size++] = received_byte;
+			pdatagram->checksum += received_byte;
+			pdatagram->state = LPROTOCOL_DATAGRAM_STATE_FUNCTION;
+		#endif
+		break;
+		
+	case LPROTOCOL_DATAGRAM_STATE_FUNCTION:  // 2
+		#if LPROTOCOL_DATAGRAM_ENCODING	== LPROTOCOL_DATAGRAM_ENCODING_SHORT_EQUALDATAFIELDSSIZE
+			pdatagram->datagram[pdatagram->datagram_size++] = received_byte;
+			pdatagram->checksum += received_byte;
+			pdatagram->state = LPROTOCOL_DATAGRAM_STATE_DATAGRAMSIZE;
+		#endif
+		break;
+		
+	case LPROTOCOL_DATAGRAM_STATE_DATAGRAMSIZE:  // 3
+		#if LPROTOCOL_DATAGRAM_ENCODING	== LPROTOCOL_DATAGRAM_ENCODING_SHORT_EQUALDATAFIELDSSIZE
+			pdatagram->datagram[pdatagram->datagram_size++] = received_byte;
+			pdatagram->checksum += received_byte;
+			if(pdatagram->datagram_size>=(pdatagram->datagram[2]-1)){ // falta só o checksum
+				pdatagram->state = LPROTOCOL_DATAGRAM_STATE_DATAFIELD;
+			} 
+		#endif
+		break;
+	
+	case LPROTOCOL_DATAGRAM_STATE_DATAFIELD:  // 4
+		#if LPROTOCOL_DATAGRAM_ENCODING	== LPROTOCOL_DATAGRAM_ENCODING_SHORT_EQUALDATAFIELDSSIZE
+			pdatagram->datagram[pdatagram->datagram_size++] = received_byte;
+			if(pdatagram->checksum == received_byte){
+				pdatagram->state = LPROTOCOL_DATAGRAM_STATE_READY;  // 5
+				return LPROTOCOL_DATAGRAM_RECEIVED;
+			} else{
+				pdatagram->state = LPROTOCOL_DATAGRAM_STATE_CHECKSUMERROR; // 6
+				return LPROTOCOL_ERROR_INVALID_DATAGRAM_CHECKSUM;  
+			} 				
+		#endif
+		break;
+	}
+
+	return LPROTOCOL_DATAGRAM_UNDER_DECODING;
+}
+
+/*****************************************************************************
+******************************************************************************
+** Funcoes internas - camada de transporte
+******************************************************************************
+*****************************************************************************/

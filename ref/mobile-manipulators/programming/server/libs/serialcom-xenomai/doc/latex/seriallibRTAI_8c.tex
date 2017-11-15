@@ -1,0 +1,203 @@
+\section{seriallib\-RTAI.c File Reference}
+\label{seriallibRTAI_8c}\index{seriallibRTAI.c@{seriallibRTAI.c}}
+Arquivo com as fun\c{c}\~{o}es da biblioteca seriallib\-RTAI. 
+
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$math.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$sys/io.h$>$}\par
+{\tt \#include $<$rtai\_\-lxrt.h$>$}\par
+{\tt \#include $<$rtai\_\-sem.h$>$}\par
+{\tt \#include $<$rtai\_\-sched.h$>$}\par
+{\tt \#include \char`\"{}seriallib\-RTAI.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define \bf{SERIALLIBRTAI\_\-COMPORTADDRESS\_\-1}~0x3F8
+\item 
+\#define \bf{SERIALLIBRTAI\_\-COMPORTADDRESS\_\-2}~0x2F8
+\item 
+\#define \bf{SERIALLIBRTAI\_\-COMPORTADDRESS\_\-3}~0x3E8
+\item 
+\#define \bf{SERIALLIBRTAI\_\-COMPORTADDRESS\_\-4}~0x2E8
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+void \bf{seriallib\-RTAI\_\-delay} (RTIME Maxima\-Espera\-US)
+\item 
+int \bf{seriallib\-RTAI\_\-init} (\bf{PSERIALPORTCONFIG} p\-Serial\-Port\-Config, int Com\-Port\-Number, unsigned long int Com\-Port\-BPS)
+\item 
+void \bf{seriallib\-RTAI\_\-semwait} (\bf{PSERIALPORTCONFIG} p\-Serial\-Port\-Config)
+\item 
+void \bf{seriallib\-RTAI\_\-semsignal} (\bf{PSERIALPORTCONFIG} p\-Serial\-Port\-Config)
+\item 
+int \bf{seriallib\-RTAI\_\-sendbyte} (\bf{PSERIALPORTCONFIG} p\-Serial\-Port\-Config, unsigned char $\ast$p\-Data)
+\item 
+int \bf{seriallib\-RTAI\_\-receivebyte} (\bf{PSERIALPORTCONFIG} p\-Serial\-Port\-Config, unsigned char $\ast$p\-Data, double Maxima\-Espera\-US)
+\item 
+int \bf{seriallib\-RTAI\_\-status} (\bf{PSERIALPORTCONFIG} p\-Serial\-Port\-Config)
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+SEM $\ast$ \bf{p\-Com\-Port\-Semaphores} [4]
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+Arquivo com as fun\c{c}\~{o}es da biblioteca seriallib\-RTAI. 
+
+
+
+\subsection{Define Documentation}
+\index{seriallibRTAI.c@{seriallib\-RTAI.c}!SERIALLIBRTAI_COMPORTADDRESS_1@{SERIALLIBRTAI\_\-COMPORTADDRESS\_\-1}}
+\index{SERIALLIBRTAI_COMPORTADDRESS_1@{SERIALLIBRTAI\_\-COMPORTADDRESS\_\-1}!seriallibRTAI.c@{seriallib\-RTAI.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SERIALLIBRTAI\_\-COMPORTADDRESS\_\-1~0x3F8}\label{seriallibRTAI_8c_397edf80f039860c6190cd64a4d69941}
+
+
+Endere\c{c}o base da porta serial COM1. Uso interno. \index{seriallibRTAI.c@{seriallib\-RTAI.c}!SERIALLIBRTAI_COMPORTADDRESS_2@{SERIALLIBRTAI\_\-COMPORTADDRESS\_\-2}}
+\index{SERIALLIBRTAI_COMPORTADDRESS_2@{SERIALLIBRTAI\_\-COMPORTADDRESS\_\-2}!seriallibRTAI.c@{seriallib\-RTAI.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SERIALLIBRTAI\_\-COMPORTADDRESS\_\-2~0x2F8}\label{seriallibRTAI_8c_2b2f98874766f80965ecab10965b0179}
+
+
+Endere\c{c}o base da porta serial COM2. Uso interno. \index{seriallibRTAI.c@{seriallib\-RTAI.c}!SERIALLIBRTAI_COMPORTADDRESS_3@{SERIALLIBRTAI\_\-COMPORTADDRESS\_\-3}}
+\index{SERIALLIBRTAI_COMPORTADDRESS_3@{SERIALLIBRTAI\_\-COMPORTADDRESS\_\-3}!seriallibRTAI.c@{seriallib\-RTAI.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SERIALLIBRTAI\_\-COMPORTADDRESS\_\-3~0x3E8}\label{seriallibRTAI_8c_f3be79c4d42c5e815785b5b6509dbd69}
+
+
+Endere\c{c}o base da porta serial COM3. Uso interno. \index{seriallibRTAI.c@{seriallib\-RTAI.c}!SERIALLIBRTAI_COMPORTADDRESS_4@{SERIALLIBRTAI\_\-COMPORTADDRESS\_\-4}}
+\index{SERIALLIBRTAI_COMPORTADDRESS_4@{SERIALLIBRTAI\_\-COMPORTADDRESS\_\-4}!seriallibRTAI.c@{seriallib\-RTAI.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SERIALLIBRTAI\_\-COMPORTADDRESS\_\-4~0x2E8}\label{seriallibRTAI_8c_3ddd812fd653f749b93f01b7c256d4d5}
+
+
+Endere\c{c}o base da porta serial COM4. Uso interno. 
+
+\subsection{Function Documentation}
+\index{seriallibRTAI.c@{seriallib\-RTAI.c}!seriallibRTAI_delay@{seriallibRTAI\_\-delay}}
+\index{seriallibRTAI_delay@{seriallibRTAI\_\-delay}!seriallibRTAI.c@{seriallib\-RTAI.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void seriallib\-RTAI\_\-delay (RTIME {\em Maxima\-Espera\-US})}\label{seriallibRTAI_8c_91ea05373fe7310203a6cd2e5517207f}
+
+
+Fun\c{c}\~{a}o de uso interno da biblioteca, que prov\^{e} um atraso em microsegundos dado por Maxima\-Espera\-US. Essa fun\c{c}\~{a}o bloqueia a thread. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em Maxima\-Espera\-US}]atraso em unidade de microsegundos \end{description}
+\end{Desc}
+\index{seriallibRTAI.c@{seriallib\-RTAI.c}!seriallibRTAI_init@{seriallibRTAI\_\-init}}
+\index{seriallibRTAI_init@{seriallibRTAI\_\-init}!seriallibRTAI.c@{seriallib\-RTAI.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int seriallib\-RTAI\_\-init (\bf{PSERIALPORTCONFIG} {\em p\-Serial\-Port\-Config}, int {\em Com\-Port\-Number}, unsigned long int {\em Com\-Port\-BPS})}\label{seriallibRTAI_8c_360ca766caf22beee6cce6432774e76f}
+
+
+Fun\c{c}\~{a}o que inicia a porta serial Com\-Port\-Number com a taxa dada em BPS por Com\-Port\-BPS. Essa fun\c{c}\~{a}o dever\'{a} ser chamada por cada thread que tenha acesso \`{a} porta serial Com\-Port\-Number. Seus argumentos de chamada s\~{a}o: \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em p\-Serial\-Port\-Config}]Ponteiro para estrutura SERIALPORCONFIG que guarda informa\c{c}\~{o}es de configura\c{c}\~{a}o da porta serial no contexto do thread de chamada. Mesmo que uma dada porta serial seja utilizada por diversos threads, cada thread dever\'{a} ter a sua estrutura SERIALPORCONFIG. \item[{\em Com\-Port\-Number}]Numero da porta serial, no intervalo de 1 a 4. \item[{\em Com\-Port\-BPS}]Taxa de comunica\c{c}\~{a}o em BPS, no intervalo de 2 a 115200. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]SERIALLIBRTAI\_\-SUCCESS : Porta iniciada com sucesso. 
+
+SERIALLIBRTAI\_\-ERROR\_\-INCORRECTPORTNUMBER : Erro, corresponde a um Com\-Port\-Number inv\'{a}lido. 
+
+SERIALLIBRTAI\_\-ERROR\_\-MAXBPSPRECISION : Erro, a taxa Com\-Port\-BPS n\~{a}o pode ser realizada com erro inferior a. SERIALLIBRTAI\_\-MAXBPSPRECISION. 
+
+SERIALLIBRTAI\_\-ERROR\_\-IOPL : Erro, corresponde a uma tentativa de executar o programa sem que se tenha acesso privilegiado de administrador a portas de E/S. \end{Desc}
+\index{seriallibRTAI.c@{seriallib\-RTAI.c}!seriallibRTAI_receivebyte@{seriallibRTAI\_\-receivebyte}}
+\index{seriallibRTAI_receivebyte@{seriallibRTAI\_\-receivebyte}!seriallibRTAI.c@{seriallib\-RTAI.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}seriallib\-RTAI\_\-receivebyte (\bf{PSERIALPORTCONFIG} {\em p\-Serial\-Port\-Config}, unsigned char $\ast$ {\em p\-Data}, double {\em Maxima\-Espera\-US})}\label{seriallibRTAI_8c_177ff296e880610fddc74c380f5812a8}
+
+
+Fun\c{c}\~{a}o que aguarda um byte chegar pela porta serial descrita por p\-Serial\-Port\-Config por um tempo m\'{a}ximo dado por Maxima\-Espera\-US, dado em microsegundos. Se um dado chegar dentro do per\'{\i}odo dado por Maxima\-Espera\-US, o mesmo ser\'{a} colocado na vari\'{a}vel apontada por p\-Data. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em p\-Serial\-Port\-Config}]Ponteiro para estrutura \doxyref{SERIALPORTCONFIG}{p.}{structSERIALPORTCONFIG} que guarda informa\c{c}\~{o}es de configura\c{c}\~{a}o da porta serial no contexto do thread de chamada. \item[{\em p\-Data}]Ponteiro para o byte recebido. \item[{\em Maxima\-Espera\-US}]Tempo m\'{a}ximo de espera pela chegada de um byte pela porta. Se Maxima\-Espera\-US \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]SERIALLIBRTAI\_\-SUCCESS : Opera\c{c}\~{a}o realizada com sucesso. Um byte foi recebido pela porta serial e se encontra dispon\'{\i}vel na vari\'{a}vel apontada por p\-Data. 
+
+SERIALLIBRTAI\_\-ERROR\_\-MAXWAITFORRECEPTION : Nenhum bayte chegou dentro do tempo estipulado por Maxima\-Espera\-US \end{Desc}
+\begin{Desc}
+\item[Warning:]Essa fun\c{c}\~{a}o fica bloqueada por at\'{e} Maxima\-Espera\-US enquanto um byte n\~{a}o chegar. \end{Desc}
+\index{seriallibRTAI.c@{seriallib\-RTAI.c}!seriallibRTAI_semsignal@{seriallibRTAI\_\-semsignal}}
+\index{seriallibRTAI_semsignal@{seriallibRTAI\_\-semsignal}!seriallibRTAI.c@{seriallib\-RTAI.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void seriallib\-RTAI\_\-semsignal (\bf{PSERIALPORTCONFIG} {\em p\-Serial\-Port\-Config})}\label{seriallibRTAI_8c_910a32de30902cc625d5c1eddfb482ab}
+
+
+Fun\c{c}\~{a}o que libera sem\'{a}foro que foi previamente cedido por seriallib\-RTAI\_\-semwait para acessar a porta descrita por p\-Serial\-Port\-Config. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em p\-Serial\-Port\-Config}]Ponteiro para estrutura \doxyref{SERIALPORTCONFIG}{p.}{structSERIALPORTCONFIG} que guarda informa\c{c}\~{o}es de configura\c{c}\~{a}o da porta serial no contexto do thread de chamada. Mesmo que uma dada porta serial seja utilizada por diversos threads, cada thread dever\'{a} ter a sua estrutura \doxyref{SERIALPORTCONFIG}{p.}{structSERIALPORTCONFIG}.. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Warning:]Se uma determinada porta somente \'{e} gerenciada por um s\'{o} thread, n\~{a}o h\'{a} necessidade de se usar essas fun\c{c}\~{o}es de sem\'{a}foro. As fun\c{c}\~{o}es de sem\'{a}foro t\^{e}m somente utilizade em situa\c{c}\~{o}es em que mais de um thread pode acessar a porta serial X, com X = 1, 2, 3 ou 4. 
+
+Ap\'{o}s concluir o acesso \`{a} porta serial cedido por essa fun\c{c}\~{a}o, deve-se chamar seriallib\-RTAI\_\-semsignal para liberar o sem\'{a}foro \end{Desc}
+\index{seriallibRTAI.c@{seriallib\-RTAI.c}!seriallibRTAI_semwait@{seriallibRTAI\_\-semwait}}
+\index{seriallibRTAI_semwait@{seriallibRTAI\_\-semwait}!seriallibRTAI.c@{seriallib\-RTAI.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void seriallib\-RTAI\_\-semwait (\bf{PSERIALPORTCONFIG} {\em p\-Serial\-Port\-Config})}\label{seriallibRTAI_8c_573c6c83833b3eb69c37d1cf7849e82c}
+
+
+Fun\c{c}\~{a}o que aguarda sem\'{a}foro para acessar a porta descrita por p\-Serial\-Port\-Config. Juntamente com seriallib\-RTAI\_\-semsignal, pode-se garantir o acesso exclusivo de um thread \`{a} porta serial. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em p\-Serial\-Port\-Config}]Ponteiro para estrutura \doxyref{SERIALPORTCONFIG}{p.}{structSERIALPORTCONFIG} que guarda informa\c{c}\~{o}es de configura\c{c}\~{a}o da porta serial no contexto do thread de chamada. Mesmo que uma dada porta serial seja utilizada por diversos threads, cada thread dever\'{a} ter a sua estrutura \doxyref{SERIALPORTCONFIG}{p.}{structSERIALPORTCONFIG}.. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Warning:]Se uma determinada porta somente \'{e} gerenciada por um s\'{o} thread, n\~{a}o h\'{a} necessidade de se usar essas fun\c{c}\~{o}es de sem\'{a}foro. As fun\c{c}\~{o}es de sem\'{a}foro t\^{e}m somente utilizade em situa\c{c}\~{o}es em que mais de um thread pode acessar a porta serial X, com X = 1, 2, 3 ou 4. 
+
+Ap\'{o}s concluir o acesso \`{a} porta serial cedido por essa fun\c{c}\~{a}o, deve-se chamar seriallib\-RTAI\_\-semsignal para liberar o sem\'{a}foro \end{Desc}
+\index{seriallibRTAI.c@{seriallib\-RTAI.c}!seriallibRTAI_sendbyte@{seriallibRTAI\_\-sendbyte}}
+\index{seriallibRTAI_sendbyte@{seriallibRTAI\_\-sendbyte}!seriallibRTAI.c@{seriallib\-RTAI.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int seriallib\-RTAI\_\-sendbyte (\bf{PSERIALPORTCONFIG} {\em p\-Serial\-Port\-Config}, unsigned char $\ast$ {\em p\-Data})}\label{seriallibRTAI_8c_493dbc5e1566c27b349eb418222ca0eb}
+
+
+Fun\c{c}\~{a}o que envia um byte apontado por p\-Data pela porta serial descrita por p\-Serial\-Port\-Config. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em p\-Serial\-Port\-Config}]Ponteiro para estrutura \doxyref{SERIALPORTCONFIG}{p.}{structSERIALPORTCONFIG} que guarda informa\c{c}\~{o}es de configura\c{c}\~{a}o da porta serial no contexto do thread de chamada. Mesmo que uma dada porta serial seja utilizada por diversos threads, cada thread dever\'{a} ter a sua estrutura \doxyref{SERIALPORTCONFIG}{p.}{structSERIALPORTCONFIG}. Se SERIALLIBRTAI\_\-USE\_\-RS485 = 1, ent\~{a}o o sinal RTS ser\'{a} colocado em n\'{\i}vel l\'{o}gico 1 enquanto durar o frame do byte enviado, permitindo assim ativar o driver externo de uma porta com conversor RS-485. Nessa situa\c{c}\~{a}o, essa fun\c{c}\~{a}o somente retorna quando o byte tiver sido enviado. Caso contr\'{a}rio, a fun\c{c}\~{a}o somente escrever\'{a} no buffer de sa\'{\i}da o byte apontado por p\-Data, retornando em $\ast$ seguida. \item[{\em p\-Data}]Ponteiro para o byte que ser\'{a} enviado. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]SERIALLIBRTAI\_\-SUCCESS : Dado escrito no registro de sa\'{\i}da com sucesso. Entretanto, isso significa apenas que uma transmiss\~{a}o est\'{a} em curso. Para se certificar de que o dado foi efetivamente transmitido, deve-se fazer uso da fun\c{c}\~{a}o \doxyref{seriallib\-RTAI\_\-status()}{p.}{seriallibRTAI_8c_28a70e3a5ac947dd238b4be1845cbbc4} 
+
+SERIALLIBRTAI\_\-ERROR\_\-MAXWAITENDOFTRANSMISSION : Situa\c{c}\~{a}o de erro em que a fun\c{c}\~{a}o ficou aguardando por um per\'{\i}odo de at\'{e} 5 frames para disponibiliza\c{c}\~{a}o do registro de sa\'{\i}da da porta \end{Desc}
+\begin{Desc}
+\item[Warning:]Essa fun\c{c}\~{a}o fica bloqueada enquanto o \'{u}ltimo byte escrito no buffer de sa\'{\i}da ainda n\~{a}o tiver sido enviado. \end{Desc}
+\index{seriallibRTAI.c@{seriallib\-RTAI.c}!seriallibRTAI_status@{seriallibRTAI\_\-status}}
+\index{seriallibRTAI_status@{seriallibRTAI\_\-status}!seriallibRTAI.c@{seriallib\-RTAI.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int seriallib\-RTAI\_\-status (\bf{PSERIALPORTCONFIG} {\em p\-Serial\-Port\-Config})}\label{seriallibRTAI_8c_28a70e3a5ac947dd238b4be1845cbbc4}
+
+
+Fun\c{c}\~{a}o que l\^{e} o registro de status da porta serial descrita por p\-Serial\-Port\-Config. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em p\-Serial\-Port\-Config}]Ponteiro para estrutura \doxyref{SERIALPORTCONFIG}{p.}{structSERIALPORTCONFIG} que guarda informa\c{c}\~{o}es de configura\c{c}\~{a}o da porta serial no contexto do thread de chamada. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]O valor de retorno tem os bits setados conforme que o dado foi efetivamente enviadoos eventos que ocorreram com a porta serial, que podem ser testados usando um teste l\'{o}gico E bit a bit com as seguintes m\'{a}scaras: 
+
+SERIALLIBRTAI\_\-STATUSMASK\_\-ERROR\_\-RX\_\-FIFO 
+
+SERIALLIBRTAI\_\-STATUSMASK\_\-EMPTY\_\-DH\_\-REGISTERS 
+
+SERIALLIBRTAI\_\-STATUSMASK\_\-EMPTY\_\-TX\_\-REGISTER 
+
+SERIALLIBRTAI\_\-STATUSMASK\_\-BREAK\_\-INTERRUPT 
+
+SERIALLIBRTAI\_\-STATUSMASK\_\-FRAMING\_\-ERROR 
+
+SERIALLIBRTAI\_\-STATUSMASK\_\-PARITY\_\-ERROR 
+
+SERIALLIBRTAI\_\-STATUSMASK\_\-OVERRUN\_\-ERROR 
+
+SERIALLIBRTAI\_\-STATUSMASK\_\-RX\_\-DATA\_\-READY 
+
+As m\'{a}scaras acima correspondem a eventos que s\~{a}o detalhados em \tt{http://www.beyondlogic.org/serial/serial.htm} \end{Desc}
+
+
+\subsection{Variable Documentation}
+\index{seriallibRTAI.c@{seriallib\-RTAI.c}!pComPortSemaphores@{pComPortSemaphores}}
+\index{pComPortSemaphores@{pComPortSemaphores}!seriallibRTAI.c@{seriallib\-RTAI.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SEM $\ast$ \bf{p\-Com\-Port\-Semaphores}[4]}\label{seriallibRTAI_8c_74ad210af22afadd34ea631fd41bd860}
+
+
+Vetor de ponteiros para sem\'{a}foros. Cada elemento desse vetor \'{e} um ponteiro para o sem\'{a}foro associado \`{a} porta X, com X = 1, 2, 3 ou 4. Os sem\'{a}foros de cada porta s\~{a}o iniciados na chamada \`{a} fun\c{c}\~{a}o \doxyref{seriallib\-RTAI\_\-init()}{p.}{seriallibRTAI_8c_360ca766caf22beee6cce6432774e76f}. Para uso interno pelas fun\c{c}\~{o}es \doxyref{seriallib\-RTAI\_\-semwait()}{p.}{seriallibRTAI_8c_573c6c83833b3eb69c37d1cf7849e82c} e \doxyref{seriallib\-RTAI\_\-semsignal()}{p.}{seriallibRTAI_8c_910a32de30902cc625d5c1eddfb482ab}. 

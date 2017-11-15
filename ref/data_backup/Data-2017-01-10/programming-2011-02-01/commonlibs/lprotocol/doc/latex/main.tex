@@ -1,0 +1,77 @@
+\hypertarget{main_gen_desc_sec}{}\section{General description}\label{main_gen_desc_sec}
+OmniSocketClient is a library allowing any user application to comunicate with Omni robot in order to make sensor data acqusition and robot configuration. Using OmniSocketClient, the user has access to ladar scans (raw and compensated), left and right binocular vision images, and current pose estimates. Robot configuration concerns motion control and dead reckoning. The tasks related to motion control and dead reckoning are performed in real-\/time at Omni real-\/time base system. Configuration only allows the user to change the way these tasks perform. Thus, it is expected user application deals with medium to high level problems of mobile robotics, such as SLAM, servo-\/visual control, navigation, path planning, tele-\/operation, etc.
+
+OmniSocketClient implements two strategies to communicate with Omni real-\/time base system: socket and shared memory. When using sockets, TCP/IP messages are exchanged with the server at Omni real-\/time base system. This allows the user application to be running in the Omni computer as well as in any computer in the network where Omni is connected. Currently, Omni uses IEEE802.11 (wi-\/fi) connections, which makes socket communication slower for applications making use of network infrastructure. For user applications running at Omni, socket communication is pretty fast. The fastest way to comunicate with Omni real-\/time base system is using shared memory for communication. OmniSocketClient supports direct access to Omni shared memory system. However, user application should be running at Omni robot.
+
+For the user, OmniSocketClient uses the same name for the functions, independently of using socked or shared memory-\/based communication to Omni real-\/time base system. It allows the user to do not change its program. Indeed, the communication strategy is selected at compilation time according to the constant OMNISOCKET\_\-COMMUNICATION\_\-SOURCE\_\-SOCKET. It is shown below.
+
+User application should only have soft real-\/time requirements. It means that any large delay in data acquisiton or configuration setting will not lead the system to fail. It is suggested for applications where the sampling period is of at least 100 ms.\hypertarget{main_use_sec}{}\section{Using OmniSocketClient}\label{main_use_sec}
+First, configure the your project to make use of OmniSocketClient. This can be done by including OmniSocketClient.lib in the linker list of modules. Further, include directory should be in the list of include dirs of your system. The only header file which needs to be explicitly included in the source files is OmniSocketClient.h. Due to dependence with OpenCV and OmniLib, they should also be configured in your system. In the case of OmniLib, only the header files are necessary, since data and configuration structures are used by OmniSocketClient. When using comunication by shared memory, OmniSharedData.lib should be in the linker list of modules. With Microsoft Visual C++ 6.0, the linker list of modules is defined at Project -\/$>$ Settings -\/$>$ Linker. Access Tools -\/$>$ Options -\/$>$ Directories in order to define the directories for libraries and include files.
+
+The user should chose among socket or shared memory strategies for communication. The default strategy is socket communication. Whether the user wants to use shared memory, it should define OMNISOCKET\_\-COMMUNICATION\_\-SOURCE\_\-SHAREDMEMORY.
+
+A simple example is shown below:
+
+
+\begin{DoxyCode}
+        // headers from WinSock:
+        #include <winsock2.h>
+
+        // headers from OpenCV:
+        #include "cv.h"
+        #include "highgui.h"
+
+        // headers from OmniLib:
+        #include "OmniLib.h"
+
+        // uncomment the next line for communication using shared memory
+        //#define OMNISOCKET_COMMUNICATION_SOURCE_SHAREDMEMORY  
+
+        // headers from OmniSocketClient:
+        #include "OmniSocketClient.h"
+\end{DoxyCode}
+
+
+Before using the functions of the library, it should be initialized using OmniSocketClient\_\-Init(), as shown below.
+
+
+\begin{DoxyCode}
+        if(!OmniSocketClient_Init("omni", OMNISOCKETCLIENT_SERVERADDRESSMODE_NAME
+      , OMNISOCKET_DEFAULT_PORT)){
+                printf("\n Error in OmniSocketClient_Init: %ld\n\n",WSAGetLastErr
+      or());
+                return 1;
+        }else{
+                printf("\n Client connected to server");
+        };    
+\end{DoxyCode}
+
+
+In this case, the server is running at machine with name \char`\"{}omni\char`\"{}. This is a valid name when executing the client in the same local network where the robot is connected on. However, for connections coming outside the Omni local network, IP address-\/based conection is also supported. This can be done using OmniSocketClient\_\-Init() as
+
+
+\begin{DoxyCode}
+        OmniSocketClient_Init("164.41.49.1", OMNISOCKETCLIENT_SERVERADDRESSMODE_I
+      P, OMNISOCKET_DEFAULT_PORT) 
+\end{DoxyCode}
+
+
+The default port is given by macro OMNISOCKET\_\-DEFAULT\_\-PORT. This value should not be changed, since the server uses the same port number.
+
+In this example. WSAGetLastError() is a Windows API function for recovering the last error in Windows socket implementation. A similar function can be used in other operating systems.
+
+If no error occurs, the functions of OmniSocketClient can be used to get sensor data or to modify Omni's configuration. For instance, to recover the current configuration of motion control system, it can be used the following:
+
+
+\begin{DoxyCode}
+        MOTIONCONTROL_CONFIG  MotionControlConfig;
+        Status = OmniSocketClient_Requests_GetMotionControlConfig(&MotionControlC
+      onfig);
+\end{DoxyCode}
+
+
+MOTIONCONTROL\_\-CONFIG structure is defined at OmniLib.h.
+
+OmniSocketClient\_\-Close() closes the connection. It should be pointed out that the connection can be kept during the execution of the user program.
+
+OmniSocketClient can be used in multi-\/thread programs. Thus, the user application can have calls to different functions of OmniSocketClient. However, since the communication channel is the same, once a function is called it keeps access to the channel until the comunication is concluded. This is accomplished by the use of an internal mutex. It means that, if a low priority thread is preempted by another higher priority task after the communication has been started, if the highr priority task makes a call to any function of OmniSocketClient its execution will be suspended waiting for the channel mutex. Thus, the lower priority task continues execution until the communication is finished. The user should be aware of this in order to make a good application design. 

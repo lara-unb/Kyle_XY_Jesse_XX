@@ -1,0 +1,342 @@
+\section{dataviewer.m File Reference}
+\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m}\index{dataviewer.m@{dataviewer.m}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bf disp} ('Iniciando dataviewer...')
+\item 
+{\bf figure} (1)
+\item 
+{\bf subplot} (311)
+\item 
+{\bf set} ({\bf h\_\-y1},'EraseMode','xor')
+\item 
+{\bf subplot} (312)
+\item 
+{\bf set} ({\bf h\_\-y2},'EraseMode','xor')
+\item 
+{\bf subplot} (313)
+\item 
+{\bf set} ({\bf h\_\-y3},'EraseMode','xor')
+\item 
+{\bf figure} (2)
+\item 
+{\bf set} ({\bf h\_\-T},'EraseMode','xor')
+\item 
+{\bf title} ('Período de amostragem')
+\item 
+{\bf while} (status$\sim$=4) tic[{\bf data}
+\item 
+{\bf if} (status$\sim$=4) figure(1)
+\item 
+{\bf myplot} ({\bf h\_\-y1}, {\bf t}, {\bf t\_\-unitstring}, {\bf y1},'{\bf y1}', {\bf y1\_\-unitstring},'b', {\bf twindow})
+\item 
+{\bf myplot} ({\bf h\_\-y2}, {\bf t}, {\bf t\_\-unitstring}, {\bf y2},'{\bf y2}', {\bf y2\_\-unitstring},'b', {\bf twindow})
+\item 
+{\bf myplot} ({\bf h\_\-y3}, {\bf t}, {\bf t\_\-unitstring}, {\bf y3},'{\bf y3}', {\bf y3\_\-unitstring},'b', {\bf twindow})
+\item 
+{\bf axis} ({\bf ax1})
+\item 
+{\bf axis} ({\bf ax2})
+\item 
+{\bf axis} ({\bf ax3})
+\item 
+{\bf set} ({\bf h\_\-T},'XData', {\bf t},'YData',[0;diff({\bf t})])
+\item 
+{\bf axis} ([min({\bf t}) max({\bf t}) {\bf ax}(3) {\bf ax}(4)])
+\item 
+{\bf plot} ({\bf t},[0;diff({\bf t})])
+\item 
+{\bf pause} (0.1)
+\item 
+end end {\bf disp} ('Saindo...')
+\item 
+{\bf function} {\bf myplot} (h, {\bf t}, tunit, {\bf var}, varname, varunit, color, {\bf twindow}) kmax
+\item 
+{\bf if} ({\bf t}(kmax)$>${\bf twindow}) {\bf taxismin}
+\item 
+end {\bf set} (h,'XData', {\bf t}(1:kmax),'YData', {\bf var}(1:kmax),'Color', color)
+\item 
+{\bf xlabel} (sprintf('{\bf t}[\%s]', tunit))
+\item 
+{\bf ylabel} (sprintf('\%s[\%s]', varname, varunit))
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+{\bf function} main close {\bf all}
+\item 
+{\bf t} = [$\,$]
+\item 
+{\bf y1} = [$\,$]
+\item 
+{\bf y2} = [$\,$]
+\item 
+{\bf y3} = [$\,$]
+\item 
+{\bf h\_\-y1} = plot(0,0)
+\item 
+{\bf h\_\-y2} = plot(0,0)
+\item 
+{\bf h\_\-y3} = plot(0,0)
+\item 
+{\bf h\_\-T} = plot(0,0)
+\item 
+{\bf twindow} = 10
+\item 
+{\bf status} = 0
+\item 
+{\bf dataunitstring}
+\item 
+{\bf toc} [{\bf y1}] = [{\bf y1}
+\item 
+{\bf data} = gdatalogger\_\-ipc\_\-retrievevariable('{\bf y2}') [{\bf y2}
+\item 
+{\bf y1\_\-unitstring} = {\bf dataunitstring}
+\item 
+{\bf y2\_\-unitstring} = {\bf dataunitstring}
+\item 
+{\bf y3\_\-unitstring} = {\bf dataunitstring}
+\item 
+{\bf t\_\-unitstring} = {\bf dataunitstring}
+\item 
+{\bf ax1} = axis
+\item 
+{\bf ax2} = axis
+\item 
+{\bf ax3} = axis
+\item 
+{\bf ax} = axis
+\item 
+{\bf drawnow}
+\item 
+{\bf return}
+\item 
+{\bf taxismax} = {\bf t}(kmax)
+\item 
+else {\bf taxismin} = 0
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!axis@{axis}}
+\index{axis@{axis}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{axis}]{\setlength{\rightskip}{0pt plus 5cm}axis ()}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_a75cc5ae703a5fa8878567c711889291b}
+\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!axis@{axis}}
+\index{axis@{axis}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{axis}]{\setlength{\rightskip}{0pt plus 5cm}axis ({\bf ax3})}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_a692d2fd33e4646e4dec7851e24544089}
+\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!axis@{axis}}
+\index{axis@{axis}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{axis}]{\setlength{\rightskip}{0pt plus 5cm}axis ({\bf ax2})}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_aacfb329be7f721380641e41f087256a4}
+\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!axis@{axis}}
+\index{axis@{axis}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{axis}]{\setlength{\rightskip}{0pt plus 5cm}axis ({\bf ax1})}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_ac13da9f3878ccb7b2501096c3df3d0c0}
+\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!disp@{disp}}
+\index{disp@{disp}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{disp}]{\setlength{\rightskip}{0pt plus 5cm}end end disp ('Saindo...')}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_a01758e934588eaa62a7c8fd926b30bee}
+\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!disp@{disp}}
+\index{disp@{disp}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{disp}]{\setlength{\rightskip}{0pt plus 5cm}disp ('Iniciando dataviewer...')}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_a31529343f1711a66324cc584d5a8dfd0}
+\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!figure@{figure}}
+\index{figure@{figure}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{figure}]{\setlength{\rightskip}{0pt plus 5cm}figure (2)}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_ac84feabc0a5ffe70fd5e05e72a103d54}
+\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!figure@{figure}}
+\index{figure@{figure}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{figure}]{\setlength{\rightskip}{0pt plus 5cm}figure (1)}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_a39cc4eae8cc13eaea23364936540819f}
+\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!if@{if}}
+\index{if@{if}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{if}]{\setlength{\rightskip}{0pt plus 5cm}if ({\bf t}(kmax), \/  {\bf twindow})}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_a6281a7c23074ab1226be59bf4c163be9}
+\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!if@{if}}
+\index{if@{if}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{if}]{\setlength{\rightskip}{0pt plus 5cm}if (status$\sim$ = {\ttfamily 4})}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_a871a1aadebb67260723cef652e37592c}
+\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!myplot@{myplot}}
+\index{myplot@{myplot}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{myplot}]{\setlength{\rightskip}{0pt plus 5cm}{\bf function} myplot (h, \/  {\bf t}, \/  tunit, \/  {\bf var}, \/  varname, \/  varunit, \/  color, \/  {\bf twindow})}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_acfb55bd481c3ea88fda2dc864de29758}
+\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!myplot@{myplot}}
+\index{myplot@{myplot}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{myplot}]{\setlength{\rightskip}{0pt plus 5cm}myplot ({\bf h\_\-y3}, \/  {\bf t}, \/  {\bf t\_\-unitstring}, \/  {\bf y3}, \/  '{\bf y3}', \/  {\bf y3\_\-unitstring}, \/  'b', \/  {\bf twindow})}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_a25ddf3185c721c204f169d248999fabf}
+\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!myplot@{myplot}}
+\index{myplot@{myplot}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{myplot}]{\setlength{\rightskip}{0pt plus 5cm}myplot ({\bf h\_\-y2}, \/  {\bf t}, \/  {\bf t\_\-unitstring}, \/  {\bf y2}, \/  '{\bf y2}', \/  {\bf y2\_\-unitstring}, \/  'b', \/  {\bf twindow})}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_a1c59e887bcaf4b60e0fa5de05c18b5b3}
+\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!myplot@{myplot}}
+\index{myplot@{myplot}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{myplot}]{\setlength{\rightskip}{0pt plus 5cm}myplot ({\bf h\_\-y1}, \/  {\bf t}, \/  {\bf t\_\-unitstring}, \/  {\bf y1}, \/  '{\bf y1}', \/  {\bf y1\_\-unitstring}, \/  'b', \/  {\bf twindow})}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_a0107b1e2bf358a3d284e5112bcf7dc61}
+\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!pause@{pause}}
+\index{pause@{pause}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{pause}]{\setlength{\rightskip}{0pt plus 5cm}pause (0. {\em 1})}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_af5e7b6b3888b7ff1427978d360412fe7}
+\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!plot@{plot}}
+\index{plot@{plot}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot ({\bf t})}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_acae97efcd3e6a0965a7d4df9f6553ffc}
+\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!set@{set}}
+\index{set@{set}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{set}]{\setlength{\rightskip}{0pt plus 5cm}end set (h, \/  'XData', \/  {\bf t}(1:kmax), \/  'YData', \/  {\bf var}(1:kmax), \/  'Color', \/  color)}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_a5f02b26bc0108f7baab76ad7d6e59d0a}
+\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!set@{set}}
+\index{set@{set}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{set}]{\setlength{\rightskip}{0pt plus 5cm}set ({\bf h\_\-T}, \/  'XData', \/  {\bf t}, \/  'YData')}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_abc78e1892e323cbe9dc244ac377ce8c5}
+\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!set@{set}}
+\index{set@{set}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{set}]{\setlength{\rightskip}{0pt plus 5cm}set ({\bf h\_\-T}, \/  'EraseMode', \/  'xor')}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_a39b453f267e5a6da193a112a1795f8b5}
+\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!set@{set}}
+\index{set@{set}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{set}]{\setlength{\rightskip}{0pt plus 5cm}set ({\bf h\_\-y3}, \/  'EraseMode', \/  'xor')}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_a385e0e67ca706a15549b9b5d22d0cbbe}
+\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!set@{set}}
+\index{set@{set}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{set}]{\setlength{\rightskip}{0pt plus 5cm}set ({\bf h\_\-y2}, \/  'EraseMode', \/  'xor')}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_a2f1d6c6e225f56fd6cdc2afbb1b01c7b}
+\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!set@{set}}
+\index{set@{set}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{set}]{\setlength{\rightskip}{0pt plus 5cm}set ({\bf h\_\-y1}, \/  'EraseMode', \/  'xor')}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_a722a271459e79ecc361751c1aa648a88}
+\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!subplot@{subplot}}
+\index{subplot@{subplot}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{subplot}]{\setlength{\rightskip}{0pt plus 5cm}subplot (313)}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_ad8750b1425b2888d7c27ed089c18e961}
+\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!subplot@{subplot}}
+\index{subplot@{subplot}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{subplot}]{\setlength{\rightskip}{0pt plus 5cm}subplot (312)}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_aefdf779120371b64a68fcbd99a897ffd}
+\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!subplot@{subplot}}
+\index{subplot@{subplot}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{subplot}]{\setlength{\rightskip}{0pt plus 5cm}subplot (311)}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_a48dc8634024e4b228c94c6accabfa69e}
+\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!title@{title}}
+\index{title@{title}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('Período de amostragem')}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_a27fd587d7c7c255c818968096d590d76}
+\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!while@{while}}
+\index{while@{while}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{while}]{\setlength{\rightskip}{0pt plus 5cm}while (status$\sim$ = {\ttfamily 4})}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_ae360bc0c0fa965e7aad73d49ed7962b8}
+\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!xlabel@{xlabel}}
+\index{xlabel@{xlabel}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{xlabel}]{\setlength{\rightskip}{0pt plus 5cm}xlabel (sprintf('{\bf t}[\%s]', tunit))}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_abfdbf47a6617364a73fa3a61e455c7f3}
+\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!ylabel@{ylabel}}
+\index{ylabel@{ylabel}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{ylabel}]{\setlength{\rightskip}{0pt plus 5cm}ylabel (sprintf('\%s[\%s]', varname, varunit))}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_a457b37eaffd124d92fd274a5f5005282}
+
+
+\subsection{Variable Documentation}
+\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!all@{all}}
+\index{all@{all}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{all}]{\setlength{\rightskip}{0pt plus 5cm}{\bf function} main close {\bf all}}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_aa352f5f080329b3d0104b863660b6340}
+
+
+Definition at line 3 of file libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!ax@{ax}}
+\index{ax@{ax}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{ax}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ax} = axis}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_a8fa675eb2fcec5b95d9d21c670da7f30}
+
+
+Definition at line 49 of file libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!ax1@{ax1}}
+\index{ax1@{ax1}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{ax1}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ax1} = axis}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_af8dd95942a665dc2de84d6fb11fe52e5}
+
+
+Definition at line 36 of file libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!ax2@{ax2}}
+\index{ax2@{ax2}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{ax2}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ax2} = axis}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_a3adf294ce5390ecfe6de8b4c606c2367}
+
+
+Definition at line 37 of file libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!ax3@{ax3}}
+\index{ax3@{ax3}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{ax3}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ax3} = axis}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_a7124c5f138dd8549011476d6455de5b6}
+
+
+Definition at line 38 of file libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!data@{data}}
+\index{data@{data}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{data}]{\setlength{\rightskip}{0pt plus 5cm}{\bf data} = gdatalogger\_\-ipc\_\-retrievevariable('{\bf y2}') [{\bf y2}}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_a511ae0b1c13f95e5f08f1a0dd3da3d93}
+
+
+Definition at line 26 of file libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!dataunitstring@{dataunitstring}}
+\index{dataunitstring@{dataunitstring}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{dataunitstring}]{\setlength{\rightskip}{0pt plus 5cm}{\bf dataunitstring}}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_aad5b8c2946402d5850f00b758f2f70dd}
+
+
+Definition at line 24 of file libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!drawnow@{drawnow}}
+\index{drawnow@{drawnow}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{drawnow}]{\setlength{\rightskip}{0pt plus 5cm}{\bf drawnow}}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_aadd84b46ee6d2e3ae04d2920f4e78bfd}
+
+
+Definition at line 52 of file libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!h\_\-T@{h\_\-T}}
+\index{h\_\-T@{h\_\-T}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{h\_\-T}]{\setlength{\rightskip}{0pt plus 5cm}{\bf h\_\-T} = plot(0,0)}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_a9af611c545155a56aff2e5e49bde291e}
+
+
+Definition at line 18 of file libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!h\_\-y1@{h\_\-y1}}
+\index{h\_\-y1@{h\_\-y1}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{h\_\-y1}]{\setlength{\rightskip}{0pt plus 5cm}{\bf h\_\-y1} = plot(0,0)}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_ad725d7bb1fa6ea23a4c6a633c4e0985e}
+
+
+Definition at line 13 of file libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!h\_\-y2@{h\_\-y2}}
+\index{h\_\-y2@{h\_\-y2}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{h\_\-y2}]{\setlength{\rightskip}{0pt plus 5cm}{\bf h\_\-y2} = plot(0,0)}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_a905ba6f59d5dbd28d9f076f6554b96d9}
+
+
+Definition at line 14 of file libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!h\_\-y3@{h\_\-y3}}
+\index{h\_\-y3@{h\_\-y3}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{h\_\-y3}]{\setlength{\rightskip}{0pt plus 5cm}{\bf h\_\-y3} = plot(0,0)}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_acadb1d7fce3f810f4b87a1e9bc72930a}
+
+
+Definition at line 15 of file libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!return@{return}}
+\index{return@{return}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{return}]{\setlength{\rightskip}{0pt plus 5cm}{\bf return}}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_a9717e7bbecb906637e86cef6da3d83c2}
+
+
+Definition at line 59 of file libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!status@{status}}
+\index{status@{status}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{status}]{\setlength{\rightskip}{0pt plus 5cm}{\bf status} = 0}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_a015eb90e0de9f16e87bd149d4b9ce959}
+
+
+Definition at line 21 of file libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!t@{t}}
+\index{t@{t}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{t}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t} = [$\,$]}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_aaccc9105df5383111407fd5b41255e23}
+
+
+Definition at line 7 of file libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!t\_\-unitstring@{t\_\-unitstring}}
+\index{t\_\-unitstring@{t\_\-unitstring}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{t\_\-unitstring}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\_\-unitstring} = {\bf dataunitstring}}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_a0bcb68d48a00dcf70f7a4ba91bebad08}
+
+
+Definition at line 32 of file libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!taxismax@{taxismax}}
+\index{taxismax@{taxismax}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{taxismax}]{\setlength{\rightskip}{0pt plus 5cm}{\bf taxismax} = {\bf t}(kmax)}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_a40f83f3ae20b99cae42f7736245dd6b6}
+
+
+Definition at line 66 of file libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!taxismin@{taxismin}}
+\index{taxismin@{taxismin}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{taxismin}]{\setlength{\rightskip}{0pt plus 5cm}else {\bf taxismin} = 0}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_a6ed4ca490546bf931c9ba98200b3cf5d}
+
+
+Definition at line 68 of file libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!toc@{toc}}
+\index{toc@{toc}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{toc}]{\setlength{\rightskip}{0pt plus 5cm}{\bf toc}[{\bf y1}] = [{\bf y1}}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_a06f08b774d6f1b9ba343df2f0ce2e626}
+
+
+Definition at line 26 of file libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!twindow@{twindow}}
+\index{twindow@{twindow}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{twindow}]{\setlength{\rightskip}{0pt plus 5cm}{\bf twindow} = 10}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_a54d39bd750bf38e91a420568a00e3600}
+
+
+Definition at line 20 of file libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!y1@{y1}}
+\index{y1@{y1}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{y1}]{\setlength{\rightskip}{0pt plus 5cm}{\bf y1} = [$\,$]}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_a7f911dc1dbbc41c6cae56357e8fb2230}
+
+
+Definition at line 8 of file libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!y1\_\-unitstring@{y1\_\-unitstring}}
+\index{y1\_\-unitstring@{y1\_\-unitstring}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{y1\_\-unitstring}]{\setlength{\rightskip}{0pt plus 5cm}{\bf y1\_\-unitstring} = {\bf dataunitstring}}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_a180987ace067c847f54e562707bd4c0c}
+
+
+Definition at line 26 of file libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!y2@{y2}}
+\index{y2@{y2}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{y2}]{\setlength{\rightskip}{0pt plus 5cm}{\bf y2} = [$\,$]}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_a41b94b12b7cb45b3ddee299d4e7b79e8}
+
+
+Definition at line 9 of file libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!y2\_\-unitstring@{y2\_\-unitstring}}
+\index{y2\_\-unitstring@{y2\_\-unitstring}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{y2\_\-unitstring}]{\setlength{\rightskip}{0pt plus 5cm}{\bf y2\_\-unitstring} = {\bf dataunitstring}}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_a2f7918daeedac869b9178f6f4d698939}
+
+
+Definition at line 28 of file libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!y3@{y3}}
+\index{y3@{y3}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{y3}]{\setlength{\rightskip}{0pt plus 5cm}{\bf y3} = [$\,$]}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_ade1417f93b8addbf3d5a62e132e169fd}
+
+
+Definition at line 10 of file libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m.\index{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}!y3\_\-unitstring@{y3\_\-unitstring}}
+\index{y3\_\-unitstring@{y3\_\-unitstring}!libs/gdatalogger/demo-pthread/matlab/dataviewer.m@{libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m}}
+\subsubsection[{y3\_\-unitstring}]{\setlength{\rightskip}{0pt plus 5cm}{\bf y3\_\-unitstring} = {\bf dataunitstring}}\label{libs_2gdatalogger_2demo-pthread_2matlab_2dataviewer_8m_a970f0fae68f4c1622e11119085fb1a89}
+
+
+Definition at line 30 of file libs/gdatalogger/demo-\/pthread/matlab/dataviewer.m.

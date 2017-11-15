@@ -1,0 +1,385 @@
+\section{serialcom.c File Reference}
+\label{serialcom_8c}\index{serialcom.c@{serialcom.c}}
+{\ttfamily \#include $<$stdio.h$>$}\par
+{\ttfamily \#include $<$math.h$>$}\par
+{\ttfamily \#include $<$signal.h$>$}\par
+{\ttfamily \#include $<$sys/io.h$>$}\par
+{\ttfamily \#include $<$unistd.h$>$}\par
+{\ttfamily \#include $<$sys/mman.h$>$}\par
+{\ttfamily \#include $<$native/task.h$>$}\par
+{\ttfamily \#include $<$native/timer.h$>$}\par
+{\ttfamily \#include $<$native/sem.h$>$}\par
+{\ttfamily \#include \char`\"{}serialcom.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf SERIALCOM\_\-COMPORTADDRESS\_\-1}~0x3F8
+\item 
+\#define {\bf SERIALCOM\_\-COMPORTADDRESS\_\-2}~0x2F8
+\item 
+\#define {\bf SERIALCOM\_\-COMPORTADDRESS\_\-3}~0x3E8
+\item 
+\#define {\bf SERIALCOM\_\-COMPORTADDRESS\_\-4}~0x2E8
+\item 
+\#define {\bf serialcom\_\-delayus}(a)~rt\_\-task\_\-sleep((RTIME)((a)$\ast$1000))
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int {\bf serialcom\_\-close} ({\bf PSERIALPORTCONFIG} pSerialPortConfig)
+\item 
+int {\bf serialcom\_\-init} ({\bf PSERIALPORTCONFIG} pSerialPortConfig, int ComPortNumber, unsigned long int ComPortBPS)
+\item 
+int {\bf serialcom\_\-receivebyte} ({\bf PSERIALPORTCONFIG} pSerialPortConfig, unsigned char $\ast$pData, double MaximaEsperaUS)
+\item 
+void {\bf serialcom\_\-semsignal} ({\bf PSERIALPORTCONFIG} pSerialPortConfig)
+\item 
+void {\bf serialcom\_\-semwait} ({\bf PSERIALPORTCONFIG} pSerialPortConfig)
+\item 
+int {\bf serialcom\_\-sendbyte} ({\bf PSERIALPORTCONFIG} pSerialPortConfig, unsigned char $\ast$pData)
+\item 
+int {\bf serialcom\_\-status} ({\bf PSERIALPORTCONFIG} pSerialPortConfig)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+RT\_\-SEM {\bf pComPortSemaphores} [4]
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\index{serialcom.c@{serialcom.c}!SERIALCOM\_\-COMPORTADDRESS\_\-1@{SERIALCOM\_\-COMPORTADDRESS\_\-1}}
+\index{SERIALCOM\_\-COMPORTADDRESS\_\-1@{SERIALCOM\_\-COMPORTADDRESS\_\-1}!serialcom.c@{serialcom.c}}
+\subsubsection[{SERIALCOM\_\-COMPORTADDRESS\_\-1}]{\setlength{\rightskip}{0pt plus 5cm}\#define SERIALCOM\_\-COMPORTADDRESS\_\-1~0x3F8}\label{serialcom_8c_a92c8e376dc1408e51fe5bdcb01f4649d}
+Endereco base da porta serial COM1. Uso interno. 
+
+Definition at line 28 of file serialcom.c.\index{serialcom.c@{serialcom.c}!SERIALCOM\_\-COMPORTADDRESS\_\-2@{SERIALCOM\_\-COMPORTADDRESS\_\-2}}
+\index{SERIALCOM\_\-COMPORTADDRESS\_\-2@{SERIALCOM\_\-COMPORTADDRESS\_\-2}!serialcom.c@{serialcom.c}}
+\subsubsection[{SERIALCOM\_\-COMPORTADDRESS\_\-2}]{\setlength{\rightskip}{0pt plus 5cm}\#define SERIALCOM\_\-COMPORTADDRESS\_\-2~0x2F8}\label{serialcom_8c_a7c081adc93cbe0724d26fa211a832ab6}
+Endereco base da porta serial COM2. Uso interno. 
+
+Definition at line 31 of file serialcom.c.\index{serialcom.c@{serialcom.c}!SERIALCOM\_\-COMPORTADDRESS\_\-3@{SERIALCOM\_\-COMPORTADDRESS\_\-3}}
+\index{SERIALCOM\_\-COMPORTADDRESS\_\-3@{SERIALCOM\_\-COMPORTADDRESS\_\-3}!serialcom.c@{serialcom.c}}
+\subsubsection[{SERIALCOM\_\-COMPORTADDRESS\_\-3}]{\setlength{\rightskip}{0pt plus 5cm}\#define SERIALCOM\_\-COMPORTADDRESS\_\-3~0x3E8}\label{serialcom_8c_a368c1614a29016462a3361298c9637e2}
+Endereco base da porta serial COM3. Uso interno. 
+
+Definition at line 34 of file serialcom.c.\index{serialcom.c@{serialcom.c}!SERIALCOM\_\-COMPORTADDRESS\_\-4@{SERIALCOM\_\-COMPORTADDRESS\_\-4}}
+\index{SERIALCOM\_\-COMPORTADDRESS\_\-4@{SERIALCOM\_\-COMPORTADDRESS\_\-4}!serialcom.c@{serialcom.c}}
+\subsubsection[{SERIALCOM\_\-COMPORTADDRESS\_\-4}]{\setlength{\rightskip}{0pt plus 5cm}\#define SERIALCOM\_\-COMPORTADDRESS\_\-4~0x2E8}\label{serialcom_8c_a01901c0ca0cfcd424468947557bfee58}
+Endereco base da porta serial COM4. Uso interno. 
+
+Definition at line 37 of file serialcom.c.\index{serialcom.c@{serialcom.c}!serialcom\_\-delayus@{serialcom\_\-delayus}}
+\index{serialcom\_\-delayus@{serialcom\_\-delayus}!serialcom.c@{serialcom.c}}
+\subsubsection[{serialcom\_\-delayus}]{\setlength{\rightskip}{0pt plus 5cm}\#define serialcom\_\-delayus(a)~rt\_\-task\_\-sleep((RTIME)((a)$\ast$1000))}\label{serialcom_8c_ab8562a5ce361317b4d7453a8354a5685}
+
+
+Definition at line 44 of file serialcom.c.
+
+\subsection{Function Documentation}
+\index{serialcom.c@{serialcom.c}!serialcom\_\-close@{serialcom\_\-close}}
+\index{serialcom\_\-close@{serialcom\_\-close}!serialcom.c@{serialcom.c}}
+\subsubsection[{serialcom\_\-close}]{\setlength{\rightskip}{0pt plus 5cm}int serialcom\_\-close ({\bf PSERIALPORTCONFIG} {\em pSerialPortConfig})}\label{serialcom_8c_a480f412a5b77f8ad7966a267b4c26f89}
+
+
+Definition at line 117 of file serialcom.c.
+
+
+\begin{DoxyCode}
+118 {
+119         rt_sem_delete(&pComPortSemaphores[pSerialPortConfig->ComPortNumber-1]);
+120 
+121         return SERIALCOM_SUCCESS;
+122 }
+\end{DoxyCode}
+\index{serialcom.c@{serialcom.c}!serialcom\_\-init@{serialcom\_\-init}}
+\index{serialcom\_\-init@{serialcom\_\-init}!serialcom.c@{serialcom.c}}
+\subsubsection[{serialcom\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}int serialcom\_\-init ({\bf PSERIALPORTCONFIG} {\em pSerialPortConfig}, \/  int {\em ComPortNumber}, \/  unsigned long int {\em ComPortBPS})}\label{serialcom_8c_a5eb7bbd8dec689b7e1943f71a54ed89b}
+Funcao que inicia a porta serial ComPortNumber com a taxa dada em BPS por ComPortBPS. Essa funcao dever ser chamada por cada thread que tenha acesso porta serial ComPortNumber. Seus argumentos de chamada so: 
+\begin{DoxyParams}{Parameters}
+\item[{\em pSerialPortConfig}]Ponteiro para estrutura SERIALPORCONFIG que guarda informaes de configurao da porta serial no contexto do thread de chamada. Mesmo que uma dada porta serial seja utilizada por diversos threads, cada thread dever ter a sua estrutura SERIALPORCONFIG. \item[{\em ComPortNumber}]Numero da porta serial, no intervalo de 1 a 4. \item[{\em ComPortBPS}]Taxa de comunicao em BPS, no intervalo de 2 a 115200. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+SERIALCOM\_\-SUCCESS : Porta iniciada com sucesso. 
+
+SERIALCOM\_\-ERROR\_\-INCORRECTPORTNUMBER : Erro, corresponde a um ComPortNumber invlido. 
+
+SERIALCOM\_\-ERROR\_\-MAXBPSPRECISION : Erro, a taxa ComPortBPS no pode ser realizada com erro inferior a. SERIALCOM\_\-MAXBPSPRECISION. 
+
+SERIALCOM\_\-ERROR\_\-IOPL : Erro, corresponde a uma tentativa de executar o programa sem que se tenha acesso privilegiado de administrador a portas de E/S. 
+\end{DoxyReturn}
+
+
+Definition at line 60 of file serialcom.c.
+
+
+\begin{DoxyCode}
+61 {
+62         unsigned int BPSClockDivisor;
+63         float BPSPrecision;
+64         char semname[50];
+65 
+66         pSerialPortConfig->ComPortNumber = ComPortNumber; 
+67         switch(ComPortNumber){
+68                 case 0:
+69                         pSerialPortConfig->ComPortAddress = 0x0400; 
+70                 break;
+71                 case 1:
+72                         pSerialPortConfig->ComPortAddress = 
+      SERIALCOM_COMPORTADDRESS_1; 
+73                 break;
+74                 case 2:
+75                         pSerialPortConfig->ComPortAddress = 
+      SERIALCOM_COMPORTADDRESS_2; 
+76                 break;
+77                 case 3:
+78                         pSerialPortConfig->ComPortAddress = 
+      SERIALCOM_COMPORTADDRESS_3; 
+79                 break;
+80                 case 4:
+81                         pSerialPortConfig->ComPortAddress = 
+      SERIALCOM_COMPORTADDRESS_4; 
+82                 break;
+83                 default:
+84                         return SERIALCOM_ERROR_INCORRECTPORTNUMBER;
+85         }
+86         
+87         pSerialPortConfig->ComPortNumber = ComPortNumber; 
+88         pSerialPortConfig->ComPortBPS = ComPortBPS;
+89         pSerialPortConfig->FramePeriodUS = (1e7)/(((float)(ComPortBPS)));
+90 
+91         BPSClockDivisor = 115200 / ComPortBPS;
+92         BPSPrecision = (((double)(ComPortBPS)) - 115200.0/BPSClockDivisor)/((doub
+      le)(ComPortBPS));
+93         if(fabs(BPSPrecision) > SERIALCOM_MAXBPSPRECISION){
+94                 return SERIALCOM_ERROR_MAXBPSPRECISION;
+95         }
+96 
+97         if(iopl(3)<0){
+98                 printf("seriallib_iniciar: iopl error");
+99                 return SERIALCOM_ERROR_IOPL;
+100         }
+101 
+102         outb(0, pSerialPortConfig->ComPortAddress + 1);         // Desativar inte
+      rrupes 
+103         outb(0x80, pSerialPortConfig->ComPortAddress + 3);      // DLAB ON 
+104         outb((unsigned char)(BPSClockDivisor & 0xFF), pSerialPortConfig->
+      ComPortAddress + 0);    // Baud Rate - DL Byte 
+105         outb((unsigned char)((BPSClockDivisor >> 8) & 0xFF), pSerialPortConfig->
+      ComPortAddress + 1);    // Baud Rate - DH Byte 
+106         outb(0x03, pSerialPortConfig->ComPortAddress + 3);      // 8 Bits, No Par
+      ity, 1 Stop Bit 
+107         //outb(0x08, pSerialPortConfig->ComPortAddress + 3);    // 8 Bits, No Par
+      ity, 2 Stop Bits 
+108         outb(0xC7, pSerialPortConfig->ComPortAddress + 2);      // FIFO: 14 bytes
+      , limpa TX e RX fifos, habilita
+109         outb(0x0B, pSerialPortConfig->ComPortAddress + 4);      // Ativa DTR, RTS
+       = 0, e OUT2    
+110 
+111         sprintf(semname,"CoSem%i",ComPortNumber);
+112         rt_sem_create(&pComPortSemaphores[ComPortNumber-1],semname,1,S_FIFO);
+113 
+114         return SERIALCOM_SUCCESS;
+115 }
+\end{DoxyCode}
+\index{serialcom.c@{serialcom.c}!serialcom\_\-receivebyte@{serialcom\_\-receivebyte}}
+\index{serialcom\_\-receivebyte@{serialcom\_\-receivebyte}!serialcom.c@{serialcom.c}}
+\subsubsection[{serialcom\_\-receivebyte}]{\setlength{\rightskip}{0pt plus 5cm}int serialcom\_\-receivebyte ({\bf PSERIALPORTCONFIG} {\em pSerialPortConfig}, \/  unsigned char $\ast$ {\em pData}, \/  double {\em MaximaEsperaUS})}\label{serialcom_8c_a54d13404ad9f206887f345c49c0b4499}
+Funcao que aguarda um byte chegar pela porta serial descrita por pSerialPortConfig por um tempo mximo dado por MaximaEsperaUS, dado em microsegundos. Se um dado chegar dentro do perodo dado por MaximaEsperaUS, o mesmo ser colocado na varivel apontada por pData. 
+\begin{DoxyParams}{Parameters}
+\item[{\em pSerialPortConfig}]Ponteiro para estrutura \doxyref{SERIALPORTCONFIG}{p.}{structSERIALPORTCONFIG} que guarda informaes de configurao da porta serial no contexto do thread de chamada. \item[{\em pData}]Ponteiro para o byte recebido. \item[{\em MaximaEsperaUS}]Tempo mximo de espera pela chegada de um byte pela porta. Se MaximaEsperaUS \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+SERIALCOM\_\-SUCCESS : Operao realizada com sucesso. Um byte foi recebido pela porta serial e se encontra disponvel na varivel apontada por pData. 
+
+SERIALCOM\_\-ERROR\_\-MAXWAITFORRECEPTION : Nenhum bayte chegou dentro do tempo estipulado por MaximaEsperaUS 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+Essa funcao fica bloqueada por at MaximaEsperaUS enquanto um byte no chegar. 
+\end{DoxyWarning}
+
+
+Definition at line 216 of file serialcom.c.
+
+
+\begin{DoxyCode}
+217 {
+218         double  ElapsedTime;
+219 
+220         if(MaximaEsperaUS<0) MaximaEsperaUS = 0; // Espera minima de 0 us.
+221 
+222         ElapsedTime = 0.0;
+223         while(1)
+224         {
+225                 if( (serialcom_status(pSerialPortConfig) & 
+      SERIALCOM_STATUSMASK_RX_DATA_READY) ){
+226 //                      printf("\n FILE = %s, LINE = %i",__FILE__,__LINE__);
+227                         *pData = inb(pSerialPortConfig->ComPortAddress + 0);
+228 //                      printf("\n Porta %i, Retornando estado %i", pSerialPortCo
+      nfig->ComPortNumber, SERIALCOM_SUCCESS);
+229                         return(SERIALCOM_SUCCESS);
+230                 }
+231                 serialcom_delayus(0.2*pSerialPortConfig->FramePeriodUS);
+232                 ElapsedTime += 0.2*pSerialPortConfig->FramePeriodUS;
+233 //              printf("\n ElapsedTime = %f",ElapsedTime);
+234                 if(ElapsedTime >= MaximaEsperaUS){
+235 //                      printf("\n FILE = %s, LINE = %i",__FILE__,__LINE__);
+236 //                      printf("\n Porta %i, Retornando estado %i", pSerialPortCo
+      nfig->ComPortNumber, SERIALCOM_ERROR_MAXWAITFORRECEPTION);
+237                         return(SERIALCOM_ERROR_MAXWAITFORRECEPTION);  // Dado nao
+       chegou no tempo estipulado.
+238                 }
+239         }
+240 }
+\end{DoxyCode}
+\index{serialcom.c@{serialcom.c}!serialcom\_\-semsignal@{serialcom\_\-semsignal}}
+\index{serialcom\_\-semsignal@{serialcom\_\-semsignal}!serialcom.c@{serialcom.c}}
+\subsubsection[{serialcom\_\-semsignal}]{\setlength{\rightskip}{0pt plus 5cm}void serialcom\_\-semsignal ({\bf PSERIALPORTCONFIG} {\em pSerialPortConfig})}\label{serialcom_8c_aca6e0ddb69ed96c35f139ff05d5b3a72}
+Funcao que libera semforo que foi previamente cedido por serialcom\_\-semwait para acessar a porta descrita por pSerialPortConfig. 
+\begin{DoxyParams}{Parameters}
+\item[{\em pSerialPortConfig}]Ponteiro para estrutura \doxyref{SERIALPORTCONFIG}{p.}{structSERIALPORTCONFIG} que guarda informaes de configurao da porta serial no contexto do thread de chamada. Mesmo que uma dada porta serial seja utilizada por diversos threads, cada thread dever ter a sua estrutura \doxyref{SERIALPORTCONFIG}{p.}{structSERIALPORTCONFIG}.. \end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+Se uma determinada porta somente gerenciada por um s thread, no h necessidade de se usar essas funes de semforo. As funes de semforo tm somente utilizade em situaes em que mais de um thread pode acessar a porta serial X, com X = 1, 2, 3 ou 4. 
+
+Aps concluir o acesso porta serial cedido por essa funcao, deve-\/se chamar serialcom\_\-semsignal para liberar o semforo 
+\end{DoxyWarning}
+
+
+Definition at line 148 of file serialcom.c.
+
+
+\begin{DoxyCode}
+149 {
+150         rt_sem_v(&pComPortSemaphores[pSerialPortConfig->ComPortNumber-1]);
+151 }
+\end{DoxyCode}
+\index{serialcom.c@{serialcom.c}!serialcom\_\-semwait@{serialcom\_\-semwait}}
+\index{serialcom\_\-semwait@{serialcom\_\-semwait}!serialcom.c@{serialcom.c}}
+\subsubsection[{serialcom\_\-semwait}]{\setlength{\rightskip}{0pt plus 5cm}void serialcom\_\-semwait ({\bf PSERIALPORTCONFIG} {\em pSerialPortConfig})}\label{serialcom_8c_ac1deb0bc4fce44117f1d2b3aa0d78a2a}
+Funcao que aguarda semforo para acessar a porta descrita por pSerialPortConfig. Juntamente com serialcom\_\-semsignal, pode-\/se garantir o acesso exclusivo de um thread porta serial. 
+\begin{DoxyParams}{Parameters}
+\item[{\em pSerialPortConfig}]Ponteiro para estrutura \doxyref{SERIALPORTCONFIG}{p.}{structSERIALPORTCONFIG} que guarda informaes de configurao da porta serial no contexto do thread de chamada. Mesmo que uma dada porta serial seja utilizada por diversos threads, cada thread dever ter a sua estrutura \doxyref{SERIALPORTCONFIG}{p.}{structSERIALPORTCONFIG}.. \end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+Se uma determinada porta somente gerenciada por um s thread, no h necessidade de se usar essas funes de semforo. As funes de semforo tm somente utilizade em situaes em que mais de um thread pode acessar a porta serial X, com X = 1, 2, 3 ou 4. 
+
+Aps concluir o acesso porta serial cedido por essa funcao, deve-\/se chamar serialcom\_\-semsignal para liberar o semforo 
+\end{DoxyWarning}
+
+
+Definition at line 134 of file serialcom.c.
+
+
+\begin{DoxyCode}
+135 {
+136         rt_sem_p(&pComPortSemaphores[pSerialPortConfig->ComPortNumber-1],TM_INFIN
+      ITE);
+137 }
+\end{DoxyCode}
+\index{serialcom.c@{serialcom.c}!serialcom\_\-sendbyte@{serialcom\_\-sendbyte}}
+\index{serialcom\_\-sendbyte@{serialcom\_\-sendbyte}!serialcom.c@{serialcom.c}}
+\subsubsection[{serialcom\_\-sendbyte}]{\setlength{\rightskip}{0pt plus 5cm}int serialcom\_\-sendbyte ({\bf PSERIALPORTCONFIG} {\em pSerialPortConfig}, \/  unsigned char $\ast$ {\em pData})}\label{serialcom_8c_ac5dcc32914d203e1a81c377fef948014}
+Funcao que envia um byte apontado por pData pela porta serial descrita por pSerialPortConfig. 
+\begin{DoxyParams}{Parameters}
+\item[{\em pSerialPortConfig}]Ponteiro para estrutura \doxyref{SERIALPORTCONFIG}{p.}{structSERIALPORTCONFIG} que guarda informaes de configurao da porta serial no contexto do thread de chamada. Mesmo que uma dada porta serial seja utilizada por diversos threads, cada thread dever ter a sua estrutura \doxyref{SERIALPORTCONFIG}{p.}{structSERIALPORTCONFIG}. Se SERIALCOM\_\-USE\_\-RS485 = 1, ento o sinal RTS ser colocado em nvel lgico 1 enquanto durar o frame do byte enviado, permitindo assim ativar o driver externo de uma porta com conversor RS-\/485. Nessa situao, essa funcao somente retorna quando o byte tiver sido enviado. Caso contrrio, a funcao somente escrever no buffer de sada o byte apontado por pData, retornando em $\ast$ seguida. \item[{\em pData}]Ponteiro para o byte que ser enviado. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+SERIALCOM\_\-SUCCESS : Dado escrito no registro de sada com sucesso. Entretanto, isso significa apenas que uma transmisso est em curso. Para se certificar de que o dado foi efetivamente transmitido, deve-\/se fazer uso da funcao \doxyref{serialcom\_\-status()}{p.}{serialcom-sb16c1052pci-xenomai_8c_a7ad801f3b47f1ee0e0cf90ab78a20983} 
+
+SERIALCOM\_\-ERROR\_\-MAXWAITENDOFTRANSMISSION : Situao de erro em que a funcao ficou aguardando por um perodo de at 5 frames para disponibilizao do registro de sada da porta 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+Essa funcao fica bloqueada enquanto o ltimo byte escrito no buffer de sada ainda no tiver sido enviado. 
+\end{DoxyWarning}
+
+
+Definition at line 165 of file serialcom.c.
+
+
+\begin{DoxyCode}
+166 {
+167         int contador;
+168         #if SERIALCOM_USE_RS485
+169         unsigned char dado;
+170         #endif
+171 
+172         contador = 0;
+173         while(!(serialcom_status(pSerialPortConfig) & 
+      SERIALCOM_STATUSMASK_EMPTY_DH_REGISTERS))
+174         {
+175                 serialcom_delayus(0.5*pSerialPortConfig->FramePeriodUS); 
+176                 if(++contador>10) return(
+      SERIALCOM_ERROR_MAXWAITENDOFTRANSMISSION);
+177         } // Espera fim da ultima transmissao
+178 
+179         #if SERIALCOM_USE_RS485
+180         dado = inb(pSerialPortConfig->ComPortAddress + 4);
+181         dado = dado & (~0x02);
+182         outb(dado, pSerialPortConfig->ComPortAddress + 4);  //setar RTS = 1 mante
+      ndo OUT2
+183         #endif
+184         
+185         outb(*pData, pSerialPortConfig->ComPortAddress + 0); // Envia.
+186         
+187         #if SERIALCOM_USE_RS485
+188 //      serialcom_delayus(pSerialPortConfig->FramePeriodUS); // Espera o periodo 
+      de uma transmisso
+189         contador = 0;
+190         while(!(serialcom_status(pSerialPortConfig) & SERIALCOM_STATUSMASK_EMPTY_
+      DH_REGISTERS))
+191         {
+192                 serialcom_delayus(0.5*pSerialPortConfig->FramePeriodUS);
+193                 if(++contador>10) return(
+      SERIALCOM_ERROR_MAXWAITENDOFTRANSMISSION);
+194         } // Espera fim da ultima transmissao
+195 
+196         dado = inb(pSerialPortConfig->ComPortAddress + 4);
+197         dado = dado | (0x02);
+198         outb(dado, pSerialPortConfig->ComPortAddress + 4);  //setar RTS = 0 mante
+      ndo OUT2
+199         #endif
+200 
+201         return SERIALCOM_SUCCESS;
+202 }
+\end{DoxyCode}
+\index{serialcom.c@{serialcom.c}!serialcom\_\-status@{serialcom\_\-status}}
+\index{serialcom\_\-status@{serialcom\_\-status}!serialcom.c@{serialcom.c}}
+\subsubsection[{serialcom\_\-status}]{\setlength{\rightskip}{0pt plus 5cm}int serialcom\_\-status ({\bf PSERIALPORTCONFIG} {\em pSerialPortConfig})}\label{serialcom_8c_a7ad801f3b47f1ee0e0cf90ab78a20983}
+Funcao que l o registro de status da porta serial descrita por pSerialPortConfig. 
+\begin{DoxyParams}{Parameters}
+\item[{\em pSerialPortConfig}]Ponteiro para estrutura \doxyref{SERIALPORTCONFIG}{p.}{structSERIALPORTCONFIG} que guarda informaes de configurao da porta serial no contexto do thread de chamada. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+O valor de retorno tem os bits setados conforme que o dado foi efetivamente enviadoos eventos que ocorreram com a porta serial, que podem ser testados usando um teste lgico E bit a bit com as seguintes mscaras: 
+
+SERIALCOM\_\-STATUSMASK\_\-ERROR\_\-RX\_\-FIFO 
+
+SERIALCOM\_\-STATUSMASK\_\-EMPTY\_\-DH\_\-REGISTERS 
+
+SERIALCOM\_\-STATUSMASK\_\-EMPTY\_\-TX\_\-REGISTER 
+
+SERIALCOM\_\-STATUSMASK\_\-BREAK\_\-INTERRUPT 
+
+SERIALCOM\_\-STATUSMASK\_\-FRAMING\_\-ERROR 
+
+SERIALCOM\_\-STATUSMASK\_\-PARITY\_\-ERROR 
+
+SERIALCOM\_\-STATUSMASK\_\-OVERRUN\_\-ERROR 
+
+SERIALCOM\_\-STATUSMASK\_\-RX\_\-DATA\_\-READY 
+
+As mscaras acima correspondem a eventos que so detalhados em {\tt http://www.beyondlogic.org/serial/serial.htm} 
+\end{DoxyReturn}
+
+
+Definition at line 258 of file serialcom.c.
+
+
+\begin{DoxyCode}
+259 {
+260         return inb(pSerialPortConfig->ComPortAddress + 5);
+261 }
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\index{serialcom.c@{serialcom.c}!pComPortSemaphores@{pComPortSemaphores}}
+\index{pComPortSemaphores@{pComPortSemaphores}!serialcom.c@{serialcom.c}}
+\subsubsection[{pComPortSemaphores}]{\setlength{\rightskip}{0pt plus 5cm}RT\_\-SEM {\bf pComPortSemaphores}[4]}\label{serialcom_8c_a34390a6151353a5966040a92b821516d}
+
+
+Definition at line 41 of file serialcom.c.

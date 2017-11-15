@@ -1,0 +1,606 @@
+\section{dataviewer.m File Reference}
+\label{matlab_2dataviewer_8m}\index{dataviewer.m@{dataviewer.m}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bf disp} ('Iniciando dataviewer...')
+\item 
+'{\bf u\_\-as}', {\bf Filename} {\bf ReadGMatlabDataFile} ()
+\item 
+{\bf while} (status$\sim$=4)[{\bf data}
+\item 
+{\bf if} (status$\sim$=4) figure(1)
+\item 
+{\bf subplot} (311)
+\item 
+{\bf myplot} ({\bf t}, {\bf t\_\-unitstring}, {\bf theta\_\-k},'$\backslash${\bf theta\_\-k}', {\bf theta\_\-k\_\-unitstring},'b', {\bf twindow})
+\item 
+{\bf subplot} (312)
+\item 
+{\bf myplot} ({\bf t}, {\bf t\_\-unitstring}, {\bf theta\_\-as},'$\backslash$theta\_\-\{as\}', {\bf theta\_\-as\_\-unitstring},'b', {\bf twindow})
+\item 
+{\bf subplot} (313)
+\item 
+{\bf myplot} ({\bf t}, {\bf t\_\-unitstring}, {\bf theta\_\-af},'$\backslash${\bf theta\_\-af}', {\bf theta\_\-af\_\-unitstring},'b', {\bf twindow})
+\item 
+{\bf figure} (2)
+\item 
+{\bf myplot} ({\bf t}, {\bf t\_\-unitstring}, {\bf i\_\-k}, '{\bf i\_\-k}', {\bf i\_\-k\_\-unitstring},'b', {\bf twindow})
+\item 
+{\bf myplot} ({\bf t}, {\bf t\_\-unitstring}, {\bf i\_\-as},'i\_\-\{as\}', {\bf i\_\-as\_\-unitstring},'b', {\bf twindow})
+\item 
+{\bf myplot} ({\bf t}, {\bf t\_\-unitstring}, {\bf i\_\-af},'i\_\-\{af\}', {\bf i\_\-af\_\-unitstring},'b', {\bf twindow})
+\item 
+{\bf figure} (3)
+\item 
+{\bf myplot} ({\bf t}, {\bf t\_\-unitstring}, {\bf u\_\-k}, '{\bf u\_\-k}', {\bf u\_\-k\_\-unitstring},'b', {\bf twindow})
+\item 
+{\bf myplot} ({\bf t}, {\bf t\_\-unitstring}, {\bf u\_\-as},'u\_\-\{as\}', {\bf u\_\-as\_\-unitstring},'b', {\bf twindow})
+\item 
+{\bf myplot} ({\bf t}, {\bf t\_\-unitstring}, {\bf u\_\-af},'u\_\-\{af\}', {\bf u\_\-af\_\-unitstring},'b', {\bf twindow})
+\item 
+{\bf figure} (4)
+\item 
+{\bf subplot} (211)
+\item 
+{\bf myplot} ({\bf t}, {\bf t\_\-unitstring}, {\bf gyro\_\-1},'{\bf gyro\_\-1}', {\bf gyro\_\-1\_\-unitstring},'b', {\bf twindow})
+\item 
+{\bf subplot} (212)
+\item 
+{\bf myplot} ({\bf t}, {\bf t\_\-unitstring}, {\bf gyro\_\-2},'{\bf gyro\_\-2}', {\bf gyro\_\-2\_\-unitstring},'b', {\bf twindow})
+\item 
+{\bf figure} (5)
+\item 
+{\bf subplot} (411)
+\item 
+{\bf myplot} ({\bf t}, {\bf t\_\-unitstring}, r\_\-1,'r\_\-1', {\bf r\_\-1\_\-unitstring},'b', {\bf twindow})
+\item 
+{\bf subplot} (412)
+\item 
+{\bf myplot} ({\bf t}, {\bf t\_\-unitstring}, r\_\-2,'r\_\-2', {\bf r\_\-2\_\-unitstring},'b', {\bf twindow})
+\item 
+{\bf subplot} (413)
+\item 
+{\bf myplot} ({\bf t}, {\bf t\_\-unitstring}, r\_\-3,'r\_\-3', {\bf r\_\-3\_\-unitstring},'b', {\bf twindow})
+\item 
+{\bf subplot} (414)
+\item 
+{\bf myplot} ({\bf t}, {\bf t\_\-unitstring}, r\_\-4,'r\_\-4', {\bf r\_\-4\_\-unitstring},'b', {\bf twindow})
+\item 
+{\bf figure} (6)
+\item 
+{\bf myplot} ({\bf t}, {\bf t\_\-unitstring},[0;diff({\bf t})],'T\_\-s, T\_\-\{exec\}','s','r', {\bf twindow})
+\item 
+{\bf myplot} ({\bf t}, {\bf t\_\-unitstring}, {\bf T\_\-exec},'T\_\-s, T\_\-\{exec\}','s','b', {\bf twindow})
+\item 
+{\bf title} ('Período de amostragem(vermelho) e período de execução da tarefa periódica(azul)')
+\item 
+{\bf pause} (0.1)
+\item 
+end end {\bf disp} ('Saindo...')
+\item 
+{\bf function} {\bf myplot} ({\bf t}, tunit, {\bf var}, varname, varunit, color, {\bf twindow}) kmax
+\item 
+{\bf if} ({\bf t}(kmax)$>${\bf twindow}) {\bf taxismin}
+\item 
+end {\bf plot} ({\bf t}(1:kmax), {\bf var}(1:kmax), color)
+\item 
+{\bf axis} ([{\bf taxismin} {\bf taxismax} {\bf ax}(3) {\bf ax}(4)])
+\item 
+{\bf xlabel} (sprintf('{\bf t}[\%s]', tunit))
+\item 
+{\bf ylabel} (sprintf('\%s[\%s]', varname, varunit))
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+{\bf function} main close {\bf all}
+\item 
+{\bf t} = ReadGMatlabDataFile('{\bf t}',{\bf Filename})
+\item 
+time {\bf T\_\-exec} = ReadGMatlabDataFile('{\bf T\_\-exec}',{\bf Filename})
+\item 
+execution time {\bf gyro\_\-1} = ReadGMatlabDataFile('g\_\-1',{\bf Filename})
+\item 
+gyro {\bf gyro\_\-2} = ReadGMatlabDataFile('g\_\-2',{\bf Filename})
+\item 
+gyro {\bf i\_\-1} = ReadGMatlabDataFile('{\bf i\_\-k}',{\bf Filename})
+\item 
+motor current knee {\bf i\_\-2} = ReadGMatlabDataFile('{\bf i\_\-as}',{\bf Filename})
+\item 
+motor current ankle sagital {\bf i\_\-3} = ReadGMatlabDataFile('{\bf i\_\-af}',{\bf Filename})
+\item 
+motor current ankle frontal {\bf u\_\-1} = ReadGMatlabDataFile('{\bf u\_\-k}',{\bf Filename})
+\item 
+knee joint potentiometer {\bf theta\_\-2} = ReadGMatlabDataFile('p\_\-as',{\bf Filename})
+\item 
+knee joint potentiometer {\bf theta\_\-3} = ReadGMatlabDataFile('p\_\-af',{\bf Filename})
+\item 
+knee joint potentiometer {\bf r\_\-1} = ReadGMatlabDataFile('r\_\-1',{\bf Filename})
+\item 
+foot infrared range {\bf r\_\-2} = ReadGMatlabDataFile('r\_\-2',{\bf Filename})
+\item 
+foot infrared range {\bf r\_\-3} = ReadGMatlabDataFile('r\_\-3',{\bf Filename})
+\item 
+foot infrared range {\bf r\_\-4} = ReadGMatlabDataFile('r\_\-4',{\bf Filename})
+\item 
+{\bf u\_\-2} = 12$\ast$({\bf u\_\-2} -\/ 500)/500
+\item 
+{\bf u\_\-3} = 12$\ast$({\bf u\_\-3} -\/ 500)/500
+\item 
+{\bf theta\_\-k} = [$\,$]
+\item 
+{\bf theta\_\-as} = [$\,$]
+\item 
+{\bf theta\_\-af} = [$\,$]
+\item 
+{\bf i\_\-k} = [$\,$]
+\item 
+{\bf i\_\-as} = [$\,$]
+\item 
+{\bf i\_\-af} = [$\,$]
+\item 
+{\bf u\_\-k} = [$\,$]
+\item 
+{\bf u\_\-as} = [$\,$]
+\item 
+{\bf u\_\-af} = [$\,$]
+\item 
+{\bf twindow} = 10
+\item 
+{\bf status} = 0
+\item 
+{\bf dataunitstring}
+\item 
+{\bf data} = [{\bf theta\_\-k}
+\item 
+{\bf theta\_\-k\_\-unitstring} = {\bf dataunitstring}
+\item 
+{\bf theta\_\-as\_\-unitstring} = {\bf dataunitstring}
+\item 
+{\bf theta\_\-af\_\-unitstring} = {\bf dataunitstring}
+\item 
+{\bf gyro\_\-1\_\-unitstring} = {\bf dataunitstring}
+\item 
+{\bf gyro\_\-2\_\-unitstring} = {\bf dataunitstring}
+\item 
+{\bf r\_\-1\_\-unitstring} = {\bf dataunitstring}
+\item 
+{\bf r\_\-2\_\-unitstring} = {\bf dataunitstring}
+\item 
+{\bf r\_\-3\_\-unitstring} = {\bf dataunitstring}
+\item 
+{\bf r\_\-4\_\-unitstring} = {\bf dataunitstring}
+\item 
+{\bf i\_\-k\_\-unitstring} = {\bf dataunitstring}
+\item 
+{\bf i\_\-as\_\-unitstring} = {\bf dataunitstring}
+\item 
+{\bf i\_\-af\_\-unitstring} = {\bf dataunitstring}
+\item 
+{\bf u\_\-k\_\-unitstring} = {\bf dataunitstring}
+\item 
+{\bf u\_\-as\_\-unitstring} = {\bf dataunitstring}
+\item 
+{\bf u\_\-af\_\-unitstring} = {\bf dataunitstring}
+\item 
+{\bf T\_\-exec\_\-unitstring} = {\bf dataunitstring}
+\item 
+{\bf t\_\-unitstring} = {\bf dataunitstring}
+\item 
+hold {\bf on}
+\item 
+{\bf drawnow}
+\item 
+{\bf return}
+\item 
+{\bf taxismax} = {\bf t}(kmax)
+\item 
+else {\bf taxismin} = 0
+\item 
+{\bf ax} = axis
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!axis@{axis}}
+\index{axis@{axis}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{axis}]{\setlength{\rightskip}{0pt plus 5cm}axis ()}\label{matlab_2dataviewer_8m_a4ad4a7fbf9742f55c11cd212c6816faf}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!disp@{disp}}
+\index{disp@{disp}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{disp}]{\setlength{\rightskip}{0pt plus 5cm}end end disp ('Saindo...')}\label{matlab_2dataviewer_8m_a01758e934588eaa62a7c8fd926b30bee}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!disp@{disp}}
+\index{disp@{disp}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{disp}]{\setlength{\rightskip}{0pt plus 5cm}disp ('Iniciando dataviewer...')}\label{matlab_2dataviewer_8m_a31529343f1711a66324cc584d5a8dfd0}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!figure@{figure}}
+\index{figure@{figure}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{figure}]{\setlength{\rightskip}{0pt plus 5cm}figure (6)}\label{matlab_2dataviewer_8m_a19dc8f9cdeda4275f0dd155cc42cb1c6}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!figure@{figure}}
+\index{figure@{figure}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{figure}]{\setlength{\rightskip}{0pt plus 5cm}figure (5)}\label{matlab_2dataviewer_8m_af6df9fee24af908f9e670f13c9b6e655}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!figure@{figure}}
+\index{figure@{figure}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{figure}]{\setlength{\rightskip}{0pt plus 5cm}figure (4)}\label{matlab_2dataviewer_8m_aca6d0944f22cdc0bc8a0e368b7243aa1}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!figure@{figure}}
+\index{figure@{figure}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{figure}]{\setlength{\rightskip}{0pt plus 5cm}figure (3)}\label{matlab_2dataviewer_8m_a9945b0b3c946d8aab2d9644806bef542}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!figure@{figure}}
+\index{figure@{figure}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{figure}]{\setlength{\rightskip}{0pt plus 5cm}figure (2)}\label{matlab_2dataviewer_8m_ac84feabc0a5ffe70fd5e05e72a103d54}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!if@{if}}
+\index{if@{if}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{if}]{\setlength{\rightskip}{0pt plus 5cm}if ({\bf t}(kmax), \/  {\bf twindow})}\label{matlab_2dataviewer_8m_a6281a7c23074ab1226be59bf4c163be9}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!if@{if}}
+\index{if@{if}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{if}]{\setlength{\rightskip}{0pt plus 5cm}if (status$\sim$ = {\ttfamily 4})}\label{matlab_2dataviewer_8m_a871a1aadebb67260723cef652e37592c}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!myplot@{myplot}}
+\index{myplot@{myplot}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{myplot}]{\setlength{\rightskip}{0pt plus 5cm}{\bf function} myplot ({\bf t}, \/  tunit, \/  {\bf var}, \/  varname, \/  varunit, \/  color, \/  {\bf twindow})}\label{matlab_2dataviewer_8m_acfecc80c406a7079312744cec4b1820c}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!myplot@{myplot}}
+\index{myplot@{myplot}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{myplot}]{\setlength{\rightskip}{0pt plus 5cm}myplot ({\bf t}, \/  {\bf t\_\-unitstring}, \/  {\bf T\_\-exec}, \/  ' {\em T\_\-s})}\label{matlab_2dataviewer_8m_a7e953298a92b10f7460f6e960685e3f2}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!myplot@{myplot}}
+\index{myplot@{myplot}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{myplot}]{\setlength{\rightskip}{0pt plus 5cm}myplot ({\bf t}, \/  {\bf t\_\-unitstring}, \/  ' {\em T\_\-s})}\label{matlab_2dataviewer_8m_a2169b7f827c869f8582b8a61117c43ab}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!myplot@{myplot}}
+\index{myplot@{myplot}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{myplot}]{\setlength{\rightskip}{0pt plus 5cm}myplot ({\bf t}, \/  {\bf t\_\-unitstring}, \/  r\_\-4, \/  'r\_\-4', \/  {\bf r\_\-4\_\-unitstring}, \/  'b', \/  {\bf twindow})}\label{matlab_2dataviewer_8m_aa645e49c7fe9015251b234d77df21043}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!myplot@{myplot}}
+\index{myplot@{myplot}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{myplot}]{\setlength{\rightskip}{0pt plus 5cm}myplot ({\bf t}, \/  {\bf t\_\-unitstring}, \/  r\_\-3, \/  'r\_\-3', \/  {\bf r\_\-3\_\-unitstring}, \/  'b', \/  {\bf twindow})}\label{matlab_2dataviewer_8m_a1d6ee2a6a49744e6e8521977ea923817}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!myplot@{myplot}}
+\index{myplot@{myplot}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{myplot}]{\setlength{\rightskip}{0pt plus 5cm}myplot ({\bf t}, \/  {\bf t\_\-unitstring}, \/  r\_\-2, \/  'r\_\-2', \/  {\bf r\_\-2\_\-unitstring}, \/  'b', \/  {\bf twindow})}\label{matlab_2dataviewer_8m_a4efe3ba482a14a5e2dbe55f28671530c}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!myplot@{myplot}}
+\index{myplot@{myplot}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{myplot}]{\setlength{\rightskip}{0pt plus 5cm}myplot ({\bf t}, \/  {\bf t\_\-unitstring}, \/  r\_\-1, \/  'r\_\-1', \/  {\bf r\_\-1\_\-unitstring}, \/  'b', \/  {\bf twindow})}\label{matlab_2dataviewer_8m_acf4f8261b70d04e7280aaaeaf9a252af}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!myplot@{myplot}}
+\index{myplot@{myplot}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{myplot}]{\setlength{\rightskip}{0pt plus 5cm}myplot ({\bf t}, \/  {\bf t\_\-unitstring}, \/  {\bf gyro\_\-2}, \/  '{\bf gyro\_\-2}', \/  {\bf gyro\_\-2\_\-unitstring}, \/  'b', \/  {\bf twindow})}\label{matlab_2dataviewer_8m_a92b2271614b8e4db5bd9065ca9431b7c}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!myplot@{myplot}}
+\index{myplot@{myplot}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{myplot}]{\setlength{\rightskip}{0pt plus 5cm}myplot ({\bf t}, \/  {\bf t\_\-unitstring}, \/  {\bf gyro\_\-1}, \/  '{\bf gyro\_\-1}', \/  {\bf gyro\_\-1\_\-unitstring}, \/  'b', \/  {\bf twindow})}\label{matlab_2dataviewer_8m_a7b3e9345846eb2f43ddcab1347385cb0}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!myplot@{myplot}}
+\index{myplot@{myplot}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{myplot}]{\setlength{\rightskip}{0pt plus 5cm}myplot ({\bf t}, \/  {\bf t\_\-unitstring}, \/  {\bf u\_\-af})}\label{matlab_2dataviewer_8m_a0235314eb349f4c40b6b9323e3dec8f2}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!myplot@{myplot}}
+\index{myplot@{myplot}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{myplot}]{\setlength{\rightskip}{0pt plus 5cm}myplot ({\bf t}, \/  {\bf t\_\-unitstring}, \/  {\bf u\_\-as})}\label{matlab_2dataviewer_8m_a21e79887915c6d7f0fc7a4d2f9af6093}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!myplot@{myplot}}
+\index{myplot@{myplot}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{myplot}]{\setlength{\rightskip}{0pt plus 5cm}myplot ({\bf t}, \/  {\bf t\_\-unitstring}, \/  {\bf u\_\-k}, \/   '{\bf u\_\-k}', \/  {\bf u\_\-k\_\-unitstring}, \/  'b', \/  {\bf twindow})}\label{matlab_2dataviewer_8m_aa7d97caab7c50eaec7db56dfefed3760}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!myplot@{myplot}}
+\index{myplot@{myplot}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{myplot}]{\setlength{\rightskip}{0pt plus 5cm}myplot ({\bf t}, \/  {\bf t\_\-unitstring}, \/  {\bf i\_\-af})}\label{matlab_2dataviewer_8m_a14e423c7c62e818d1b08d0b3851db541}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!myplot@{myplot}}
+\index{myplot@{myplot}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{myplot}]{\setlength{\rightskip}{0pt plus 5cm}myplot ({\bf t}, \/  {\bf t\_\-unitstring}, \/  {\bf i\_\-as})}\label{matlab_2dataviewer_8m_a3a335d1021b893d8bcb8ae2ed8599d28}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!myplot@{myplot}}
+\index{myplot@{myplot}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{myplot}]{\setlength{\rightskip}{0pt plus 5cm}myplot ({\bf t}, \/  {\bf t\_\-unitstring}, \/  {\bf i\_\-k}, \/   '{\bf i\_\-k}', \/  {\bf i\_\-k\_\-unitstring}, \/  'b', \/  {\bf twindow})}\label{matlab_2dataviewer_8m_a62a893265eec5c022b28cf7369e1d723}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!myplot@{myplot}}
+\index{myplot@{myplot}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{myplot}]{\setlength{\rightskip}{0pt plus 5cm}myplot ({\bf t}, \/  {\bf t\_\-unitstring}, \/  {\bf theta\_\-af}, \/  '$\backslash${\bf theta\_\-af}', \/  {\bf theta\_\-af\_\-unitstring}, \/  'b', \/  {\bf twindow})}\label{matlab_2dataviewer_8m_aa570e72dac77665a45a8f607e1105e6b}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!myplot@{myplot}}
+\index{myplot@{myplot}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{myplot}]{\setlength{\rightskip}{0pt plus 5cm}myplot ({\bf t}, \/  {\bf t\_\-unitstring}, \/  {\bf theta\_\-as})}\label{matlab_2dataviewer_8m_ad11d3f72b156e0df35ad2ee3717bc34b}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!myplot@{myplot}}
+\index{myplot@{myplot}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{myplot}]{\setlength{\rightskip}{0pt plus 5cm}myplot ({\bf t}, \/  {\bf t\_\-unitstring}, \/  {\bf theta\_\-k}, \/  '$\backslash${\bf theta\_\-k}', \/  {\bf theta\_\-k\_\-unitstring}, \/  'b', \/  {\bf twindow})}\label{matlab_2dataviewer_8m_a8ff3fe8164b53da2579b72b61ce7b173}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!pause@{pause}}
+\index{pause@{pause}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{pause}]{\setlength{\rightskip}{0pt plus 5cm}pause (0. {\em 1})}\label{matlab_2dataviewer_8m_af5e7b6b3888b7ff1427978d360412fe7}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!plot@{plot}}
+\index{plot@{plot}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}end plot ({\bf t}(1:kmax), \/  {\bf var}(1:kmax), \/  color)}\label{matlab_2dataviewer_8m_ab7c8c7cc9508000afcd02e0da0d5a570}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!ReadGMatlabDataFile@{ReadGMatlabDataFile}}
+\index{ReadGMatlabDataFile@{ReadGMatlabDataFile}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{ReadGMatlabDataFile}]{\setlength{\rightskip}{0pt plus 5cm}p\_\-k {\bf Filename} ReadGMatlabDataFile ()\hspace{0.3cm}{\ttfamily  [virtual]}}\label{matlab_2dataviewer_8m_a765f9aa7daff93247efb862a88ae0dc9}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!subplot@{subplot}}
+\index{subplot@{subplot}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{subplot}]{\setlength{\rightskip}{0pt plus 5cm}subplot (414)}\label{matlab_2dataviewer_8m_a8c2d61f93a2145ffe8c7efd2c4dd9e6e}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!subplot@{subplot}}
+\index{subplot@{subplot}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{subplot}]{\setlength{\rightskip}{0pt plus 5cm}subplot (413)}\label{matlab_2dataviewer_8m_ab049e5126db8ceb7b1dfa824840b1180}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!subplot@{subplot}}
+\index{subplot@{subplot}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{subplot}]{\setlength{\rightskip}{0pt plus 5cm}subplot (412)}\label{matlab_2dataviewer_8m_a08038aaa0d665eefb0bac54cd1f15c82}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!subplot@{subplot}}
+\index{subplot@{subplot}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{subplot}]{\setlength{\rightskip}{0pt plus 5cm}subplot (411)}\label{matlab_2dataviewer_8m_a70fc32604c0871d24f1d6a9d060168cf}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!subplot@{subplot}}
+\index{subplot@{subplot}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{subplot}]{\setlength{\rightskip}{0pt plus 5cm}subplot (212)}\label{matlab_2dataviewer_8m_a63897197090dd8177a8e842d781ae12a}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!subplot@{subplot}}
+\index{subplot@{subplot}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{subplot}]{\setlength{\rightskip}{0pt plus 5cm}subplot (211)}\label{matlab_2dataviewer_8m_a4a9f2df7ab6783bc2db8e27030158732}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!subplot@{subplot}}
+\index{subplot@{subplot}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{subplot}]{\setlength{\rightskip}{0pt plus 5cm}subplot (313)}\label{matlab_2dataviewer_8m_ad8750b1425b2888d7c27ed089c18e961}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!subplot@{subplot}}
+\index{subplot@{subplot}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{subplot}]{\setlength{\rightskip}{0pt plus 5cm}subplot (312)}\label{matlab_2dataviewer_8m_aefdf779120371b64a68fcbd99a897ffd}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!subplot@{subplot}}
+\index{subplot@{subplot}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{subplot}]{\setlength{\rightskip}{0pt plus 5cm}subplot (311)}\label{matlab_2dataviewer_8m_a48dc8634024e4b228c94c6accabfa69e}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!title@{title}}
+\index{title@{title}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('Período de amostragem(vermelho) e período de execução da tarefa periódica(azul)')}\label{matlab_2dataviewer_8m_a940de3a67cc5084676a7edc0ff0fb869}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!while@{while}}
+\index{while@{while}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{while}]{\setlength{\rightskip}{0pt plus 5cm}while (status$\sim$ = {\ttfamily 4})}\label{matlab_2dataviewer_8m_a0df2ab0dd173ade3d8cab9219e4194c4}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!xlabel@{xlabel}}
+\index{xlabel@{xlabel}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{xlabel}]{\setlength{\rightskip}{0pt plus 5cm}xlabel (sprintf('{\bf t}[\%s]', tunit))}\label{matlab_2dataviewer_8m_abfdbf47a6617364a73fa3a61e455c7f3}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!ylabel@{ylabel}}
+\index{ylabel@{ylabel}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{ylabel}]{\setlength{\rightskip}{0pt plus 5cm}ylabel (sprintf('\%s[\%s]', varname, varunit))}\label{matlab_2dataviewer_8m_a457b37eaffd124d92fd274a5f5005282}
+
+
+\subsection{Variable Documentation}
+\index{matlab/dataviewer.m@{matlab/dataviewer.m}!all@{all}}
+\index{all@{all}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{all}]{\setlength{\rightskip}{0pt plus 5cm}{\bf function} main close {\bf all}}\label{matlab_2dataviewer_8m_aa352f5f080329b3d0104b863660b6340}
+
+
+Definition at line 3 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!ax@{ax}}
+\index{ax@{ax}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{ax}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ax} = axis}\label{matlab_2dataviewer_8m_a8fa675eb2fcec5b95d9d21c670da7f30}
+
+
+Definition at line 154 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!data@{data}}
+\index{data@{data}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{data}]{\setlength{\rightskip}{0pt plus 5cm}{\bf data} = [{\bf theta\_\-k}}\label{matlab_2dataviewer_8m_a511ae0b1c13f95e5f08f1a0dd3da3d93}
+
+
+Definition at line 56 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!dataunitstring@{dataunitstring}}
+\index{dataunitstring@{dataunitstring}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{dataunitstring}]{\setlength{\rightskip}{0pt plus 5cm}{\bf dataunitstring}}\label{matlab_2dataviewer_8m_aad5b8c2946402d5850f00b758f2f70dd}
+
+
+Definition at line 55 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!drawnow@{drawnow}}
+\index{drawnow@{drawnow}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{drawnow}]{\setlength{\rightskip}{0pt plus 5cm}{\bf drawnow}}\label{matlab_2dataviewer_8m_aadd84b46ee6d2e3ae04d2920f4e78bfd}
+
+
+Definition at line 133 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!gyro\_\-1@{gyro\_\-1}}
+\index{gyro\_\-1@{gyro\_\-1}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{gyro\_\-1}]{\setlength{\rightskip}{0pt plus 5cm}convert to Volt {\bf gyro\_\-1} = ReadGMatlabDataFile('g\_\-1',{\bf Filename})}\label{matlab_2dataviewer_8m_a7b87420d64643d8ca83979e62b103643}
+
+
+Definition at line 9 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!gyro\_\-1\_\-unitstring@{gyro\_\-1\_\-unitstring}}
+\index{gyro\_\-1\_\-unitstring@{gyro\_\-1\_\-unitstring}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{gyro\_\-1\_\-unitstring}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gyro\_\-1\_\-unitstring} = {\bf dataunitstring}}\label{matlab_2dataviewer_8m_a5618aca5203ec45dfc63c0513816d07b}
+
+
+Definition at line 63 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!gyro\_\-2@{gyro\_\-2}}
+\index{gyro\_\-2@{gyro\_\-2}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{gyro\_\-2}]{\setlength{\rightskip}{0pt plus 5cm}convert to Volt {\bf gyro\_\-2} = ReadGMatlabDataFile('g\_\-2',{\bf Filename})}\label{matlab_2dataviewer_8m_af4f547b37792776499225c3278e381a2}
+
+
+Definition at line 10 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!gyro\_\-2\_\-unitstring@{gyro\_\-2\_\-unitstring}}
+\index{gyro\_\-2\_\-unitstring@{gyro\_\-2\_\-unitstring}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{gyro\_\-2\_\-unitstring}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gyro\_\-2\_\-unitstring} = {\bf dataunitstring}}\label{matlab_2dataviewer_8m_ae70f5ff07f876d8543ff36dae7a34cbf}
+
+
+Definition at line 65 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!i\_\-1@{i\_\-1}}
+\index{i\_\-1@{i\_\-1}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{i\_\-1}]{\setlength{\rightskip}{0pt plus 5cm}converts currents inputs to Ampers {\bf i\_\-1} = ReadGMatlabDataFile('{\bf i\_\-k}',{\bf Filename})}\label{matlab_2dataviewer_8m_af9e7d4a08f65a50f2fca548e896e70c5}
+
+
+Definition at line 11 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!i\_\-2@{i\_\-2}}
+\index{i\_\-2@{i\_\-2}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{i\_\-2}]{\setlength{\rightskip}{0pt plus 5cm}{\bf i\_\-2} = ReadGMatlabDataFile('{\bf i\_\-as}',{\bf Filename})}\label{matlab_2dataviewer_8m_a0dc010b9e612b60013fbb0684b755b6d}
+
+
+Definition at line 12 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!i\_\-3@{i\_\-3}}
+\index{i\_\-3@{i\_\-3}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{i\_\-3}]{\setlength{\rightskip}{0pt plus 5cm}{\bf i\_\-3} = ReadGMatlabDataFile('{\bf i\_\-af}',{\bf Filename})}\label{matlab_2dataviewer_8m_a2c17b45b1a3f3948d6db6cb139a8ef94}
+
+
+Definition at line 13 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!i\_\-af@{i\_\-af}}
+\index{i\_\-af@{i\_\-af}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{i\_\-af}]{\setlength{\rightskip}{0pt plus 5cm}{\bf i\_\-af} = [$\,$]}\label{matlab_2dataviewer_8m_a110382c5a26bef5671fcf0d0801931e3}
+
+
+Definition at line 40 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!i\_\-af\_\-unitstring@{i\_\-af\_\-unitstring}}
+\index{i\_\-af\_\-unitstring@{i\_\-af\_\-unitstring}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{i\_\-af\_\-unitstring}]{\setlength{\rightskip}{0pt plus 5cm}{\bf i\_\-af\_\-unitstring} = {\bf dataunitstring}}\label{matlab_2dataviewer_8m_aace3c3a45d894fa2103aac5f27a887ff}
+
+
+Definition at line 84 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!i\_\-as@{i\_\-as}}
+\index{i\_\-as@{i\_\-as}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{i\_\-as}]{\setlength{\rightskip}{0pt plus 5cm}{\bf i\_\-as} = [$\,$]}\label{matlab_2dataviewer_8m_a682b179384543ab386a3f1577f51e6e5}
+
+
+Definition at line 39 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!i\_\-as\_\-unitstring@{i\_\-as\_\-unitstring}}
+\index{i\_\-as\_\-unitstring@{i\_\-as\_\-unitstring}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{i\_\-as\_\-unitstring}]{\setlength{\rightskip}{0pt plus 5cm}{\bf i\_\-as\_\-unitstring} = {\bf dataunitstring}}\label{matlab_2dataviewer_8m_a455c928d3f9a950b5a6043bacf01ace2}
+
+
+Definition at line 81 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!i\_\-k@{i\_\-k}}
+\index{i\_\-k@{i\_\-k}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{i\_\-k}]{\setlength{\rightskip}{0pt plus 5cm}{\bf i\_\-k} = [$\,$]}\label{matlab_2dataviewer_8m_a74bf25866b0276ef17406088400a2a4e}
+
+
+Definition at line 38 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!i\_\-k\_\-unitstring@{i\_\-k\_\-unitstring}}
+\index{i\_\-k\_\-unitstring@{i\_\-k\_\-unitstring}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{i\_\-k\_\-unitstring}]{\setlength{\rightskip}{0pt plus 5cm}{\bf i\_\-k\_\-unitstring} = {\bf dataunitstring}}\label{matlab_2dataviewer_8m_a2ab0da5d9a9a6415fa8e2b7dae164c7c}
+
+
+Definition at line 78 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!on@{on}}
+\index{on@{on}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{on}]{\setlength{\rightskip}{0pt plus 5cm}hold {\bf on}}\label{matlab_2dataviewer_8m_a58ab1fd68e97078232808206b850161b}
+
+
+Definition at line 129 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!r\_\-1@{r\_\-1}}
+\index{r\_\-1@{r\_\-1}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{r\_\-1}]{\setlength{\rightskip}{0pt plus 5cm}convert to V r\_\-1 = ReadGMatlabDataFile('r\_\-1',{\bf Filename})}\label{matlab_2dataviewer_8m_a42f132e2f712134d1339dec81b3a6b04}
+
+
+Definition at line 20 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!r\_\-1\_\-unitstring@{r\_\-1\_\-unitstring}}
+\index{r\_\-1\_\-unitstring@{r\_\-1\_\-unitstring}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{r\_\-1\_\-unitstring}]{\setlength{\rightskip}{0pt plus 5cm}{\bf r\_\-1\_\-unitstring} = {\bf dataunitstring}}\label{matlab_2dataviewer_8m_a4e6d91426e0cc4a748bd5bb05e66d5ad}
+
+
+Definition at line 68 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!r\_\-2@{r\_\-2}}
+\index{r\_\-2@{r\_\-2}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{r\_\-2}]{\setlength{\rightskip}{0pt plus 5cm}convert to m r\_\-2 = ReadGMatlabDataFile('r\_\-2',{\bf Filename})}\label{matlab_2dataviewer_8m_aebd5e602e2c6cbe7902e50a37467e336}
+
+
+Definition at line 21 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!r\_\-2\_\-unitstring@{r\_\-2\_\-unitstring}}
+\index{r\_\-2\_\-unitstring@{r\_\-2\_\-unitstring}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{r\_\-2\_\-unitstring}]{\setlength{\rightskip}{0pt plus 5cm}{\bf r\_\-2\_\-unitstring} = {\bf dataunitstring}}\label{matlab_2dataviewer_8m_a5c03941c5e5f0e70d11a0fa1915d748f}
+
+
+Definition at line 70 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!r\_\-3@{r\_\-3}}
+\index{r\_\-3@{r\_\-3}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{r\_\-3}]{\setlength{\rightskip}{0pt plus 5cm}convert to m r\_\-3 = ReadGMatlabDataFile('r\_\-3',{\bf Filename})}\label{matlab_2dataviewer_8m_a1471055915ad3f212e35185bfc74addf}
+
+
+Definition at line 22 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!r\_\-3\_\-unitstring@{r\_\-3\_\-unitstring}}
+\index{r\_\-3\_\-unitstring@{r\_\-3\_\-unitstring}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{r\_\-3\_\-unitstring}]{\setlength{\rightskip}{0pt plus 5cm}{\bf r\_\-3\_\-unitstring} = {\bf dataunitstring}}\label{matlab_2dataviewer_8m_ac3b56272e6db658bbfd2bc8245fb00a1}
+
+
+Definition at line 72 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!r\_\-4@{r\_\-4}}
+\index{r\_\-4@{r\_\-4}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{r\_\-4}]{\setlength{\rightskip}{0pt plus 5cm}save to file save {\bf data} {\bf mat} {\bf t} {\bf gyro\_\-1} {\bf gyro\_\-2} {\bf u\_\-1} {\bf u\_\-2} {\bf u\_\-3} {\bf i\_\-1} {\bf i\_\-2} {\bf i\_\-3} {\bf theta\_\-1} {\bf theta\_\-2} {\bf theta\_\-3} r\_\-1 r\_\-2 r\_\-3 r\_\-4 = ReadGMatlabDataFile('r\_\-4',{\bf Filename})}\label{matlab_2dataviewer_8m_a9e72e33c2c5326d122899bed345b87c4}
+
+
+Definition at line 23 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!r\_\-4\_\-unitstring@{r\_\-4\_\-unitstring}}
+\index{r\_\-4\_\-unitstring@{r\_\-4\_\-unitstring}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{r\_\-4\_\-unitstring}]{\setlength{\rightskip}{0pt plus 5cm}{\bf r\_\-4\_\-unitstring} = {\bf dataunitstring}}\label{matlab_2dataviewer_8m_a1c337c69eb8c0fb5925e7002c5dfedb9}
+
+
+Definition at line 74 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!return@{return}}
+\index{return@{return}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{return}]{\setlength{\rightskip}{0pt plus 5cm}{\bf return}}\label{matlab_2dataviewer_8m_a9717e7bbecb906637e86cef6da3d83c2}
+
+
+Definition at line 140 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!status@{status}}
+\index{status@{status}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{status}]{\setlength{\rightskip}{0pt plus 5cm}{\bf status} = 0}\label{matlab_2dataviewer_8m_a015eb90e0de9f16e87bd149d4b9ce959}
+
+
+Definition at line 52 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!t@{t}}
+\index{t@{t}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{t}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t} = ReadGMatlabDataFile('{\bf t}',{\bf Filename})}\label{matlab_2dataviewer_8m_aaccc9105df5383111407fd5b41255e23}
+
+
+Definition at line 7 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!T\_\-exec@{T\_\-exec}}
+\index{T\_\-exec@{T\_\-exec}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{T\_\-exec}]{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-exec} = ReadGMatlabDataFile('{\bf T\_\-exec}',{\bf Filename})}\label{matlab_2dataviewer_8m_aa27539c17337ed197558bac383aa4023}
+
+
+Definition at line 8 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!T\_\-exec\_\-unitstring@{T\_\-exec\_\-unitstring}}
+\index{T\_\-exec\_\-unitstring@{T\_\-exec\_\-unitstring}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{T\_\-exec\_\-unitstring}]{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-exec\_\-unitstring} = {\bf dataunitstring}}\label{matlab_2dataviewer_8m_a1ff1ef8d1b44fa3c7f81d5a35256e629}
+
+
+Definition at line 97 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!t\_\-unitstring@{t\_\-unitstring}}
+\index{t\_\-unitstring@{t\_\-unitstring}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{t\_\-unitstring}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\_\-unitstring} = {\bf dataunitstring}}\label{matlab_2dataviewer_8m_a0bcb68d48a00dcf70f7a4ba91bebad08}
+
+
+Definition at line 100 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!taxismax@{taxismax}}
+\index{taxismax@{taxismax}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{taxismax}]{\setlength{\rightskip}{0pt plus 5cm}{\bf taxismax} = {\bf t}(kmax)}\label{matlab_2dataviewer_8m_a40f83f3ae20b99cae42f7736245dd6b6}
+
+
+Definition at line 148 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!taxismin@{taxismin}}
+\index{taxismin@{taxismin}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{taxismin}]{\setlength{\rightskip}{0pt plus 5cm}else {\bf taxismin} = 0}\label{matlab_2dataviewer_8m_a6ed4ca490546bf931c9ba98200b3cf5d}
+
+
+Definition at line 150 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!theta\_\-2@{theta\_\-2}}
+\index{theta\_\-2@{theta\_\-2}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{theta\_\-2}]{\setlength{\rightskip}{0pt plus 5cm}knee joint potentiometer {\bf theta\_\-2} = ReadGMatlabDataFile('p\_\-as',{\bf Filename})}\label{matlab_2dataviewer_8m_a45446811ab9715113cb18d4838cc8e4d}
+
+
+Definition at line 18 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!theta\_\-3@{theta\_\-3}}
+\index{theta\_\-3@{theta\_\-3}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{theta\_\-3}]{\setlength{\rightskip}{0pt plus 5cm}knee joint potentiometer {\bf theta\_\-3} = ReadGMatlabDataFile('p\_\-af',{\bf Filename})}\label{matlab_2dataviewer_8m_a1d56836283181b9c1d0028261b209fe9}
+
+
+Definition at line 19 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!theta\_\-af@{theta\_\-af}}
+\index{theta\_\-af@{theta\_\-af}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{theta\_\-af}]{\setlength{\rightskip}{0pt plus 5cm}{\bf theta\_\-af} = [$\,$]}\label{matlab_2dataviewer_8m_a56c84a6e1456bab2af638a2228cdf3a9}
+
+
+Definition at line 37 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!theta\_\-af\_\-unitstring@{theta\_\-af\_\-unitstring}}
+\index{theta\_\-af\_\-unitstring@{theta\_\-af\_\-unitstring}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{theta\_\-af\_\-unitstring}]{\setlength{\rightskip}{0pt plus 5cm}{\bf theta\_\-af\_\-unitstring} = {\bf dataunitstring}}\label{matlab_2dataviewer_8m_a357e35fd7b96252047114891d56f8dc1}
+
+
+Definition at line 60 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!theta\_\-as@{theta\_\-as}}
+\index{theta\_\-as@{theta\_\-as}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{theta\_\-as}]{\setlength{\rightskip}{0pt plus 5cm}{\bf theta\_\-as} = [$\,$]}\label{matlab_2dataviewer_8m_adf8de463f68ddaf2f6b4ce8f2e6b5f2c}
+
+
+Definition at line 36 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!theta\_\-as\_\-unitstring@{theta\_\-as\_\-unitstring}}
+\index{theta\_\-as\_\-unitstring@{theta\_\-as\_\-unitstring}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{theta\_\-as\_\-unitstring}]{\setlength{\rightskip}{0pt plus 5cm}{\bf theta\_\-as\_\-unitstring} = {\bf dataunitstring}}\label{matlab_2dataviewer_8m_a5a76843a0f52083d02f2a95111cfb628}
+
+
+Definition at line 58 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!theta\_\-k@{theta\_\-k}}
+\index{theta\_\-k@{theta\_\-k}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{theta\_\-k}]{\setlength{\rightskip}{0pt plus 5cm}{\bf theta\_\-k} = [$\,$]}\label{matlab_2dataviewer_8m_a1b2162a53907dced45d572dbdeb1387a}
+
+
+Definition at line 35 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!theta\_\-k\_\-unitstring@{theta\_\-k\_\-unitstring}}
+\index{theta\_\-k\_\-unitstring@{theta\_\-k\_\-unitstring}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{theta\_\-k\_\-unitstring}]{\setlength{\rightskip}{0pt plus 5cm}{\bf theta\_\-k\_\-unitstring} = {\bf dataunitstring}}\label{matlab_2dataviewer_8m_a000edbe661bff649dfaf24af4bc17ebb}
+
+
+Definition at line 56 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!twindow@{twindow}}
+\index{twindow@{twindow}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{twindow}]{\setlength{\rightskip}{0pt plus 5cm}{\bf twindow} = 10}\label{matlab_2dataviewer_8m_a54d39bd750bf38e91a420568a00e3600}
+
+
+Definition at line 51 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!u\_\-1@{u\_\-1}}
+\index{u\_\-1@{u\_\-1}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{u\_\-1}]{\setlength{\rightskip}{0pt plus 5cm}foot infrared range converts motor inputs to Volts {\bf u\_\-1} = ReadGMatlabDataFile('{\bf u\_\-k}',{\bf Filename})}\label{matlab_2dataviewer_8m_ace7b203e012b8b638d98a1d4ef4a10bb}
+
+
+Definition at line 14 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!u\_\-2@{u\_\-2}}
+\index{u\_\-2@{u\_\-2}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{u\_\-2}]{\setlength{\rightskip}{0pt plus 5cm}{\bf u\_\-2} = 12$\ast$({\bf u\_\-2} -\/ 500)/500}\label{matlab_2dataviewer_8m_a3d5b0d701fb4fdc2c6b27abaf5c6b5c8}
+
+
+Definition at line 26 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!u\_\-3@{u\_\-3}}
+\index{u\_\-3@{u\_\-3}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{u\_\-3}]{\setlength{\rightskip}{0pt plus 5cm}{\bf u\_\-3} = 12$\ast$({\bf u\_\-3} -\/ 500)/500}\label{matlab_2dataviewer_8m_a9ab9ff12ff95c55341941011872c456a}
+
+
+Definition at line 27 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!u\_\-af@{u\_\-af}}
+\index{u\_\-af@{u\_\-af}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{u\_\-af}]{\setlength{\rightskip}{0pt plus 5cm}{\bf u\_\-af} = [$\,$]}\label{matlab_2dataviewer_8m_a9da968bed76e2c655562c3b412ba41a7}
+
+
+Definition at line 43 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!u\_\-af\_\-unitstring@{u\_\-af\_\-unitstring}}
+\index{u\_\-af\_\-unitstring@{u\_\-af\_\-unitstring}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{u\_\-af\_\-unitstring}]{\setlength{\rightskip}{0pt plus 5cm}{\bf u\_\-af\_\-unitstring} = {\bf dataunitstring}}\label{matlab_2dataviewer_8m_a2d0965ed9d0d32a10d2daa9309c3a3f3}
+
+
+Definition at line 94 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!u\_\-as@{u\_\-as}}
+\index{u\_\-as@{u\_\-as}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{u\_\-as}]{\setlength{\rightskip}{0pt plus 5cm}{\bf u\_\-as} = [$\,$]}\label{matlab_2dataviewer_8m_a51ee6d3a6e8a57a900f9e12d81e17cbd}
+
+
+Definition at line 42 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!u\_\-as\_\-unitstring@{u\_\-as\_\-unitstring}}
+\index{u\_\-as\_\-unitstring@{u\_\-as\_\-unitstring}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{u\_\-as\_\-unitstring}]{\setlength{\rightskip}{0pt plus 5cm}{\bf u\_\-as\_\-unitstring} = {\bf dataunitstring}}\label{matlab_2dataviewer_8m_a64b160787affa21e7ef5658b39985fb7}
+
+
+Definition at line 91 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!u\_\-k@{u\_\-k}}
+\index{u\_\-k@{u\_\-k}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{u\_\-k}]{\setlength{\rightskip}{0pt plus 5cm}{\bf u\_\-k} = [$\,$]}\label{matlab_2dataviewer_8m_a6bb878d96e7ff26eefd44afa6278b631}
+
+
+Definition at line 41 of file matlab/dataviewer.m.\index{matlab/dataviewer.m@{matlab/dataviewer.m}!u\_\-k\_\-unitstring@{u\_\-k\_\-unitstring}}
+\index{u\_\-k\_\-unitstring@{u\_\-k\_\-unitstring}!matlab/dataviewer.m@{matlab/dataviewer.m}}
+\subsubsection[{u\_\-k\_\-unitstring}]{\setlength{\rightskip}{0pt plus 5cm}{\bf u\_\-k\_\-unitstring} = {\bf dataunitstring}}\label{matlab_2dataviewer_8m_a81ce967872b5c36b9843a4a643cd4c03}
+
+
+Definition at line 88 of file matlab/dataviewer.m.

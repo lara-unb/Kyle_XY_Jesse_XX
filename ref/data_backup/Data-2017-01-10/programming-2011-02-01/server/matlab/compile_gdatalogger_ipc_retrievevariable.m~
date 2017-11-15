@@ -1,0 +1,13 @@
+clear all;
+close all;
+
+% colocar aqui o resultado de /usr/xenomai/bin/xeno-config --xeno-cflags
+cflags = 'CFLAGS=" -I/usr/xenomai/include -D_GNU_SOURCE -D_REENTRANT -Wall -pipe -D__XENO__"';
+
+% colocar aqui o resultado de /usr/xenomai/bin/xeno-config --xeno-ldflags
+ldflags = 'LDFLAGS=" -L/usr/xenomai/lib -lpthread -pthread -shared -m32 -Wl,--version-script,/usr/local/matlab/extern/lib/glnx86/mexFunction.map -Wl,--no-undefined "';
+ldflags = 'LDFLAGS=" -L/usr/xenomai/lib -lpthread -pthread -shared -m32 -Wl,--version-script,/usr/local/matlab/extern/lib/glnx86/mexFunction.map -Wl,--no-undefined "';
+
+['mex -v ',cflags,' ',ldflags,' -lnative -lm -DDATALOGGER_COMPILE_FOR_XENOMAI=1 -DDATALOGGER_COMPILE_FOR_CMEX=1 -I../../ gdatalogger_ipc_retrievevariable.c ../../gdatalogger.c ../../gqueue.c ../../gmatlabdatafile.c']
+
+eval(['mex -v ',cflags,' ',ldflags,' -lnative -lm -DDATALOGGER_COMPILE_FOR_XENOMAI=1 -DDATALOGGER_COMPILE_FOR_CMEX=1 -I../../ gdatalogger_ipc_retrievevariable.c ../../gdatalogger.c ../../gqueue.c ../../gmatlabdatafile.c']);

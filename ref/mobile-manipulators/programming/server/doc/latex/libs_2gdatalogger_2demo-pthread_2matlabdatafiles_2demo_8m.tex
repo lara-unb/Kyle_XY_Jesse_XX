@@ -1,0 +1,167 @@
+\section{demo.m File Reference}
+\label{libs_2gdatalogger_2demo-pthread_2matlabdatafiles_2demo_8m}\index{demo.m@{demo.m}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bf subplot} (311)
+\item 
+{\bf plot} ({\bf t}, {\bf y1})
+\item 
+{\bf title} ('Variavel {\bf y1}')
+\item 
+{\bf subplot} (312)
+\item 
+{\bf plot} ({\bf t}, {\bf y2})
+\item 
+{\bf title} ('Variavel {\bf y2}')
+\item 
+{\bf subplot} (313)
+\item 
+{\bf plot} ({\bf t}, {\bf y3})
+\item 
+{\bf title} ('Variavel {\bf y3}')
+\item 
+{\bf plot} (diff({\bf t}))
+\item 
+{\bf title} ('Periodo de amostragem')
+\item 
+end {\bf plot} ({\bf t}, x)
+\item 
+{\bf title} ('Variavel {\bf y1}({\bf MatA})')
+\item 
+{\bf title} ('Variavel {\bf y2}({\bf MatA})')
+\item 
+{\bf title} ('Variavel {\bf y3}({\bf MatA})')
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+clear {\bf all}
+\item 
+{\bf Filename} = '{\bf gmatlabdatafile.mat}'
+\item 
+{\bf t} = ReadGMatlabDataFile('{\bf t}', {\bf Filename})
+\item 
+{\bf y1} = ReadGMatlabDataFile('{\bf y1}', {\bf Filename})
+\item 
+{\bf y2} = ReadGMatlabDataFile('{\bf y2}', {\bf Filename})
+\item 
+{\bf y3} = ReadGMatlabDataFile('{\bf y3}', {\bf Filename})
+\item 
+{\bf MatA} = ReadGMatlabDataFile('{\bf MatA}', {\bf Filename})
+\item 
+{\bf MatB} = ReadGMatlabDataFile('{\bf MatB}', {\bf Filename})
+\item 
+{\bf N} = min([size({\bf t}) size(texec) size({\bf y1})])
+\item 
+{\bf figure}
+\item 
+for {\bf i} = 1:length({\bf t}) x({\bf i}) = {\bf MatA}(1,1,{\bf i})
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}!plot@{plot}}
+\index{plot@{plot}!libs/gdatalogger/demo-pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}end plot ({\bf t}, \/  x)}\label{libs_2gdatalogger_2demo-pthread_2matlabdatafiles_2demo_8m_ac8affd4db2aab86685973a651a84592e}
+\index{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}!plot@{plot}}
+\index{plot@{plot}!libs/gdatalogger/demo-pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot (diff({\bf t}))}\label{libs_2gdatalogger_2demo-pthread_2matlabdatafiles_2demo_8m_aadae1dfcb7e28000d06ac3849b3357d6}
+\index{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}!plot@{plot}}
+\index{plot@{plot}!libs/gdatalogger/demo-pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot ({\bf t}, \/  {\bf y3})}\label{libs_2gdatalogger_2demo-pthread_2matlabdatafiles_2demo_8m_a8cf1534c80a06f4ac5b7070fbef71ac7}
+\index{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}!plot@{plot}}
+\index{plot@{plot}!libs/gdatalogger/demo-pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot ({\bf t}, \/  {\bf y2})}\label{libs_2gdatalogger_2demo-pthread_2matlabdatafiles_2demo_8m_a0bffc67c35146908d22a899b7fa4a959}
+\index{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}!plot@{plot}}
+\index{plot@{plot}!libs/gdatalogger/demo-pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot ({\bf t}, \/  {\bf y1})}\label{libs_2gdatalogger_2demo-pthread_2matlabdatafiles_2demo_8m_a2610c658e32ea5e84024b3a4d3c181b3}
+\index{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}!subplot@{subplot}}
+\index{subplot@{subplot}!libs/gdatalogger/demo-pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}}
+\subsubsection[{subplot}]{\setlength{\rightskip}{0pt plus 5cm}subplot (313)}\label{libs_2gdatalogger_2demo-pthread_2matlabdatafiles_2demo_8m_ad8750b1425b2888d7c27ed089c18e961}
+\index{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}!subplot@{subplot}}
+\index{subplot@{subplot}!libs/gdatalogger/demo-pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}}
+\subsubsection[{subplot}]{\setlength{\rightskip}{0pt plus 5cm}subplot (312)}\label{libs_2gdatalogger_2demo-pthread_2matlabdatafiles_2demo_8m_aefdf779120371b64a68fcbd99a897ffd}
+\index{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}!subplot@{subplot}}
+\index{subplot@{subplot}!libs/gdatalogger/demo-pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}}
+\subsubsection[{subplot}]{\setlength{\rightskip}{0pt plus 5cm}subplot (311)}\label{libs_2gdatalogger_2demo-pthread_2matlabdatafiles_2demo_8m_a48dc8634024e4b228c94c6accabfa69e}
+\index{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}!title@{title}}
+\index{title@{title}!libs/gdatalogger/demo-pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('Variavel {\bf y3}({\bf MatA})')}\label{libs_2gdatalogger_2demo-pthread_2matlabdatafiles_2demo_8m_a4cc3ee7cb13237cb118f6c1e572aceae}
+\index{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}!title@{title}}
+\index{title@{title}!libs/gdatalogger/demo-pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('Variavel {\bf y2}({\bf MatA})')}\label{libs_2gdatalogger_2demo-pthread_2matlabdatafiles_2demo_8m_ad728b700c1eb7cec6562c129d839dda0}
+\index{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}!title@{title}}
+\index{title@{title}!libs/gdatalogger/demo-pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('Variavel {\bf y1}({\bf MatA})')}\label{libs_2gdatalogger_2demo-pthread_2matlabdatafiles_2demo_8m_acfab85db6da3ab3b1ebca6b51d5ff2d7}
+\index{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}!title@{title}}
+\index{title@{title}!libs/gdatalogger/demo-pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('Periodo de amostragem')}\label{libs_2gdatalogger_2demo-pthread_2matlabdatafiles_2demo_8m_a504b71c4070f70ea4f6662ec68d8c4e1}
+\index{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}!title@{title}}
+\index{title@{title}!libs/gdatalogger/demo-pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('Variavel {\bf y3}')}\label{libs_2gdatalogger_2demo-pthread_2matlabdatafiles_2demo_8m_aca46365bc83073f79a1c2b97bd2acaf8}
+\index{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}!title@{title}}
+\index{title@{title}!libs/gdatalogger/demo-pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('Variavel {\bf y2}')}\label{libs_2gdatalogger_2demo-pthread_2matlabdatafiles_2demo_8m_aa19a3f3b21667b39562a7d511194d97d}
+\index{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}!title@{title}}
+\index{title@{title}!libs/gdatalogger/demo-pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('Variavel {\bf y1}')}\label{libs_2gdatalogger_2demo-pthread_2matlabdatafiles_2demo_8m_ab6a933d94e228ae32d3796fa66bccf08}
+
+
+\subsection{Variable Documentation}
+\index{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}!all@{all}}
+\index{all@{all}!libs/gdatalogger/demo-pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}}
+\subsubsection[{all}]{\setlength{\rightskip}{0pt plus 5cm}close {\bf all}}\label{libs_2gdatalogger_2demo-pthread_2matlabdatafiles_2demo_8m_a00a349297fa58bc80ff5329e25dcfe28}
+
+
+Definition at line 1 of file libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m.\index{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}!figure@{figure}}
+\index{figure@{figure}!libs/gdatalogger/demo-pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}}
+\subsubsection[{figure}]{\setlength{\rightskip}{0pt plus 5cm}figure}\label{libs_2gdatalogger_2demo-pthread_2matlabdatafiles_2demo_8m_a391e34f2de441d79152a7b3d6e4c9c86}
+
+
+Definition at line 16 of file libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m.\index{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}!Filename@{Filename}}
+\index{Filename@{Filename}!libs/gdatalogger/demo-pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}}
+\subsubsection[{Filename}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Filename} = '{\bf gmatlabdatafile.mat}'}\label{libs_2gdatalogger_2demo-pthread_2matlabdatafiles_2demo_8m_abdb1e623b73fdd157f7bfdae4b062a5e}
+
+
+Definition at line 4 of file libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m.\index{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}!i@{i}}
+\index{i@{i}!libs/gdatalogger/demo-pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}}
+\subsubsection[{i}]{\setlength{\rightskip}{0pt plus 5cm}for {\bf i} = 1:length({\bf t}) x({\bf i}) = {\bf MatA}(1,1,{\bf i})}\label{libs_2gdatalogger_2demo-pthread_2matlabdatafiles_2demo_8m_a6f6ccfcf58b31cb6412107d9d5281426}
+
+
+Definition at line 25 of file libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m.\index{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}!MatA@{MatA}}
+\index{MatA@{MatA}!libs/gdatalogger/demo-pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}}
+\subsubsection[{MatA}]{\setlength{\rightskip}{0pt plus 5cm}{\bf MatA} = ReadGMatlabDataFile('{\bf MatA}', {\bf Filename})}\label{libs_2gdatalogger_2demo-pthread_2matlabdatafiles_2demo_8m_a464183ef373ac7e56eaf9fb062575ba3}
+
+
+Definition at line 11 of file libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m.\index{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}!MatB@{MatB}}
+\index{MatB@{MatB}!libs/gdatalogger/demo-pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}}
+\subsubsection[{MatB}]{\setlength{\rightskip}{0pt plus 5cm}{\bf MatB} = ReadGMatlabDataFile('{\bf MatB}', {\bf Filename})}\label{libs_2gdatalogger_2demo-pthread_2matlabdatafiles_2demo_8m_a4372bd4a57af0ffd5b030d836a60959f}
+
+
+Definition at line 12 of file libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m.\index{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}!N@{N}}
+\index{N@{N}!libs/gdatalogger/demo-pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}}
+\subsubsection[{N}]{\setlength{\rightskip}{0pt plus 5cm}{\bf N} = min([size({\bf t}) size(texec) size({\bf y1})])}\label{libs_2gdatalogger_2demo-pthread_2matlabdatafiles_2demo_8m_a8cc2e7240164328fdc3f0e5e21032c56}
+
+
+Definition at line 14 of file libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m.\index{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}!t@{t}}
+\index{t@{t}!libs/gdatalogger/demo-pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}}
+\subsubsection[{t}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t} = ReadGMatlabDataFile('{\bf t}', {\bf Filename})}\label{libs_2gdatalogger_2demo-pthread_2matlabdatafiles_2demo_8m_aaccc9105df5383111407fd5b41255e23}
+
+
+Definition at line 6 of file libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m.\index{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}!y1@{y1}}
+\index{y1@{y1}!libs/gdatalogger/demo-pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}}
+\subsubsection[{y1}]{\setlength{\rightskip}{0pt plus 5cm}{\bf y1} = ReadGMatlabDataFile('{\bf y1}', {\bf Filename})}\label{libs_2gdatalogger_2demo-pthread_2matlabdatafiles_2demo_8m_a7f911dc1dbbc41c6cae56357e8fb2230}
+
+
+Definition at line 7 of file libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m.\index{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}!y2@{y2}}
+\index{y2@{y2}!libs/gdatalogger/demo-pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}}
+\subsubsection[{y2}]{\setlength{\rightskip}{0pt plus 5cm}{\bf y2} = ReadGMatlabDataFile('{\bf y2}', {\bf Filename})}\label{libs_2gdatalogger_2demo-pthread_2matlabdatafiles_2demo_8m_a41b94b12b7cb45b3ddee299d4e7b79e8}
+
+
+Definition at line 8 of file libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m.\index{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}!y3@{y3}}
+\index{y3@{y3}!libs/gdatalogger/demo-pthread/matlabdatafiles/demo.m@{libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m}}
+\subsubsection[{y3}]{\setlength{\rightskip}{0pt plus 5cm}{\bf y3} = ReadGMatlabDataFile('{\bf y3}', {\bf Filename})}\label{libs_2gdatalogger_2demo-pthread_2matlabdatafiles_2demo_8m_ade1417f93b8addbf3d5a62e132e169fd}
+
+
+Definition at line 9 of file libs/gdatalogger/demo-\/pthread/matlabdatafiles/demo.m.

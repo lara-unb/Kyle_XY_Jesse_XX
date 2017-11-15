@@ -1,0 +1,496 @@
+\section{demo.m File Reference}
+\label{matlabdatafiles_2control__mode_2demo_8m}\index{demo.m@{demo.m}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+'{\bf u\_\-as}', {\bf Filename} {\bf ReadGMatlabDataFile} ()
+\item 
+convert to m {\bf r\_\-1} (find(r\_\-1 $>$ 0.4))=0.4
+\item 
+{\bf r\_\-2} (find(r\_\-2 $>$ 0.4))=0.4
+\item 
+{\bf r\_\-3} (find(r\_\-3 $>$ 0.4))=0.4
+\item 
+{\bf r\_\-4} (find(r\_\-4 $>$ 0.4))=0.4
+\item 
+{\bf subplot} (211)
+\item 
+{\bf plot} ({\bf t}, {\bf gyro\_\-1} $\ast$180/{\bf pi})
+\item 
+{\bf title} ('gyro 1')
+\item 
+{\bf ylabel} ('[deg/s]')
+\item 
+{\bf subplot} (212)
+\item 
+{\bf plot} ({\bf t}, {\bf gyro\_\-2} $\ast$180/{\bf pi})
+\item 
+{\bf title} ('gyro 2')
+\item 
+{\bf subplot} (311)
+\item 
+{\bf plot} ({\bf t}, {\bf u\_\-1})
+\item 
+{\bf title} ('voltage motor 1')
+\item 
+{\bf ylabel} ('[V]')
+\item 
+{\bf subplot} (312)
+\item 
+{\bf plot} ({\bf t}, {\bf u\_\-2})
+\item 
+{\bf title} ('voltage motor 2')
+\item 
+{\bf subplot} (313)
+\item 
+{\bf plot} ({\bf t}, {\bf u\_\-3})
+\item 
+{\bf title} ('voltage motor 3')
+\item 
+{\bf plot} ({\bf t}, {\bf i\_\-1})
+\item 
+{\bf title} ('current motor 1')
+\item 
+{\bf ylabel} ('[A]')
+\item 
+{\bf plot} ({\bf t}, {\bf i\_\-2})
+\item 
+{\bf title} ('current motor 2')
+\item 
+{\bf plot} ({\bf t}, {\bf i\_\-3})
+\item 
+{\bf title} ('current motor 3')
+\item 
+{\bf plot} ({\bf t}, {\bf theta\_\-1} $\ast$180/{\bf pi})
+\item 
+{\bf title} ('angle joint 1')
+\item 
+{\bf ylabel} ('[deg]')
+\item 
+{\bf plot} ({\bf t}, {\bf theta\_\-2} $\ast$180/{\bf pi})
+\item 
+{\bf title} ('angle joint 2')
+\item 
+{\bf plot} ({\bf t}, {\bf theta\_\-3} $\ast$180/{\bf pi})
+\item 
+{\bf title} ('angle joint 3')
+\item 
+{\bf subplot} (411)
+\item 
+{\bf plot} ({\bf t}, r\_\-1)
+\item 
+{\bf title} ('infrared rangefinder 1')
+\item 
+{\bf ylabel} ('[m]')
+\item 
+{\bf subplot} (412)
+\item 
+{\bf plot} ({\bf t}, r\_\-2)
+\item 
+{\bf title} ('infrared rangefinder 2')
+\item 
+{\bf subplot} (413)
+\item 
+{\bf plot} ({\bf t}, r\_\-3)
+\item 
+{\bf title} ('infrared rangefinder 3')
+\item 
+{\bf subplot} (414)
+\item 
+{\bf plot} ({\bf t}, r\_\-4)
+\item 
+{\bf title} ('infrared rangefinder 4')
+\item 
+{\bf plot} ({\bf t},[0;(diff({\bf theta\_\-1})./diff({\bf t}))$\ast$180/{\bf pi}])
+\item 
+{\bf title} ('angular speed joint 1(estimate 1st order)')
+\item 
+{\bf title} ('angular speed joint 2(estimate 1st order)')
+\item 
+{\bf title} ('angular speed joint 3(estimate 1st order)')
+\item 
+{\bf title} ('Sampling time')
+\item 
+{\bf ylabel} ('[s]')
+\item 
+{\bf plot} ({\bf t},[0;diff({\bf t})],'r', {\bf t}, {\bf T\_\-exec},'b')
+\item 
+{\bf title} ('Execution time(blue) vs.Sampling time(red)')
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+clear {\bf all}
+\item 
+{\bf FlagGenerateNewDataFile} = 1
+\item 
+if {\bf FlagGenerateNewDataFile} {\bf Filename} = '{\bf gmatlabdatafile.mat}'
+\item 
+{\bf t} = ReadGMatlabDataFile('{\bf t}',{\bf Filename})
+\item 
+time {\bf T\_\-exec} = ReadGMatlabDataFile('{\bf T\_\-exec}',{\bf Filename})
+\item 
+execution time {\bf gyro\_\-1} = ReadGMatlabDataFile('g\_\-1',{\bf Filename})
+\item 
+gyro {\bf gyro\_\-2} = ReadGMatlabDataFile('g\_\-2',{\bf Filename})
+\item 
+gyro {\bf i\_\-1} = ReadGMatlabDataFile('{\bf i\_\-k}',{\bf Filename})
+\item 
+motor current knee {\bf i\_\-2} = ReadGMatlabDataFile('{\bf i\_\-as}',{\bf Filename})
+\item 
+motor current ankle sagital {\bf i\_\-3} = ReadGMatlabDataFile('{\bf i\_\-af}',{\bf Filename})
+\item 
+motor current ankle frontal {\bf u\_\-1} = ReadGMatlabDataFile('{\bf u\_\-k}',{\bf Filename})
+\item 
+knee joint potentiometer {\bf theta\_\-2} = ReadGMatlabDataFile('p\_\-as',{\bf Filename})
+\item 
+knee joint potentiometer {\bf theta\_\-3} = ReadGMatlabDataFile('p\_\-af',{\bf Filename})
+\item 
+knee joint potentiometer {\bf r\_\-1} = ReadGMatlabDataFile('r\_\-1',{\bf Filename})
+\item 
+foot infrared range {\bf r\_\-2} = ReadGMatlabDataFile('r\_\-2',{\bf Filename})
+\item 
+foot infrared range {\bf r\_\-3} = ReadGMatlabDataFile('r\_\-3',{\bf Filename})
+\item 
+foot infrared range {\bf r\_\-4} = ReadGMatlabDataFile('r\_\-4',{\bf Filename})
+\item 
+{\bf u\_\-2} = -\/12$\ast$({\bf u\_\-2} -\/ 500)/500
+\item 
+{\bf u\_\-3} = 12$\ast$({\bf u\_\-3} -\/ 500)/500
+\item 
+converts knee potentiometer readings to rad {\bf k} = 1
+\item 
+{\bf a} = 0
+\item 
+{\bf theta\_\-1} = {\bf k}$\ast${\bf theta\_\-1} + {\bf a}
+\item 
+converts ankle potentiometer readings to rad {\bf output\_\-cal} = [0
+\item 
+{\bf pi}
+\item 
+{\bf input\_\-cal} = [604
+\item 
+converts foot pitch giro readings to rad s {\bf i\_\-cal} = min(find({\bf t}$>$=1))
+\item 
+else load {\bf data} {\bf mat}
+\item 
+end {\bf figure}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!plot@{plot}}
+\index{plot@{plot}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot ({\bf t}, \/  'r', \/  {\bf t}, \/  {\bf T\_\-exec}, \/  'b')}\label{matlabdatafiles_2control__mode_2demo_8m_abf7dcf9204f7fdbaa50208464e8f801f}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!plot@{plot}}
+\index{plot@{plot}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot ({\bf t})}\label{matlabdatafiles_2control__mode_2demo_8m_a407091ca29598ddae38b3520a3b3d8c6}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!plot@{plot}}
+\index{plot@{plot}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot ({\bf t}, \/  r\_\-4)}\label{matlabdatafiles_2control__mode_2demo_8m_a11e65cf2d74174e0f5097dd5c5aa1294}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!plot@{plot}}
+\index{plot@{plot}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot ({\bf t}, \/  r\_\-3)}\label{matlabdatafiles_2control__mode_2demo_8m_afbb371e60960eef5a58ef7bf243fb28e}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!plot@{plot}}
+\index{plot@{plot}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot ({\bf t}, \/  r\_\-2)}\label{matlabdatafiles_2control__mode_2demo_8m_a3217ce2c603a80b3b9db4aee8ef23fd0}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!plot@{plot}}
+\index{plot@{plot}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot ({\bf t}, \/  r\_\-1)}\label{matlabdatafiles_2control__mode_2demo_8m_aaf99bb3a0fa0d08de6c7aaea472954eb}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!plot@{plot}}
+\index{plot@{plot}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot ({\bf t}, \/  {\bf theta\_\-3} $\ast$180/ {\em pi})}\label{matlabdatafiles_2control__mode_2demo_8m_a31b36a936499838f980e3cd135f8ee68}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!plot@{plot}}
+\index{plot@{plot}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot ({\bf t}, \/  {\bf theta\_\-2} $\ast$180/ {\em pi})}\label{matlabdatafiles_2control__mode_2demo_8m_aafa63bb27b13e07455236c11d7c60fa0}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!plot@{plot}}
+\index{plot@{plot}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot ({\bf t}, \/  {\bf theta\_\-1} $\ast$180/ {\em pi})}\label{matlabdatafiles_2control__mode_2demo_8m_a4aaa56339a95d88fd835da3b5985e7f9}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!plot@{plot}}
+\index{plot@{plot}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot ({\bf t}, \/  {\bf i\_\-3})}\label{matlabdatafiles_2control__mode_2demo_8m_a5b9e905ff855db9039d0c4e29ea985c0}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!plot@{plot}}
+\index{plot@{plot}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot ({\bf t}, \/  {\bf i\_\-2})}\label{matlabdatafiles_2control__mode_2demo_8m_a035bfe6e631dab199203bba2a098630b}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!plot@{plot}}
+\index{plot@{plot}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot ({\bf t}, \/  {\bf i\_\-1})}\label{matlabdatafiles_2control__mode_2demo_8m_acdc9bcc476d2eba1101ef179cea13be6}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!plot@{plot}}
+\index{plot@{plot}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot ({\bf t}, \/  {\bf u\_\-3})}\label{matlabdatafiles_2control__mode_2demo_8m_a0834af3583e5e504c65f8e6bd04108bd}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!plot@{plot}}
+\index{plot@{plot}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot ({\bf t}, \/  {\bf u\_\-2})}\label{matlabdatafiles_2control__mode_2demo_8m_a63a4b0b3b228a6098a44c0d3f7505477}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!plot@{plot}}
+\index{plot@{plot}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot ({\bf t}, \/  {\bf u\_\-1})}\label{matlabdatafiles_2control__mode_2demo_8m_a69bfb396f4e3b1a3a432b61587e8695d}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!plot@{plot}}
+\index{plot@{plot}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot ({\bf t}, \/  {\bf gyro\_\-2} $\ast$180/ {\em pi})}\label{matlabdatafiles_2control__mode_2demo_8m_a451be3cc9581e7ea1032fd96b943c768}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!plot@{plot}}
+\index{plot@{plot}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{plot}]{\setlength{\rightskip}{0pt plus 5cm}plot ({\bf t}, \/  {\bf gyro\_\-1} $\ast$180/ {\em pi})}\label{matlabdatafiles_2control__mode_2demo_8m_a4ff29f3927ea260c53fbd8118d2e8027}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!r\_\-1@{r\_\-1}}
+\index{r\_\-1@{r\_\-1}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{r\_\-1}]{\setlength{\rightskip}{0pt plus 5cm}convert to m r\_\-1 (find(r\_\-1 $>$ 0.4))\hspace{0.3cm}{\ttfamily  [pure virtual]}}\label{matlabdatafiles_2control__mode_2demo_8m_a94bc78f187fce250ac3a90ec82ae130c}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!r\_\-2@{r\_\-2}}
+\index{r\_\-2@{r\_\-2}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{r\_\-2}]{\setlength{\rightskip}{0pt plus 5cm}r\_\-2 (find(r\_\-2 $>$ 0.4))\hspace{0.3cm}{\ttfamily  [pure virtual]}}\label{matlabdatafiles_2control__mode_2demo_8m_a83db123bfb4e8c83a5dd26771329e045}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!r\_\-3@{r\_\-3}}
+\index{r\_\-3@{r\_\-3}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{r\_\-3}]{\setlength{\rightskip}{0pt plus 5cm}r\_\-3 (find(r\_\-3 $>$ 0.4))\hspace{0.3cm}{\ttfamily  [pure virtual]}}\label{matlabdatafiles_2control__mode_2demo_8m_a70b3faf0bb0b5c6d72896766acdee7c5}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!r\_\-4@{r\_\-4}}
+\index{r\_\-4@{r\_\-4}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{r\_\-4}]{\setlength{\rightskip}{0pt plus 5cm}r\_\-4 (find(r\_\-4 $>$ 0.4))\hspace{0.3cm}{\ttfamily  [pure virtual]}}\label{matlabdatafiles_2control__mode_2demo_8m_a1811aeac1d10e080c61a0f8f5a0b111b}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!ReadGMatlabDataFile@{ReadGMatlabDataFile}}
+\index{ReadGMatlabDataFile@{ReadGMatlabDataFile}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{ReadGMatlabDataFile}]{\setlength{\rightskip}{0pt plus 5cm}'{\bf u\_\-as}',{\bf Filename} ReadGMatlabDataFile ()\hspace{0.3cm}{\ttfamily  [virtual]}}\label{matlabdatafiles_2control__mode_2demo_8m_af51273d055b3d873b24326b14ae18ca3}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!subplot@{subplot}}
+\index{subplot@{subplot}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{subplot}]{\setlength{\rightskip}{0pt plus 5cm}subplot (414)}\label{matlabdatafiles_2control__mode_2demo_8m_a8c2d61f93a2145ffe8c7efd2c4dd9e6e}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!subplot@{subplot}}
+\index{subplot@{subplot}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{subplot}]{\setlength{\rightskip}{0pt plus 5cm}subplot (413)}\label{matlabdatafiles_2control__mode_2demo_8m_ab049e5126db8ceb7b1dfa824840b1180}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!subplot@{subplot}}
+\index{subplot@{subplot}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{subplot}]{\setlength{\rightskip}{0pt plus 5cm}subplot (412)}\label{matlabdatafiles_2control__mode_2demo_8m_a08038aaa0d665eefb0bac54cd1f15c82}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!subplot@{subplot}}
+\index{subplot@{subplot}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{subplot}]{\setlength{\rightskip}{0pt plus 5cm}subplot (411)}\label{matlabdatafiles_2control__mode_2demo_8m_a70fc32604c0871d24f1d6a9d060168cf}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!subplot@{subplot}}
+\index{subplot@{subplot}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{subplot}]{\setlength{\rightskip}{0pt plus 5cm}subplot (313)}\label{matlabdatafiles_2control__mode_2demo_8m_ad8750b1425b2888d7c27ed089c18e961}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!subplot@{subplot}}
+\index{subplot@{subplot}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{subplot}]{\setlength{\rightskip}{0pt plus 5cm}subplot (312)}\label{matlabdatafiles_2control__mode_2demo_8m_aefdf779120371b64a68fcbd99a897ffd}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!subplot@{subplot}}
+\index{subplot@{subplot}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{subplot}]{\setlength{\rightskip}{0pt plus 5cm}subplot (311)}\label{matlabdatafiles_2control__mode_2demo_8m_a48dc8634024e4b228c94c6accabfa69e}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!subplot@{subplot}}
+\index{subplot@{subplot}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{subplot}]{\setlength{\rightskip}{0pt plus 5cm}subplot (212)}\label{matlabdatafiles_2control__mode_2demo_8m_a63897197090dd8177a8e842d781ae12a}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!subplot@{subplot}}
+\index{subplot@{subplot}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{subplot}]{\setlength{\rightskip}{0pt plus 5cm}subplot (211)}\label{matlabdatafiles_2control__mode_2demo_8m_a4a9f2df7ab6783bc2db8e27030158732}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!title@{title}}
+\index{title@{title}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('Execution time(blue) vs.Sampling time(red)')}\label{matlabdatafiles_2control__mode_2demo_8m_a31ab31032f6c3852c7f29a9750385341}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!title@{title}}
+\index{title@{title}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('Sampling time')}\label{matlabdatafiles_2control__mode_2demo_8m_a07523d302d31012e3760590148eebac1}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!title@{title}}
+\index{title@{title}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('angular speed joint 3(estimate 1st order)')}\label{matlabdatafiles_2control__mode_2demo_8m_a026685e2c40e95e335045d00a6d9dd44}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!title@{title}}
+\index{title@{title}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('angular speed joint 2(estimate 1st order)')}\label{matlabdatafiles_2control__mode_2demo_8m_a7b33bb11eb4a2132f63f2967903dc176}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!title@{title}}
+\index{title@{title}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('angular speed joint 1(estimate 1st order)')}\label{matlabdatafiles_2control__mode_2demo_8m_adf1e8cd2a69105b550b3abddafbc1f7d}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!title@{title}}
+\index{title@{title}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('infrared rangefinder 4')}\label{matlabdatafiles_2control__mode_2demo_8m_a4e872fdc2230888c8b2b4898dc9962f7}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!title@{title}}
+\index{title@{title}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('infrared rangefinder 3')}\label{matlabdatafiles_2control__mode_2demo_8m_a182cdfc79a8aed7b9ea4a98a034deec1}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!title@{title}}
+\index{title@{title}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('infrared rangefinder 2')}\label{matlabdatafiles_2control__mode_2demo_8m_aa9ae0f96d665741329936455eb10cda6}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!title@{title}}
+\index{title@{title}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('infrared rangefinder 1')}\label{matlabdatafiles_2control__mode_2demo_8m_aed15b39b26f4f0a29a1849f057f8f9de}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!title@{title}}
+\index{title@{title}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('angle joint 3')}\label{matlabdatafiles_2control__mode_2demo_8m_a29381545bb6291dd852744422e594f15}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!title@{title}}
+\index{title@{title}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('angle joint 2')}\label{matlabdatafiles_2control__mode_2demo_8m_a5a559d91cfa6f270866506f3a0d328e6}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!title@{title}}
+\index{title@{title}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('angle joint 1')}\label{matlabdatafiles_2control__mode_2demo_8m_a1c76e8399627f948d2db767c76bfffba}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!title@{title}}
+\index{title@{title}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('current motor 3')}\label{matlabdatafiles_2control__mode_2demo_8m_a17d95c8a8192a3933101e47e30938c2f}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!title@{title}}
+\index{title@{title}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('current motor 2')}\label{matlabdatafiles_2control__mode_2demo_8m_adff6f4df1600579b8c99ea437c9f57cc}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!title@{title}}
+\index{title@{title}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('current motor 1')}\label{matlabdatafiles_2control__mode_2demo_8m_ae9aa437c81fe8e3df2159aaa8633934e}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!title@{title}}
+\index{title@{title}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('voltage motor 3')}\label{matlabdatafiles_2control__mode_2demo_8m_a0998b188eebdbb4e0e38aae4f4c1cd48}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!title@{title}}
+\index{title@{title}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('voltage motor 2')}\label{matlabdatafiles_2control__mode_2demo_8m_a452428bb1842f75dc0a97995018f7865}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!title@{title}}
+\index{title@{title}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('voltage motor 1')}\label{matlabdatafiles_2control__mode_2demo_8m_ae897de1695b1c25fe63727eb57613c57}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!title@{title}}
+\index{title@{title}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('gyro 2')}\label{matlabdatafiles_2control__mode_2demo_8m_a50d5e12b6680d403e05218231033b3aa}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!title@{title}}
+\index{title@{title}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}title ('gyro 1')}\label{matlabdatafiles_2control__mode_2demo_8m_ae5a1b896fd04bfa5722e7a38a2dd9178}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!ylabel@{ylabel}}
+\index{ylabel@{ylabel}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{ylabel}]{\setlength{\rightskip}{0pt plus 5cm}ylabel (''[s])}\label{matlabdatafiles_2control__mode_2demo_8m_a51b9dcc2b376837e1946e1f940f355cb}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!ylabel@{ylabel}}
+\index{ylabel@{ylabel}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{ylabel}]{\setlength{\rightskip}{0pt plus 5cm}ylabel (''[m])}\label{matlabdatafiles_2control__mode_2demo_8m_abdec03a9a9afaed1c17d4d9fdd93dcbb}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!ylabel@{ylabel}}
+\index{ylabel@{ylabel}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{ylabel}]{\setlength{\rightskip}{0pt plus 5cm}ylabel (''[deg])}\label{matlabdatafiles_2control__mode_2demo_8m_aa6f9e74c30584d4c1f1e6374b68d428e}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!ylabel@{ylabel}}
+\index{ylabel@{ylabel}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{ylabel}]{\setlength{\rightskip}{0pt plus 5cm}ylabel (''[A])}\label{matlabdatafiles_2control__mode_2demo_8m_a83f8d45acec43e09b4d976745644fee3}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!ylabel@{ylabel}}
+\index{ylabel@{ylabel}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{ylabel}]{\setlength{\rightskip}{0pt plus 5cm}ylabel (''[V])}\label{matlabdatafiles_2control__mode_2demo_8m_aec05c3603ef1b19b38aa76948cbc58d1}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!ylabel@{ylabel}}
+\index{ylabel@{ylabel}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{ylabel}]{\setlength{\rightskip}{0pt plus 5cm}ylabel (''[deg/s])}\label{matlabdatafiles_2control__mode_2demo_8m_a3f7a9a427364f76fc8a098f449e8fbe8}
+
+
+\subsection{Variable Documentation}
+\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!a@{a}}
+\index{a@{a}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{a}]{\setlength{\rightskip}{0pt plus 5cm}{\bf a} = 0}\label{matlabdatafiles_2control__mode_2demo_8m_a4124bc0a9335c27f086f24ba207a4912}
+
+
+Definition at line 38 of file matlabdatafiles/control\_\-mode/demo.m.\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!all@{all}}
+\index{all@{all}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{all}]{\setlength{\rightskip}{0pt plus 5cm}close {\bf all}}\label{matlabdatafiles_2control__mode_2demo_8m_a00a349297fa58bc80ff5329e25dcfe28}
+
+
+Definition at line 1 of file matlabdatafiles/control\_\-mode/demo.m.\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!figure@{figure}}
+\index{figure@{figure}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{figure}]{\setlength{\rightskip}{0pt plus 5cm}figure}\label{matlabdatafiles_2control__mode_2demo_8m_a391e34f2de441d79152a7b3d6e4c9c86}
+
+
+Definition at line 89 of file matlabdatafiles/control\_\-mode/demo.m.\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!Filename@{Filename}}
+\index{Filename@{Filename}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{Filename}]{\setlength{\rightskip}{0pt plus 5cm}if {\bf FlagGenerateNewDataFile} {\bf Filename} = '{\bf gmatlabdatafile.mat}'}\label{matlabdatafiles_2control__mode_2demo_8m_adcb07eb786cb5334c62d49af8485b485}
+
+
+Definition at line 7 of file matlabdatafiles/control\_\-mode/demo.m.\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!FlagGenerateNewDataFile@{FlagGenerateNewDataFile}}
+\index{FlagGenerateNewDataFile@{FlagGenerateNewDataFile}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{FlagGenerateNewDataFile}]{\setlength{\rightskip}{0pt plus 5cm}{\bf FlagGenerateNewDataFile} = 1}\label{matlabdatafiles_2control__mode_2demo_8m_a9abbeda34a5298caa266088359ec7ae2}
+
+
+Definition at line 4 of file matlabdatafiles/control\_\-mode/demo.m.\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!gyro\_\-1@{gyro\_\-1}}
+\index{gyro\_\-1@{gyro\_\-1}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{gyro\_\-1}]{\setlength{\rightskip}{0pt plus 5cm}convert to Volt {\bf gyro\_\-1} = ReadGMatlabDataFile('g\_\-1',{\bf Filename})}\label{matlabdatafiles_2control__mode_2demo_8m_a7b87420d64643d8ca83979e62b103643}
+
+
+Definition at line 10 of file matlabdatafiles/control\_\-mode/demo.m.\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!gyro\_\-2@{gyro\_\-2}}
+\index{gyro\_\-2@{gyro\_\-2}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{gyro\_\-2}]{\setlength{\rightskip}{0pt plus 5cm}convert to Volt {\bf gyro\_\-2} = ReadGMatlabDataFile('g\_\-2',{\bf Filename})}\label{matlabdatafiles_2control__mode_2demo_8m_af4f547b37792776499225c3278e381a2}
+
+
+Definition at line 11 of file matlabdatafiles/control\_\-mode/demo.m.\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!i\_\-1@{i\_\-1}}
+\index{i\_\-1@{i\_\-1}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{i\_\-1}]{\setlength{\rightskip}{0pt plus 5cm}converts currents inputs to Ampers {\bf i\_\-1} = ReadGMatlabDataFile('{\bf i\_\-k}',{\bf Filename})}\label{matlabdatafiles_2control__mode_2demo_8m_af9e7d4a08f65a50f2fca548e896e70c5}
+
+
+Definition at line 12 of file matlabdatafiles/control\_\-mode/demo.m.\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!i\_\-2@{i\_\-2}}
+\index{i\_\-2@{i\_\-2}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{i\_\-2}]{\setlength{\rightskip}{0pt plus 5cm}{\bf i\_\-2} = ReadGMatlabDataFile('{\bf i\_\-as}',{\bf Filename})}\label{matlabdatafiles_2control__mode_2demo_8m_a0dc010b9e612b60013fbb0684b755b6d}
+
+
+Definition at line 13 of file matlabdatafiles/control\_\-mode/demo.m.\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!i\_\-3@{i\_\-3}}
+\index{i\_\-3@{i\_\-3}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{i\_\-3}]{\setlength{\rightskip}{0pt plus 5cm}{\bf i\_\-3} = ReadGMatlabDataFile('{\bf i\_\-af}',{\bf Filename})}\label{matlabdatafiles_2control__mode_2demo_8m_a2c17b45b1a3f3948d6db6cb139a8ef94}
+
+
+Definition at line 14 of file matlabdatafiles/control\_\-mode/demo.m.\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!i\_\-cal@{i\_\-cal}}
+\index{i\_\-cal@{i\_\-cal}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{i\_\-cal}]{\setlength{\rightskip}{0pt plus 5cm}convert to rad s according ro ADXRS300 datasheet converts foot roll giro readings to rad s {\bf i\_\-cal} = min(find({\bf t}$>$=1))}\label{matlabdatafiles_2control__mode_2demo_8m_abda9dfcf167320c88212f7110829e3bc}
+
+
+Definition at line 56 of file matlabdatafiles/control\_\-mode/demo.m.\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!input\_\-cal@{input\_\-cal}}
+\index{input\_\-cal@{input\_\-cal}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{input\_\-cal}]{\setlength{\rightskip}{0pt plus 5cm}{\bf input\_\-cal} = [604}\label{matlabdatafiles_2control__mode_2demo_8m_aeac2f82b5dd7dc154c8caefd21847b70}
+
+
+Definition at line 43 of file matlabdatafiles/control\_\-mode/demo.m.\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!k@{k}}
+\index{k@{k}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{k}]{\setlength{\rightskip}{0pt plus 5cm}{\bf k} = 1}\label{matlabdatafiles_2control__mode_2demo_8m_adc468c70fb574ebd07287b38d0d0676d}
+
+
+Definition at line 37 of file matlabdatafiles/control\_\-mode/demo.m.\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!mat@{mat}}
+\index{mat@{mat}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{mat}]{\setlength{\rightskip}{0pt plus 5cm}else load {\bf data} {\bf mat}}\label{matlabdatafiles_2control__mode_2demo_8m_add480a12978e45c15bdb81310526e9bb}
+
+
+Definition at line 86 of file matlabdatafiles/control\_\-mode/demo.m.\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!output\_\-cal@{output\_\-cal}}
+\index{output\_\-cal@{output\_\-cal}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{output\_\-cal}]{\setlength{\rightskip}{0pt plus 5cm}converts foot potentiometer readings to rad {\bf output\_\-cal} = [0}\label{matlabdatafiles_2control__mode_2demo_8m_a526676205757b32b22a9d45be0beb1ed}
+
+
+Definition at line 42 of file matlabdatafiles/control\_\-mode/demo.m.\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!pi@{pi}}
+\index{pi@{pi}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{pi}]{\setlength{\rightskip}{0pt plus 5cm}{\bf pi}}\label{matlabdatafiles_2control__mode_2demo_8m_a16d5d24f5b09a1991bd4e5f57bf11237}
+
+
+Definition at line 42 of file matlabdatafiles/control\_\-mode/demo.m.\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!r\_\-1@{r\_\-1}}
+\index{r\_\-1@{r\_\-1}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{r\_\-1}]{\setlength{\rightskip}{0pt plus 5cm}convert to V r\_\-1 = ReadGMatlabDataFile('r\_\-1',{\bf Filename})}\label{matlabdatafiles_2control__mode_2demo_8m_a42f132e2f712134d1339dec81b3a6b04}
+
+
+Definition at line 21 of file matlabdatafiles/control\_\-mode/demo.m.\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!r\_\-2@{r\_\-2}}
+\index{r\_\-2@{r\_\-2}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{r\_\-2}]{\setlength{\rightskip}{0pt plus 5cm}convert to m r\_\-2 = ReadGMatlabDataFile('r\_\-2',{\bf Filename})}\label{matlabdatafiles_2control__mode_2demo_8m_aebd5e602e2c6cbe7902e50a37467e336}
+
+
+Definition at line 22 of file matlabdatafiles/control\_\-mode/demo.m.\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!r\_\-3@{r\_\-3}}
+\index{r\_\-3@{r\_\-3}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{r\_\-3}]{\setlength{\rightskip}{0pt plus 5cm}convert to m r\_\-3 = ReadGMatlabDataFile('r\_\-3',{\bf Filename})}\label{matlabdatafiles_2control__mode_2demo_8m_a1471055915ad3f212e35185bfc74addf}
+
+
+Definition at line 23 of file matlabdatafiles/control\_\-mode/demo.m.\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!r\_\-4@{r\_\-4}}
+\index{r\_\-4@{r\_\-4}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{r\_\-4}]{\setlength{\rightskip}{0pt plus 5cm}save to file save {\bf data} {\bf mat} {\bf t} {\bf gyro\_\-1} {\bf gyro\_\-2} {\bf u\_\-1} {\bf u\_\-2} {\bf u\_\-3} {\bf i\_\-1} {\bf i\_\-2} {\bf i\_\-3} {\bf theta\_\-1} {\bf theta\_\-2} {\bf theta\_\-3} r\_\-1 r\_\-2 r\_\-3 r\_\-4 = ReadGMatlabDataFile('r\_\-4',{\bf Filename})}\label{matlabdatafiles_2control__mode_2demo_8m_a9e72e33c2c5326d122899bed345b87c4}
+
+
+Definition at line 24 of file matlabdatafiles/control\_\-mode/demo.m.\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!t@{t}}
+\index{t@{t}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{t}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t} = ReadGMatlabDataFile('{\bf t}',{\bf Filename})}\label{matlabdatafiles_2control__mode_2demo_8m_aaccc9105df5383111407fd5b41255e23}
+
+
+Definition at line 8 of file matlabdatafiles/control\_\-mode/demo.m.\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!T\_\-exec@{T\_\-exec}}
+\index{T\_\-exec@{T\_\-exec}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{T\_\-exec}]{\setlength{\rightskip}{0pt plus 5cm}time {\bf T\_\-exec} = ReadGMatlabDataFile('{\bf T\_\-exec}',{\bf Filename})}\label{matlabdatafiles_2control__mode_2demo_8m_adb469792c94cc4a97fd02941349766b9}
+
+
+Definition at line 9 of file matlabdatafiles/control\_\-mode/demo.m.\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!theta\_\-1@{theta\_\-1}}
+\index{theta\_\-1@{theta\_\-1}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{theta\_\-1}]{\setlength{\rightskip}{0pt plus 5cm}{\bf theta\_\-1} = {\bf k}$\ast${\bf theta\_\-1} + {\bf a}}\label{matlabdatafiles_2control__mode_2demo_8m_ac951b784fc028491b02f210408071f00}
+
+
+Definition at line 39 of file matlabdatafiles/control\_\-mode/demo.m.\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!theta\_\-2@{theta\_\-2}}
+\index{theta\_\-2@{theta\_\-2}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{theta\_\-2}]{\setlength{\rightskip}{0pt plus 5cm}{\bf theta\_\-2} = ReadGMatlabDataFile('p\_\-as',{\bf Filename})}\label{matlabdatafiles_2control__mode_2demo_8m_acf332723297849f64a9169282c1237c5}
+
+
+Definition at line 19 of file matlabdatafiles/control\_\-mode/demo.m.\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!theta\_\-3@{theta\_\-3}}
+\index{theta\_\-3@{theta\_\-3}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{theta\_\-3}]{\setlength{\rightskip}{0pt plus 5cm}{\bf theta\_\-3} = ReadGMatlabDataFile('p\_\-af',{\bf Filename})}\label{matlabdatafiles_2control__mode_2demo_8m_abbb2a4909669066c03b01bec6b92aadc}
+
+
+Definition at line 20 of file matlabdatafiles/control\_\-mode/demo.m.\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!u\_\-1@{u\_\-1}}
+\index{u\_\-1@{u\_\-1}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{u\_\-1}]{\setlength{\rightskip}{0pt plus 5cm}foot infrared range converts motor inputs to Volts {\bf u\_\-1} = ReadGMatlabDataFile('{\bf u\_\-k}',{\bf Filename})}\label{matlabdatafiles_2control__mode_2demo_8m_ace7b203e012b8b638d98a1d4ef4a10bb}
+
+
+Definition at line 15 of file matlabdatafiles/control\_\-mode/demo.m.\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!u\_\-2@{u\_\-2}}
+\index{u\_\-2@{u\_\-2}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{u\_\-2}]{\setlength{\rightskip}{0pt plus 5cm}{\bf u\_\-2} = -\/12$\ast$({\bf u\_\-2} -\/ 500)/500}\label{matlabdatafiles_2control__mode_2demo_8m_a3d5b0d701fb4fdc2c6b27abaf5c6b5c8}
+
+
+Definition at line 28 of file matlabdatafiles/control\_\-mode/demo.m.\index{matlabdatafiles/control\_\-mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}!u\_\-3@{u\_\-3}}
+\index{u\_\-3@{u\_\-3}!matlabdatafiles/control_mode/demo.m@{matlabdatafiles/control\_\-mode/demo.m}}
+\subsubsection[{u\_\-3}]{\setlength{\rightskip}{0pt plus 5cm}{\bf u\_\-3} = 12$\ast$({\bf u\_\-3} -\/ 500)/500}\label{matlabdatafiles_2control__mode_2demo_8m_a9ab9ff12ff95c55341941011872c456a}
+
+
+Definition at line 29 of file matlabdatafiles/control\_\-mode/demo.m.

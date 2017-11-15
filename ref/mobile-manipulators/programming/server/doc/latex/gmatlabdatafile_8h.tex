@@ -1,0 +1,212 @@
+\section{gmatlabdatafile.h File Reference}
+\label{gmatlabdatafile_8h}\index{gmatlabdatafile.h@{gmatlabdatafile.h}}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf GMATLABDATAFILECONFIG}
+\end{DoxyCompactItemize}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf FALSE}~0
+\item 
+\#define {\bf TRUE}~1
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct {\bf GMATLABDATAFILECONFIG} $\ast$ {\bf PGMATLABDATAFILECONFIG}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void {\bf gMATLABDataFile\_\-Close} ({\bf PGMATLABDATAFILECONFIG} pGMatlabDataFileConfig)
+\item 
+int {\bf gMATLABDataFile\_\-OpenRead} ({\bf PGMATLABDATAFILECONFIG} pGMatlabDataFileConfig, char $\ast$filename, char $\ast$dirname)
+\item 
+int {\bf gMATLABDataFile\_\-OpenWrite} ({\bf PGMATLABDATAFILECONFIG} pGMatlabDataFileConfig, char $\ast$filename, char $\ast$dirname)
+\item 
+int {\bf gMATLABDataFile\_\-SaveMatrix} ({\bf PGMATLABDATAFILECONFIG} pGMatlabDataFileConfig, const char $\ast$varname, double $\ast$$\ast$m, long nlin, long ncol)
+\item 
+int {\bf gMATLABDataFile\_\-SaveVector} ({\bf PGMATLABDATAFILECONFIG} pGMatlabDataFileConfig, const char $\ast$varname, double $\ast$v, long nlin)
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\index{gmatlabdatafile.h@{gmatlabdatafile.h}!FALSE@{FALSE}}
+\index{FALSE@{FALSE}!gmatlabdatafile.h@{gmatlabdatafile.h}}
+\subsubsection[{FALSE}]{\setlength{\rightskip}{0pt plus 5cm}\#define FALSE~0}\label{gmatlabdatafile_8h_aa93f0eb578d23995850d61f7d61c55c1}
+
+
+Definition at line 11 of file gmatlabdatafile.h.\index{gmatlabdatafile.h@{gmatlabdatafile.h}!TRUE@{TRUE}}
+\index{TRUE@{TRUE}!gmatlabdatafile.h@{gmatlabdatafile.h}}
+\subsubsection[{TRUE}]{\setlength{\rightskip}{0pt plus 5cm}\#define TRUE~1}\label{gmatlabdatafile_8h_aa8cecfc5c5c054d2875c03e77b7be15d}
+
+
+Definition at line 10 of file gmatlabdatafile.h.
+
+\subsection{Typedef Documentation}
+\index{gmatlabdatafile.h@{gmatlabdatafile.h}!PGMATLABDATAFILECONFIG@{PGMATLABDATAFILECONFIG}}
+\index{PGMATLABDATAFILECONFIG@{PGMATLABDATAFILECONFIG}!gmatlabdatafile.h@{gmatlabdatafile.h}}
+\subsubsection[{PGMATLABDATAFILECONFIG}]{\setlength{\rightskip}{0pt plus 5cm}typedef  struct {\bf GMATLABDATAFILECONFIG} $\ast$ {\bf PGMATLABDATAFILECONFIG}}\label{gmatlabdatafile_8h_ad671f2b5835bd3d8489ff011d38eace0}
+
+
+\subsection{Function Documentation}
+\index{gmatlabdatafile.h@{gmatlabdatafile.h}!gMATLABDataFile\_\-Close@{gMATLABDataFile\_\-Close}}
+\index{gMATLABDataFile\_\-Close@{gMATLABDataFile\_\-Close}!gmatlabdatafile.h@{gmatlabdatafile.h}}
+\subsubsection[{gMATLABDataFile\_\-Close}]{\setlength{\rightskip}{0pt plus 5cm}void gMATLABDataFile\_\-Close ({\bf PGMATLABDATAFILECONFIG} {\em pGMatlabDataFileConfig})}\label{gmatlabdatafile_8h_ad38283a16cbd66a2834b2ca9f5c6c6e0}
+
+
+Definition at line 58 of file gmatlabdatafile.c.
+
+
+\begin{DoxyCode}
+59 {
+60         fclose(pGMatlabDataFileConfig->fp);
+61 
+62 }
+\end{DoxyCode}
+\index{gmatlabdatafile.h@{gmatlabdatafile.h}!gMATLABDataFile\_\-OpenRead@{gMATLABDataFile\_\-OpenRead}}
+\index{gMATLABDataFile\_\-OpenRead@{gMATLABDataFile\_\-OpenRead}!gmatlabdatafile.h@{gmatlabdatafile.h}}
+\subsubsection[{gMATLABDataFile\_\-OpenRead}]{\setlength{\rightskip}{0pt plus 5cm}int gMATLABDataFile\_\-OpenRead ({\bf PGMATLABDATAFILECONFIG} {\em pGMatlabDataFileConfig}, \/  char $\ast$ {\em filename}, \/  char $\ast$ {\em dirname})}\label{gmatlabdatafile_8h_a82d0dd8169ca82a67bb2d78ee1efbafe}
+
+
+Definition at line 40 of file gmatlabdatafile.c.
+
+
+\begin{DoxyCode}
+41 {
+42         pGMatlabDataFileConfig->FileName[0] = '\0';
+43         if(dirname!=NULL)
+44                 sprintf(pGMatlabDataFileConfig->FileName,"%s",dirname);
+45         strcat(pGMatlabDataFileConfig->FileName,filename);
+46         pGMatlabDataFileConfig->FlagStillNotSaved = TRUE;
+47 
+48         pGMatlabDataFileConfig->fp = fopen(pGMatlabDataFileConfig->FileName, "r")
+      ;
+49         if(pGMatlabDataFileConfig->fp==NULL){
+50                 return FALSE;
+51         }
+52         rewind(pGMatlabDataFileConfig->fp);
+53 
+54         return TRUE;
+55 
+56 }
+\end{DoxyCode}
+\index{gmatlabdatafile.h@{gmatlabdatafile.h}!gMATLABDataFile\_\-OpenWrite@{gMATLABDataFile\_\-OpenWrite}}
+\index{gMATLABDataFile\_\-OpenWrite@{gMATLABDataFile\_\-OpenWrite}!gmatlabdatafile.h@{gmatlabdatafile.h}}
+\subsubsection[{gMATLABDataFile\_\-OpenWrite}]{\setlength{\rightskip}{0pt plus 5cm}int gMATLABDataFile\_\-OpenWrite ({\bf PGMATLABDATAFILECONFIG} {\em pGMatlabDataFileConfig}, \/  char $\ast$ {\em filename}, \/  char $\ast$ {\em dirname})}\label{gmatlabdatafile_8h_af53051d93a0e13032b8735451b077fb9}
+
+
+Definition at line 21 of file gmatlabdatafile.c.
+
+
+\begin{DoxyCode}
+22 {
+23         pGMatlabDataFileConfig->FileName[0] = '\0';
+24         if(dirname!=NULL)
+25                 sprintf(pGMatlabDataFileConfig->FileName,"%s",dirname);
+26         strcat(pGMatlabDataFileConfig->FileName,filename);
+27         pGMatlabDataFileConfig->FlagStillNotSaved = TRUE;
+28 
+29         pGMatlabDataFileConfig->fp = fopen(pGMatlabDataFileConfig->FileName, "w")
+      ;
+30         if(pGMatlabDataFileConfig->fp==NULL){
+31                 printf("\n pGMatlabDataFileConfig->fp==NULL: %s",pGMatlabDataFile
+      Config->FileName);
+32                 return FALSE;
+33         }
+34         rewind(pGMatlabDataFileConfig->fp);
+35 
+36         return TRUE;
+37 
+38 }
+\end{DoxyCode}
+\index{gmatlabdatafile.h@{gmatlabdatafile.h}!gMATLABDataFile\_\-SaveMatrix@{gMATLABDataFile\_\-SaveMatrix}}
+\index{gMATLABDataFile\_\-SaveMatrix@{gMATLABDataFile\_\-SaveMatrix}!gmatlabdatafile.h@{gmatlabdatafile.h}}
+\subsubsection[{gMATLABDataFile\_\-SaveMatrix}]{\setlength{\rightskip}{0pt plus 5cm}int gMATLABDataFile\_\-SaveMatrix ({\bf PGMATLABDATAFILECONFIG} {\em pGMatlabDataFileConfig}, \/  const char $\ast$ {\em varname}, \/  double $\ast$$\ast$ {\em m}, \/  long {\em nlin}, \/  long {\em ncol})}\label{gmatlabdatafile_8h_a4c928bd4ef71adea00c53f157ab00bea}
+
+
+Definition at line 92 of file gmatlabdatafile.c.
+
+
+\begin{DoxyCode}
+93 {
+94         MATLAB_DATAHEAD DataHead;
+95         int nl,nc;
+96         double *vcol;
+97 
+98         DataHead.type  = (long)(0);             
+99         DataHead.mrows = (long)(nlin);  
+100         DataHead.ncols = (long)(ncol);
+101         DataHead.imagf = (long)(0);
+102         DataHead.namlen = (long)(strlen(varname)+1);
+103 
+104         if(! fwrite(&DataHead, sizeof(MATLAB_DATAHEAD), 1, pGMatlabDataFileConfig
+      ->fp) ){
+105                 return FALSE;
+106         }
+107 
+108         if(! fwrite(varname, sizeof(char), (strlen(varname)+1), pGMatlabDataFileC
+      onfig->fp)){
+109                 return FALSE;
+110         }
+111 
+112         vcol = (double*)malloc(nlin*sizeof(double));
+113 
+114         for(nc=0;nc<ncol;++nc){
+115                 for(nl=0;nl<nlin;++nl){
+116                         vcol[nl] = m[nl][nc];
+117                 }
+118                 if(! fwrite(vcol, sizeof(double), nlin, pGMatlabDataFileConfig->
+      fp)){
+119                         free(vcol);
+120                         return FALSE;
+121                 }
+122         }
+123         free(vcol);
+124 
+125         pGMatlabDataFileConfig->FlagStillNotSaved = FALSE;
+126 
+127         return(TRUE);
+128 
+129 }
+\end{DoxyCode}
+\index{gmatlabdatafile.h@{gmatlabdatafile.h}!gMATLABDataFile\_\-SaveVector@{gMATLABDataFile\_\-SaveVector}}
+\index{gMATLABDataFile\_\-SaveVector@{gMATLABDataFile\_\-SaveVector}!gmatlabdatafile.h@{gmatlabdatafile.h}}
+\subsubsection[{gMATLABDataFile\_\-SaveVector}]{\setlength{\rightskip}{0pt plus 5cm}int gMATLABDataFile\_\-SaveVector ({\bf PGMATLABDATAFILECONFIG} {\em pGMatlabDataFileConfig}, \/  const char $\ast$ {\em varname}, \/  double $\ast$ {\em v}, \/  long {\em nlin})}\label{gmatlabdatafile_8h_a3ecf28836f545707551fe8b8005c8954}
+
+
+Definition at line 64 of file gmatlabdatafile.c.
+
+
+\begin{DoxyCode}
+65 {
+66         MATLAB_DATAHEAD DataHead;
+67 
+68         DataHead.type  = (long)(0);             
+69         DataHead.mrows = (long)(nlin);  
+70         DataHead.ncols = (long)(1);
+71         DataHead.imagf = (long)(0);
+72         DataHead.namlen = (long)(strlen(varname)+1);
+73 
+74         if(! fwrite(&DataHead, sizeof(MATLAB_DATAHEAD), 1, pGMatlabDataFileConfig
+      ->fp) ){
+75                 return FALSE;
+76         }
+77 
+78         if(! fwrite(varname, sizeof(char), (strlen(varname)+1), pGMatlabDataFileC
+      onfig->fp)){
+79                 return FALSE;
+80         }
+81 
+82         if(! fwrite(v, sizeof(double), nlin, pGMatlabDataFileConfig->fp)){
+83                 return FALSE;
+84         }
+85 
+86         pGMatlabDataFileConfig->FlagStillNotSaved = FALSE;
+87 
+88         return(TRUE);
+89 
+90 }
+\end{DoxyCode}

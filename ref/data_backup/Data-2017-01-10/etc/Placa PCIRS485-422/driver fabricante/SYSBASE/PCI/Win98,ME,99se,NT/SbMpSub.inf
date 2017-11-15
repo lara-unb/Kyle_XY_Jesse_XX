@@ -1,0 +1,406 @@
+;SubPort.INF
+;Version 2.0
+;
+;Revision History :
+;
+;   2003. 2. 6
+;       Supports MultiPort vX
+;
+;   2002. 5. 8
+;       Supports MultiPort v8
+;	
+;
+;   2000. 9. 22
+;       Supports MultiPort v7
+;	
+;	1998. 9. 19
+;		Supports Win95 OSR2, Windows 98
+;
+
+[Version]
+LayoutFile=layout.inf
+signature="$CHICAGO$"
+Class=Ports
+Provider=%SystemBase%
+
+[DestinationDirs]
+DefaultDestDir=11
+
+[SourceDisksNames]
+1="Windows 98 MultiPort/PCI ver 8.0 Device Driver Disk",,diskt
+
+[SourceDisksFiles]
+;et6000.drv=1
+;et6000.vxd=1
+;et6000.dll=1
+
+[ClassInstall]
+AddReg=PortsClass.AddReg
+
+[PortsClass.Addreg]
+HKR,,,,%PortsClassName%
+
+; Manufacturer Section
+[Manufacturer]
+%SystemBase%=SYSBAS
+
+; Manufacturer Name Section
+[SYSBAS]
+%Multi16.DeviceDesc%=M16Port0, MF\M16_PORT0
+%Multi16.DeviceDesc%=M16Port1, MF\M16_PORT1
+%Multi16.DeviceDesc%=M16Port2, MF\M16_PORT2
+%Multi16.DeviceDesc%=M16Port3, MF\M16_PORT3
+%Multi16.DeviceDesc%=M16Port4, MF\M16_PORT4
+%Multi16.DeviceDesc%=M16Port5, MF\M16_PORT5
+%Multi16.DeviceDesc%=M16Port6, MF\M16_PORT6
+%Multi16.DeviceDesc%=M16Port7, MF\M16_PORT7
+%Multi16.DeviceDesc%=M16Port8, MF\M16_PORT8
+%Multi16.DeviceDesc%=M16Port9, MF\M16_PORT9
+%Multi16.DeviceDesc%=M16Port10, MF\M16_PORT10
+%Multi16.DeviceDesc%=M16Port11, MF\M16_PORT11
+%Multi16.DeviceDesc%=M16Port12, MF\M16_PORT12
+%Multi16.DeviceDesc%=M16Port13, MF\M16_PORT13
+%Multi16.DeviceDesc%=M16Port14, MF\M16_PORT14
+%Multi16.DeviceDesc%=M16Port15, MF\M16_PORT15
+
+%Multi8.DeviceDesc%=M8Port0, MF\M8_PORT0
+%Multi8.DeviceDesc%=M8Port1, MF\M8_PORT1
+%Multi8.DeviceDesc%=M8Port2, MF\M8_PORT2
+%Multi8.DeviceDesc%=M8Port3, MF\M8_PORT3
+%Multi8.DeviceDesc%=M8Port4, MF\M8_PORT4
+%Multi8.DeviceDesc%=M8Port5, MF\M8_PORT5
+%Multi8.DeviceDesc%=M8Port6, MF\M8_PORT6
+%Multi8.DeviceDesc%=M8Port7, MF\M8_PORT7
+
+%Multi4.DeviceDesc%=M4Port0, MF\M4_PORT0
+%Multi4.DeviceDesc%=M4Port1, MF\M4_PORT1
+%Multi4.DeviceDesc%=M4Port2, MF\M4_PORT2
+%Multi4.DeviceDesc%=M4Port3, MF\M4_PORT3
+
+%Multi2.DeviceDesc%=M2Port0, MF\M2_PORT0
+%Multi2.DeviceDesc%=M2Port1, MF\M2_PORT1
+
+%Multi1.DeviceDesc%=M1Port0, MF\M1_PORT0
+
+;------------------------------------------------------------------------
+; Install Sections
+;----------------------------
+
+[M16Port0]
+CopyFiles=Common.CopyFiles
+AddReg=Common.Reg
+[M16Port0.HW]
+AddReg=M16Port0.Reg
+
+[M16Port1]
+CopyFiles=Common.CopyFiles
+AddReg=Common.Reg
+[M16Port1.HW]
+AddReg=M16Port1.Reg
+
+[M16Port2]
+CopyFiles=Common.CopyFiles
+AddReg=Common.Reg
+[M16Port2.HW]
+AddReg=M16Port2.Reg
+
+[M16Port3]
+CopyFiles=Common.CopyFiles
+AddReg=Common.Reg
+[M16Port3.HW]
+AddReg=M16Port3.Reg
+
+[M16Port4]
+CopyFiles=Common.CopyFiles
+AddReg=Common.Reg
+[M16Port4.HW]
+AddReg=M16Port4.Reg
+
+[M16Port5]
+CopyFiles=Common.CopyFiles
+AddReg=Common.Reg
+[M16Port5.HW]
+AddReg=M16Port5.Reg
+
+[M16Port6]
+CopyFiles=Common.CopyFiles
+AddReg=Common.Reg
+[M16Port6.HW]
+AddReg=M16Port6.Reg
+
+[M16Port7]
+CopyFiles=Common.CopyFiles
+AddReg=Common.Reg
+[M16Port7.HW]
+AddReg=M16Port7.Reg
+
+[M16Port8]
+CopyFiles=Common.CopyFiles
+AddReg=Common.Reg
+[M16Port8.HW]
+AddReg=M16Port8.Reg
+
+[M16Port9]
+CopyFiles=Common.CopyFiles
+AddReg=Common.Reg
+[M16Port9.HW]
+AddReg=M16Port9.Reg
+
+[M16Port10]
+CopyFiles=Common.CopyFiles
+AddReg=Common.Reg
+[M16Port10.HW]
+AddReg=M16Port10.Reg
+
+[M16Port11]
+CopyFiles=Common.CopyFiles
+AddReg=Common.Reg
+[M16Port11.HW]
+AddReg=M16Port11.Reg
+
+[M16Port12]
+CopyFiles=Common.CopyFiles
+AddReg=Common.Reg
+[M16Port12.HW]
+AddReg=M16Port12.Reg
+
+[M16Port13]
+CopyFiles=Common.CopyFiles
+AddReg=Common.Reg
+[M16Port13.HW]
+AddReg=M16Port13.Reg
+
+[M16Port14]
+CopyFiles=Common.CopyFiles
+AddReg=Common.Reg
+[M16Port14.HW]
+AddReg=M16Port14.Reg
+
+[M16Port15]
+CopyFiles=Common.CopyFiles
+AddReg=Common.Reg
+[M16Port15.HW]
+AddReg=M16Port15.Reg
+;------------------------------------------------------------------------
+
+[M8Port0]
+CopyFiles=Common.CopyFiles
+AddReg=Common.Reg
+[M8Port0.HW]
+AddReg=M8Port0.Reg
+
+[M8Port1]
+CopyFiles=Common.CopyFiles
+AddReg=Common.Reg
+[M8Port1.HW]
+AddReg=M8Port1.Reg
+
+[M8Port2]
+CopyFiles=Common.CopyFiles
+AddReg=Common.Reg
+[M8Port2.HW]
+AddReg=M8Port2.Reg
+
+[M8Port3]
+CopyFiles=Common.CopyFiles
+AddReg=Common.Reg
+[M8Port3.HW]
+AddReg=M8Port3.Reg
+
+[M8Port4]
+CopyFiles=Common.CopyFiles
+AddReg=Common.Reg
+[M8Port4.HW]
+AddReg=M8Port4.Reg
+
+[M8Port5]
+CopyFiles=Common.CopyFiles
+AddReg=Common.Reg
+[M8Port5.HW]
+AddReg=M8Port5.Reg
+
+[M8Port6]
+CopyFiles=Common.CopyFiles
+AddReg=Common.Reg
+[M8Port6.HW]
+AddReg=M8Port6.Reg
+
+[M8Port7]
+CopyFiles=Common.CopyFiles
+AddReg=Common.Reg
+[M8Port7.HW]
+AddReg=M8Port7.Reg
+;------------------------------------------------------------------------
+
+[M4Port0]
+CopyFiles=Common.CopyFiles
+AddReg=Common.Reg
+[M4Port0.HW]
+AddReg=M4Port0.Reg
+
+[M4Port1]
+CopyFiles=Common.CopyFiles
+AddReg=Common.Reg
+[M4Port1.HW]
+AddReg=M4Port1.Reg
+
+[M4Port2]
+CopyFiles=Common.CopyFiles
+AddReg=Common.Reg
+[M4Port2.HW]
+AddReg=M4Port2.Reg
+
+[M4Port3]
+CopyFiles=Common.CopyFiles
+AddReg=Common.Reg
+[M4Port3.HW]
+AddReg=M4Port3.Reg
+;------------------------------------------------------------------------
+
+[M2Port0]
+CopyFiles=Common.CopyFiles
+AddReg=Common.Reg
+[M2Port0.HW]
+AddReg=M2Port0.Reg
+
+[M2Port1]
+CopyFiles=Common.CopyFiles
+AddReg=Common.Reg
+[M2Port1.HW]
+AddReg=M2Port1.Reg
+;------------------------------------------------------------------------
+
+[M1Port0]
+CopyFiles=Common.CopyFiles
+AddReg=Common.Reg
+[M1Port0.HW]
+AddReg=M1Port0.Reg
+
+;-------------------------------
+
+[M16Port0.Reg]
+HKR,,SBMPID,1,10,00,00,00
+
+[M16Port1.Reg]
+HKR,,SBMPID,1,10,01,00,00
+
+[M16Port2.Reg]
+HKR,,SBMPID,1,10,02,00,00
+
+[M16Port3.Reg]
+HKR,,SBMPID,1,10,03,00,00
+
+[M16Port4.Reg]
+HKR,,SBMPID,1,10,04,00,00
+
+[M16Port5.Reg]
+HKR,,SBMPID,1,10,05,00,00
+
+[M16Port6.Reg]
+HKR,,SBMPID,1,10,06,00,00
+
+[M16Port7.Reg]
+HKR,,SBMPID,1,10,07,00,00
+
+[M16Port8.Reg]
+HKR,,SBMPID,1,10,08,00,00
+
+[M16Port9.Reg]
+HKR,,SBMPID,1,10,09,00,00
+
+[M16Port10.Reg]
+HKR,,SBMPID,1,10,0A,00,00
+
+[M16Port11.Reg]
+HKR,,SBMPID,1,10,0B,00,00
+
+[M16Port12.Reg]
+HKR,,SBMPID,1,10,0C,00,00
+
+[M16Port13.Reg]
+HKR,,SBMPID,1,10,0D,00,00
+
+[M16Port14.Reg]
+HKR,,SBMPID,1,10,0E,00,00
+
+[M16Port15.Reg]
+HKR,,SBMPID,1,10,0F,00,00
+;------------------------------------------------------------------------
+
+
+[M8Port0.Reg]
+HKR,,SBMPID,1,08,00,00,00
+
+[M8Port1.Reg]
+HKR,,SBMPID,1,08,01,00,00
+
+[M8Port2.Reg]
+HKR,,SBMPID,1,08,02,00,00
+
+[M8Port3.Reg]
+HKR,,SBMPID,1,08,03,00,00
+
+[M8Port4.Reg]
+HKR,,SBMPID,1,08,04,00,00
+
+[M8Port5.Reg]
+HKR,,SBMPID,1,08,05,00,00
+
+[M8Port6.Reg]
+HKR,,SBMPID,1,08,06,00,00
+
+[M8Port7.Reg]
+HKR,,SBMPID,1,08,07,00,00
+;------------------------------------------------------------------------
+
+
+[M4Port0.Reg]
+HKR,,SBMPID,1,04,00,00,00
+
+[M4Port1.Reg]
+HKR,,SBMPID,1,04,01,00,00
+
+[M4Port2.Reg]
+HKR,,SBMPID,1,04,02,00,00
+
+[M4Port3.Reg]
+HKR,,SBMPID,1,04,03,00,00
+;------------------------------------------------------------------------
+
+
+[M2Port0.Reg]
+HKR,,SBMPID,1,02,00,00,00
+
+[M2Port1.Reg]
+HKR,,SBMPID,1,02,01,00,00
+;------------------------------------------------------------------------
+
+
+[M1Port0.Reg]
+HKR,,SBMPID,1,01,00,00,00
+
+
+[Common.Reg]
+HKR,,DevLoader,,*vcomm
+HKR,,Enumerator,,serenum.vxd
+HKR,,PortDriver,,sbmp.vxd
+;HKR,,Contention,,*vcd
+HKR,,ConfigDialog,,serialui.dll
+HKR,,DCB,3,1C,00,00,00, 80,25,00,00, 11,33,00,00, 00,00, 0a,00, 0a,00, 08, 00, 00, 11, 13, 00, 00, 00
+HKR,,PortSubClass,1,01
+HKR,,EnumPropPages,,"serialui.dll,EnumPropPages"
+HKR,,Properties,,"serialui.dll,EnumPropPages"
+
+[Common.CopyFiles]
+sbmp.vxd
+;serialui.dll
+;serenum.vxd
+
+[Strings]
+SystemBase=" "
+Multi16.DeviceDesc="Multi-16/PCI Port"
+Multi8.DeviceDesc="Multi-8/PCI Port"
+Multi4.DeviceDesc="Multi-4/PCI Port"
+Multi2.DeviceDesc="Multi-2/PCI Port"
+Multi1.DeviceDesc="Multi-1/PCI Port"
+PortsClassName = "Ports (COM & LPT)"
