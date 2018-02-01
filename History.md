@@ -86,31 +86,14 @@
 	Na segunda foi decidido a substituição das PCB's pela SSC-32.
 	Das 19:00hrs do dia 13 até as 04:00hrs do dia 14 ficamos aprendendo sobre os servos dos manipuladores e sobre a SSC-32. Testamos o funcionamento de tudo através de um Arduíno uno.  
 
-##__15_11_2017__
+##__15-11-2017__
 >	Foi criado pelo professor Geovany o diretório no GitHub onde colocamos todas informações até o momento na branch Master.
 
+##__15-01-2018 ... 26-01-2018__
+>	Estudando sobre sobre o antigo funcionamento dos robôs, básico dos tutoriais de ROS.
 
+##__29-01-2018 ... 31-01-2018__
+>	Aprendendo sobre SSC-32 e manipuladores.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+##__01-02-2018__
+>	Tentativa e sucesso em comunicar SSC-32 via ROS com um notebook. Para isso foi usado ROS driver encontrado em https://github.com/smd-ros-devel/lynxmotion_ssc32.
