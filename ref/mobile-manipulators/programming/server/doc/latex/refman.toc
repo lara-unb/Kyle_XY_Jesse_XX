@@ -1,58 +1,356 @@
-\contentsline {chapter}{\numberline {1}seriallib\discretionary {-}{}{}RTAI Main Page}{1}
-\contentsline {chapter}{\numberline {2}seriallib\discretionary {-}{}{}RTAI Data Structure Index}{3}
-\contentsline {section}{\numberline {2.1}seriallib\discretionary {-}{}{}RTAI Data Structures}{3}
-\contentsline {chapter}{\numberline {3}seriallib\discretionary {-}{}{}RTAI File Index}{5}
-\contentsline {section}{\numberline {3.1}seriallib\discretionary {-}{}{}RTAI File List}{5}
-\contentsline {chapter}{\numberline {4}seriallib\discretionary {-}{}{}RTAI Data Structure Documentation}{7}
-\contentsline {section}{\numberline {4.1}SERIALPORTCONFIG Struct Reference}{7}
-\contentsline {subsection}{\numberline {4.1.1}Field Documentation}{7}
-\contentsline {subsubsection}{\numberline {4.1.1.1}\setlength {\rightskip }{0pt plus 5cm}unsigned int \bf {SERIALPORTCONFIG::Com\discretionary {-}{}{}Port\discretionary {-}{}{}Address}}{7}
-\contentsline {subsubsection}{\numberline {4.1.1.2}\setlength {\rightskip }{0pt plus 5cm}unsigned int \bf {SERIALPORTCONFIG::Com\discretionary {-}{}{}Port\discretionary {-}{}{}BPS}}{7}
-\contentsline {subsubsection}{\numberline {4.1.1.3}\setlength {\rightskip }{0pt plus 5cm}unsigned int \bf {SERIALPORTCONFIG::Com\discretionary {-}{}{}Port\discretionary {-}{}{}Number}}{7}
-\contentsline {subsubsection}{\numberline {4.1.1.4}\setlength {\rightskip }{0pt plus 5cm}float \bf {SERIALPORTCONFIG::Frame\discretionary {-}{}{}Period\discretionary {-}{}{}US}}{7}
-\contentsline {chapter}{\numberline {5}seriallib\discretionary {-}{}{}RTAI File Documentation}{9}
-\contentsline {section}{\numberline {5.1}seriallib\discretionary {-}{}{}RTAI.c File Reference}{9}
-\contentsline {subsection}{\numberline {5.1.1}Detailed Description}{10}
-\contentsline {subsection}{\numberline {5.1.2}Define Documentation}{10}
-\contentsline {subsubsection}{\numberline {5.1.2.1}\setlength {\rightskip }{0pt plus 5cm}\#define SERIALLIBRTAI\_\discretionary {-}{}{}COMPORTADDRESS\_\discretionary {-}{}{}1\nobreakspace {}0x3F8}{10}
-\contentsline {subsubsection}{\numberline {5.1.2.2}\setlength {\rightskip }{0pt plus 5cm}\#define SERIALLIBRTAI\_\discretionary {-}{}{}COMPORTADDRESS\_\discretionary {-}{}{}2\nobreakspace {}0x2F8}{10}
-\contentsline {subsubsection}{\numberline {5.1.2.3}\setlength {\rightskip }{0pt plus 5cm}\#define SERIALLIBRTAI\_\discretionary {-}{}{}COMPORTADDRESS\_\discretionary {-}{}{}3\nobreakspace {}0x3E8}{10}
-\contentsline {subsubsection}{\numberline {5.1.2.4}\setlength {\rightskip }{0pt plus 5cm}\#define SERIALLIBRTAI\_\discretionary {-}{}{}COMPORTADDRESS\_\discretionary {-}{}{}4\nobreakspace {}0x2E8}{10}
-\contentsline {subsection}{\numberline {5.1.3}Function Documentation}{10}
-\contentsline {subsubsection}{\numberline {5.1.3.1}\setlength {\rightskip }{0pt plus 5cm}void seriallib\discretionary {-}{}{}RTAI\_\discretionary {-}{}{}delay (RTIME {\em Maxima\discretionary {-}{}{}Espera\discretionary {-}{}{}US})}{10}
-\contentsline {subsubsection}{\numberline {5.1.3.2}\setlength {\rightskip }{0pt plus 5cm}int seriallib\discretionary {-}{}{}RTAI\_\discretionary {-}{}{}init (\bf {PSERIALPORTCONFIG} {\em p\discretionary {-}{}{}Serial\discretionary {-}{}{}Port\discretionary {-}{}{}Config}, int {\em Com\discretionary {-}{}{}Port\discretionary {-}{}{}Number}, unsigned long int {\em Com\discretionary {-}{}{}Port\discretionary {-}{}{}BPS})}{10}
-\contentsline {subsubsection}{\numberline {5.1.3.3}\setlength {\rightskip }{0pt plus 5cm}seriallib\discretionary {-}{}{}RTAI\_\discretionary {-}{}{}receivebyte (\bf {PSERIALPORTCONFIG} {\em p\discretionary {-}{}{}Serial\discretionary {-}{}{}Port\discretionary {-}{}{}Config}, unsigned char $\ast $ {\em p\discretionary {-}{}{}Data}, double {\em Maxima\discretionary {-}{}{}Espera\discretionary {-}{}{}US})}{11}
-\contentsline {subsubsection}{\numberline {5.1.3.4}\setlength {\rightskip }{0pt plus 5cm}void seriallib\discretionary {-}{}{}RTAI\_\discretionary {-}{}{}semsignal (\bf {PSERIALPORTCONFIG} {\em p\discretionary {-}{}{}Serial\discretionary {-}{}{}Port\discretionary {-}{}{}Config})}{11}
-\contentsline {subsubsection}{\numberline {5.1.3.5}\setlength {\rightskip }{0pt plus 5cm}void seriallib\discretionary {-}{}{}RTAI\_\discretionary {-}{}{}semwait (\bf {PSERIALPORTCONFIG} {\em p\discretionary {-}{}{}Serial\discretionary {-}{}{}Port\discretionary {-}{}{}Config})}{12}
-\contentsline {subsubsection}{\numberline {5.1.3.6}\setlength {\rightskip }{0pt plus 5cm}int seriallib\discretionary {-}{}{}RTAI\_\discretionary {-}{}{}sendbyte (\bf {PSERIALPORTCONFIG} {\em p\discretionary {-}{}{}Serial\discretionary {-}{}{}Port\discretionary {-}{}{}Config}, unsigned char $\ast $ {\em p\discretionary {-}{}{}Data})}{12}
-\contentsline {subsubsection}{\numberline {5.1.3.7}\setlength {\rightskip }{0pt plus 5cm}int seriallib\discretionary {-}{}{}RTAI\_\discretionary {-}{}{}status (\bf {PSERIALPORTCONFIG} {\em p\discretionary {-}{}{}Serial\discretionary {-}{}{}Port\discretionary {-}{}{}Config})}{13}
-\contentsline {subsection}{\numberline {5.1.4}Variable Documentation}{13}
-\contentsline {subsubsection}{\numberline {5.1.4.1}\setlength {\rightskip }{0pt plus 5cm}SEM $\ast $ \bf {p\discretionary {-}{}{}Com\discretionary {-}{}{}Port\discretionary {-}{}{}Semaphores}[4]}{13}
-\contentsline {section}{\numberline {5.2}seriallib\discretionary {-}{}{}RTAI.h File Reference}{14}
-\contentsline {subsection}{\numberline {5.2.1}Detailed Description}{14}
-\contentsline {subsection}{\numberline {5.2.2}Define Documentation}{15}
-\contentsline {subsubsection}{\numberline {5.2.2.1}\setlength {\rightskip }{0pt plus 5cm}\#define SERIALLIBRTAI\_\discretionary {-}{}{}ERROR\_\discretionary {-}{}{}INCORRECTPORTNUMBER\nobreakspace {}5}{15}
-\contentsline {subsubsection}{\numberline {5.2.2.2}\setlength {\rightskip }{0pt plus 5cm}\#define SERIALLIBRTAI\_\discretionary {-}{}{}ERROR\_\discretionary {-}{}{}IOPL\nobreakspace {}1}{15}
-\contentsline {subsubsection}{\numberline {5.2.2.3}\setlength {\rightskip }{0pt plus 5cm}\#define SERIALLIBRTAI\_\discretionary {-}{}{}ERROR\_\discretionary {-}{}{}MAXBPSPRECISION\nobreakspace {}4}{15}
-\contentsline {subsubsection}{\numberline {5.2.2.4}\setlength {\rightskip }{0pt plus 5cm}\#define SERIALLIBRTAI\_\discretionary {-}{}{}ERROR\_\discretionary {-}{}{}MAXWAITENDOFTRANSMISSION\nobreakspace {}2}{15}
-\contentsline {subsubsection}{\numberline {5.2.2.5}\setlength {\rightskip }{0pt plus 5cm}\#define SERIALLIBRTAI\_\discretionary {-}{}{}ERROR\_\discretionary {-}{}{}MAXWAITFORRECEPTION\nobreakspace {}3}{15}
-\contentsline {subsubsection}{\numberline {5.2.2.6}\setlength {\rightskip }{0pt plus 5cm}\#define SERIALLIBRTAI\_\discretionary {-}{}{}MAXBPSPRECISION\nobreakspace {}0.02}{15}
-\contentsline {subsubsection}{\numberline {5.2.2.7}\setlength {\rightskip }{0pt plus 5cm}\#define SERIALLIBRTAI\_\discretionary {-}{}{}STATUSMASK\_\discretionary {-}{}{}BREAK\_\discretionary {-}{}{}INTERRUPT\nobreakspace {}0x10}{15}
-\contentsline {subsubsection}{\numberline {5.2.2.8}\setlength {\rightskip }{0pt plus 5cm}\#define SERIALLIBRTAI\_\discretionary {-}{}{}STATUSMASK\_\discretionary {-}{}{}EMPTY\_\discretionary {-}{}{}DH\_\discretionary {-}{}{}REGISTERS\nobreakspace {}0x40}{15}
-\contentsline {subsubsection}{\numberline {5.2.2.9}\setlength {\rightskip }{0pt plus 5cm}\#define SERIALLIBRTAI\_\discretionary {-}{}{}STATUSMASK\_\discretionary {-}{}{}EMPTY\_\discretionary {-}{}{}TX\_\discretionary {-}{}{}REGISTER\nobreakspace {}0x20}{15}
-\contentsline {subsubsection}{\numberline {5.2.2.10}\setlength {\rightskip }{0pt plus 5cm}\#define SERIALLIBRTAI\_\discretionary {-}{}{}STATUSMASK\_\discretionary {-}{}{}ERROR\_\discretionary {-}{}{}RX\_\discretionary {-}{}{}FIFO\nobreakspace {}0x80}{15}
-\contentsline {subsubsection}{\numberline {5.2.2.11}\setlength {\rightskip }{0pt plus 5cm}\#define SERIALLIBRTAI\_\discretionary {-}{}{}STATUSMASK\_\discretionary {-}{}{}FRAMING\_\discretionary {-}{}{}ERROR\nobreakspace {}0x08}{15}
-\contentsline {subsubsection}{\numberline {5.2.2.12}\setlength {\rightskip }{0pt plus 5cm}\#define SERIALLIBRTAI\_\discretionary {-}{}{}STATUSMASK\_\discretionary {-}{}{}OVERRUN\_\discretionary {-}{}{}ERROR\nobreakspace {}0x02}{15}
-\contentsline {subsubsection}{\numberline {5.2.2.13}\setlength {\rightskip }{0pt plus 5cm}\#define SERIALLIBRTAI\_\discretionary {-}{}{}STATUSMASK\_\discretionary {-}{}{}PARITY\_\discretionary {-}{}{}ERROR\nobreakspace {}0x04}{15}
-\contentsline {subsubsection}{\numberline {5.2.2.14}\setlength {\rightskip }{0pt plus 5cm}\#define SERIALLIBRTAI\_\discretionary {-}{}{}STATUSMASK\_\discretionary {-}{}{}RX\_\discretionary {-}{}{}DATA\_\discretionary {-}{}{}READY\nobreakspace {}0x01}{15}
-\contentsline {subsubsection}{\numberline {5.2.2.15}\setlength {\rightskip }{0pt plus 5cm}\#define SERIALLIBRTAI\_\discretionary {-}{}{}SUCCESS\nobreakspace {}0}{15}
-\contentsline {subsubsection}{\numberline {5.2.2.16}\setlength {\rightskip }{0pt plus 5cm}\#define SERIALLIBRTAI\_\discretionary {-}{}{}USE\_\discretionary {-}{}{}RS485\nobreakspace {}1}{15}
-\contentsline {subsection}{\numberline {5.2.3}Typedef Documentation}{16}
-\contentsline {subsubsection}{\numberline {5.2.3.1}\setlength {\rightskip }{0pt plus 5cm}typedef struct \bf {SERIALPORTCONFIG} $\ast $ \bf {PSERIALPORTCONFIG}}{16}
-\contentsline {subsection}{\numberline {5.2.4}Function Documentation}{16}
-\contentsline {subsubsection}{\numberline {5.2.4.1}\setlength {\rightskip }{0pt plus 5cm}int seriallib\discretionary {-}{}{}RTAI\_\discretionary {-}{}{}init (\bf {PSERIALPORTCONFIG} {\em p\discretionary {-}{}{}Serial\discretionary {-}{}{}Port\discretionary {-}{}{}Config}, int {\em Com\discretionary {-}{}{}Port\discretionary {-}{}{}Number}, unsigned long int {\em Com\discretionary {-}{}{}Port\discretionary {-}{}{}BPS})}{16}
-\contentsline {subsubsection}{\numberline {5.2.4.2}\setlength {\rightskip }{0pt plus 5cm}int seriallib\discretionary {-}{}{}RTAI\_\discretionary {-}{}{}receivebyte (\bf {PSERIALPORTCONFIG} {\em p\discretionary {-}{}{}Serial\discretionary {-}{}{}Port\discretionary {-}{}{}Config}, unsigned char $\ast $ {\em p\discretionary {-}{}{}Data}, double {\em Maxima\discretionary {-}{}{}Espera\discretionary {-}{}{}US})}{16}
-\contentsline {subsubsection}{\numberline {5.2.4.3}\setlength {\rightskip }{0pt plus 5cm}void seriallib\discretionary {-}{}{}RTAI\_\discretionary {-}{}{}semsignal (\bf {PSERIALPORTCONFIG} {\em p\discretionary {-}{}{}Serial\discretionary {-}{}{}Port\discretionary {-}{}{}Config})}{17}
-\contentsline {subsubsection}{\numberline {5.2.4.4}\setlength {\rightskip }{0pt plus 5cm}void seriallib\discretionary {-}{}{}RTAI\_\discretionary {-}{}{}semwait (\bf {PSERIALPORTCONFIG} {\em p\discretionary {-}{}{}Serial\discretionary {-}{}{}Port\discretionary {-}{}{}Config})}{17}
-\contentsline {subsubsection}{\numberline {5.2.4.5}\setlength {\rightskip }{0pt plus 5cm}int seriallib\discretionary {-}{}{}RTAI\_\discretionary {-}{}{}sendbyte (\bf {PSERIALPORTCONFIG} {\em p\discretionary {-}{}{}Serial\discretionary {-}{}{}Port\discretionary {-}{}{}Config}, unsigned char $\ast $ {\em p\discretionary {-}{}{}Data})}{17}
-\contentsline {subsubsection}{\numberline {5.2.4.6}\setlength {\rightskip }{0pt plus 5cm}int seriallib\discretionary {-}{}{}RTAI\_\discretionary {-}{}{}status (\bf {PSERIALPORTCONFIG} {\em p\discretionary {-}{}{}Serial\discretionary {-}{}{}Port\discretionary {-}{}{}Config})}{18}
+\contentsline {chapter}{\numberline {1}Main Page}{1}
+\contentsline {chapter}{\numberline {2}Data Structure Index}{3}
+\contentsline {section}{\numberline {2.1}Data Structures}{3}
+\contentsline {chapter}{\numberline {3}File Index}{5}
+\contentsline {section}{\numberline {3.1}File List}{5}
+\contentsline {chapter}{\numberline {4}Data Structure Documentation}{7}
+\contentsline {section}{\numberline {4.1}CLOCK\_\discretionary {-}{}{}COUNTER Struct Reference}{7}
+\contentsline {subsection}{\numberline {4.1.1}Detailed Description}{7}
+\contentsline {subsection}{\numberline {4.1.2}Field Documentation}{7}
+\contentsline {subsubsection}{\numberline {4.1.2.1}h}{7}
+\contentsline {subsubsection}{\numberline {4.1.2.2}l}{7}
+\contentsline {section}{\numberline {4.2}GDATALOGGER Struct Reference}{8}
+\contentsline {subsection}{\numberline {4.2.1}Detailed Description}{8}
+\contentsline {subsection}{\numberline {4.2.2}Field Documentation}{8}
+\contentsline {subsubsection}{\numberline {4.2.2.1}GMatlabDataFileConfig}{8}
+\contentsline {subsubsection}{\numberline {4.2.2.2}m\_\discretionary {-}{}{}NumberOfVariables}{8}
+\contentsline {subsubsection}{\numberline {4.2.2.3}Variables}{8}
+\contentsline {section}{\numberline {4.3}GDATALOGGERIPC\_\discretionary {-}{}{}SHM Struct Reference}{9}
+\contentsline {subsection}{\numberline {4.3.1}Detailed Description}{9}
+\contentsline {subsection}{\numberline {4.3.2}Field Documentation}{9}
+\contentsline {subsubsection}{\numberline {4.3.2.1}Flag}{9}
+\contentsline {subsubsection}{\numberline {4.3.2.2}QueueData}{9}
+\contentsline {subsubsection}{\numberline {4.3.2.3}QueueSize}{9}
+\contentsline {subsubsection}{\numberline {4.3.2.4}VariableName}{9}
+\contentsline {subsubsection}{\numberline {4.3.2.5}VariableUnit}{9}
+\contentsline {section}{\numberline {4.4}GDATALOGGERVARIABLE Struct Reference}{10}
+\contentsline {subsection}{\numberline {4.4.1}Detailed Description}{10}
+\contentsline {subsection}{\numberline {4.4.2}Field Documentation}{10}
+\contentsline {subsubsection}{\numberline {4.4.2.1}CircularQueue}{10}
+\contentsline {subsubsection}{\numberline {4.4.2.2}CircularQueueControl}{10}
+\contentsline {subsubsection}{\numberline {4.4.2.3}GMatlabDataFileIndex}{10}
+\contentsline {subsubsection}{\numberline {4.4.2.4}Nc}{10}
+\contentsline {subsubsection}{\numberline {4.4.2.5}Nr}{10}
+\contentsline {subsubsection}{\numberline {4.4.2.6}VariableName}{10}
+\contentsline {subsubsection}{\numberline {4.4.2.7}VariableUnit}{11}
+\contentsline {section}{\numberline {4.5}GMATLABDATAFILECONFIG Struct Reference}{12}
+\contentsline {subsection}{\numberline {4.5.1}Detailed Description}{12}
+\contentsline {subsection}{\numberline {4.5.2}Field Documentation}{12}
+\contentsline {subsubsection}{\numberline {4.5.2.1}FileName}{12}
+\contentsline {subsubsection}{\numberline {4.5.2.2}FlagStillNotSaved}{12}
+\contentsline {subsubsection}{\numberline {4.5.2.3}fp}{12}
+\contentsline {section}{\numberline {4.6}GQUEUECONTROL Struct Reference}{13}
+\contentsline {subsection}{\numberline {4.6.1}Detailed Description}{13}
+\contentsline {subsection}{\numberline {4.6.2}Field Documentation}{13}
+\contentsline {subsubsection}{\numberline {4.6.2.1}FlagFull}{13}
+\contentsline {subsubsection}{\numberline {4.6.2.2}FlagStillNotRead}{13}
+\contentsline {subsubsection}{\numberline {4.6.2.3}FlagStillNotWritten}{13}
+\contentsline {subsubsection}{\numberline {4.6.2.4}NReaders}{13}
+\contentsline {subsubsection}{\numberline {4.6.2.5}ReadIndex}{13}
+\contentsline {subsubsection}{\numberline {4.6.2.6}Size}{13}
+\contentsline {subsubsection}{\numberline {4.6.2.7}WriteIndex}{14}
+\contentsline {section}{\numberline {4.7}MATLAB\_\discretionary {-}{}{}DATAHEAD Struct Reference}{15}
+\contentsline {subsection}{\numberline {4.7.1}Detailed Description}{15}
+\contentsline {subsection}{\numberline {4.7.2}Field Documentation}{15}
+\contentsline {subsubsection}{\numberline {4.7.2.1}imagf}{15}
+\contentsline {subsubsection}{\numberline {4.7.2.2}mrows}{15}
+\contentsline {subsubsection}{\numberline {4.7.2.3}namlen}{15}
+\contentsline {subsubsection}{\numberline {4.7.2.4}ncols}{15}
+\contentsline {subsubsection}{\numberline {4.7.2.5}type}{15}
+\contentsline {section}{\numberline {4.8}SERIALPORTCONFIG Struct Reference}{16}
+\contentsline {subsection}{\numberline {4.8.1}Detailed Description}{16}
+\contentsline {subsection}{\numberline {4.8.2}Field Documentation}{16}
+\contentsline {subsubsection}{\numberline {4.8.2.1}ComPortAddress}{16}
+\contentsline {subsubsection}{\numberline {4.8.2.2}ComPortBPS}{16}
+\contentsline {subsubsection}{\numberline {4.8.2.3}ComPortNumber}{16}
+\contentsline {subsubsection}{\numberline {4.8.2.4}FramePeriodUS}{16}
+\contentsline {section}{\numberline {4.9}timestruct\_\discretionary {-}{}{}t Struct Reference}{17}
+\contentsline {subsection}{\numberline {4.9.1}Detailed Description}{17}
+\contentsline {subsection}{\numberline {4.9.2}Field Documentation}{17}
+\contentsline {subsubsection}{\numberline {4.9.2.1}time}{17}
+\contentsline {subsubsection}{\numberline {4.9.2.2}timereset}{17}
+\contentsline {chapter}{\numberline {5}File Documentation}{19}
+\contentsline {section}{\numberline {5.1}demo\_\discretionary {-}{}{}pthread.c File Reference}{19}
+\contentsline {subsection}{\numberline {5.1.1}Define Documentation}{20}
+\contentsline {subsubsection}{\numberline {5.1.1.1}ENABLE\_\discretionary {-}{}{}SPEAKER\_\discretionary {-}{}{}TEST}{20}
+\contentsline {subsubsection}{\numberline {5.1.1.2}SPEAKER\_\discretionary {-}{}{}CNTRL}{20}
+\contentsline {subsubsection}{\numberline {5.1.1.3}TASK\_\discretionary {-}{}{}PERIOD\_\discretionary {-}{}{}US}{20}
+\contentsline {subsection}{\numberline {5.1.2}Function Documentation}{20}
+\contentsline {subsubsection}{\numberline {5.1.2.1}getch}{20}
+\contentsline {subsubsection}{\numberline {5.1.2.2}kbhit}{21}
+\contentsline {subsubsection}{\numberline {5.1.2.3}main}{21}
+\contentsline {subsubsection}{\numberline {5.1.2.4}timer\_\discretionary {-}{}{}function}{22}
+\contentsline {subsubsection}{\numberline {5.1.2.5}timer\_\discretionary {-}{}{}function}{23}
+\contentsline {subsubsection}{\numberline {5.1.2.6}timer\_\discretionary {-}{}{}start}{24}
+\contentsline {subsubsection}{\numberline {5.1.2.7}timer\_\discretionary {-}{}{}stop}{24}
+\contentsline {subsection}{\numberline {5.1.3}Variable Documentation}{25}
+\contentsline {subsubsection}{\numberline {5.1.3.1}counter}{25}
+\contentsline {subsubsection}{\numberline {5.1.3.2}gDataLogger}{25}
+\contentsline {subsubsection}{\numberline {5.1.3.3}MatA}{25}
+\contentsline {subsubsection}{\numberline {5.1.3.4}MatB}{25}
+\contentsline {subsubsection}{\numberline {5.1.3.5}tempo}{25}
+\contentsline {subsubsection}{\numberline {5.1.3.6}Tglobal}{25}
+\contentsline {subsubsection}{\numberline {5.1.3.7}timer}{25}
+\contentsline {subsubsection}{\numberline {5.1.3.8}timer\_\discretionary {-}{}{}nr}{25}
+\contentsline {section}{\numberline {5.2}demo\_\discretionary {-}{}{}xenomai.c File Reference}{26}
+\contentsline {subsection}{\numberline {5.2.1}Define Documentation}{26}
+\contentsline {subsubsection}{\numberline {5.2.1.1}TASK1\_\discretionary {-}{}{}PERIOD\_\discretionary {-}{}{}IN\_\discretionary {-}{}{}NANO}{26}
+\contentsline {subsubsection}{\numberline {5.2.1.2}TASK2\_\discretionary {-}{}{}PERIOD\_\discretionary {-}{}{}IN\_\discretionary {-}{}{}NANO}{26}
+\contentsline {subsection}{\numberline {5.2.2}Function Documentation}{27}
+\contentsline {subsubsection}{\numberline {5.2.2.1}catch\_\discretionary {-}{}{}signal}{27}
+\contentsline {subsubsection}{\numberline {5.2.2.2}getch}{27}
+\contentsline {subsubsection}{\numberline {5.2.2.3}kbhit}{27}
+\contentsline {subsubsection}{\numberline {5.2.2.4}main}{28}
+\contentsline {subsubsection}{\numberline {5.2.2.5}periodicThread\_\discretionary {-}{}{}handler1}{29}
+\contentsline {subsubsection}{\numberline {5.2.2.6}periodicThread\_\discretionary {-}{}{}handler2}{30}
+\contentsline {subsection}{\numberline {5.2.3}Variable Documentation}{30}
+\contentsline {subsubsection}{\numberline {5.2.3.1}gDataLogger}{30}
+\contentsline {subsubsection}{\numberline {5.2.3.2}MatA}{31}
+\contentsline {subsubsection}{\numberline {5.2.3.3}MatB}{31}
+\contentsline {section}{\numberline {5.3}eval.c File Reference}{32}
+\contentsline {subsection}{\numberline {5.3.1}Define Documentation}{32}
+\contentsline {subsubsection}{\numberline {5.3.1.1}TASK1\_\discretionary {-}{}{}PERIOD\_\discretionary {-}{}{}IN\_\discretionary {-}{}{}NANO}{32}
+\contentsline {subsubsection}{\numberline {5.3.1.2}TASK2\_\discretionary {-}{}{}PERIOD\_\discretionary {-}{}{}IN\_\discretionary {-}{}{}NANO}{32}
+\contentsline {subsection}{\numberline {5.3.2}Function Documentation}{32}
+\contentsline {subsubsection}{\numberline {5.3.2.1}catch\_\discretionary {-}{}{}signal}{32}
+\contentsline {subsubsection}{\numberline {5.3.2.2}main}{33}
+\contentsline {subsubsection}{\numberline {5.3.2.3}periodicThread\_\discretionary {-}{}{}handler1}{33}
+\contentsline {subsubsection}{\numberline {5.3.2.4}periodicThread\_\discretionary {-}{}{}handler2}{34}
+\contentsline {subsection}{\numberline {5.3.3}Variable Documentation}{35}
+\contentsline {subsubsection}{\numberline {5.3.3.1}bps}{35}
+\contentsline {section}{\numberline {5.4}gdatalogger.c File Reference}{36}
+\contentsline {subsection}{\numberline {5.4.1}Function Documentation}{36}
+\contentsline {subsubsection}{\numberline {5.4.1.1}gDataLogger\_\discretionary {-}{}{}Close}{36}
+\contentsline {subsubsection}{\numberline {5.4.1.2}gDataLogger\_\discretionary {-}{}{}DeclareVariable}{37}
+\contentsline {subsubsection}{\numberline {5.4.1.3}gDataLogger\_\discretionary {-}{}{}Init}{38}
+\contentsline {subsubsection}{\numberline {5.4.1.4}gDataLogger\_\discretionary {-}{}{}InsertVariable}{40}
+\contentsline {subsubsection}{\numberline {5.4.1.5}gDataLogger\_\discretionary {-}{}{}IPC\_\discretionary {-}{}{}RetrieveVariable}{41}
+\contentsline {subsubsection}{\numberline {5.4.1.6}gDataLogger\_\discretionary {-}{}{}IPCUpdate}{42}
+\contentsline {subsubsection}{\numberline {5.4.1.7}gDataLogger\_\discretionary {-}{}{}MatfileUpdate}{43}
+\contentsline {section}{\numberline {5.5}gdatalogger.h File Reference}{44}
+\contentsline {subsection}{\numberline {5.5.1}Define Documentation}{44}
+\contentsline {subsubsection}{\numberline {5.5.1.1}GDATALOGGER\_\discretionary {-}{}{}IPC\_\discretionary {-}{}{}FLAGDATAAVAILABLE}{44}
+\contentsline {subsubsection}{\numberline {5.5.1.2}GDATALOGGER\_\discretionary {-}{}{}IPC\_\discretionary {-}{}{}FLAGIDDLE}{45}
+\contentsline {subsubsection}{\numberline {5.5.1.3}GDATALOGGER\_\discretionary {-}{}{}IPC\_\discretionary {-}{}{}FLAGNOTEXIST}{45}
+\contentsline {subsubsection}{\numberline {5.5.1.4}GDATALOGGER\_\discretionary {-}{}{}IPC\_\discretionary {-}{}{}FLAGREQUESTDATA}{45}
+\contentsline {subsubsection}{\numberline {5.5.1.5}GDATALOGGER\_\discretionary {-}{}{}IPC\_\discretionary {-}{}{}FLAGTIMEOUT}{45}
+\contentsline {subsubsection}{\numberline {5.5.1.6}GDATALOGGER\_\discretionary {-}{}{}IPC\_\discretionary {-}{}{}MAXQUEUESIZE}{45}
+\contentsline {subsubsection}{\numberline {5.5.1.7}GDATALOGGER\_\discretionary {-}{}{}IPC\_\discretionary {-}{}{}STATEFILE}{45}
+\contentsline {subsubsection}{\numberline {5.5.1.8}GDATALOGGER\_\discretionary {-}{}{}MAXVARIABLES}{45}
+\contentsline {subsubsection}{\numberline {5.5.1.9}QUEUE\_\discretionary {-}{}{}DESTINATION\_\discretionary {-}{}{}FILE}{45}
+\contentsline {subsubsection}{\numberline {5.5.1.10}QUEUE\_\discretionary {-}{}{}DESTINATION\_\discretionary {-}{}{}IPC}{45}
+\contentsline {subsubsection}{\numberline {5.5.1.11}QUEUE\_\discretionary {-}{}{}DESTINATION\_\discretionary {-}{}{}USER1}{45}
+\contentsline {subsubsection}{\numberline {5.5.1.12}QUEUE\_\discretionary {-}{}{}DESTINATION\_\discretionary {-}{}{}USER2}{45}
+\contentsline {subsubsection}{\numberline {5.5.1.13}QUEUE\_\discretionary {-}{}{}MAXDESTINATIONS}{45}
+\contentsline {subsection}{\numberline {5.5.2}Typedef Documentation}{46}
+\contentsline {subsubsection}{\numberline {5.5.2.1}PGDATALOGGER}{46}
+\contentsline {subsubsection}{\numberline {5.5.2.2}PGDATALOGGERVARIABLE}{46}
+\contentsline {subsection}{\numberline {5.5.3}Function Documentation}{46}
+\contentsline {subsubsection}{\numberline {5.5.3.1}gDataLogger\_\discretionary {-}{}{}Close}{46}
+\contentsline {subsubsection}{\numberline {5.5.3.2}gDataLogger\_\discretionary {-}{}{}DeclareVariable}{47}
+\contentsline {subsubsection}{\numberline {5.5.3.3}gDataLogger\_\discretionary {-}{}{}Init}{47}
+\contentsline {subsubsection}{\numberline {5.5.3.4}gDataLogger\_\discretionary {-}{}{}InsertVariable}{50}
+\contentsline {subsubsection}{\numberline {5.5.3.5}gDataLogger\_\discretionary {-}{}{}IPC\_\discretionary {-}{}{}RetrieveVariable}{50}
+\contentsline {subsubsection}{\numberline {5.5.3.6}gDataLogger\_\discretionary {-}{}{}IPCUpdate}{51}
+\contentsline {subsubsection}{\numberline {5.5.3.7}gDataLogger\_\discretionary {-}{}{}MatfileUpdate}{52}
+\contentsline {section}{\numberline {5.6}gdatalogger\_\discretionary {-}{}{}ipc\_\discretionary {-}{}{}retrievevariable.c File Reference}{54}
+\contentsline {subsection}{\numberline {5.6.1}Function Documentation}{54}
+\contentsline {subsubsection}{\numberline {5.6.1.1}mexFunction}{54}
+\contentsline {section}{\numberline {5.7}gdatalogger\_\discretionary {-}{}{}ipc\_\discretionary {-}{}{}retrievevariable.c File Reference}{56}
+\contentsline {subsection}{\numberline {5.7.1}Function Documentation}{56}
+\contentsline {subsubsection}{\numberline {5.7.1.1}mexFunction}{56}
+\contentsline {section}{\numberline {5.8}gdatalogger\_\discretionary {-}{}{}ipc\_\discretionary {-}{}{}retrievevariable.c File Reference}{58}
+\contentsline {subsection}{\numberline {5.8.1}Function Documentation}{58}
+\contentsline {subsubsection}{\numberline {5.8.1.1}mexFunction}{58}
+\contentsline {section}{\numberline {5.9}gmatlabdatafile.c File Reference}{60}
+\contentsline {subsection}{\numberline {5.9.1}Typedef Documentation}{60}
+\contentsline {subsubsection}{\numberline {5.9.1.1}PMATLAB\_\discretionary {-}{}{}DATAHEAD}{60}
+\contentsline {subsection}{\numberline {5.9.2}Function Documentation}{60}
+\contentsline {subsubsection}{\numberline {5.9.2.1}gMATLABDataFile\_\discretionary {-}{}{}Close}{60}
+\contentsline {subsubsection}{\numberline {5.9.2.2}gMATLABDataFile\_\discretionary {-}{}{}OpenRead}{60}
+\contentsline {subsubsection}{\numberline {5.9.2.3}gMATLABDataFile\_\discretionary {-}{}{}OpenWrite}{61}
+\contentsline {subsubsection}{\numberline {5.9.2.4}gMATLABDataFile\_\discretionary {-}{}{}SaveMatrix}{61}
+\contentsline {subsubsection}{\numberline {5.9.2.5}gMATLABDataFile\_\discretionary {-}{}{}SaveVector}{62}
+\contentsline {section}{\numberline {5.10}gmatlabdatafile.h File Reference}{63}
+\contentsline {subsection}{\numberline {5.10.1}Define Documentation}{63}
+\contentsline {subsubsection}{\numberline {5.10.1.1}FALSE}{63}
+\contentsline {subsubsection}{\numberline {5.10.1.2}TRUE}{63}
+\contentsline {subsection}{\numberline {5.10.2}Typedef Documentation}{64}
+\contentsline {subsubsection}{\numberline {5.10.2.1}PGMATLABDATAFILECONFIG}{64}
+\contentsline {subsection}{\numberline {5.10.3}Function Documentation}{64}
+\contentsline {subsubsection}{\numberline {5.10.3.1}gMATLABDataFile\_\discretionary {-}{}{}Close}{64}
+\contentsline {subsubsection}{\numberline {5.10.3.2}gMATLABDataFile\_\discretionary {-}{}{}OpenRead}{64}
+\contentsline {subsubsection}{\numberline {5.10.3.3}gMATLABDataFile\_\discretionary {-}{}{}OpenWrite}{64}
+\contentsline {subsubsection}{\numberline {5.10.3.4}gMATLABDataFile\_\discretionary {-}{}{}SaveMatrix}{65}
+\contentsline {subsubsection}{\numberline {5.10.3.5}gMATLABDataFile\_\discretionary {-}{}{}SaveVector}{65}
+\contentsline {section}{\numberline {5.11}gqueue.c File Reference}{67}
+\contentsline {subsection}{\numberline {5.11.1}Define Documentation}{67}
+\contentsline {subsubsection}{\numberline {5.11.1.1}BEGIN\_\discretionary {-}{}{}ATOMIC}{67}
+\contentsline {subsubsection}{\numberline {5.11.1.2}END\_\discretionary {-}{}{}ATOMIC}{67}
+\contentsline {subsection}{\numberline {5.11.2}Function Documentation}{67}
+\contentsline {subsubsection}{\numberline {5.11.2.1}gQUEUE\_\discretionary {-}{}{}GetNumberOfUnreadData}{67}
+\contentsline {subsubsection}{\numberline {5.11.2.2}gQUEUE\_\discretionary {-}{}{}GetReadIndex}{68}
+\contentsline {subsubsection}{\numberline {5.11.2.3}gQUEUE\_\discretionary {-}{}{}GetWriteIndex}{68}
+\contentsline {subsubsection}{\numberline {5.11.2.4}gQUEUE\_\discretionary {-}{}{}Init}{69}
+\contentsline {subsubsection}{\numberline {5.11.2.5}gQUEUE\_\discretionary {-}{}{}RequestLastReadIndex}{69}
+\contentsline {subsubsection}{\numberline {5.11.2.6}gQUEUE\_\discretionary {-}{}{}RequestReadIndex}{70}
+\contentsline {subsubsection}{\numberline {5.11.2.7}gQUEUE\_\discretionary {-}{}{}RequestWriteIndex}{71}
+\contentsline {subsubsection}{\numberline {5.11.2.8}gQUEUE\_\discretionary {-}{}{}UnwrapReadIndex}{71}
+\contentsline {subsubsection}{\numberline {5.11.2.9}gQUEUE\_\discretionary {-}{}{}UnwrapWriteIndex}{72}
+\contentsline {section}{\numberline {5.12}gqueue.h File Reference}{73}
+\contentsline {subsection}{\numberline {5.12.1}Define Documentation}{73}
+\contentsline {subsubsection}{\numberline {5.12.1.1}FALSE}{73}
+\contentsline {subsubsection}{\numberline {5.12.1.2}GQUEUE\_\discretionary {-}{}{}RTAI\_\discretionary {-}{}{}SUPPORT}{73}
+\contentsline {subsubsection}{\numberline {5.12.1.3}MAXSIZE\_\discretionary {-}{}{}QUEUE\_\discretionary {-}{}{}READ\_\discretionary {-}{}{}GATES}{74}
+\contentsline {subsubsection}{\numberline {5.12.1.4}QUEUE\_\discretionary {-}{}{}READ\_\discretionary {-}{}{}GATE\_\discretionary {-}{}{}0}{74}
+\contentsline {subsubsection}{\numberline {5.12.1.5}QUEUE\_\discretionary {-}{}{}READ\_\discretionary {-}{}{}GATE\_\discretionary {-}{}{}1}{74}
+\contentsline {subsubsection}{\numberline {5.12.1.6}QUEUE\_\discretionary {-}{}{}READ\_\discretionary {-}{}{}GATE\_\discretionary {-}{}{}2}{74}
+\contentsline {subsubsection}{\numberline {5.12.1.7}QUEUE\_\discretionary {-}{}{}READ\_\discretionary {-}{}{}GATE\_\discretionary {-}{}{}3}{74}
+\contentsline {subsubsection}{\numberline {5.12.1.8}QUEUE\_\discretionary {-}{}{}READ\_\discretionary {-}{}{}GATE\_\discretionary {-}{}{}4}{74}
+\contentsline {subsubsection}{\numberline {5.12.1.9}TRUE}{74}
+\contentsline {subsection}{\numberline {5.12.2}Typedef Documentation}{74}
+\contentsline {subsubsection}{\numberline {5.12.2.1}PGQUEUECONTROL}{74}
+\contentsline {subsection}{\numberline {5.12.3}Function Documentation}{74}
+\contentsline {subsubsection}{\numberline {5.12.3.1}gQUEUE\_\discretionary {-}{}{}GetNumberOfUnreadData}{74}
+\contentsline {subsubsection}{\numberline {5.12.3.2}gQUEUE\_\discretionary {-}{}{}GetReadIndex}{75}
+\contentsline {subsubsection}{\numberline {5.12.3.3}gQUEUE\_\discretionary {-}{}{}GetWriteIndex}{75}
+\contentsline {subsubsection}{\numberline {5.12.3.4}gQUEUE\_\discretionary {-}{}{}Init}{76}
+\contentsline {subsubsection}{\numberline {5.12.3.5}gQUEUE\_\discretionary {-}{}{}RequestLastReadIndex}{76}
+\contentsline {subsubsection}{\numberline {5.12.3.6}gQUEUE\_\discretionary {-}{}{}RequestReadIndex}{77}
+\contentsline {subsubsection}{\numberline {5.12.3.7}gQUEUE\_\discretionary {-}{}{}RequestWriteIndex}{77}
+\contentsline {subsubsection}{\numberline {5.12.3.8}gQUEUE\_\discretionary {-}{}{}UnwrapReadIndex}{78}
+\contentsline {subsubsection}{\numberline {5.12.3.9}gQUEUE\_\discretionary {-}{}{}UnwrapWriteIndex}{78}
+\contentsline {section}{\numberline {5.13}keyboard.c File Reference}{79}
+\contentsline {subsection}{\numberline {5.13.1}Function Documentation}{79}
+\contentsline {subsubsection}{\numberline {5.13.1.1}getch}{79}
+\contentsline {subsubsection}{\numberline {5.13.1.2}kbhit}{79}
+\contentsline {section}{\numberline {5.14}keyboard.h File Reference}{81}
+\contentsline {subsection}{\numberline {5.14.1}Detailed Description}{81}
+\contentsline {subsection}{\numberline {5.14.2}Function Documentation}{81}
+\contentsline {subsubsection}{\numberline {5.14.2.1}getch}{81}
+\contentsline {subsubsection}{\numberline {5.14.2.2}kbhit}{81}
+\contentsline {section}{\numberline {5.15}main.c File Reference}{83}
+\contentsline {subsection}{\numberline {5.15.1}Detailed Description}{83}
+\contentsline {subsection}{\numberline {5.15.2}Define Documentation}{84}
+\contentsline {subsubsection}{\numberline {5.15.2.1}MAIN\_\discretionary {-}{}{}MODULE\_\discretionary {-}{}{}CLOSE}{84}
+\contentsline {subsubsection}{\numberline {5.15.2.2}MAIN\_\discretionary {-}{}{}MODULE\_\discretionary {-}{}{}INIT}{84}
+\contentsline {subsection}{\numberline {5.15.3}Function Documentation}{84}
+\contentsline {subsubsection}{\numberline {5.15.3.1}catch\_\discretionary {-}{}{}signal}{84}
+\contentsline {subsubsection}{\numberline {5.15.3.2}main}{84}
+\contentsline {subsection}{\numberline {5.15.4}Variable Documentation}{85}
+\contentsline {subsubsection}{\numberline {5.15.4.1}flag\_\discretionary {-}{}{}quit}{85}
+\contentsline {section}{\numberline {5.16}rdtsctime.h File Reference}{86}
+\contentsline {subsection}{\numberline {5.16.1}Define Documentation}{86}
+\contentsline {subsubsection}{\numberline {5.16.1.1}RDTSC\_\discretionary {-}{}{}GetClock}{86}
+\contentsline {subsubsection}{\numberline {5.16.1.2}RDTSC\_\discretionary {-}{}{}SetCPUClock}{86}
+\contentsline {subsection}{\numberline {5.16.2}Typedef Documentation}{86}
+\contentsline {subsubsection}{\numberline {5.16.2.1}PCLOCK\_\discretionary {-}{}{}COUNTER}{86}
+\contentsline {subsection}{\numberline {5.16.3}Function Documentation}{86}
+\contentsline {subsubsection}{\numberline {5.16.3.1}RDTSC\_\discretionary {-}{}{}ComputeTimeInterval}{86}
+\contentsline {subsection}{\numberline {5.16.4}Variable Documentation}{87}
+\contentsline {subsubsection}{\numberline {5.16.4.1}\_\discretionary {-}{}{}\_\discretionary {-}{}{}CpuFreq}{87}
+\contentsline {section}{\numberline {5.17}robot.c File Reference}{88}
+\contentsline {subsection}{\numberline {5.17.1}Function Documentation}{88}
+\contentsline {subsubsection}{\numberline {5.17.1.1}robot\_\discretionary {-}{}{}close}{88}
+\contentsline {subsubsection}{\numberline {5.17.1.2}robot\_\discretionary {-}{}{}get\_\discretionary {-}{}{}time}{89}
+\contentsline {subsubsection}{\numberline {5.17.1.3}robot\_\discretionary {-}{}{}init}{89}
+\contentsline {subsubsection}{\numberline {5.17.1.4}robot\_\discretionary {-}{}{}set\_\discretionary {-}{}{}servos\_\discretionary {-}{}{}move}{89}
+\contentsline {section}{\numberline {5.18}robot.h File Reference}{91}
+\contentsline {subsection}{\numberline {5.18.1}Detailed Description}{91}
+\contentsline {subsection}{\numberline {5.18.2}Function Documentation}{91}
+\contentsline {subsubsection}{\numberline {5.18.2.1}robot\_\discretionary {-}{}{}close}{91}
+\contentsline {subsubsection}{\numberline {5.18.2.2}robot\_\discretionary {-}{}{}get\_\discretionary {-}{}{}time}{91}
+\contentsline {subsubsection}{\numberline {5.18.2.3}robot\_\discretionary {-}{}{}init}{92}
+\contentsline {subsubsection}{\numberline {5.18.2.4}robot\_\discretionary {-}{}{}set\_\discretionary {-}{}{}servos\_\discretionary {-}{}{}move}{92}
+\contentsline {section}{\numberline {5.19}robotserver.c File Reference}{94}
+\contentsline {subsection}{\numberline {5.19.1}Define Documentation}{94}
+\contentsline {subsubsection}{\numberline {5.19.1.1}ROBOTSERVER\_\discretionary {-}{}{}TASK\_\discretionary {-}{}{}DATA\_\discretionary {-}{}{}PERIOD\_\discretionary {-}{}{}NS}{94}
+\contentsline {subsubsection}{\numberline {5.19.1.2}ROBOTSERVER\_\discretionary {-}{}{}TASK\_\discretionary {-}{}{}DATA\_\discretionary {-}{}{}PRIORITY}{95}
+\contentsline {subsubsection}{\numberline {5.19.1.3}ROBOTSERVER\_\discretionary {-}{}{}TASK\_\discretionary {-}{}{}DATA\_\discretionary {-}{}{}STACK}{95}
+\contentsline {subsection}{\numberline {5.19.2}Function Documentation}{95}
+\contentsline {subsubsection}{\numberline {5.19.2.1}robotserver\_\discretionary {-}{}{}close}{95}
+\contentsline {subsubsection}{\numberline {5.19.2.2}robotserver\_\discretionary {-}{}{}data\_\discretionary {-}{}{}task\_\discretionary {-}{}{}handler}{95}
+\contentsline {subsubsection}{\numberline {5.19.2.3}robotserver\_\discretionary {-}{}{}init}{97}
+\contentsline {subsection}{\numberline {5.19.3}Variable Documentation}{98}
+\contentsline {subsubsection}{\numberline {5.19.3.1}robotserver\_\discretionary {-}{}{}camera\_\discretionary {-}{}{}task}{98}
+\contentsline {subsubsection}{\numberline {5.19.3.2}robotserver\_\discretionary {-}{}{}data\_\discretionary {-}{}{}task}{98}
+\contentsline {section}{\numberline {5.20}robotserver.h File Reference}{99}
+\contentsline {subsection}{\numberline {5.20.1}Detailed Description}{99}
+\contentsline {subsection}{\numberline {5.20.2}Function Documentation}{99}
+\contentsline {subsubsection}{\numberline {5.20.2.1}robotserver\_\discretionary {-}{}{}close}{99}
+\contentsline {subsubsection}{\numberline {5.20.2.2}robotserver\_\discretionary {-}{}{}init}{99}
+\contentsline {section}{\numberline {5.21}serialcom-\/sb16c1052pci-\/xenomai.c File Reference}{101}
+\contentsline {subsection}{\numberline {5.21.1}Define Documentation}{102}
+\contentsline {subsubsection}{\numberline {5.21.1.1}PCI\_\discretionary {-}{}{}DEVICE\_\discretionary {-}{}{}ID\_\discretionary {-}{}{}MP1}{102}
+\contentsline {subsubsection}{\numberline {5.21.1.2}PCI\_\discretionary {-}{}{}DEVICE\_\discretionary {-}{}{}ID\_\discretionary {-}{}{}MP2}{102}
+\contentsline {subsubsection}{\numberline {5.21.1.3}PCI\_\discretionary {-}{}{}VENDOR\_\discretionary {-}{}{}ID\_\discretionary {-}{}{}MULTIPORT}{102}
+\contentsline {subsubsection}{\numberline {5.21.1.4}serialcom\_\discretionary {-}{}{}delayus}{102}
+\contentsline {subsection}{\numberline {5.21.2}Function Documentation}{102}
+\contentsline {subsubsection}{\numberline {5.21.2.1}serialcom\_\discretionary {-}{}{}close}{102}
+\contentsline {subsubsection}{\numberline {5.21.2.2}serialcom\_\discretionary {-}{}{}init}{102}
+\contentsline {subsubsection}{\numberline {5.21.2.3}serialcom\_\discretionary {-}{}{}pci\_\discretionary {-}{}{}close\_\discretionary {-}{}{}device}{104}
+\contentsline {subsubsection}{\numberline {5.21.2.4}serialcom\_\discretionary {-}{}{}pci\_\discretionary {-}{}{}find\_\discretionary {-}{}{}device}{104}
+\contentsline {subsubsection}{\numberline {5.21.2.5}serialcom\_\discretionary {-}{}{}receivebyte}{105}
+\contentsline {subsubsection}{\numberline {5.21.2.6}serialcom\_\discretionary {-}{}{}semsignal}{106}
+\contentsline {subsubsection}{\numberline {5.21.2.7}serialcom\_\discretionary {-}{}{}semwait}{107}
+\contentsline {subsubsection}{\numberline {5.21.2.8}serialcom\_\discretionary {-}{}{}sendbyte}{107}
+\contentsline {subsubsection}{\numberline {5.21.2.9}serialcom\_\discretionary {-}{}{}status}{109}
+\contentsline {subsection}{\numberline {5.21.3}Variable Documentation}{109}
+\contentsline {subsubsection}{\numberline {5.21.3.1}pComPortSemaphores}{109}
+\contentsline {section}{\numberline {5.22}serialcom.c File Reference}{110}
+\contentsline {subsection}{\numberline {5.22.1}Define Documentation}{110}
+\contentsline {subsubsection}{\numberline {5.22.1.1}SERIALCOM\_\discretionary {-}{}{}COMPORTADDRESS\_\discretionary {-}{}{}1}{110}
+\contentsline {subsubsection}{\numberline {5.22.1.2}SERIALCOM\_\discretionary {-}{}{}COMPORTADDRESS\_\discretionary {-}{}{}2}{111}
+\contentsline {subsubsection}{\numberline {5.22.1.3}SERIALCOM\_\discretionary {-}{}{}COMPORTADDRESS\_\discretionary {-}{}{}3}{111}
+\contentsline {subsubsection}{\numberline {5.22.1.4}SERIALCOM\_\discretionary {-}{}{}COMPORTADDRESS\_\discretionary {-}{}{}4}{111}
+\contentsline {subsubsection}{\numberline {5.22.1.5}serialcom\_\discretionary {-}{}{}delayus}{111}
+\contentsline {subsection}{\numberline {5.22.2}Function Documentation}{111}
+\contentsline {subsubsection}{\numberline {5.22.2.1}serialcom\_\discretionary {-}{}{}close}{111}
+\contentsline {subsubsection}{\numberline {5.22.2.2}serialcom\_\discretionary {-}{}{}init}{111}
+\contentsline {subsubsection}{\numberline {5.22.2.3}serialcom\_\discretionary {-}{}{}receivebyte}{113}
+\contentsline {subsubsection}{\numberline {5.22.2.4}serialcom\_\discretionary {-}{}{}semsignal}{114}
+\contentsline {subsubsection}{\numberline {5.22.2.5}serialcom\_\discretionary {-}{}{}semwait}{114}
+\contentsline {subsubsection}{\numberline {5.22.2.6}serialcom\_\discretionary {-}{}{}sendbyte}{115}
+\contentsline {subsubsection}{\numberline {5.22.2.7}serialcom\_\discretionary {-}{}{}status}{116}
+\contentsline {subsection}{\numberline {5.22.3}Variable Documentation}{117}
+\contentsline {subsubsection}{\numberline {5.22.3.1}pComPortSemaphores}{117}
+\contentsline {section}{\numberline {5.23}serialcom.h File Reference}{118}
+\contentsline {subsection}{\numberline {5.23.1}Define Documentation}{119}
+\contentsline {subsubsection}{\numberline {5.23.1.1}serialcom\_\discretionary {-}{}{}}{119}
+\contentsline {subsubsection}{\numberline {5.23.1.2}SERIALCOM\_\discretionary {-}{}{}ERROR\_\discretionary {-}{}{}BREAK\_\discretionary {-}{}{}INTERRUPT}{119}
+\contentsline {subsubsection}{\numberline {5.23.1.3}SERIALCOM\_\discretionary {-}{}{}ERROR\_\discretionary {-}{}{}DEVICENOTFOUND}{119}
+\contentsline {subsubsection}{\numberline {5.23.1.4}SERIALCOM\_\discretionary {-}{}{}ERROR\_\discretionary {-}{}{}FRAMING\_\discretionary {-}{}{}ERROR}{119}
+\contentsline {subsubsection}{\numberline {5.23.1.5}SERIALCOM\_\discretionary {-}{}{}ERROR\_\discretionary {-}{}{}INCORRECTPORTNUMBER}{119}
+\contentsline {subsubsection}{\numberline {5.23.1.6}SERIALCOM\_\discretionary {-}{}{}ERROR\_\discretionary {-}{}{}IOPL}{119}
+\contentsline {subsubsection}{\numberline {5.23.1.7}SERIALCOM\_\discretionary {-}{}{}ERROR\_\discretionary {-}{}{}MAXBPSPRECISION}{119}
+\contentsline {subsubsection}{\numberline {5.23.1.8}SERIALCOM\_\discretionary {-}{}{}ERROR\_\discretionary {-}{}{}MAXWAITENDOFTRANSMISSION}{119}
+\contentsline {subsubsection}{\numberline {5.23.1.9}SERIALCOM\_\discretionary {-}{}{}ERROR\_\discretionary {-}{}{}MAXWAITFORRECEPTION}{119}
+\contentsline {subsubsection}{\numberline {5.23.1.10}SERIALCOM\_\discretionary {-}{}{}ERROR\_\discretionary {-}{}{}OVERRUN\_\discretionary {-}{}{}ERROR}{119}
+\contentsline {subsubsection}{\numberline {5.23.1.11}SERIALCOM\_\discretionary {-}{}{}ERROR\_\discretionary {-}{}{}PARITY\_\discretionary {-}{}{}ERROR}{119}
+\contentsline {subsubsection}{\numberline {5.23.1.12}SERIALCOM\_\discretionary {-}{}{}ERROR\_\discretionary {-}{}{}RX\_\discretionary {-}{}{}FIFO}{120}
+\contentsline {subsubsection}{\numberline {5.23.1.13}SERIALCOM\_\discretionary {-}{}{}MAXBPSPRECISION}{120}
+\contentsline {subsubsection}{\numberline {5.23.1.14}SERIALCOM\_\discretionary {-}{}{}STATUSMASK\_\discretionary {-}{}{}BREAK\_\discretionary {-}{}{}INTERRUPT}{120}
+\contentsline {subsubsection}{\numberline {5.23.1.15}SERIALCOM\_\discretionary {-}{}{}STATUSMASK\_\discretionary {-}{}{}EMPTY\_\discretionary {-}{}{}DH\_\discretionary {-}{}{}REGISTERS}{120}
+\contentsline {subsubsection}{\numberline {5.23.1.16}SERIALCOM\_\discretionary {-}{}{}STATUSMASK\_\discretionary {-}{}{}EMPTY\_\discretionary {-}{}{}TX\_\discretionary {-}{}{}REGISTER}{120}
+\contentsline {subsubsection}{\numberline {5.23.1.17}SERIALCOM\_\discretionary {-}{}{}STATUSMASK\_\discretionary {-}{}{}ERROR\_\discretionary {-}{}{}RX\_\discretionary {-}{}{}FIFO}{120}
+\contentsline {subsubsection}{\numberline {5.23.1.18}SERIALCOM\_\discretionary {-}{}{}STATUSMASK\_\discretionary {-}{}{}FRAMING\_\discretionary {-}{}{}ERROR}{120}
+\contentsline {subsubsection}{\numberline {5.23.1.19}SERIALCOM\_\discretionary {-}{}{}STATUSMASK\_\discretionary {-}{}{}OVERRUN\_\discretionary {-}{}{}ERROR}{120}
+\contentsline {subsubsection}{\numberline {5.23.1.20}SERIALCOM\_\discretionary {-}{}{}STATUSMASK\_\discretionary {-}{}{}PARITY\_\discretionary {-}{}{}ERROR}{120}
+\contentsline {subsubsection}{\numberline {5.23.1.21}SERIALCOM\_\discretionary {-}{}{}STATUSMASK\_\discretionary {-}{}{}RX\_\discretionary {-}{}{}DATA\_\discretionary {-}{}{}READY}{120}
+\contentsline {subsubsection}{\numberline {5.23.1.22}SERIALCOM\_\discretionary {-}{}{}SUCCESS}{121}
+\contentsline {subsubsection}{\numberline {5.23.1.23}SERIALCOM\_\discretionary {-}{}{}USE\_\discretionary {-}{}{}RS485}{121}
+\contentsline {subsection}{\numberline {5.23.2}Typedef Documentation}{121}
+\contentsline {subsubsection}{\numberline {5.23.2.1}PSERIALPORTCONFIG}{121}
+\contentsline {subsection}{\numberline {5.23.3}Function Documentation}{121}
+\contentsline {subsubsection}{\numberline {5.23.3.1}serialcom\_\discretionary {-}{}{}close}{121}
+\contentsline {subsubsection}{\numberline {5.23.3.2}serialcom\_\discretionary {-}{}{}init}{121}
+\contentsline {subsubsection}{\numberline {5.23.3.3}serialcom\_\discretionary {-}{}{}receivebyte}{123}
+\contentsline {subsubsection}{\numberline {5.23.3.4}serialcom\_\discretionary {-}{}{}semsignal}{124}
+\contentsline {subsubsection}{\numberline {5.23.3.5}serialcom\_\discretionary {-}{}{}semwait}{125}
+\contentsline {subsubsection}{\numberline {5.23.3.6}serialcom\_\discretionary {-}{}{}sendbyte}{125}
+\contentsline {subsubsection}{\numberline {5.23.3.7}serialcom\_\discretionary {-}{}{}status}{127}
+\contentsline {section}{\numberline {5.24}time.h File Reference}{128}
+\contentsline {subsection}{\numberline {5.24.1}Detailed Description}{128}
+\contentsline {subsection}{\numberline {5.24.2}Function Documentation}{128}
+\contentsline {subsubsection}{\numberline {5.24.2.1}time\_\discretionary {-}{}{}gettime}{128}
+\contentsline {subsubsection}{\numberline {5.24.2.2}time\_\discretionary {-}{}{}reset}{128}

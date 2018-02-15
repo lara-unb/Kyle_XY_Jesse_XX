@@ -15,7 +15,7 @@
 
 ##Servos Do Manipulador
 
->>>	Base(1º grau):	Hitec HS-
+>>>	Base(1º grau):	Hitec HS- 755HB
 
 >>>	(2º grau):		Hitec HS-755HB
 
