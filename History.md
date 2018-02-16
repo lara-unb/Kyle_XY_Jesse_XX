@@ -97,3 +97,9 @@
 
 ##__01-02-2018__
 >	Tentativa e sucesso em comunicar SSC-32 via ROS com um notebook. Para isso foi usado ROS driver encontrado em https://github.com/smd-ros-devel/lynxmotion_ssc32.
+
+## ... __15/02/2018__
+>	SSC-32 não executava pulso completo até chegar a posição desejado. Problema resolvido: A placa não funciona muito bem com apenas uma fonte para ela e os servos.
+
+##__16/02/2018__
+>	Programa basico de mandar comandos via serial feito. 
