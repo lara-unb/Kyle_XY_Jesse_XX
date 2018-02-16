@@ -75,31 +75,31 @@
 
 ## Participantes: Gabriel e Felipe
 
-##__23-10-2017 ... 27-10-2017__
+## __23-10-2017 ... 27-10-2017__
 
 >	(Gabriel) Aprendendo tudo que o Felipe descobriu e tentando entender o funcionamento do sistema com as PCB.
 
-##__30-10-2017 ... 14-11-2017__
+## __30-10-2017 ... 14-11-2017__
 >	Duas reuniões com o professor Geovany sendo a primeira no dia 07 segunda no dia 14.
 	Na primeira o houve uma introdução básica do projeto explicando melhor o funcionamento. 
 	Foi passado como tarefa a análise do hardware geral pra decidir se era possível substituir as PCB's por uma SSC-32
 	Na segunda foi decidido a substituição das PCB's pela SSC-32.
 	Das 19:00hrs do dia 13 até as 04:00hrs do dia 14 ficamos aprendendo sobre os servos dos manipuladores e sobre a SSC-32. Testamos o funcionamento de tudo através de um Arduíno uno.  
 
-##__15-11-2017__
+## __15-11-2017__
 >	Foi criado pelo professor Geovany o diretório no GitHub onde colocamos todas informações até o momento na branch Master.
 
-##__15-01-2018 ... 26-01-2018__
+## __15-01-2018 ... 26-01-2018__
 >	Estudando sobre sobre o antigo funcionamento dos robôs, básico dos tutoriais de ROS.
 
-##__29-01-2018 ... 31-01-2018__
+## __29-01-2018 ... 31-01-2018__
 >	Aprendendo sobre SSC-32 e manipuladores.
 
-##__01-02-2018__
+## __01-02-2018__
 >	Tentativa e sucesso em comunicar SSC-32 via ROS com um notebook. Para isso foi usado ROS driver encontrado em https://github.com/smd-ros-devel/lynxmotion_ssc32.
 
 ## ... __15/02/2018__
 >	SSC-32 não executava pulso completo até chegar a posição desejado. Problema resolvido: A placa não funciona muito bem com apenas uma fonte para ela e os servos.
 
-##__16/02/2018__
+## __16/02/2018__
 >	Programa basico de mandar comandos via serial feito. 
