@@ -9,3 +9,6 @@ A SSC-32 pode ser usada com apenas uma fonte fazendo com que a tensão da placa 
 
 ### Imagem da SSC-32:
 ![alt text](https://github.com/lara-unb/Kyle_XY_Jesse_XX/blob/master/doc/img/SSC32_0.jpg?raw=true)
+
+### Imagem do AL51:
+![alt text](https://github.com/lara-unb/Kyle_XY_Jesse_XX/blob/master/doc/img/AL5A.jpg?raw=true)
