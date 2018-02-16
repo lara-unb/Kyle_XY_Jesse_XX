@@ -5,8 +5,12 @@ O manipulador é um AL5A da Lynxmotion e é controlado usando uma SSC-32 (ATMEGA
 
 A SSC-32 é uma controladora de servos que pode controlar até 32 servos simultaneamente. Nesse proejeto a placa será conectada a um PC104 via cabos serial DB9. 
 
-A SSC-32 pode ser usada com apenas uma fonte fazendo com que a tensão da placa e a dos servos seja a mesma de 6V, mas devido a resistência das conexões, ou a outros fatores na eletrônica, a tensão pode cair e dar resetar a SSC-32. Sabendo que a placa funciona melhor com duas fontes, assim será feito nesse projeto.
+### Fontes da SSC-32
+A SSC-32 pode ser usada com apenas uma fonte fazendo com que a tensão da placa e a dos servos seja a mesma de 6vdc, mas devido a resistência das conexões, ou a outros fatores na eletrônica, a tensão pode cair e dar resetar a SSC-32. Sabendo que a placa funciona melhor com duas fontes, assim será feito nesse projeto.
 
+A tensão VL(Logic voltage) deve ser entre 6vdc e 9vdc. As tensões VS1 e VS2 que vão para os servos deve ser entre 4.8vdc e 6.0vdc, pois é a faixa de tensão suportada pela maioria dos servos.
+
+### Comandos da SSC-32
 Há várias formas de comandos para controlar a SSC-32, segue abaixo as mais usadas:
 
 > #5 P1600 T1000
@@ -27,7 +31,7 @@ Esse comando move o servo 5 para a posição 1600 com uma taxa de 750uS por segu
 
 O manipulador tem 6 graus de liberdade.
 
-#### Servos Do Manipulador
+### Servos Do Manipulador
 
 >>>	Base(1º grau):	Hitec HS- 755HB
 
