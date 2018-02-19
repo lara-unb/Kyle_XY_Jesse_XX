@@ -28,14 +28,36 @@ std::string int_to_string(int n)
 int open_port(void)
 {
   int fd; /* File descriptor for the port */
+  struct termios options;
+  int baud = B115200;
 
   fd = open("/dev/ttyUSB0", O_RDWR | O_NOCTTY | O_NDELAY);
-  if (fd == -1)
+  if (fd < 0)
   {
     perror("open_port: Unable to open /dev/ttyUSB0\n"); //It coud not open port
   }
   else
     fcntl(fd, F_SETFL, 0);
+
+  memset(&options, 0, sizeof(options));
+  cfsetispeed( &options, baud );
+  cfsetospeed( &options, baud );
+
+  options.c_iflag = IGNBRK | IGNPAR;
+  options.c_oflag = 0;
+  options.c_cflag |= CREAD | CS8 | CLOCAL;
+  options.c_lflag = 0;
+
+  if( tcsetattr( fd, TCSANOW, &options ) < 0 )
+  {
+    printf( "ERROR: setting termios options\n" );
+    return false;
+  }
+
+  // Make sure queues are empty
+  tcflush( fd, TCIOFLUSH );
+
+  printf( "Successfully opened port /dev/ttyUSB0\n");
 
   return (fd);
 }
