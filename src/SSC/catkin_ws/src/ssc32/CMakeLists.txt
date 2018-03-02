@@ -14,6 +14,7 @@ find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
 )
 
+
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
 
@@ -104,10 +105,10 @@ find_package(catkin REQUIRED COMPONENTS
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES ssc32
-#  CATKIN_DEPENDS roscpp rospy std_msgs
-#  DEPENDS system_lib
+	INCLUDE_DIRS include
+	LIBRARIES ssc32
+	CATKIN_DEPENDS roscpp rospy std_msgs
+	DEPENDS system_lib
 )
 
 ###########
@@ -116,15 +117,15 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-include_directories(
-# include
+
+include_directories(include
   ${catkin_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
-# add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/ssc32.cpp
-# )
+add_library(ssc32 src/ssc32.cpp)
+target_link_libraries(ssc32 ${catkin_LIBRARIES})
+
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -155,6 +156,10 @@ target_link_libraries(ssc32_publisher
 )
 target_link_libraries(ssc32_subscriber
   ${catkin_LIBRARIES}
+)
+
+target_link_libraries(ssc32_subscriber
+	ssc32
 )
 
 #############
@@ -204,3 +209,12 @@ target_link_libraries(ssc32_subscriber
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+
+install(TARGETS ssc32 ssc32_publisher ssc32_subscriber
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+install(DIRECTORY include/${PROJECT_NAME}/
+  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+)
