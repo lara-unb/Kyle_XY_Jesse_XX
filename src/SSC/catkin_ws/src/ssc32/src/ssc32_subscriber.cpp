@@ -14,13 +14,24 @@
 #include <string> 
 #include <stdlib.h>
 #include <sstream>
+//ROS
+#include "ros/ros.h"
+#include "geometry_msgs/Twist.h"
 
+
+
+#include <vector>
+#include "std_msgs/MultiArrayLayout.h"
+#include "std_msgs/MultiArrayDimension.h"
+#include "std_msgs/Int32MultiArray.h"
+int Arr[6];
 
 int fd;
 int servoMinPos = 500;
 int servoMaxPos = 2500;
 int servoMinCh = 0;
 int servoMaxCh = 31;
+
 
 //Convert integer to string
 std::string int_to_string(int n)
@@ -83,6 +94,7 @@ int openPort(void)
   return (fd);
 }
 
+
 // Move the ch servo to postition pos
 void moveServo(int ch, int pos)
 {
@@ -107,21 +119,64 @@ void setServos(int num) {
   }
 }
 
-int main()
-{
-  int fd1 = openPort();
-  fd = fd1;
-  setServos(6);
-  sleep(1);
-  moveServo(5,500);
-  sleep(1);
-  moveServo(5,2500);
-  //moveServo(4,2500);
- // moveServo(1,2000);
-  sleep(1);
-  moveServo(4,500);
-  moveServo(0,2500);
-  
-  close(fd);
 
+void anglesCallback(const std_msgs::Int32MultiArray::ConstPtr& array)
+{
+
+	int i = 0;
+	// print all the remaining numbers
+	for(std::vector<int>::const_iterator it = array->data.begin(); it != array->data.end(); ++it)
+	{
+		Arr[i] = *it;
+		i++;
+	}
+
+	return;
+ 	ROS_INFO("I am here\n");
+}
+
+int main(int argc, char **argv)
+{
+	int fd1 = openPort();
+	fd = fd1;
+	setServos(6);
+
+	ros::init(argc, argv, "ssc32_subscriber");
+	
+	ros::NodeHandle n;
+
+	ros::Subscriber sub = n.subscribe("ssc32/angles", 100, anglesCallback);
+
+
+	while(ros::ok())
+	{
+		for(int j = 0; j < 6; j++)
+		{
+			printf("%d, ", Arr[j]);
+			moveServo(j, Arr[j]);
+		}
+
+		printf("\n");
+
+		ros::spinOnce();
+		sleep(2);
+	}
+
+	/*int fd1 = openPort();
+	fd = fd1;
+	setServos(6);
+	sleep(1);
+	moveServo(5,500);
+	sleep(1);
+	moveServo(5,2500);
+	//moveServo(4,2500);
+ 	// moveServo(1,2000);
+ 	sleep(1);
+ 	moveServo(4,500);
+ 	moveServo(0,2500);
+  
+  close(fd); */
+	close(fd);
+
+	return 0;
 }
