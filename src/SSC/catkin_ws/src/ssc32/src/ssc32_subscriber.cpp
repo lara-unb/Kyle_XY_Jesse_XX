@@ -4,7 +4,6 @@
  * Programa: Básico da comunicação serial e movimentação dos servos
  */
 
-
 #include <iostream>
 #include <string>
 #include <cstdlib>
@@ -42,7 +41,7 @@ int main(int argc, char **argv)
 	ssc::SSC32 ssc32_device;
 	//int ssc32_device.openPort();
 
-	ssc32_device.moveServo(0, 2500);
+	//ssc32_device.moveServo(0, 2500);
 	ros::init(argc, argv, "ssc32_subscriber");
 	
 	ros::NodeHandle n;
@@ -52,32 +51,15 @@ int main(int argc, char **argv)
 
 	while(ros::ok())
 	{
-		for(int j = 0; j < 6; j++)
-		{
-			printf("%d, ", Arr[j]);
-			ssc32_device.moveServo(j, Arr[j]);
-		}
+		ssc32_device.setPos(Arr);
+		ssc32_device.moveServo();
+		
 
 		printf("\n");
 
 		ros::spinOnce();
 		sleep(2);
 	}
-
-	/*int fd1 = openPort();
-	fd = fd1;
-	setServos(6);
-	sleep(1);
-	moveServo(5,500);
-	sleep(1);
-	moveServo(5,2500);
-	//moveServo(4,2500);
- 	// moveServo(1,2000);
- 	sleep(1);
- 	moveServo(4,500);
- 	moveServo(0,2500);
-  
-  close(fd); */
 
 	return 0;
 }

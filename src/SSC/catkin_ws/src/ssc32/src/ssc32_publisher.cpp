@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
 #include "ros/ros.h"
-
 #include "std_msgs/MultiArrayLayout.h"
 #include "std_msgs/MultiArrayDimension.h"
 
@@ -27,11 +25,15 @@ int main(int argc, char **argv)
 	ros::spinOnce();
 	ROS_INFO("I published something!\n");
 
-	int initial = 1000;
+	int initial = 1500;
+	int count = 0;
 
 	while (ros::ok())
 	{
-		initial += 50;
+		if (count % 2 == 0)
+			initial += 500;
+		else
+			initial -= 500;
 		//Clear array
 		array.data.clear();
 		for (int i = 0; i < 6; ++i)
@@ -46,6 +48,7 @@ int main(int argc, char **argv)
 		ros::spinOnce();
 		//Added a delay so not to spam
 		sleep(2);
+		count++;
 	}
 
 }

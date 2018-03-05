@@ -13,10 +13,10 @@
 #include <fcntl.h>   /* File control definitions */
 #include <errno.h>   /* Error number definitions */
 #include <termios.h> /* POSIX terminal control definitions */
-#include <iostream>
-#include <string> 
+#include <iostream> 
 #include <stdlib.h>
 #include <sstream>
+#include <vector>
 
 namespace ssc
 {
@@ -29,19 +29,23 @@ namespace ssc
 			const static unsigned int CENTER_PULSE_WIDTH =	1500;
 			const static unsigned int MIN_PULSE_WIDTH =	500;
 			const static unsigned int MAX_CHANNELS = 32;
+			const static unsigned int NUM_SERVOS = 6;
+			std::vector<int> pos;
 
 			SSC32( );
 			~SSC32( );
 
 			int openPort(void);
 			bool is_connected( );
-			void moveServo(int ch, int pos);
+			void moveServo();
 			void closePort();
+			int getNUM_SERVOS();
+			void setPos(int Arr[]);
 
 		private:
 			std::string intToString(int n);
-			int verifyBounds(int ch, int pos);
-			void setServos(int num);
+			int verifyPositionBounds();
+			void setServos();
 	};
 }
 

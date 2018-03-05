@@ -8,7 +8,7 @@ namespace ssc
 		fd( -1 )
 	{
 		fd = openPort();
-		setServos(6);
+		setServos();
 	}
 
 	//Destructor
@@ -62,18 +62,17 @@ namespace ssc
 		return str1.str();
 	}
 
-	int SSC32::verifyBounds(int ch, int pos)
+	int SSC32::verifyPositionBounds()
 	{
-		if (ch >= MAX_CHANNELS or ch < 0)
+		for (int i = 0; i < NUM_SERVOS; ++i)
 		{
-    		std::cout << "Channel is not within its boundaries\n";
-    		return 0;
-  		}
-  		if (pos > MAX_PULSE_WIDTH or pos < MIN_PULSE_WIDTH)
-  		{
-  			std::cout << "Position is not within its boundaries\n";
-    		return 0;
-  		}
+			if (pos[i] > MAX_PULSE_WIDTH or pos[i] < MIN_PULSE_WIDTH)
+  			{
+  				std::cout << "Position is not within its boundaries --- \n" << pos[i] << "\n";
+    			return 0;
+  			}
+		}
+  		
   		return 1;
 	}
 
@@ -87,12 +86,20 @@ namespace ssc
 		close(fd);
 	}
 
-	void SSC32::moveServo(int ch, int pos)
+	void SSC32::moveServo()
 	{
-		if(verifyBounds(ch, pos) == 1)
+		if(verifyPositionBounds() == 1)
  		{
-    		int n;
-    		std::string str = '#' + intToString(ch) + " P" + intToString(pos) + '\r';
+ 			int n;
+ 			std::string str;
+ 			for (int i = 0; i < NUM_SERVOS; ++i)
+ 			{	
+ 				if(i == 0)
+ 					str = '#' + intToString(i) + " P" + intToString(pos[i]);
+ 				if(pos[i] != 0)
+ 					str += '#' + intToString(i) + " P" + intToString(pos[i]);
+ 			}
+ 			str += '\r';
     		const char * msg = str.c_str();
     		n = write(fd, msg, strlen(msg));
     		if (n < 0)
@@ -101,15 +108,28 @@ namespace ssc
 
 	}
 
-	void SSC32::setServos(int num)
+	void SSC32::setServos()
 	{
-		int NUM_ACTIVE_SERVOS = num;
-
-  		for(int i = 1; i <= NUM_ACTIVE_SERVOS; i++) {
-    	moveServo(i-1, 1500);
+		for (int i = 0; i < NUM_SERVOS; ++i)
+		{
+			pos.push_back(CENTER_PULSE_WIDTH);
+		}
+    	moveServo();
     	sleep(0.1); //give each servo initial wait time
-  		}
+  
 	}
 
+	int SSC32::getNUM_SERVOS()
+	{
+		return this->NUM_SERVOS;
+	}
+
+	void SSC32::setPos(int Arr[])
+	{
+		for (int i = 0; i < NUM_SERVOS; ++i)
+		{
+			pos[i] = Arr[i];
+		}
+	}
 
 }//namespace
