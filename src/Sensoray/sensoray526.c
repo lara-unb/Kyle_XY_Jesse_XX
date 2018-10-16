@@ -20,7 +20,6 @@
 //#include <native/sem.h>
 //#include <native/mutex.h>
 
-#include <mutex>
 
 
 // Cabecalhos especificos do modulo:

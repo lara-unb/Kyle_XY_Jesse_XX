@@ -42,6 +42,8 @@ int mode1_handler(void);
 int mode2_handler(void);
 int mode3_handler(void);
 int mode4_handler(void);
+int mode5_handler(void);
+int mode6_handler(void);
 
 struct{
 	struct timeval time;
@@ -118,6 +120,9 @@ int main (int argc, char *argv[])
 	printf("\n*** Escolha uma opção:");
 	printf("\n   (1): testar DIO");
 	printf("\n   (2): testar timer em modo de contagem regressiva");
+	printf("\n   (4): configurar encoder");
+	printf("\n   (5): ler encoder");
+	printf("\n   (6): testar ADC");
 	printf("\n\n   Opção: ");
 	mode = getchar() - '0';
 	printf("%i",mode);
@@ -130,6 +135,8 @@ int main (int argc, char *argv[])
 			case 2: if(!mode2_handler()) flag_quit = 1; break;
 			case 3: if(!mode3_handler()) flag_quit = 1; break;
 			case 4: if(!mode4_handler()) flag_quit = 1; break;
+			case 5: if(!mode5_handler()) flag_quit = 1; break;
+			case 6: if(!mode6_handler()) flag_quit = 1; break;
 			default:
 				printf("\n Modo não implementado"); flag_quit = 1;
 		}
@@ -328,12 +335,76 @@ sensoray526_write_register (0xD2F0, 0x12); //load Preload Register 0 low word
 	return 1;
 }
 
+// int mode4_handler(void)
+// {
+// 	int sensoray526_read_register(S526_REG_C0L);
+
+// }
+
+// int mode5_handler(void)
+// {
+// 	printf("\n Modo não implementado"); return 0;
+	
+// 	// Sleep
+// 	usleep(1000000);
+	
+// 	return 1;
+// }
+
 int mode4_handler(void)
 {
-	printf("\n Modo não implementado"); return 0;
+
 	
 	// Sleep
 	usleep(1000000);
 	
+	return 1;
+}
+
+int mode5_handler(void)
+{
+	unsigned char counter=0;
+	//Configura encoder 0
+	sensoray526_configure_encoder(0);
+	sensoray526_configure_encoder(1);
+	sensoray526_configure_encoder(2);
+	sensoray526_configure_encoder(3);
+	sensoray526_reset_counter(0);
+	sensoray526_reset_counter(1);
+	sensoray526_reset_counter(2);
+	sensoray526_reset_counter(3);
+	
+	for(counter=0;counter<100;counter++)
+	{
+		//Le o encoder 0
+		printf("\n Encoder 0: %X (%d)",sensoray526_read_counter(0),sensoray526_read_counter(0));
+		printf("\n Encoder 1: %X (%d)",sensoray526_read_counter(1),sensoray526_read_counter(1));
+		printf("\n Encoder 2: %X (%d)",sensoray526_read_counter(2),sensoray526_read_counter(2));
+		printf("\n Encoder 3: %X (%d)",sensoray526_read_counter(3),sensoray526_read_counter(3));
+	
+		// Sleep
+		usleep(100000);
+	}
+	
+	return 1;
+}
+
+int mode6_handler(void)
+{
+	sensoray526_configure_AD(S526_ADC_ENABLE_CHANNEL_0|S526_ADC_ENABLE_CHANNEL_1|S526_ADC_ENABLE_CHANNEL_2|S526_ADC_ENABLE_CHANNEL_3|S526_ADC_ENABLE_CHANNEL_4|S526_ADC_ENABLE_CHANNEL_5|S526_ADC_ENABLE_CHANNEL_6|S526_ADC_ENABLE_CHANNEL_7);
+	//sensoray526_configure_AD(S526_ADC_ENABLE_CHANNEL_6|S526_ADC_ENABLE_CHANNEL_7);
+	//sensoray526_configure_AD(S526_ADC_ENABLE_CHANNEL_0);
+	sensoray526_perform_AD_conversion();
+	usleep(10000);
+	printf("\n AD 0: %X (%d) = %f V",sensoray526_read_AD_raw(0),sensoray526_read_AD_raw(0),sensoray526_read_AD_voltage(0));
+	printf("\n AD 1: %X (%d) = %f V",sensoray526_read_AD_raw(1),sensoray526_read_AD_raw(1),sensoray526_read_AD_voltage(1));
+	printf("\n AD 2: %X (%d) = %f V",sensoray526_read_AD_raw(2),sensoray526_read_AD_raw(2),sensoray526_read_AD_voltage(2));
+	printf("\n AD 3: %X (%d) = %f V",sensoray526_read_AD_raw(3),sensoray526_read_AD_raw(3),sensoray526_read_AD_voltage(3));
+	printf("\n AD 4: %X (%d) = %f V",sensoray526_read_AD_raw(4),sensoray526_read_AD_raw(4),sensoray526_read_AD_voltage(4));
+	printf("\n AD 5: %X (%d) = %f V",sensoray526_read_AD_raw(5),sensoray526_read_AD_raw(5),sensoray526_read_AD_voltage(5));
+	printf("\n AD 6: %X (%d) = %f V",sensoray526_read_AD_raw(6),sensoray526_read_AD_raw(6),sensoray526_read_AD_voltage(6));
+	printf("\n AD 7: %X (%d) = %f V",sensoray526_read_AD_raw(7),sensoray526_read_AD_raw(7),sensoray526_read_AD_voltage(7)*2.0504);
+	printf("\n");
+	usleep(500000);
 	return 1;
 }
