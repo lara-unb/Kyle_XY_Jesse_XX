@@ -32,7 +32,8 @@
 #define MAIN_MODULE_CLOSE(cmd_close) 	if(cmd_close==0){printf("    Erro em %s",#cmd_close);}
 
 // Protótipos das funções
-int mode1_handler(void); //
+void catch_signal(int sig);
+int mode1_handler(void);
 int mode2_handler(void);
 int mode3_handler(void);
 int mode4_handler(void);
@@ -137,6 +138,11 @@ int main (int argc, char *argv[])
 	fflush(stdout); // mostra todos printfs pendentes.
     return 1;
 }
+
+void catch_signal(int sig)
+{
+}
+
 
 int mode1_handler(void)
 {
