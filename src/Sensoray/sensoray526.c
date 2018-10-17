@@ -9,6 +9,9 @@
 /*! \file sensoray526.cpp
 * \brief Arquivo exemplo de modulo. */
 
+/*OBS.: O código foi feito pra uasr Xenomai, mas como atualmente não está sendo
+usado, foram comentadas todas as linhas referentes a isso.*/
+
 // Cabecalhos des biblioteca padrao C:
 #include <stdio.h>
 #include <math.h>
@@ -28,7 +31,7 @@
 // Definicoes internas:
 #define S526_IOSIZE		0x40  /* 64 bytes */
 
-#define SENSORAY526_ENABLE_MUTEX	1
+// #define SENSORAY526_ENABLE_MUTEX	1
 
 // Prototipos internos:
 
