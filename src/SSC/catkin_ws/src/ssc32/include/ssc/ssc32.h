@@ -40,7 +40,7 @@ namespace ssc
 			void moveServo();
 			void closePort();
 			int getNUM_SERVOS();
-			void setPos(int Arr[]);
+			void setPosSpeed(int Arr0[], int Arr1[]);
 
 		private:
 			std::string intToString(int n);
