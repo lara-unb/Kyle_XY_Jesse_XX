@@ -2,38 +2,40 @@
 #include <unistd.h>
 #include "serialcom.h"
 
-int main(){
+const char* cr = "\r\n";
+
+int sendCommand(char* data)
+{
     SERIALPORTCONFIG serialPortConfig;
     int err;
-    char* data= "#0 P1600\r\n";
+    char ssc[] = "/dev/ttyS0";
 
     // Init the serial port
-    if((err = serialcom_init(&serialPortConfig, 1, "/dev/ttyS0", 115200)) != SERIALCOM_SUCCESS)
+    if((err = serialcom_init(&serialPortConfig, 1, ssc, 115200)) != SERIALCOM_SUCCESS)
     {
         return err;
     }
-	printf("---------------------------------\n");
-    // Receive byte
-    //if((err = serialcom_receivebyte(&serialPortConfig, data, 1e4)) != SERIALCOM_SUCCESS)
-    //{
-    //    return err;
-    //}
-
-	printf("---------------------------------\n");
-    // Send the same byte
+    // Send command
     for (int i=0; i<strlen(data); i++)
     {
 	serialcom_sendbyte(&serialPortConfig, (unsigned char*) &data[i]);
 	usleep(5);
     }
-    sleep(3);
-
-    printf("---------------------------------\n");
-    // Close the serial port
+    serialcom_sendbyte(&serialPortConfig, (unsigned char*) &cr[0]);
+	usleep(5);
+    serialcom_sendbyte(&serialPortConfig, (unsigned char*) &cr[1]);
+	usleep(5);
+     // Close the serial port
     if((err = serialcom_close(&serialPortConfig)) != SERIALCOM_SUCCESS)
     {
         return err;
     }
+}
+int main(){
+    char command[] = "#0 P1600 #1 P1600";
+    sendCommand(command);
+    sleep(3);
+    sendCommand(&"#0 P1500 #1 P1500");
 
     return 0;
 }
