@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <unistd.h>
 #include "serialcom.h"
+#include <string>
+#include <cstdlib>
 
 const char* cr = "\r\n";
 
-int sendCommand(char* data)
+int sendCommand(const char* data)
 {
     SERIALPORTCONFIG serialPortConfig;
     int err;
@@ -32,10 +34,11 @@ int sendCommand(char* data)
     }
 }
 int main(){
-    char command[] = "#0 P1600 #1 P1600";
-    sendCommand(command);
+    std::string command = "#0 P1600 #1 P1600";
+    sendCommand(command.c_str());
     sleep(3);
-    sendCommand(&"#0 P1500 #1 P1500");
+    command = "#0 P1500 #1 P1500";
+    sendCommand(command.c_str());
 
     return 0;
 }
