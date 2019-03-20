@@ -24,11 +24,16 @@ ExternalProject_Get_Property(serialcom binary_dir)
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/serialcom-src/include)
 # message(${install_dir})
 
-
+add_library(sensoray526 STATIC src/sensoray526.c)
+install(TARGETS sensoray526 DESTINATION lib)
+install(FILES src/sensoray526.h DESTINATION include)
 
 add_executable(serialTest src/serialTest.cpp)
 add_dependencies(serialTest serialcom)
 target_link_libraries( serialTest
     ${binary_dir}/${CMAKE_FIND_LIBRARY_PREFIXES}serialcomlib.so
     -pthread
+    sensoray526
 )
+
+
