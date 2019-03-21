@@ -25,8 +25,6 @@
 
 const char* cr = "\r\n";
 
-int angVelocity(void);
-
 int sendCommand(const char* data)
 {
     SERIALPORTCONFIG serialPortConfig;
