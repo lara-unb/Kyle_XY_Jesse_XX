@@ -136,13 +136,14 @@ int readEncoder(void)
 	return 1;
 }
 
-int angVelocity(void)
+void angVelocity(void)
 {
     float texec;
 	unsigned char counter=0;
     int n0 = 0;
     int n1 = 0;
     double w;
+    printf("\n-----------------------------------\n");
 	//Configura encoder 0
 	sensoray526_configure_encoder(0);
 	sensoray526_configure_encoder(1);
@@ -153,13 +154,12 @@ int angVelocity(void)
     // Sleep
 	usleep(100000);
         
-    n0 = sensoray526_read_counter(0) - n0; //n of pulses encoder 0
-    n1 = sensoray526_read_counter(1) - n0; //n of pulses encoder 1
+    n0 = sensoray526_read_counter(0);  //n of pulses encoder 0
+    n1 = sensoray526_read_counter(1);  //n of pulses encoder 1
 
     texec = toc();
     w = (2 * 3.14159275 * n0) / (100 * texec); 
     printf("\n Speed: %f rad/s", w);
-	return 1;
 }
 
 int main(){
@@ -177,6 +177,7 @@ int main(){
     angVelocity();
     angVelocity();
     angVelocity();
+    printf("\n2222-----------------\n");
 
 	/* Avoids memory swapping for this program */
 	mlockall(MCL_CURRENT|MCL_FUTURE);
