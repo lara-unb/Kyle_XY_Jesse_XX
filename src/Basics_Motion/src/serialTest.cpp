@@ -108,7 +108,7 @@ void catch_signal(int sig)
 
 int readEncoder(void)
 {
-    clock_t t;
+    float texec;
 	unsigned char counter=0;
 	//Configura encoder 0
 	sensoray526_configure_encoder(0);
@@ -119,7 +119,7 @@ int readEncoder(void)
 	sensoray526_reset_counter(1);
 	sensoray526_reset_counter(2);
 	sensoray526_reset_counter(3);
-	t = clock();
+	tic(); 
 	for(counter=0;counter<10;counter++)
 	{
 		//Le o encoder 0
@@ -131,9 +131,8 @@ int readEncoder(void)
 		// Sleep
 		usleep(100000);
 	}
-	t = clock() - t;
-    double time_taken = ((double)t)/CLOCKS_PER_SEC; // in seconds 
-    printf("Read encoder took %f seconds to execute \n", time_taken);
+	texec = toc(); //us
+    printf("Read encoder took %f seconds to execute \n", texec*1e6);
 	return 1;
 }
 
