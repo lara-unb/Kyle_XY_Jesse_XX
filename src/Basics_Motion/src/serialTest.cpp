@@ -25,6 +25,8 @@
 
 const char* cr = "\r\n";
 
+int angVelocity(void);
+
 int sendCommand(const char* data)
 {
     SERIALPORTCONFIG serialPortConfig;
@@ -136,6 +138,35 @@ int readEncoder(void)
 	return 1;
 }
 
+int angVelocity(void)
+{
+    float texec;
+	unsigned char counter=0;
+    int n0 = 0;
+    int n1 = 0;
+    double w;
+	//Configura encoder 0
+	sensoray526_configure_encoder(0);
+	sensoray526_configure_encoder(1);
+	sensoray526_reset_counter(0);
+	sensoray526_reset_counter(1);
+	tic(); 
+	for(counter=0;counter<10;counter++)
+	{
+        n0 = sensoray526_read_counter(0); //n of pulses encoder 0
+        n1 = sensoray526_read_counter(1); //n of pulses encoder 1
+        // Sleep
+		usleep(10000);
+        
+        n0 = sensoray526_read_counter(0) - n0; //n of pulses encoder 0
+        n1 = sensoray526_read_counter(1) - n0; //n of pulses encoder 1		
+	}
+    texec = toc();
+    w = (2 * 3.14159275 * n0) / (100 * texec); 
+    printf("\n Speed: %f rad/s", w);
+	return 1;
+}
+
 int main(){
 
     int flag_quit = 0;
@@ -148,7 +179,9 @@ int main(){
     //run 
     command = "#0 P1600 #1 P1600";
     sendCommand(command.c_str());
-
+    angVelocity();
+    angVelocity();
+    angVelocity();
 
 	/* Avoids memory swapping for this program */
 	mlockall(MCL_CURRENT|MCL_FUTURE);
