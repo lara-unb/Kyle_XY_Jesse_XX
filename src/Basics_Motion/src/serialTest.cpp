@@ -138,7 +138,6 @@ int readEncoder(void)
 
 int angVelocity(void)
 {
-    printf("\n--------------------\n")
     float texec;
 	unsigned char counter=0;
     int n0 = 0;
