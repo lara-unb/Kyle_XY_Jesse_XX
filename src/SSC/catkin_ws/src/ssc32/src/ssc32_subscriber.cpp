@@ -18,8 +18,8 @@
 #include "std_msgs/MultiArrayDimension.h"
 #include "std_msgs/Int32MultiArray.h"
 
-int Arr[6];
-
+int Arr0[6];
+int Arr1 = {750, 750, 750, 750, 750, 750};
 
 void anglesCallback(const std_msgs::Int32MultiArray::ConstPtr& array)
 {
@@ -28,7 +28,7 @@ void anglesCallback(const std_msgs::Int32MultiArray::ConstPtr& array)
 	// print all the remaining numbers
 	for(std::vector<int>::const_iterator it = array->data.begin(); it != array->data.end(); ++it)
 	{
-		Arr[i] = *it;
+		Arr0[i] = *it;
 		i++;
 	}
 
@@ -51,7 +51,7 @@ int main(int argc, char **argv)
 
 	while(ros::ok())
 	{
-		ssc32_device.setPos(Arr);
+		ssc32_device.setPosSpeed(Arr0, Arr1);
 		ssc32_device.moveServo();
 		
 
