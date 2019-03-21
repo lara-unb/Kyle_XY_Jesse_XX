@@ -196,7 +196,9 @@ int main(){
     command = "#0 P1500 #1 P1500";
     sendCommand(command.c_str());
     sleep(1);
-
+    angVelocity();
+    angVelocity();
+    angVelocity();
 	printf("\n*** Encerrando o modulo robot...");
 	MAIN_MODULE_CLOSE(sensoray526_close());
 	
