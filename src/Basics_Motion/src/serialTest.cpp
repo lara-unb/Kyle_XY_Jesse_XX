@@ -143,8 +143,7 @@ void angVelocity(void)
     long n0 = 0;
     long n1 = 0;
     double w;
-    printf("\n-----------------------------------\n");
-
+    
 	sensoray526_configure_encoder(0);
 	sensoray526_configure_encoder(1);
 	sensoray526_configure_encoder(2);
@@ -154,13 +153,13 @@ void angVelocity(void)
 	sensoray526_reset_counter(2);
 	sensoray526_reset_counter(3);
 	tic(); 
-    printf("\n--2--------------------------------\n");
+    
     // Sleep
 	usleep(100000);
         
     n0 = sensoray526_read_counter(0);  //n of pulses encoder 0
     n1 = sensoray526_read_counter(1);  //n of pulses encoder 1
-    printf("\n--3--------------------------------\n");
+    
     texec = toc();
     w = (2 * 3.14159275 * n0) / (100 * texec); 
     printf("\n Speed: %f rad/s", w);
@@ -178,8 +177,6 @@ int main(){
     //run 
     command = "#0 P1600 #1 P1600";
     sendCommand(command.c_str());
-    angVelocity();
-    printf("\n2222-----------------\n");
 
 	/* Avoids memory swapping for this program */
 	mlockall(MCL_CURRENT|MCL_FUTURE);
@@ -188,6 +185,10 @@ int main(){
 	printf("\n*** Iniciando o modulo sensoray526...");
 	MAIN_MODULE_INIT(sensoray526_init());
 	
+    angVelocity();
+    angVelocity();
+    angVelocity();
+    sleep(10);
 	while(!flag_quit && !kbhit()){
 		readEncoder();
         flag_quit = 1; 
