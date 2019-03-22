@@ -6,6 +6,7 @@
 /  Descrição: Código com funções da SSC32                      /
 /-------------------------------------------------------------*/
 
+#define _BSD_SOURCE
 // Bibliotecas
 #include "serialcom.h"
 #include <unistd.h>
