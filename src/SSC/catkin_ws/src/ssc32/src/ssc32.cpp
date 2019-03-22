@@ -95,9 +95,9 @@ namespace ssc
  			for (int i = 0; i < NUM_SERVOS; ++i)
  			{	
  				if(i == 0)
- 					str = '#' + intToString(i) + " P" + intToString(pos[i]);
+ 					str = '#' + intToString(i) + " P" + intToString(pos[i]) + " S" + intToString(speed[i]);
  				if(pos[i] != 0)
- 					str += '#' + intToString(i) + " P" + intToString(pos[i]);
+ 					str += '#' + intToString(i) + " P" + intToString(pos[i]) + " S" + intToString(speed[i]);
  			}
  			str += '\r';
     		const char * msg = str.c_str();
@@ -124,11 +124,12 @@ namespace ssc
 		return this->NUM_SERVOS;
 	}
 
-	void SSC32::setPos(int Arr[])
+	void SSC32::setPosSpeed(int Arr0[], int Arr1[])
 	{
 		for (int i = 0; i < NUM_SERVOS; ++i)
 		{
-			pos[i] = Arr[i];
+			pos[i] = Arr0[i];
+			speed[i] = Arr1[i];
 		}
 	}
 
