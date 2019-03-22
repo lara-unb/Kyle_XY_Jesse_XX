@@ -8,7 +8,7 @@
 // Bibliotecas
 #include <stdio.h>
 #include <unistd.h>
-#include "serialcom.h"
+//#include "serialcom.h"
 #include <string>
 #include <cstdlib>
 #include <math.h>
@@ -25,12 +25,13 @@
 #include <iostream>
 #include <sys/select.h>
 #include "sensoray526.h"
+#include "SSC.h"
 
 // Definicoes internas:
 #define MAIN_MODULE_INIT(cmd_init) 	if(cmd_init==0){printf("    Erro em %s",#cmd_init);return(0);}
 #define MAIN_MODULE_CLOSE(cmd_close) 	if(cmd_close==0){printf("    Erro em %s",#cmd_close);}
 
-const char* cr = "\r\n";
+/*const char* cr = "\r\n";
 
 int sendCommand(const char* data)
 {
@@ -59,6 +60,7 @@ int sendCommand(const char* data)
         return err;
     }
 }
+*/
 
 struct{
 	struct timeval time;

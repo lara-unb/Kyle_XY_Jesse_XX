@@ -8,6 +8,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 project(Basics_motion)
 
 include(ExternalProject)
+
 ExternalProject_Add(serialcom
     GIT_REPOSITORY https://github.com/Gastd/serialcom
     GIT_TAG master
@@ -27,16 +28,20 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR}/serialcom-src/include
 # message(${install_dir})
 
 add_library(sensoray526 SHARED src/sensoray526.c include/sensoray526.h)
+add_library(SSC SHARED src/SSC.c include/SSC.h)
 
 install(TARGETS sensoray526 DESTINATION lib)
 install(FILES src/sensoray526.h DESTINATION include)
+install(TARGETS SSC DESTINATION lib)
+install(FILES src/SSC.h DESTINATION include)
 
-add_executable(serialTest src/serialTest.cpp)
+add_executable(serialTest src/serialTest.cpp src/SSC.c)
 add_dependencies(serialTest serialcom)
-target_link_libraries( serialTest
+target_link_libraries(serialTest
     ${binary_dir}/${CMAKE_FIND_LIBRARY_PREFIXES}serialcomlib.so
     -pthread
     sensoray526
+    SSC
 )
 
 
