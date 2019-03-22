@@ -1,3 +1,10 @@
+/*-----------------------------------------------------------------------------------------------------/
+/										                                                 /
+/----------------------------------------------------------------------------------------------------- /
+/  Autor : Gabriel Guimarães Almeida de Castro                                                         /
+/  Descrição:                                                                              /
+/-----------------------------------------------------------------------------------------------------*/
+
 // Bibliotecas
 #include <stdio.h>
 #include <unistd.h>
@@ -161,7 +168,7 @@ void angVelocity(void)
     n1 = sensoray526_read_counter(1);  //n of pulses encoder 1
     
     texec = toc();
-    w = (2 * 3.14159275 * n0) / (100 * texec); 
+    w = (2 * 3.14159275 * n0) / (100 * 30 * texec); 
     printf("\n Speed: %f rad/s", w);
 }
 
@@ -196,7 +203,9 @@ int main(){
     command = "#0 P1500 #1 P1500";
     sendCommand(command.c_str());
     sleep(1);
-
+    angVelocity();
+    angVelocity();
+    angVelocity();
 	printf("\n*** Encerrando o modulo robot...");
 	MAIN_MODULE_CLOSE(sensoray526_close());
 	
