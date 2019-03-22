@@ -132,10 +132,8 @@ int readEncoder(void)
 	for(counter=0;counter<10;counter++)
 	{
 		//Le o encoder 0
-		printf("\n Encoder 0: %X (%d)",sensoray526_read_counter(0),sensoray526_read_counter(0));
-		printf("\n Encoder 1: %X (%d)",sensoray526_read_counter(1),sensoray526_read_counter(1));
-		printf("\n Encoder 2: %X (%d)",sensoray526_read_counter(2),sensoray526_read_counter(2));
-		printf("\n Encoder 3: %X (%d)",sensoray526_read_counter(3),sensoray526_read_counter(3));
+		printf("\n Encoder 0: (%ld)",sensoray526_read_counter(0));
+		printf("\n Encoder 1: (%ld)",sensoray526_read_counter(1));
 	
 		// Sleep
 		usleep(100000);
