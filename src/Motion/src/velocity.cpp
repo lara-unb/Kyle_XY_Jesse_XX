@@ -13,7 +13,8 @@
 #include <time.h>
 #include <errno.h>
 #include <stdlib.h>
-#include <signal.h>
+//#include <signal.h>
+#include <csignal>
 #include <sys/io.h>
 #include <sys/time.h>
 #include <pthread.h>
@@ -24,6 +25,7 @@
 #include <sys/select.h>
 #include "sensoray526.h"
 #include "SSC.h"
+#include <iostream>
 
 
 // Definicoes internas:
@@ -63,46 +65,15 @@ void catch_signal(int sig)
 {
 }
 
-void sighandler(int signum)
-{
-    printf("Caught signal %d, coming out...\n", signum);
-    exit(1);
-}
+void signalHandler( int signum ) {
+   std::cout << "Interrupt signal (" << signum << ") received.\n";
 
+   // cleanup and close up stuff here  
+   // terminate program  
+
+   exit(signum);  
+}
 //
-//---------------------------------------------------------------------------------------------------------
-int kbhit(void)
-{
-    struct timeval tv;
-    fd_set read_fd;
-
-    /* Do not wait at all, not even a microsecond */
-    tv.tv_sec = 0;
-    tv.tv_usec = 0;
-
-    /* Must be done first to initialize read_fd */
-    FD_ZERO(&read_fd);
-
-    /* Makes select() ask if input is ready:
-   * 0 is the file descriptor for stdin    */
-    FD_SET(0, &read_fd);
-
-    /* The first parameter is the number of the
-   * largest file descriptor to check + 1. */
-    if (select(1, &read_fd, NULL, /*No writes*/ NULL, /*No exceptions*/ &tv) == -1)
-        return 0; /* An error occured */
-
-    /*  read_fd now holds a bit map of files that are
-   * readable. We test the entry for the standard
-   * input (file 0). */
-
-    if (FD_ISSET(0, &read_fd))
-        /* Character pending on stdin */
-        return 1;
-
-    /* no characters were pending */
-    return 0;
-}
 //---------------------------------------------------------------------------------------------------------
 
 //Lê os encoder por mais ou menos 1s
@@ -138,7 +109,7 @@ void computeVel(void)
     unsigned char counter = 0;
     long n0 = 0;
     long n1 = 0;
-    double w;
+    double w0, w1;
 
     sensoray526_configure_encoder(0);
     sensoray526_configure_encoder(1);
@@ -150,18 +121,22 @@ void computeVel(void)
     // Sleep
     usleep(100000);
 
-    n0 = sensoray526_read_counter(0); //n of pulses encoder 0
-    n1 = sensoray526_read_counter(1); //n of pulses encoder 1
+    n0 = sensoray526_read_counter(0); //n de ciclos encoder 0
+    n1 = sensoray526_read_counter(1); //n de ciclos encoder 1
 
     texec = toc();
-    w = (2 * 3.14159275 * n0) / (100 * 30 * texec);
-    printf("\n Speed: %f rad/s", w);
+
+    //w = (2*pi*num_of_cilcos)/(resolução_do_encoder* redução_do_motor*tempo)
+    w0 = (0.0020943952 * n0) / texec; // (2 * pi) / (100 cycles * 30) = const =   
+    w1 = (2 * 3.14159275 * n1) / (100 * 30 * texec);
+    printf("\n Speed encoder 1: %f rad/s", w0);
+    printf("\n Speed encoder 2: %f rad/s", w1);
 }
 //---------------------------------------------------------------------------------------------------------
 
 int main()
 {
-    signal(SIGINT, sighandler);
+    signal(SIGINT, signalHandler);
     signal(SIGTERM, catch_signal);
     signal(SIGINT, catch_signal);
 
