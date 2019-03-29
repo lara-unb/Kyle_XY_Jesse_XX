@@ -123,7 +123,7 @@ void computeVel(clock_t t0)
     tic();
 
     // Sleep
-    usleep(100000);
+    usleep(200000);
 
     n0 = sensoray526_read_counter(0); //n de ciclos encoder 0
     n1 = sensoray526_read_counter(1); //n de ciclos encoder 1
@@ -153,9 +153,10 @@ int main()
     MAIN_MODULE_INIT(sensoray526_init());
 
     t0 = clock(); 
+    
+    printf("Tempo (s), Ciclos Enc 1, Ciclos Enc 2, Velocidade Enc 1 (rad/s), Velocidade Enc 2 (rad/s)\n");
     while (1)
     {
-        printf("Tempo (s), Ciclos Enc 1, Ciclos Enc 2, Velocidade Enc 1 (rad/s), Velocidade Enc 2 (rad/s)\n");
         computeVel(t0);
     }
     return 0;
