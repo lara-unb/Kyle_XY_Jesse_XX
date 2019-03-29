@@ -60,6 +60,12 @@ double toc(void)
     return ((tictocctrl.time.tv_sec - tictocctrl.timereset.tv_sec) + (tictocctrl.time.tv_usec - tictocctrl.timereset.tv_usec) * 1e-6);
 }
 
+long timediff(clock_t t1, clock_t t2) {
+    long elapsed;
+    elapsed = ((double)t2 - t1) / CLOCKS_PER_SEC * 1000;
+    return elapsed;
+}
+
 //---------------------------------------------------------------------------------------------------------
 
 void catch_signal(int sig)
@@ -114,13 +120,13 @@ void computeVel(void)
     long n0 = 0;
     long n1 = 0;
     double w0, w1;
-    double diff = 0.0;
-    time_t start;
-    time_t stop;
+    long elapsed = 0.0;
+    clock_t t1, t2;
+
 
     sensoray526_configure_encoder(0);
     sensoray526_configure_encoder(1);
-    time(&start);
+    t1 = clock();
     while(1)
     {
         sensoray526_reset_counter(0);
@@ -130,13 +136,13 @@ void computeVel(void)
         n0 = sensoray526_read_counter(0); //n de ciclos encoder 0
         n1 = sensoray526_read_counter(1); //n de ciclos encoder 1
         texec = toc();
-        time(&stop);
-        diff = difftime(stop, start);
+        t2 = clock();
+        elapsed = timediff(t1, t2);
         
         //w = (2*pi*num_of_cilcos)/(resolução_do_encoder* redução_do_motor*tempo)
         w0 = (0.0020943952 * n0) / texec; // (2 * pi) / (100 cycles * 30) = const = 0.0020943952  
         w1 = (0.0020943952 * n1) / texec;
-        printf("%lf, %ld, %ld, %lf, %lf\n", diff, n0, n1, w0, w1);
+        printf("%li, %ld, %ld, %lf, %lf\n", elapsed, n0, n1, w0, w1);
     }
     
 }
