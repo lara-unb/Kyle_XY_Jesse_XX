@@ -68,8 +68,11 @@ void catch_signal(int sig)
 void signalHandler( int signum ) {
    std::cout << "Interrupt signal (" << signum << ") received.\n";
 
-   // cleanup and close up stuff here  
-   // terminate program  
+   printf("\n*** Encerrando o modulo sensoray526...");
+    MAIN_MODULE_CLOSE(sensoray526_close());
+
+    printf("\n\n");
+    fflush(stdout); // mostra todos printfs pendentes.
 
    exit(signum);  
 }
@@ -127,8 +130,8 @@ void computeVel(void)
     texec = toc();
 
     //w = (2*pi*num_of_cilcos)/(resolução_do_encoder* redução_do_motor*tempo)
-    w0 = (0.0020943952 * n0) / texec; // (2 * pi) / (100 cycles * 30) = const =   
-    w1 = (2 * 3.14159275 * n1) / (100 * 30 * texec);
+    w0 = (0.0020943952 * n0) / texec; // (2 * pi) / (100 cycles * 30) = const = 0.0020943952  
+    w1 = (0.0020943952 * n1) / texec;
     printf("\n Speed encoder 1: %f rad/s", w0);
     printf("\n Speed encoder 2: %f rad/s", w1);
 }
@@ -151,11 +154,5 @@ int main()
     {
         computeVel();
     }
-
-    printf("\n*** Encerrando o modulo sensoray526...");
-    MAIN_MODULE_CLOSE(sensoray526_close());
-
-    printf("\n\n");
-    fflush(stdout); // mostra todos printfs pendentes.
     return 0;
 }
