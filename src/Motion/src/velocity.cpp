@@ -25,6 +25,7 @@
 #include "sensoray526.h"
 #include "SSC.h"
 
+int flag_quit = 1;
 // Definicoes internas:
 #define MAIN_MODULE_INIT(cmd_init)           \
     if (cmd_init == 0)                       \
@@ -61,6 +62,8 @@ double toc(void)
 void catch_signal(int sig)
 {
 }
+
+void sighandler(int);
 
 //
 //---------------------------------------------------------------------------------------------------------
@@ -155,7 +158,7 @@ void computeVel(void)
 int main()
 {
     int mode = 0;
-
+    signal(SIGINT, sighandler);
     signal(SIGTERM, catch_signal);
     signal(SIGINT, catch_signal);
 
@@ -166,7 +169,8 @@ int main()
     printf("\n*** Iniciando o modulo sensoray526...");
     MAIN_MODULE_INIT(sensoray526_init());
 
-    while (1)
+    flag_quit = 1;
+    while (flag_quit)
     {
         computeVel();
     }
@@ -177,4 +181,10 @@ int main()
     printf("\n\n");
     fflush(stdout); // mostra todos printfs pendentes.
     return 1;
+}
+
+void sighandler(int signum)
+{
+    printf("Caught signal %d, coming out...\n", signum);
+    exit(1);
 }
