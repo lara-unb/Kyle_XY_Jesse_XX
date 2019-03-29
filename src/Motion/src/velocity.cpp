@@ -63,7 +63,12 @@ void catch_signal(int sig)
 {
 }
 
-void sighandler(int);
+void sighandler(int signum)
+{
+    flag_quit = 0;
+    printf("Caught signal %d, coming out...\n", signum);
+    exit(1);
+}
 
 //
 //---------------------------------------------------------------------------------------------------------
@@ -181,10 +186,4 @@ int main()
     printf("\n\n");
     fflush(stdout); // mostra todos printfs pendentes.
     return 1;
-}
-
-void sighandler(int signum)
-{
-    printf("Caught signal %d, coming out...\n", signum);
-    exit(1);
 }
