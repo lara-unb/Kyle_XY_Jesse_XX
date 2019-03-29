@@ -10,7 +10,7 @@
 #include <unistd.h>
 #include <cstdlib>
 #include <math.h>
-#include <time.h>
+#include <ctime>
 #include <errno.h>
 #include <stdlib.h>
 //#include <signal.h>
@@ -109,16 +109,18 @@ int readEncoder(void)
 // Calcula a velocidade das rodas em rad/s
 void computeVel(void)
 {
-    float texec, t_now, tic0;
+    float texec;
     unsigned char counter = 0;
     long n0 = 0;
     long n1 = 0;
     double w0, w1;
-    clock_t t0 = clock();
+    double diff = 0.0;
+    time_t start;
+    time_t stop;
 
     sensoray526_configure_encoder(0);
     sensoray526_configure_encoder(1);
-
+    time(&start);
     while(1)
     {
         sensoray526_reset_counter(0);
@@ -128,11 +130,13 @@ void computeVel(void)
         n0 = sensoray526_read_counter(0); //n de ciclos encoder 0
         n1 = sensoray526_read_counter(1); //n de ciclos encoder 1
         texec = toc();
-        t_now = ((clock() - t0) * 1000 )/CLOCKS_PER_SEC;  
+        time(&stop);
+        diff = difftime(stop, start);
+        
         //w = (2*pi*num_of_cilcos)/(resolução_do_encoder* redução_do_motor*tempo)
         w0 = (0.0020943952 * n0) / texec; // (2 * pi) / (100 cycles * 30) = const = 0.0020943952  
         w1 = (0.0020943952 * n1) / texec;
-        printf("%lf, %ld, %ld, %lf, %lf\n", t_now, n0, n1, w0, w1);
+        printf("%lf, %ld, %ld, %lf, %lf\n", diff, n0, n1, w0, w1);
     }
     
 }
