@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <cstdlib>
+#include<string.h>
 #include <math.h>
 #include <ctime>
 #include <errno.h>
@@ -25,8 +26,8 @@
 #include <sys/select.h>
 #include "sensoray526.h"
 #include "SSC.h"
-#include <iostream>
 
+FILE *logFile;
 
 // Definicoes internas:
 #define MAIN_MODULE_INIT(cmd_init)           \
@@ -71,7 +72,7 @@ void signalHandler( int signum ) {
 
    printf("\n*** Encerrando o modulo sensoray526...");
     MAIN_MODULE_CLOSE(sensoray526_close());
-
+    fclose(logFile);
     printf("\n\n");
     fflush(stdout); // mostra todos printfs pendentes.
 
@@ -116,8 +117,8 @@ void computeVel(void)
     long n1 = 0;
     double w0, w1;
     double diff = 0.0;
-    time_t start;
-    time_t stop;
+
+    logFile = fopen("logFile.csv","w+");
 
     sensoray526_configure_encoder(0);
     sensoray526_configure_encoder(1);
@@ -135,7 +136,7 @@ void computeVel(void)
         //w = (2*pi*num_of_cilcos)/(resolução_do_encoder* redução_do_motor*tempo)
         w0 = (0.0020943952 * n0) / texec; // (2 * pi) / (100 cycles * 30) = const = 0.0020943952  
         w1 = (0.0020943952 * n1) / texec;
-        printf("%lf, %ld, %ld, %lf, %lf\n", diff, n0, n1, w0, w1);
+        fprintf(logFile, "%lf, %ld, %ld, %lf, %lf\n", diff, n0, n1, w0, w1);
     }
     
 }
@@ -154,9 +155,11 @@ int main()
     MAIN_MODULE_INIT(sensoray526_init());
 
     printf("Tempo (s), Ciclos Enc 1, Ciclos Enc 2, Velocidade Enc 1 (rad/s), Velocidade Enc 2 (rad/s)\n");
-    while (1)
+    while (true)
     {
         computeVel();
     }
+
+    fflush(stdout); // mostra todos printfs pendentes.
     return 0;
 }
