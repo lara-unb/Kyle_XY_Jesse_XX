@@ -137,10 +137,10 @@ void computeVel(void)
         n0 = sensoray526_read_counter(0); //n de ciclos encoder 0
         n1 = sensoray526_read_counter(1); //n de ciclos encoder 1
         texec = toc();
+        t_now = tnow();
         //w = (2*pi*num_of_cilcos)/(resolução_do_encoder* redução_do_motor*tempo)
         w0 = (0.0020943952 * n0) / texec; // (2 * pi) / (100 cycles * 30) = const = 0.0020943952  
         w1 = (0.0020943952 * n1) / texec;
-        t_now = tnow();
         printf("%lf, %ld, %ld, %lf, %lf\n", t_now, n0, n1, w0, w1);
     }
     
