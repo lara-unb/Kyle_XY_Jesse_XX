@@ -60,12 +60,6 @@ double toc(void)
     return ((tictocctrl.time.tv_sec - tictocctrl.timereset.tv_sec) + (tictocctrl.time.tv_usec - tictocctrl.timereset.tv_usec) * 1e-6);
 }
 
-long timediff(clock_t t1, clock_t t2) {
-    long elapsed;
-    elapsed = ((double)t2 - t1) / CLOCKS_PER_SEC * 1000;
-    return elapsed;
-}
-
 //---------------------------------------------------------------------------------------------------------
 
 void catch_signal(int sig)
@@ -112,6 +106,7 @@ int readEncoder(void)
 }
 //---------------------------------------------------------------------------------------------------------
 
+
 // Calcula a velocidade das rodas em rad/s
 void computeVel(void)
 {
@@ -120,13 +115,13 @@ void computeVel(void)
     long n0 = 0;
     long n1 = 0;
     double w0, w1;
-    long elapsed = 0.0;
-    clock_t t1, t2;
-
+    double diff = 0.0;
+    time_t start;
+    time_t stop;
 
     sensoray526_configure_encoder(0);
     sensoray526_configure_encoder(1);
-    t1 = clock();
+    time(&start);
     while(1)
     {
         sensoray526_reset_counter(0);
@@ -136,13 +131,13 @@ void computeVel(void)
         n0 = sensoray526_read_counter(0); //n de ciclos encoder 0
         n1 = sensoray526_read_counter(1); //n de ciclos encoder 1
         texec = toc();
-        t2 = clock();
-        elapsed = timediff(t1, t2);
+        time(&stop);
+        diff = difftime(stop, start);
         
         //w = (2*pi*num_of_cilcos)/(resolução_do_encoder* redução_do_motor*tempo)
         w0 = (0.0020943952 * n0) / texec; // (2 * pi) / (100 cycles * 30) = const = 0.0020943952  
         w1 = (0.0020943952 * n1) / texec;
-        printf("%li, %ld, %ld, %lf, %lf\n", elapsed, n0, n1, w0, w1);
+        printf("%lf, %ld, %ld, %lf, %lf\n", diff, n0, n1, w0, w1);
     }
     
 }
@@ -160,7 +155,7 @@ int main()
     printf("\n*** Iniciando o modulo sensoray526...");
     MAIN_MODULE_INIT(sensoray526_init());
 
-    printf("Tempo (ms), Ciclos Enc 1, Ciclos Enc 2, Velocidade Enc 1 (rad/s), Velocidade Enc 2 (rad/s)\n");
+    printf("Tempo (s), Ciclos Enc 1, Ciclos Enc 2, Velocidade Enc 1 (rad/s), Velocidade Enc 2 (rad/s)\n");
     while (1)
     {
         computeVel();
