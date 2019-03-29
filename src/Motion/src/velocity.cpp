@@ -166,7 +166,7 @@ int main()
     printf("\n*** Iniciando o modulo sensoray526...");
     MAIN_MODULE_INIT(sensoray526_init());
 
-    while (!kbhit)
+    while (1)
     {
         computeVel();
     }
