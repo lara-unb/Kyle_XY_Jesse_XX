@@ -161,7 +161,6 @@ void computeVel(void)
 
 int main()
 {
-    int mode = 0;
     signal(SIGINT, sighandler);
     signal(SIGTERM, catch_signal);
     signal(SIGINT, catch_signal);
@@ -183,5 +182,5 @@ int main()
 
     printf("\n\n");
     fflush(stdout); // mostra todos printfs pendentes.
-    return 1;
+    return 0;
 }
