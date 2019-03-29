@@ -60,16 +60,6 @@ double toc(void)
     return ((tictocctrl.time.tv_sec - tictocctrl.timereset.tv_sec) + (tictocctrl.time.tv_usec - tictocctrl.timereset.tv_usec) * 1e-6);
 }
 
-void ti(void)
-{
-    gettimeofday(&tictocctrl.timereset, NULL);
-}
-
-double tnow(void)
-{
-    gettimeofday(&tictocctrl.time, NULL);
-    return ((tictocctrl.time.tv_sec - tictocctrl.timereset.tv_sec) + (tictocctrl.time.tv_usec - tictocctrl.timereset.tv_usec) * 1e-6);
-}
 //---------------------------------------------------------------------------------------------------------
 
 void catch_signal(int sig)
@@ -124,10 +114,11 @@ void computeVel(void)
     long n0 = 0;
     long n1 = 0;
     double w0, w1;
+    clock_t t0 = clock();
 
     sensoray526_configure_encoder(0);
     sensoray526_configure_encoder(1);
-    ti();
+
     while(1)
     {
         sensoray526_reset_counter(0);
@@ -137,7 +128,7 @@ void computeVel(void)
         n0 = sensoray526_read_counter(0); //n de ciclos encoder 0
         n1 = sensoray526_read_counter(1); //n de ciclos encoder 1
         texec = toc();
-        t_now = tnow();
+        t_now = ((clock() - t0) * 1000 )/CLOCKS_PER_SEC;  
         //w = (2*pi*num_of_cilcos)/(resolução_do_encoder* redução_do_motor*tempo)
         w0 = (0.0020943952 * n0) / texec; // (2 * pi) / (100 cycles * 30) = const = 0.0020943952  
         w1 = (0.0020943952 * n1) / texec;
@@ -159,7 +150,7 @@ int main()
     printf("\n*** Iniciando o modulo sensoray526...");
     MAIN_MODULE_INIT(sensoray526_init());
 
-    printf("Tempo (s), Ciclos Enc 1, Ciclos Enc 2, Velocidade Enc 1 (rad/s), Velocidade Enc 2 (rad/s)\n");
+    printf("Tempo (ms), Ciclos Enc 1, Ciclos Enc 2, Velocidade Enc 1 (rad/s), Velocidade Enc 2 (rad/s)\n");
     while (1)
     {
         computeVel();
