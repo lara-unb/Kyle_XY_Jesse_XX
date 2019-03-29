@@ -106,13 +106,14 @@ int readEncoder(void)
 //---------------------------------------------------------------------------------------------------------
 
 // Calcula a velocidade das rodas em rad/s
-void computeVel(void)
+void computeVel(clock_t t0)
 {
     float texec;
     unsigned char counter = 0;
     long n0 = 0;
     long n1 = 0;
     double w0, w1;
+    double t_now;
 
     sensoray526_configure_encoder(0);
     sensoray526_configure_encoder(1);
@@ -132,14 +133,15 @@ void computeVel(void)
     //w = (2*pi*num_of_cilcos)/(resolução_do_encoder* redução_do_motor*tempo)
     w0 = (0.0020943952 * n0) / texec; // (2 * pi) / (100 cycles * 30) = const = 0.0020943952  
     w1 = (0.0020943952 * n1) / texec;
-    printf("\n Speed encoder 1: %f rad/s", w0);
-    printf("\n Speed encoder 2: %f rad/s\n\n", w1);
+    t_now = clock() - t0; 
+    t_now = ((double)t_now)/CLOCKS_PER_SEC; // segundos
+    printf("%lf, %ld, %ld, %lf, %lf", t_now, n0, n1, w0, w1);
 }
 //---------------------------------------------------------------------------------------------------------
 
 int main()
 {
-    
+    clock_t t0, t; 
     signal(SIGTERM, catch_signal);
     signal(SIGINT, signalHandler);
 
@@ -150,9 +152,11 @@ int main()
     printf("\n*** Iniciando o modulo sensoray526...");
     MAIN_MODULE_INIT(sensoray526_init());
 
+    t0 = clock(); 
     while (1)
     {
-        computeVel();
+        printf("Tempo (s), Ciclos Enc 1, Ciclos Enc 2, Velocidade Enc 1 (rad/s), Velocidade Enc 2 (rad/s)\n");
+        computeVel(t0);
     }
     return 0;
 }
