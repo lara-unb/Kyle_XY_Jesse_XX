@@ -133,15 +133,15 @@ void computeVel(void)
     w0 = (0.0020943952 * n0) / texec; // (2 * pi) / (100 cycles * 30) = const = 0.0020943952  
     w1 = (0.0020943952 * n1) / texec;
     printf("\n Speed encoder 1: %f rad/s", w0);
-    printf("\n Speed encoder 2: %f rad/s", w1);
+    printf("\n Speed encoder 2: %f rad/s\n\n", w1);
 }
 //---------------------------------------------------------------------------------------------------------
 
 int main()
 {
-    signal(SIGINT, signalHandler);
+    
     signal(SIGTERM, catch_signal);
-    signal(SIGINT, catch_signal);
+    signal(SIGINT, signalHandler);
 
     /* Avoids memory swapping for this program */
     mlockall(MCL_CURRENT | MCL_FUTURE);
