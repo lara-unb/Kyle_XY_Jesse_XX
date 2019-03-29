@@ -70,7 +70,7 @@ void catch_signal(int sig)
 void signalHandler( int signum ) {
    std::cout << "Interrupt signal (" << signum << ") received.\n";
 
-   printf("\n*** Encerrando o modulo sensoray526...");
+    printf("\n*** Encerrando o modulo sensoray526...");
     MAIN_MODULE_CLOSE(sensoray526_close());
     fclose(logFile);
     printf("\n\n");
@@ -118,7 +118,7 @@ void computeVel(void)
     double w0, w1;
     double diff = 0.0;
 
-    logFile = fopen("logFile.csv","w+");
+    logFile = fopen("../log/logFile.csv","w+");
 
     sensoray526_configure_encoder(0);
     sensoray526_configure_encoder(1);
