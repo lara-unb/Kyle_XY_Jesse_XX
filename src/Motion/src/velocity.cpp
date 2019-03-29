@@ -121,18 +121,16 @@ void computeVel(void)
 
     sensoray526_configure_encoder(0);
     sensoray526_configure_encoder(1);
-    time(&start);
-    while(1)
+    while(true)
     {
         sensoray526_reset_counter(0);
         sensoray526_reset_counter(1);
         tic();
-        usleep(200000);
+        usleep(100000);
         n0 = sensoray526_read_counter(0); //n de ciclos encoder 0
         n1 = sensoray526_read_counter(1); //n de ciclos encoder 1
         texec = toc();
-        time(&stop);
-        diff = difftime(stop, start);
+        diff += texec; 
         
         //w = (2*pi*num_of_cilcos)/(resolução_do_encoder* redução_do_motor*tempo)
         w0 = (0.0020943952 * n0) / texec; // (2 * pi) / (100 cycles * 30) = const = 0.0020943952  
