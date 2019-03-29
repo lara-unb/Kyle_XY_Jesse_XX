@@ -155,11 +155,9 @@ int main()
     MAIN_MODULE_INIT(sensoray526_init());
 
     printf("Tempo (s), Ciclos Enc 1, Ciclos Enc 2, Velocidade Enc 1 (rad/s), Velocidade Enc 2 (rad/s)\n");
-    while (true)
-    {
-        computeVel();
-    }
-
+    
+    computeVel();
+    
     fflush(stdout); // mostra todos printfs pendentes.
     return 0;
 }
