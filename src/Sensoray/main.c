@@ -79,7 +79,7 @@ int kbhit(void)
    * readable. We test the entry for the standard
    * input (file 0). */
   
-if(FD_ISSET(0,&read_fd))
+	if(FD_ISSET(0,&read_fd))
     /* Character pending on stdin */
     return 1;
 
