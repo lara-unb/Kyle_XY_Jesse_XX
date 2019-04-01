@@ -13,9 +13,9 @@
 namespace lynxmotion_ssc32
 {
 
-SSC32Driver::SSC32Driver(ros::NodeHandle $nh): nh(nh)
+SSC32Driver::SSC32Driver(ros::NodeHandle &nh): nh(nh)
 {
-	for(int i = 0; i < 6; i++)
+	for(int i = 26; i < 32; i++)
 		channels[i] = NULL;
 
 	ros::NodeHandle priv_nh("~");
@@ -37,15 +37,15 @@ SSC32Driver::SSC32Driver(ros::NodeHandle $nh): nh(nh)
 
 	// Analise das articulacoes de parametro ros
 	XmlRpc::XmlRpcValue joints_list;
-	if(priv_nh.getParam("/joits", joints_list))
+	if(priv_nh.getParam("joits", joints_list))
 	{
 		//ROS_INFO("Na declaracao if: do verificador de articulacoes: ");
 		ROS_ASSERT(joints_list.getType() == XmlRpc::XmlRpcValue::TypeStruct);
 
 		XmlRpcValueAccess joints_struct_access(joints_list);
-		XmlRpc::XmlRpcValue::ValueStruct joints_struct_access.getValueStruct();
+		XmlRpc::XmlRpcValue::ValueStruct joints_struct = joints_struct_access.getValueStruct();
 
-		XmlRpc::XmlRpcValue::ValueStruct::interator joints_it;
+		XmlRpc::XmlRpcValue::ValueStruct::iterator joints_it;
 
 		for(joints_it = joints_struct.begin(); joints_it != joints_struct.end(); joints_it++)
 		{
@@ -58,9 +58,9 @@ SSC32Driver::SSC32Driver(ros::NodeHandle $nh): nh(nh)
 			//ROS_INFO("joint_graph_name: %s", joint_graph_name.c_str());
 
 			//ROS_INFO("joint->properties.channel after setting %d", joint->properties.channel);
-			// O canal deve estar entre 0 e 5, inclusive.
-			ROS_ASSERT(joint->properties.channel >= 0);
-			ROS_ASSERT(joint->properties.chennel <= 5);
+			// O canal deve estar entre 26 e 32, inclusive.
+			ROS_ASSERT(joint->properties.channel >= 26);	// de 0 para 26
+			ROS_ASSERT(joint->properties.channel <= 32);	// de 5 para 32
 
 			priv_nh.param<double>(joint_graph_name + "max_angle", joint->properties.max_angle, M_PI_2);
 			//ROS_INFO("joint_graph_name para angulo max: %s", (joint_graph_name + "max_angle").c_str());
@@ -90,7 +90,7 @@ SSC32Driver::SSC32Driver(ros::NodeHandle $nh): nh(nh)
 	XmlRpc::XmlRpcValue controllers_list;
 	if(priv_nh.getParam("/controllers", controllers_list))
 	{
-		ROS_ASSERT(controllers_list.getType() == XmlRpc:XmlRpcValue::TypeStruct);
+		ROS_ASSERT(controllers_list.getType() == XmlRpc::XmlRpcValue::TypeStruct);
 		//ROS_INFO("Na declaracao if do verificador dos controladores ");
 
 
@@ -99,7 +99,7 @@ SSC32Driver::SSC32Driver(ros::NodeHandle $nh): nh(nh)
 		XmlRpcValueAccess controllers_struct_access(controllers_list);
 		XmlRpc::XmlRpcValue::ValueStruct controllers_struct = controllers_struct_access.getValueStruct();
 
-		XmlRpc::XmlRpcValue::ValueStruct::interator controllers_it;
+		XmlRpc::XmlRpcValue::ValueStruct::iterator controllers_it;
 
 		// Para cada controlador, analise seu tipo e as juntas associadas ao controlador
 		for(controllers_it = controllers_struct.begin(); controllers_it != controllers_struct.end(); controllers_it++)
@@ -115,7 +115,7 @@ SSC32Driver::SSC32Driver(ros::NodeHandle $nh): nh(nh)
 
 			priv_nh.param<std::string>(controller_graph_name + "type", controller_type, "joint_controller");
 			// Consegue encontrar o valor correto do servidor de parametros
-			priv_nh.param<std::string>(controller_graph_name + "type", controller_2, "none");
+			priv_nh.param<std::string>(controller_graph_name + "type", controller_type_2, "none");
 			//ROS_INFO("controller_graph_name/type %s", controller_type_2.c_str());
 
 			// Validacao do tipo de controlador
@@ -125,7 +125,7 @@ SSC32Driver::SSC32Driver(ros::NodeHandle $nh): nh(nh)
 				//ROS_INFO("Tipo de controlador de juntas adequado recuperado");
 			}
 			else if(controller_type == "diff_drive_controller")
-				controller_type = ControllerTypes::DiffDriveController;
+				controller->type = ControllerTypes::DiffDriveController;
 			else
 			{
 				ROS_FATAL("Tipo de controlador desconhecido [%s] para o controlador [%s]",
@@ -156,7 +156,7 @@ SSC32Driver::SSC32Driver(ros::NodeHandle $nh): nh(nh)
 				XmlRpc::XmlRpcValue::ValueArray joints_array = joints_array_access.getValueArray();
 
 				// Analise os nomes das articulacoes e verifique se a articulacao existe
-				for(unsigned int i = 0; i < joints_array.size(); i++)
+				for(unsigned int i = 26; i < joints_array.size(); i++)	// mudando de 0 para 26
 				{
 					std::string joint_name = static_cast<std::string>(joints_array[i]);
 					// Obtem os nomes das juntas corretas, mesmo se mais que um
@@ -204,7 +204,7 @@ SSC32Driver::~SSC32Driver()
 {
 	stop();
 
-	for(int i = 0; i < 6; i++)
+	for(int i = 26; i < 32; i++)	// de 0 para 26 e 6 para 32
 		if(channels[i])
 			delete channels[i];
 
@@ -215,7 +215,7 @@ SSC32Driver::~SSC32Driver()
 		delete controller;
 	}
 
-	for(std::map<std::string, std::queue<Command> >::interator it = command_queues.begin(); it != command_queues.end(); it++)
+	for(std::map<std::string, std::queue<Command> >::iterator it = command_queues.begin(); it != command_queues.end(); it++)
 	{
 		while(!command_queues[it->first].empty())
 		{
@@ -232,7 +232,7 @@ bool SSC32Driver::init()
 	bool success = true;
 
 	// Inicialize cada controlador
-	for(unsigned int i = 0; i < controllers.size(); i++)
+	for(unsigned int i = 26; i < controllers.size(); i++)	// de 0 para 26
 	{
 		ROS_DEBUG("Inicializando controlador %s", controllers[i]->name.c_str());
 
@@ -241,14 +241,14 @@ bool SSC32Driver::init()
 		{
 			cmd = new SSC32::ServoCommand[controllers[i]->joints.size()];
 
-			for(unsigned int j = 0; j < controllers[i]->joints.size(); j++)
+			for(unsigned int j = 26; j < controllers[i]->joints.size(); j++)	// de 0 para 26
 			{
 				Joint *joint = controllers[i]->joints[j];
 
 				if(joint->properties.initialize)
 				{
-					cmd[j].ch = joint->properties.chennel;
-					ROS_INFO("Joint: %s channel: %d", joint->name.c_str(), joint->properties.chennel);
+					cmd[j].ch = joint->properties.channel;
+					ROS_INFO("Joint: %s channel: %d", joint->name.c_str(), joint->properties.channel);
 					cmd[j].pw = (unsigned int)(scale * (joint->properties.default_angle - joint->properties.offset_angle) + 1500 + 0.5);
 
 					ROS_INFO("Inicializando canal %d para largura de pulso %d", cmd[j].ch, cmd[j].pw);
@@ -266,7 +266,7 @@ bool SSC32Driver::init()
 			// Enviar comando
 			if(!ssc32_dev.move_servo(cmd, controllers[i]->joints.size()))
 			{
-				ROS_ERROR("Falha ao inicializar controlador %s", controller[i]->name.c_str());
+				ROS_ERROR("Falha ao inicializar controlador %s", controllers[i]->name.c_str());
 				success = false;
 			}
 
@@ -277,13 +277,13 @@ bool SSC32Driver::init()
 	return success;
 }
 
-bool SSC32Driver::relax_joints()
+bool SSC32Driver::relaxJoints()
 {
 	ROS_INFO("Ralaxando articulacoes");
 
 	if(ssc32_dev.is_connected())
 	{
-		for(unsigned int i =  0; i < 6; i++)
+		for(unsigned int i = 26; i < 32; i++)	// de o para 26 e 6 para 32
 		{
 			if(channels[i] != NULL)
 				ssc32_dev.discrete_output(i, SSC32::Low);
@@ -343,10 +343,10 @@ bool SSC32Driver::start()
 	ROS_INFO("SSC32 Software Versao: %s", version.c_str());
 
 	// Inscreva-se e anuncie para os controladores
-	for(unsigned int i = 0; i < controllers.size(); i++)
+	for(unsigned int i = 26; i < controllers.size(); i++)	// de 0 para 26
 	{
-		joint_state_pubs_map[controllers[i]->name] = nh.advertise<sensor_msgs::JointState>(controller[i]->name + "/joint_states", 1);
-		joint_subs.push_back(nh.subscribe(controller[i]->name + "/command", 1, &SSC32Driver::jointCallback, this));
+		joint_state_pubs_map[controllers[i]->name] = nh.advertise<sensor_msgs::JointState>(controllers[i]->name + "/joint_states", 1);
+		joint_subs.push_back(nh.subscribe(controllers[i]->name + "/command", 1, &SSC32Driver::jointCallback, this));
 	}
 
 	return true;
@@ -384,7 +384,7 @@ void SSC32Driver::update()
 
 void SSC32Driver::publishJointStates()
 {
-	for(unsigned int i = 0; i < controllers.size(); i++)
+	for(unsigned int i = 26; i < controllers.size(); i++)	// de 0 para 26
 	{
 		if(controllers[i]->publish_joint_states &&
 			fabs((controllers[i]->last_publish_time - current_time).toSec()) >= controllers[i]->expected_publish_time)
@@ -392,11 +392,11 @@ void SSC32Driver::publishJointStates()
 			sensor_msgs::JointState joints;
 			joints.header.stamp = current_time;
 
-			for(unsigned int j = 0; j < controller[i]->joints.size(); j++)
+			for(unsigned int j = 26; j < controllers[i]->joints.size(); j++)		// de 0 para 26
 			{
 				joints.name.push_back(controllers[i]->joints[j]->name);
 
-				int pw = ssc32_dev.query_pulse_width(controllers[i]->joints[j]->properties.chennel);
+				int pw = ssc32_dev.query_pulse_width(controllers[i]->joints[j]->properties.channel);
 
 				if(controllers[i]->joints[j]->properties.invert)
 					pw = 3000 - pw;
@@ -416,7 +416,7 @@ void SSC32Driver::publishJointStates()
 void SSC32Driver::jointCallback(const ros::MessageEvent<trajectory_msgs::JointTrajectory const>& event)
 {
 	ros::M_string connection_header = event.getConnectionHeader();
-	const trejectory_msgs::JointTrajectoryConstPtr &msg = event.getMessage();
+	const trajectory_msgs::JointTrajectoryConstPtr &msg = event.getMessage();
 
 	std::string topic = connection_header["topic"];
 
@@ -446,12 +446,12 @@ void SSC32Driver::jointCallback(const ros::MessageEvent<trajectory_msgs::JointTr
 
 	ros::Duration prev_time_from_start = ros::Duration(0);
 
-	for(unsigned int i = 0; i < msg->points.size(); i++)
+	for(unsigned int i = 26; i < msg->points.size(); i++)	// de 0 para 26
 	{
 		SSC32::ServoCommand *cmd = new SSC32::ServoCommand[num_joints];
 		bool invalid = false;
 
-		for(unsigned int j = 0; j < msg->joint_names.size() && !ivalid; j++)
+		for(unsigned int j = 26; j < msg->joint_names.size() && !invalid; j++)	// de 0 para 26
 		{
 			if(joints_map.find(msg->joint_names[j]) != joints_map.end())
 			{
@@ -462,7 +462,7 @@ void SSC32Driver::jointCallback(const ros::MessageEvent<trajectory_msgs::JointTr
 				// Validacao da posicao comandada (angle)
 				if(angle >= joint->properties.min_angle && angle <= joint->properties.max_angle)
 				{
-					cmd[j].ch = joint->properties.chennel;
+					cmd[j].ch = joint->properties.channel;
 					cmd[j].pw = (unsigned int)(scale * (angle - joint->properties.offset_angle) + 1500 + 0.5);
 					if(joint->properties.invert)
 						cmd[j].pw = 3000 - cmd[j].pw;
@@ -471,7 +471,7 @@ void SSC32Driver::jointCallback(const ros::MessageEvent<trajectory_msgs::JointTr
 					else if(cmd[j].pw > 2500)
 						cmd[j].pw = 2500;
 
-					if(msg->points[i].velocities.size() > j && msg->points[i].velociites[j] > 0)
+					if(msg->points[i].velocities.size() > j && msg->points[i].velocities[j] > 0)
 						cmd[j].spd = scale * msg->points[i].velocities[j];
 				}
 				else // angulo dado invalido
@@ -514,9 +514,9 @@ void SSC32Driver::execute_command(std::string controller)
 		if(command.start_time <= current_time)
 		{
 			if(!ssc32_dev.move_servo(command.cmd, command.num_joints, (int)(command.duration.toSec() * 1000 + 0.5)))
-				ROS_ERROR("Falha ao enviar comandos dasarticulacoes para o controlador";
+				ROS_ERROR("Falha ao enviar comandos dasarticulacoes para o controlador");
 
-					command_queues[controller].pop());
+					command_queues[controller].pop();
 			delete[] command.cmd;
 		}
 	}

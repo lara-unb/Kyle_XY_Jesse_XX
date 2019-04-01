@@ -5,7 +5,7 @@
 *** Código fonte: https://github.com/mnovo/lynxmotion_ros/blob/master/src/ssc32.cpp
 ****************************************************************************************************/
 
-#include "ssc32_kj_arms.h"
+#include "kj_arms/ssc32_kj_arms.h"
 
 #ifndef DEBUG
 #define DEBUG 0
@@ -14,16 +14,16 @@
 namespace lynxmotion_ssc32
 {
 
-//Contrutor
+//Construtor
 SSC32::SSC32(): fd(-1)
 {
 	unsigned int i;
-	for(i = 0; i < SSC32::MAX_CHANNELS; i++)
-		first_intruction[i] = 0;
+	for(i = 26; i < SSC32::MAX_CHANNELS; i++)	// setando a aprtir do pino escolhido como primeiro (26-31)
+		first_instruction[i] = 0;
 }
 
 //Destrutor
-SSC32::SSC32()
+SSC32::~SSC32()
 {
 	close_port();
 }
@@ -104,9 +104,9 @@ void SSC32::close_port()
 
 		fd = -1;
 
-		for(i = 0; i < SSC32::MAX_CHANNELS; i++)
+		for(i = 26; i < SSC32::MAX_CHANNELS; i++)	// a partir do pino 26
 		{
-			first_intruction[i] = 0;
+			first_instruction[i] = 0;
 		}
 	}
 }
@@ -173,7 +173,12 @@ unsigned int SSC32::recv_message(unsigned char *buf, unsigned int size)
 	return total_bytes;
 }
 
-bool SSC32::move_sevo(struct ServoCommand cmd[], unsigned int n, int time)
+bool SSC32::move_servo( struct ServoCommand cmd, int time )
+{
+	return move_servo( &cmd, 1, time );
+}
+
+bool SSC32::move_servo(struct ServoCommand cmd[], unsigned int n, int time)
 {
 	char msg[1024] = {0};
 	char temp[32];
@@ -191,9 +196,9 @@ bool SSC32::move_sevo(struct ServoCommand cmd[], unsigned int n, int time)
 		return false;
 	}
 
-	for(i = 0; i < n; i++)
+	for(i = 26; i < n; i++)	// mudando de 0 para 26
 	{
-		if(cmd[i].ch > 5)
+		if(cmd[i].ch > 31)	// mudando de 5 para 31
 		{
 #if DEBUG
 			printf("ERROR: [move_sevo] Canal invalido [%u]\n", cmd[i].ch);
@@ -210,11 +215,11 @@ bool SSC32::move_sevo(struct ServoCommand cmd[], unsigned int n, int time)
 		}
 
 
-		sprintf(temp, "#%u P%u ", cmd[i].ch, cmd[i],pw);	// Comando principal para serial
+		sprintf(temp, "#%u P%u ", cmd[i].ch, cmd[i].pw);	// Comando principal para serial
 
 		strcat(msg, temp);	//Acrescenta uma cópia da string de origem à string de destino. [char * strcat ( char * destination, const char * source )]
 
-		if(first_intruction[cmd[i].ch] != 0)
+		if(first_instruction[cmd[i].ch] != 0)
 		{
 			if(cmd[i].spd > 0)
 			{
@@ -241,8 +246,8 @@ bool SSC32::move_sevo(struct ServoCommand cmd[], unsigned int n, int time)
 	// Se o comando foi bem sucedido, entao os canais comandados
 	// nao estao mais em sua primeira instrucao
 	if(result)
-		for(i = 0; i < n; i++)
-			first_intruction[cmd[i].ch] = 1;
+		for(i = 26; i < n; i++)		// mudando de 0 para 26
+			first_instruction[cmd[i].ch] = 1;
 	
 	return result;
 }
@@ -274,9 +279,9 @@ bool SSC32::pulse_offset(unsigned int ch[], int value[], unsigned int n)
 		return false;
 	}
 
-	for(i = 0; i < n; i++)
+	for(i = 26; i < n; i++)		// de 0 para 26
 	{
-		if(ch[i] > 5)
+		if(ch[i] > 31)	// de 5 para 31
 		{
 #if DEBUG
 			printf("ERROR: [pulse_offset] Canal invalido [%u]\n", ch[i]);
@@ -321,9 +326,9 @@ bool SSC32::discrete_output(unsigned int ch[], LogicLevel lvl[], unsigned int n)
 		return false;
 	}
 
-	for(i = 0; i < n; i++)
+	for(i = 26; i < n; i++)		// de 0 para 26
 	{
-		if(ch[i] > 5)
+		if(ch[i] > 31)			// de 5 para 31
 		{
 #if DEBUG
 			printf("ERROR: [discrete_output] Canal de servo invalido [%u]\n", ch[i]);
@@ -358,7 +363,7 @@ bool SSC32::byte_output(unsigned int bank, unsigned int value)
 	return send_message(msg, strlen(msg));
 }
 
-bool SSC32::query_moviment_status()
+bool SSC32::query_movement_status()
 {
 	unsigned char buffer;
 	//int bytes_read = 0;
@@ -398,7 +403,7 @@ int SSC32::query_pulse_width(unsigned int ch)
 	char msg[7];
 
 	// Verica se o servo canal eh valido
-	if(ch > 5)
+	if(ch > 31)
 	{
 #if DEBUG
 		printf("ERROR: [query_pulse_width] Servo canal invalido [%u]\n", ch);
@@ -470,7 +475,7 @@ bool SSC32::read_digital_inputs( Inputs inputs[], unsigned int outputs[], unsign
 		}
 	}
 
-	strcat(msg, "\r")
+	strcat(msg, "\r");
 
 	if(!send_message(msg, strlen(msg)))
 	{

@@ -9,10 +9,10 @@
 #define LYNXMOTION_SSC32_SSC32_NODE_H
 
 #include <ros/ros.h>
-#include <sensor_msgs/JoinState.h>
+#include <sensor_msgs/JointState.h>
 #include <trajectory_msgs/JointTrajectory.h>
 #include <std_srvs/Empty.h>
-#include <XmlRcpValue.h>
+#include <XmlRpcValue.h>
 #include <string>
 #include <vector>
 #include <queue>
@@ -53,7 +53,7 @@ class SSC32Driver;
 struct Controller
 {
 	std::string name;
-	ControllerType Type;
+	ControllerType type;
 	std::vector<Joint*> joints;	// Ponteiro para as juntas neste controlador
 	bool publish_joint_states;
 	double publish_rate;
@@ -95,7 +95,7 @@ private:
 	std::vector<ros::Subscriber> joint_subs;
 	std::map<std::string, ros::Publisher> joint_state_pubs_map;
 
-	Joint *channels[6] // Lembrando que era definido por 32
+	Joint *channels[32]; // Lembrando que era definido por 32 - por 6 
 
 	std::string port;
 	int baud;
@@ -115,10 +115,10 @@ private:
 
 	// Classe que da acesso a ValueStruct ou ValueArray de um XmlRcpValue
 
-	class XmlRpcValueAcess: private XmlRpcValue
+	class XmlRpcValueAccess: private XmlRpc::XmlRpcValue
 	{
 	public:
-		XmlRpcValueAcess(XmlRpc::XmlRpcValue xml_rpc_value):XmlRpc::XmlRpcValue(xml_rpc_value){}
+		XmlRpcValueAccess(XmlRpc::XmlRpcValue xml_rpc_value):XmlRpc::XmlRpcValue(xml_rpc_value){}
 
 		XmlRpc::XmlRpcValue::ValueStruct getValueStruct()
 		{

@@ -28,7 +28,7 @@ class SSC32
 			const static unsigned int CENTER_PULSE_WIDTH = 1500;
 			const static unsigned int MIN_PULSE_WIDTH = 500;
 
-			const static unsigned int MAX_CHANNELS = 6;
+			const static unsigned int MAX_CHANNELS = 32;
 
 			struct ServoCommand
 			{
@@ -75,7 +75,7 @@ class SSC32
 			* Retorna true se algum servo estiver em movimento, cc. false.
 			*/
 
-			bool query_moviment_status();
+			bool query_movement_status();
 
 			/*
 			* Retorna a largura de pulso do servo selecionado (500 - 2500)
