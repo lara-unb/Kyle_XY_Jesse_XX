@@ -44,6 +44,8 @@ FILE *logFile;
 
 // Definições para usar tic e toc pra cálculos de tempo
 //---------------------------------------------------------------------------------------------------------
+
+
 struct
 {
     struct timeval time;
@@ -109,7 +111,7 @@ int readEncoder(void)
 
 
 // Calcula a velocidade das rodas em rad/s
-void computeVel(void)
+void computeVel(char* dt)
 {
     float texec;
     unsigned char counter = 0;
@@ -117,8 +119,12 @@ void computeVel(void)
     long n1 = 0;
     double w0, w1;
     double diff = 0.0;
+    char logstr[80];
+    strcpy (logstr,"../log/logFile");
+    strcat(logstr, dt);
+    strcat(logstr, ".csv");
 
-    logFile = fopen("../log/logFile.csv","w+");
+    logFile = fopen(logstr,"w+");
 
     sensoray526_configure_encoder(0);
     sensoray526_configure_encoder(1);
@@ -142,7 +148,15 @@ void computeVel(void)
 }
 //---------------------------------------------------------------------------------------------------------
 int main()
-{ 
+{
+    // current date/time based on current system
+    time_t now = time(0);
+    // convert now to string form
+    char* dt = ctime(&now);
+    // convert now to tm struct for UTC
+    tm *gmtm = gmtime(&now);
+    dt = asctime(gmtm);
+
     signal(SIGTERM, catch_signal);
     signal(SIGINT, signalHandler);
 
@@ -155,7 +169,7 @@ int main()
 
     printf("Tempo (s), Ciclos Enc 1, Ciclos Enc 2, Velocidade Enc 1 (rad/s), Velocidade Enc 2 (rad/s)\n");
     
-    computeVel();
+    computeVel(dt);
     
     fflush(stdout); // mostra todos printfs pendentes.
     return 0;
