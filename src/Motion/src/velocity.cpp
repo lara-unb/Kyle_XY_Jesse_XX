@@ -125,7 +125,7 @@ void computeVel(void)
     time(&now);
     ptm = gmtime(&now);
     std::stringstream ss;
-    sprintf(logstr, "../log/logFile_%d-%d-%d_%d:%d:%d.csv", ptm->tm_year, ptm->tm_mon, ptm->tm_mday, ptm->tm_hour, ptm->tm_min, ptm->tm_sec);
+    sprintf(logstr, "../log/logFile_%d-%d-%d_%d:%d:%d.csv", ptm->tm_year+1900, ptm->tm_mon, ptm->tm_mday, ptm->tm_hour-3, ptm->tm_min, ptm->tm_sec);
 
     logFile = fopen(logstr, "w+");
 
