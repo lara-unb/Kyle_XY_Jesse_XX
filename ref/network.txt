@@ -1,0 +1,21 @@
+ 1644  sudo nano /etc/default/grub
+ 1645  sudo update-grub
+ 1646  sudo poweroff 
+ 1647  sudo nano /etc/default/grub
+ 1648  sudo nano /etc/default/grub.orig 
+ 1649  sudo service network-manager restart
+ 1650  sudo gedit /etc/NetworkManager/NetworkManager.conf 
+ 1651  sudo killall NetworkManager 
+ 1652  sudo service network-manager restart
+ 1653  sudo service network-manager stop
+ 1654  sudo service network-manager start
+ 1655  sudo gedit /etc/NetworkManager/NetworkManager.conf 
+ 1656  sudo service network-manager start
+ 1657  sudo service network-manager restart
+ 1658  sudo gedit /etc/NetworkManager/NetworkManager.conf 
+ 1659  sudo killall NetworkManager 
+ 1660  sudo nano /etc/network/interfaces 
+ 1661  sudo killall NetworkManager 
+ 1662  sudo service network-manager restart
+ 1663  ifconfig 
+ 1664  history > network.txt
