@@ -1,0 +1,20 @@
+Updating grub file's parameters worked for me.
+
+First backup original grub file.
+
+	sudo cp -n /etc/default/grub /etc/default/grub.orig
+If for some reason you want to revert to original settings, just run command below in terminal:
+
+sudo mv /etc/default/grub.orig /etc/default/grub && sudo update-grub
+Now edit the grub file
+
+	sudo nano /etc/default/grub
+Comment the line GRUB_CMDLINE_LINUX_DEFAULT=”quiet splash”, by adding # at the beginning, which will disable the Ubuntu purple screen.
+Change GRUB_CMDLINE_LINUX=”" to GRUB_CMDLINE_LINUX=”text”, this makes Ubuntu boot directly into Text Mode.
+Uncomment this line #GRUB_TERMINAL=console, by removing the # at the beginning, this makes Grub Menu into real black & white Text Mode (without background image)
+Finally run grub update and restart the system. Next time it will come up with terminal mode.
+
+	sudo update-grub
+	
+
+see: https://askubuntu.com/questions/378046/how-to-run-ubuntu-xubuntu-in-a-complete-non-gui-mode
