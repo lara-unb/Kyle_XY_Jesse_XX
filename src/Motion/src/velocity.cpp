@@ -125,10 +125,10 @@ void computeVel(void)
     time(&now);
     ptm = gmtime(&now);
     std::stringstream ss;
-    sprintf(logstr, "../log/logFile_%d-%d-%d_%d:%d:%d.csv", ptm->tm_year+1900, ptm->tm_mon, ptm->tm_mday, ptm->tm_hour-3, ptm->tm_min, ptm->tm_sec);
+    sprintf(logstr, "../log/logFile_%d-0%d-%d_%d:%d:%d.csv", ptm->tm_year+1900, ptm->tm_mon+1, ptm->tm_mday, ptm->tm_hour-3, ptm->tm_min, ptm->tm_sec);
 
     logFile = fopen(logstr, "w+");
-
+    fprintf(logFile, "Tempo(s), Ciclos_Enc1, Ciclos_Enc 2, Velocidade_Enc 1(rad/s), Velocidade_Enc 2(rad/s)\n");
     sensoray526_configure_encoder(0);
     sensoray526_configure_encoder(1);
     while (true)
@@ -145,7 +145,6 @@ void computeVel(void)
         //w = (2*pi*num_of_cilcos)/(resolução_do_encoder* redução_do_motor*tempo)
         w0 = (0.0020943952 * n0) / texec; // (2 * pi) / (100 cycles * 30) = const = 0.0020943952
         w1 = (0.0020943952 * n1) / texec;
-        fprintf(logFile, "Tempo(s), Ciclos_Enc1, Ciclos_Enc 2, Velocidade_Enc 1(rad/s), Velocidade_Enc 2(rad/s)\n");
         fprintf(logFile, "%lf, %ld, %ld, %lf, %lf\n", diff, n0, n1, w0, w1);
     }
 }
