@@ -26,6 +26,7 @@
 #include "rover/sensoray526.h"
 #include "rover/SSC.h"
 
+
 // Definicoes internas:
 #define MAIN_MODULE_INIT(cmd_init)           \
 	if (cmd_init == 0)                       \
