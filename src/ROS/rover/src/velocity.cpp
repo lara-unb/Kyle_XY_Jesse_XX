@@ -28,6 +28,7 @@
 #include "rover/sensoray526.h"
 #include "rover/SSC.h"
 
+
 FILE *logFile;
 
 // Definicoes internas:
@@ -113,7 +114,6 @@ int readEncoder(void)
 // Calcula a velocidade das rodas em rad/s
 void computeVel(void)
 {
-    prinf("asdasdafsdfasdasdfasdfasdfasdfasdfasdfasd\n")
     float texec;
     unsigned char counter = 0;
     long n0 = 0;
@@ -134,6 +134,7 @@ void computeVel(void)
     sensoray526_configure_encoder(1);
     while (true)
     {
+	prinf("asdasdafsdfasdasdfasdfasdfasdfasdfasdfasd\n");
         sensoray526_reset_counter(0);
         sensoray526_reset_counter(1);
         tic();
@@ -147,6 +148,7 @@ void computeVel(void)
         w0 = (0.0020943952 * n0) / texec; // (2 * pi) / (100 cycles * 30) = const = 0.0020943952
         w1 = (0.0020943952 * n1) / texec;
         fprintf(logFile, "%lf, %ld, %ld, %lf, %lf\n", diff, n0, n1, w0, w1);
+	prinf("cccccccccccccccccccccccccccccc\n");
     }
 }
 //---------------------------------------------------------------------------------------------------------
@@ -163,9 +165,9 @@ int main()
     printf("\n*** Iniciando o modulo sensoray526...");
     MAIN_MODULE_INIT(sensoray526_init());
 
-    prinf("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n")
+    prinf("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n");
     computeVel();
-    prinf("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\n")
+    prinf("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\n");
     fflush(stdout); // mostra todos printfs pendentes.
     return 0;
 }
