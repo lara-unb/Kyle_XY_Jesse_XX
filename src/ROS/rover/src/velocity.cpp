@@ -113,6 +113,7 @@ int readEncoder(void)
 // Calcula a velocidade das rodas em rad/s
 void computeVel(void)
 {
+    prinf("asdasdafsdfasdasdfasdfasdfasdfasdfasdfasd\n")
     float texec;
     unsigned char counter = 0;
     long n0 = 0;
@@ -162,9 +163,9 @@ int main()
     printf("\n*** Iniciando o modulo sensoray526...");
     MAIN_MODULE_INIT(sensoray526_init());
 
-
+    prinf("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n")
     computeVel();
-
+    prinf("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\n")
     fflush(stdout); // mostra todos printfs pendentes.
     return 0;
 }
