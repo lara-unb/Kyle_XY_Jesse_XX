@@ -4,7 +4,7 @@ set(CMAKE_BUILD_TYPE debug)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_C_FLAGS "-std=c99") #Usado para declarar variáveis dentro dos 'for'
+set(CMAKE_C_FLAGS "-std=gnu99") #Usado para declarar variáveis dentro dos 'for'
 
 project(Motion)
 
